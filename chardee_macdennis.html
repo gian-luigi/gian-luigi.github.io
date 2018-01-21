@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>chardee macdennis!</title>
-	<link href="jquery-ui.css" rel="stylesheet">
+	<!--<link href="jquery-ui.css" rel="stylesheet">-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 	<style>
 	body{
 		font-family: "Trebuchet MS", sans-serif;
@@ -52,7 +52,6 @@
 	select {
 		width: 200px;
 	}
-<<<<<<< HEAD
 
 	
 	.monster1 >button{
@@ -102,23 +101,24 @@
 		padding-bottom: 8px;
 		text-align: center;
 		font-size: 11px;
-=======
-	
-	.floorContainer {
-    width: 520px;
-    background: gray;
-    overflow-y: auto;
 	}
-
-	.floorContainer > a {
-    width: 73px;
-    float: left;
-    background: lightgray;   
-    margin: 15px;
-	padding-top: 30px;
-	padding-bottom: 30px;
-    text-align: center;
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
+	
+	.profBar {
+	
+		width:70px;
+		height:20px;
+		
+	}
+	
+	.profGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto;
+		
+		width: 800px;
+		height: 300px;
+		overflow-y: auto;
+		
+		grid-gap: 20px;
 	}
 	
 	
@@ -132,8 +132,27 @@
 	<p>This page demonstrates the widgets and theme you selected in Download Builder. Please make sure you are using them with a compatible jQuery version.</p>
 </div>
 
-<button id="player1But" onclick="player1Name1()">Click me</button>
+<button id="player1But" onclick="tileTest()">Click me</button>
 <script>
+
+/*function tileTest() {
+
+	var tempStr;
+	
+	var tempA=300;
+	var tempB=300;
+	
+	var tile=0;
+	
+	tempA=roomGridArr[tile].a;
+	tempB=roomGridArr[tile].b;
+	
+	tempStr= tempA + ", " + tempB;
+
+	alert(tempStr);
+
+}*/
+
 
 </script>
 
@@ -157,7 +176,6 @@
 	<li><div>Item 5</div></li>
 </ul>
 
-<<<<<<< HEAD
 <div id="dungeonTabs">
   <ul>
     <li><a href="#dungeonTabs-1">Floors</a></li>
@@ -198,7 +216,7 @@
 	</div>
 	<div id="dungeonTabs-2">
 	
-		<div class="roomGrid">
+		<div class="roomGridClass">
 		<fieldset>
 			<legend>Room</legend>
 			<p>Create Room</p>
@@ -474,16 +492,19 @@
 //there's gotta be a better way to do this
 
 $("#roomTile0").click(function() {
+
+	roomTileA=0;
+	roomTileB=0;
 	
-	var but = document.getElementById("roomTile0");
+	//var but = document.getElementById("roomTile0");
 	
 	//but.setFont(new Font("Arial", Font.PLAIN, 40));
-	$("#roomTile0").text("a");
-	var asdf= $("#roomTile0").text();
-	if (asdf!= " ") {
-		but.style.width = "25px";
-		but.style.height = "25px";
-	}
+	//$("#roomTile0").text("a");
+	//var asdf= $("#roomTile0").text();
+	//if (asdf!= " ") {
+		//but.style.width = "25px";
+		//but.style.height = "25px";
+	//}
 	//alert(asdf);
 
 })
@@ -532,39 +553,6 @@ $("#roomTile0").click(function() {
 		</div>
     </div>
 </div> -->
-=======
-<div class="floorGrid">
-  <h1>Dungeon</h1>
-  <fieldset>
-    <legend>Floor</legend>
-    <div class="controlgroup">
-      <div class="menu-container">
-		<div class="floorContainer">
-		<a href="#" class="button">a</a>
-		<a href="#/Action2" class="button">Action2</a>
-		<a href="#/Action3" class="button">Action3</a>
-		<a href="#/Action4" class="button">Action4</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-		<a href="#/Action5" class="button">Action5</a>
-    </div>
-</div>
-    </div>
-</div>
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 
 
 <!-- Accordion -->
@@ -637,7 +625,6 @@ $("#roomTile0").click(function() {
 
 <!-- Tabs -->
 <h2 class="demoHeaders">Player Stuff</h2>
-<<<<<<< HEAD
 <div id="playerTabs">
 	<ul>
 		<li><a href="#playerTabs-1">Player 1</a></li>
@@ -649,19 +636,6 @@ $("#roomTile0").click(function() {
 		<li><a href="#playerTabs-7">Player 7</a></li>
 		<li><a href="#playerTabs-8">Player 8</a></li>
 		<li><a href="#playerTabs-9">Player 9</a></li>
-=======
-<div id="tabs">
-	<ul>
-		<li><a href="#tabs-1">Player 1</a></li>
-		<li><a href="#tabs-2">Player 2</a></li>
-		<li><a href="#tabs-3">Player 3</a></li>
-		<li><a href="#tabs-4">Player 4</a></li>
-		<li><a href="#tabs-5">Player 5</a></li>
-		<li><a href="#tabs-6">Player 6</a></li>
-		<li><a href="#tabs-7">Player 7</a></li>
-		<li><a href="#tabs-8">Player 8</a></li>
-		<li><a href="#tabs-9">Player 9</a></li>
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	</ul>
 	<div id="playerTitle"><h2>Player 1</h2></div>
 	<div>
@@ -687,27 +661,52 @@ $("#roomTile0").click(function() {
 		<p id="playerHunger">Hunger:</p>
 		<p id="playerTurnAct">Actions this turn:</p>
 		
-		<label for="transmission-standard">Standard</label>
-		<input type="radio" name="transmission" id="transmission-standard">
-		<label for="transmission-automatic">Automatic</label>
-		<input type="radio" name="transmission" id="transmission-automatic">
-		<label for="insurance">Insurance</label>
-		<input type="checkbox" name="insurance" id="insurance">
-		<label for="horizontal-spinner" class="ui-controlgroup-label"># of cars</label>
-		<input id="horizontal-spinner" class="ui-spinner-input">
-		<button>Book Now!</button>
-		<select id="car-type">
-			<option>Compact car</option>
-			<option>Midsize car</option>
-			<option>Full size car</option>
-			<option>SUV</option>
-			<option>Luxury</option>
-			<option>Truck</option>
-			<option>Van</option>
-		</select>
+		<div id="playerMiscTabs">
+		  <ul>
+			<li><a href="#playerMiscTabs-1">Inventory</a></li>
+			<li><a href="#playerMiscTabs-2">Passives</a></li>
+			<li><a href="#playerMiscTabs-3">Proficiencies</a></li>
+		  </ul>
+		  <div id="playerMiscTabs-1">
+			
+		  </div>
+		  
+		  <!-- Passives -->
+		  <div id="playerMiscTabs-2">
+			
+			
+		  </div>
+		  
+		  <!-- Proficiencies -->
+		  <div id="playerMiscTabs-3">
+			<div class="profGrid">
+				<div class="profBar" id="daggerProfBar"></div>
+				<div class="profBar" id="axeProfBar"></div>
+				<div class="profBar" id="swordProfBar"></div>
+				<div class="profBar" id="bludgeonProfBar"></div>
+				<div class="profBar" id="staffProfBar"></div>
+				<div class="profBar" id="spearProfBar"></div>
+				<div class="profBar" id="polearmProfBar"></div>
+				<div class="profBar" id="bowProfBar"></div>
+				<div class="profBar" id="martialProfBar"></div>
+				<div class="profBar" id="barehandedProfBar"></div>
+				<div class="profBar" id="augmentProfBar"></div>
+				<div class="profBar" id="mobilityProfBar"></div>
+				<div class="profBar" id="attackSpellProfBar"></div>
+				<div class="profBar" id="matterSpellProfBar"></div>
+				<div class="profBar" id="divinationSpellProfBar"></div>
+				<div class="profBar" id="clericalSpellProfBar"></div>
+				<div class="profBar" id="enchantmentSpellProfBar"></div>
+				<div class="profBar" id="healingSpellProfBar"></div>
+				<button onclick="profDec()" id="profDecBut">-</button>
+				<button onclick="profInc()" id="profIncBut">+</button>
+			</div>
+			
+			
+		  </div>
+		</div>
 	</div>
 </fieldset></div>
-<<<<<<< HEAD
 	<div id="playerTabs-1">asdf</div>
 	<div id="playerTabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
 	<div id="playerTabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
@@ -719,27 +718,169 @@ $("#roomTile0").click(function() {
 	<div id="playerTabs-9">asdf</div>
 </div>
 <script>
+function profInc() {
+
+	if (currProf==0) {
+	
+		allPlayers[whoIsActive].playerProfs.daggerProf++;
+	
+		$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
+		
+		//alert(allPlayers[whoIsActive].playerProfs.daggerProf);
+	}
+
+}
+
+function profDec() {
+}
+
+$( "#daggerProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#axeProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#swordProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#bludgeonProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#staffProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#spearProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#polearmProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#bowProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#martialProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#barehandedProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#augmentProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#mobilityProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#attackSpellProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#matterSpellProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#divinationSpellProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#clericalSpellProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#enchantmentSpellProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$( "#healingSpellProfBar" ).progressbar({
+	value: 0,
+	max:20
+});
+
+$("#daggerProfBar").click(function(){
+
+	currProf=0;
+
+	$(this).css("background-color", "#6ad18c");
+	
+	$("#axeProfBar").css("background-color", "white");
+	$("#swordProfBar").css("background-color", "white");
+	$("#bludgeonProfBar").css("background-color", "white");
+	$("#staffProfBar").css("background-color", "white");
+	$("#spearProfBar").css("background-color", "white");
+	$("#polearmProfBar").css("background-color", "white");
+	$("#bowProfBar").css("background-color", "white");
+	$("#martialProfBar").css("background-color", "white");
+	$("#barehandedProfBar").css("background-color", "white");
+	$("#augmentProfBar").css("background-color", "white");
+	$("#mobilityProfBar").css("background-color", "white");
+	$("#attackSpellProfBar").css("background-color", "white");
+	$("#matterSpellProfBar").css("background-color", "white");
+	$("#divinationSpellProfBar").css("background-color", "white");
+	$("#clericalSpellProfBar").css("background-color", "white");
+	$("#enchantmentSpellProfBar").css("background-color", "white");
+	$("#healingSpellProfBar").css("background-color", "white");
+});
+
+$("#axeProfBar").click(function(){
+
+	currProf=1;
+
+	$(this).css("background-color", "#6ad18c");
+	
+	$("#daggerProfBar").css("background-color", "white");
+	$("#swordProfBar").css("background-color", "white");
+	$("#bludgeonProfBar").css("background-color", "white");
+	$("#staffProfBar").css("background-color", "white");
+	$("#spearProfBar").css("background-color", "white");
+	$("#polearmProfBar").css("background-color", "white");
+	$("#bowProfBar").css("background-color", "white");
+	$("#martialProfBar").css("background-color", "white");
+	$("#barehandedProfBar").css("background-color", "white");
+	$("#augmentProfBar").css("background-color", "white");
+	$("#mobilityProfBar").css("background-color", "white");
+	$("#attackSpellProfBar").css("background-color", "white");
+	$("#matterSpellProfBar").css("background-color", "white");
+	$("#divinationSpellProfBar").css("background-color", "white");
+	$("#clericalSpellProfBar").css("background-color", "white");
+	$("#enchantmentSpellProfBar").css("background-color", "white");
+	$("#healingSpellProfBar").css("background-color", "white");
+	
+});
+
+
 $("#playerTabs").tabs({collapsible: true});
+$("#playerMiscTabs").tabs({collapsible: true});
 
 /*$(function() {
             $( "#playerTabs-5" ).tabs({
-=======
-	<div id="tabs-1">asdf</div>
-	<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
-	<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
-	<div id="tabs-4">asdf</div>
-	<div id="tabs-5">asdf</div>
-	<div id="tabs-6">asdf</div>
-	<div id="tabs-7">asdf</div>
-	<div id="tabs-8">asdf</div>
-	<div id="tabs-9">asdf</div>
-</div>
-<script>
-$("#tabs").tabs({collapsible: true});
-
-/*$(function() {
-            $( "#tabs-5" ).tabs({
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
                heightStyle:"fill",
                collapsible:true,
                hide:"slideUp"
@@ -747,88 +888,56 @@ $("#tabs").tabs({collapsible: true});
          });*/
 
 //when tab is clicked
-<<<<<<< HEAD
 $( "#playerTabs" ).tabs({
-=======
-$( "#tabs" ).tabs({
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
   beforeActivate: function( event, ui ) {
   
 	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
 	
 	//alert(ui.newPanel.attr('id'));
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-1")
-=======
-	if (tabCmp=="tabs-1")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=0;
 
 		updatePlayer();
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-2")
-=======
-	if (tabCmp=="tabs-2")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=1;
 		
 		updatePlayer();
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-3")
-=======
-	if (tabCmp=="tabs-3")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=2;
 		
 		updatePlayer();
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-4")
-=======
-	if (tabCmp=="tabs-4")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=3;
 
 		updatePlayer();
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-5")
-=======
-	if (tabCmp=="tabs-5")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=4;
 		
 		updatePlayer();
 	}	
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-6")
-=======
-	if (tabCmp=="tabs-6")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=5;
 		
 		updatePlayer();
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-7")
-=======
-	if (tabCmp=="tabs-7")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=6;
 		
@@ -836,21 +945,13 @@ $( "#tabs" ).tabs({
 		
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-8")
-=======
-	if (tabCmp=="tabs-8")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=7;
 		updatePlayer();
 	}
 	
-<<<<<<< HEAD
 	if (tabCmp=="playerTabs-9")
-=======
-	if (tabCmp=="tabs-9")
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 	{
 		whoIsActive=8;
 		updatePlayer();
@@ -864,7 +965,8 @@ function updatePlayer(){
 	//updatefunc
 
 	var tempStyle;
-	var tempInt;
+	var armorACInt;
+	var otherACInt;
 	var tempStat;
 	
 	
@@ -910,9 +1012,9 @@ function updatePlayer(){
 	tempStat="Hunger: " + allPlayers[whoIsActive].hunger;
 	$('#playerHunger').html(tempStat);
 	
-	tempStat="AC: " + allPlayers[whoIsActive].AC;
-	tempInt=12-allPlayers[whoIsActive].AC;
-	tempStat+=" (+" + tempInt +")";
+	tempStat="AC: " + allPlayers[whoIsActive].totalAC;
+	armorACInt=allPlayers[whoIsActive].armorAC;
+	tempStat+=" (+" + allPlayers[whoIsActive].armorAC +" from armor, +" + allPlayers[whoIsActive].otherAC + " other)";
 	$('#playerAC').html(tempStat);
 	
 	tempStat="Actions this turn: "; 
@@ -944,11 +1046,7 @@ $("#player1NameEntry").keyup(function(event) {
 		
 		
     
-<<<<<<< HEAD
         $('#playerTabs ul:first li:eq('+whoIsActive+') a').text(nameEnter);
-=======
-        $('#tabs ul:first li:eq('+whoIsActive+') a').text(nameEnter);
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 		
 		nameStyle += nameEnter;
 		
@@ -1016,15 +1114,9 @@ $(document).ready(function changePlayerButtonText() {
 }*/
 /*$(function player1Name1() {
 
-<<<<<<< HEAD
 	$("#tabsa-1").hide();
 	var status="asdf";
     $("#tabsa-1").document.getElementById('player1But').innerHTML=status;
-=======
-	$("#tabs-1").hide();
-	var status="asdf";
-    $("#tabs-1").document.getElementById('player1But').innerHTML=status;
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 
 });*/
 </script>
@@ -1389,8 +1481,8 @@ the element with your mouse, the title attribute is displayed in a little box ne
 	</div>
 </div>
 
-<script src="external/jquery/jquery.js"></script>
-<script src="jquery-ui.js"></script>
+<!--<script src="external/jquery/jquery.js"></script>
+<script src="jquery-ui.js"></script>-->
 <script>
 function rollDie(sides, amount) {
 	
@@ -1416,7 +1508,6 @@ function rollDie0(sides, amount) {
 	return num;
 }
 
-
 var turn=0;
 var whoIsActive=0;
 var lockActive=0;
@@ -1439,7 +1530,7 @@ var roomTileA=0;
 var roomTileB=0;
 var roomTileMove=1; //amount to move tiles, 1 by default
 var roomTilePrev; //string; save char if moving being onto tile with items or something
-var roomMax=208; //13x16
+var roomMax=224; //13x16
 var tileDir=1; // move tile direciton, 1 for up, 2 for right, 3 for down, 4 for left, 1 by default; 5 NE, 6 NW, 7 SE, 8 SW
 var createTile; //string
 var floorExistsArr= [false, false, false, false, false, false, false, false, false, false]; //bool, array of whether or not a floor exists
@@ -1472,23 +1563,218 @@ var playerAilTurn=0;
 var currItem=0;
 var itemsMax=7;
 
+
+//format = (a,b) / (horizontal, vertical)
+var roomGridArr = [];
+initRoom();
+
+function initRoom() {
+	
+	var tileCoorA=0;
+	var tileCoorB=0;
+	
+	
+	for (i=0;i<roomMax;i++){
+	
+		roomGridArr.push({
+			a:tileCoorA,
+			b:tileCoorB,
+		
+			symbol:" "
+		});
+	
+		tileCoorA++;
+		
+		if (tileCoorA==14) {
+		
+			tileCoorA=0;
+			tileCoorB++;
+		}
+	
+		
+		
+	}
+
+}
+
 var allPlayers = [];
 initPlayers();
 
 function initPlayers() {
-
-	var tempPlayer= {
-
+		
+	for (i=0;i<playersMax;i++){
+		allPlayers.push({
+		
 		playerName:"",
 		hasName:false, //bool
 		hasClass:false, //bool
 		playerExists:false, //bool
-		/*profs playerProfs //proficiency
+		playerProfs: //proficiency
 		{
-		}
-		passives playerPassives //passives
+			daggerProf : 0,
+			axeProf : 0,
+			swordProf : 0,
+			bludgeonProf : 0,
+			staffProf : 0,
+			spearProf : 0,
+			polearmProf : 0,
+			bowProf : 0,
+			martialProf : 0,
+			barehandProf : 0,
+			augmentProf : 0,
+			mobilityProf : 0,
+
+			attackSpellProf : 0,
+			matterSpellProf : 0,
+			divinationSpellProf : 0,
+			clericalSpellProf : 0,
+			enchantmentSpellProf : 0,
+			healingSpellProf : 0,
+
+			//bar progress
+			daggerBar : 0,
+			axeBar : 0,
+			swordBar : 0,
+			bludgeonBar : 0,
+			staffBar : 0,
+			spearBar : 0,
+			polearmBar : 0,
+			bowBar : 0,
+			martialBar : 0,
+			barehandBar : 0,
+			augmentBar : 0,
+			mobilityBar : 0,
+
+			attackSpellBar : 0,
+			matterSpellBar : 0,
+			divinationSpellBar : 0,
+			clericalSpellBar : 0,
+			enchantmentSpellBar : 0,
+			healingSpellBar : 0,
+
+			//prof level, 0=novice, 1=apprentice, 2=adept, 3=master
+			daggerLev : 0,
+			axeLev : 0,
+			swordLev : 0,
+			bludgeonLev : 0,
+			staffLev : 0,
+			spearLev : 0,
+			polearmLev : 0,
+			bowLev : 0,
+			martialLev : 0,
+			barehandLev : 0,
+			augmentLev : 0,
+			mobilityLev : 0,
+
+			attackSpellLev : 0,
+			matterSpellLev : 0,
+			divinationSpellLev : 0,
+			clericalSpellLev : 0,
+			enchantmentSpellLev : 0,
+			healingSpellLev : 0,
+
+			//proficiency max
+			daggerProfMax : 0,
+			axeProfMax : 0,
+			swordProfMax : 0,
+			bludgeonProfMax : 0,
+			staffProfMax : 0,
+			spearProfMax : 0,
+			polearmProfMax : 0,
+			bowProfMax : 0,
+			martialProfMax : 0,
+			barehandProfMax : 0,
+			augmentProfMax : 0,
+			mobilityProfMax : 0,
+
+			attackSpellProfMax : 0,
+			matterSpellProfMax : 0,
+			divinationSpellProfMax : 0,
+			clericalSpellProfMax : 0,
+			enchantmentSpellProfMax : 0,
+			healingSpellProfMax : 0
+		},
+		playerPassives: //passives
 		{
-		}*/
+			fireResist :false,//0,0
+			coldResist :false,//0,1
+			shockResist :false,//0,2
+			disinResist :false,//0,3
+			sleepResist :false,//0,4
+			poisonResist :false,//0,5
+			paralysisResist :false,//0,6
+			blindResist :false,//0,7
+			petrifyResist :false,//0,8
+			sicknessResist :false,//0,9
+			drainResist :false,//0,10
+			woundResist :false,//1,0
+			breathless :false,//1,1
+			searching :false,//1,2
+			seeInvis :false,//1,3
+			invis :false,//1,4
+			levitate :false,//1,5
+			flying :false,//1,6
+			adornment :false,//1,7
+			warning :false,//1,8
+			telepathy :false,//1,9
+			foodApp :false,//1,10
+			reflection :false,//2,0
+			magicResist :false,//2,1
+			waterWalking :false,//2,2
+			displacement :false,//2,3
+			sustainAbility :false,//2,4
+			slowDigest :false,//2,5
+			lifeSaving :false,//2,6
+			stealth :false,//2,7
+			confuseResist :false,//2,8
+
+
+			brisk :0,//2,9
+			haste :0,//2,10
+			dash :0,//3,0 //int
+			agileDash :0,//3,1 //int
+			infravision :false,//3,2 //int
+			regen :false,//3,3
+			protection:0, //int
+			energyRegen :false,//3,4
+			noHungCast :false,//3,5
+
+			permSlow:false,
+			permBrisk:false,
+			permHaste:false,
+
+
+			fumbling :false,
+			isHungry :false,
+			tempBrisk:0,//int
+			tempHaste:0, //int
+			tempRegen:0, //int
+			tempConfluence:0, //int
+			tempInvis:0, //int
+
+			slow:0, //int
+			blind:0, //int 
+			sleep:0, //int
+			poisoned:0, //int
+			confused:0, //int
+			taunted:0, //int
+			aggravated:0, //int
+			paralyzed:0, //int
+
+			hallucin:0, //int
+			enfeebled:0, //int
+			vulnerable:0, //int
+			slippery:0, //int
+			petrify:0, //int
+			vomit:0, //int
+			strangle:0, //int 
+			engulfed:0, //int
+
+			woundedArmLeft:0, //int
+			woundedArmRight:0, //int
+			woundedLegLeft:0, //int
+			woundedLegRight:0 //int
+		},
 		hunger:200,
 		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
 		luck:0,
@@ -1541,16 +1827,13 @@ function initPlayers() {
 		hpMax:0,
 		energyCurr:0,
 		energyMax:0,
-		AC:12,
+		armorAC:0,
+		otherAC:0,
+		totalAC:0,
 		toHit:0
-	};
-	
-
-	for (i=0;i<playersMax;i++){
-		allPlayers.push(tempPlayer);
-	}
+		});
+	}	
 		
-
 }
 
 
@@ -1641,22 +1924,9 @@ $(document).on('click','.ui-dialog-titlebar-close',function(){
 	document.getElementById("chooseOrcBut").style.visibility = "visible";
 	document.getElementById("chooseElfBut").style.visibility = "visible";
 	
-	if (allPlayers[lockActive].playerExists=false) {
+	if (allPlayers[lockActive].playerExists==false) {
 	
-		allPlayers[lockActive].hasClass=false;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;
+		initStats();
 	
 	}
 });
@@ -1673,22 +1943,9 @@ $( "#raceDialog" ).dialog({
 				
 				//reinitialize stats here
 				
-				if (allPlayers[lockActive].playerExists=false) {
+				if (allPlayers[lockActive].playerExists==false) {
 				
-					allPlayers[lockActive].hasClass=false;
-
-					allPlayers[lockActive].AC=12;
-					allPlayers[lockActive].speed=12;
-					allPlayers[lockActive].luck=0;
-					allPlayers[lockActive].hpMax=0;
-					allPlayers[lockActive].hpCurr=0;
-					allPlayers[lockActive].energyCurr=0;
-					allPlayers[lockActive].energyMax=0;
-					allPlayers[lockActive].strength=0;
-					allPlayers[lockActive].dexterity=0;
-					allPlayers[lockActive].intelligence=0;
-					allPlayers[lockActive].wisdom=0;
-					allPlayers[lockActive].constitution=0;
+					initStats();
 				
 				}
 			}
@@ -1705,22 +1962,9 @@ $( "#raceDialog" ).dialog({
 				
 				//reinitialize stats here
 				
-				if (allPlayers[lockActive].playerExists=false) {
+				if (allPlayers[lockActive].playerExists==false) {
 				
-					allPlayers[lockActive].hasClass=false;
-
-					allPlayers[lockActive].AC=12;
-					allPlayers[lockActive].speed=12;
-					allPlayers[lockActive].luck=0;
-					allPlayers[lockActive].hpMax=0;
-					allPlayers[lockActive].hpCurr=0;
-					allPlayers[lockActive].energyCurr=0;
-					allPlayers[lockActive].energyMax=0;
-					allPlayers[lockActive].strength=0;
-					allPlayers[lockActive].dexterity=0;
-					allPlayers[lockActive].intelligence=0;
-					allPlayers[lockActive].wisdom=0;
-					allPlayers[lockActive].constitution=0;
+					initStats();
 				
 				}
 			}
@@ -1737,8 +1981,6 @@ $( "#initClass" ).click(function( event ) {
 
 	$( "#classDialog" ).dialog( "open" );
 	$("#classInvalid").text(" ");
-<<<<<<< HEAD
-=======
 	event.preventDefault();
 });
 
@@ -1758,7 +2000,7 @@ $( "#chooseHighBut" ).click(function( event ) {
 	allPlayers[lockActive].playClass=0;
 	allPlayers[lockActive].hasClass=true;
 
-	allPlayers[lockActive].AC=12;
+	allPlayers[lockActive].totalAC=12;
 	allPlayers[lockActive].speed=12;
 	allPlayers[lockActive].luck=0;
 	allPlayers[lockActive].hpMax=0;
@@ -1772,8 +2014,10 @@ $( "#chooseHighBut" ).click(function( event ) {
 	allPlayers[lockActive].constitution=0;	//initialize
 	
 	allPlayers[lockActive].hunger=200;	
-	allPlayers[lockActive].AC-=5;
-	//allPlayers[lockActive].playerPassives.protection=0;
+	allPlayers[lockActive].armorAC=5;
+	allPlayers[lockActive].playerPassives.protection=0;
+	
+	allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 	
 	allPlayers[lockActive].hpMax+=15;
 	allPlayers[lockActive].hpCurr+=15;
@@ -1786,6 +2030,11 @@ $( "#chooseHighBut" ).click(function( event ) {
 	
 	
 	allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;
+	
+	//passives
+	
+	allPlayers[lockActive].playerPassives.poisonResist=true;	
+	allPlayers[lockActive].playerPassives.breathless=true;	
 });
 
 // Link to open the dialog
@@ -1805,7 +2054,7 @@ $( "#chooseWizBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=1;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -1819,8 +2068,10 @@ $( "#chooseWizBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=1;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=1;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=9;
 		allPlayers[lockActive].hpCurr+=9;
@@ -1834,7 +2085,12 @@ $( "#chooseWizBut" ).click(function( event ) {
 		allPlayers[lockActive].energyMax+=7; //hat + sceptre
 
 
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;
+		
+		
+		//passives
+		
+		allPlayers[lockActive].playerPassives.noHungCast=true;
 		
 });
 
@@ -1854,7 +2110,7 @@ $( "#chooseHealBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=2;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -1868,8 +2124,10 @@ $( "#chooseHealBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=2;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=9;
 		allPlayers[lockActive].hpCurr+=9;
@@ -1881,6 +2139,10 @@ $( "#chooseHealBut" ).click(function( event ) {
 
 
 		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+		//passives
+		
+		allPlayers[lockActive].playerPassives.poisonResist=true;	
 		
 });
 
@@ -1900,7 +2162,7 @@ $( "#chooseRapBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=3;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -1914,8 +2176,10 @@ $( "#chooseRapBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=3;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=3;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=10;
 		allPlayers[lockActive].hpCurr+=10;
@@ -1927,7 +2191,15 @@ $( "#chooseRapBut" ).click(function( event ) {
 		allPlayers[lockActive].luck+=2; //lucky
 
 
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;	
+
+
+		//passives
+		
+		allPlayers[lockActive].playerPassives.stealth=true;
+		allPlayers[lockActive].playerPassives.searching=true;
+		allPlayers[lockActive].playerPassives.seeInvis=true;
+
 		
 });
 
@@ -1948,7 +2220,7 @@ $( "#chooseMonkBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=4;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -1962,8 +2234,10 @@ $( "#chooseMonkBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=4;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=4;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=13;
 		allPlayers[lockActive].hpCurr+=13;
@@ -1975,483 +2249,12 @@ $( "#chooseMonkBut" ).click(function( event ) {
 		allPlayers[lockActive].toHit+=1;
 
 
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;	
+
+		//passives
 		
-});
-
-// Link to open the dialog
-$( "#chooseSnipBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "visible";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-	
-		allPlayers[lockActive].playClass=5;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=10;
-		allPlayers[lockActive].hpCurr+=10;
-		allPlayers[lockActive].strength=11+rollDie(2,1);
-		allPlayers[lockActive].dexterity=13+rollDie(2,1);
-		allPlayers[lockActive].intelligence=9+rollDie(4,1);
-		allPlayers[lockActive].wisdom=7+rollDie(4,1);
-		allPlayers[lockActive].constitution=6+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-<<<<<<< HEAD
-$( "#chooseHighBut" ).click(function( event ) {
-=======
-$( "#chooseMyrmBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=6;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=3;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=8;
-		allPlayers[lockActive].hpCurr+=8;
-		allPlayers[lockActive].strength=15+rollDie(2,1);
-		allPlayers[lockActive].dexterity=10+rollDie(4,1);
-		allPlayers[lockActive].intelligence=10+rollDie(2,1);
-		allPlayers[lockActive].wisdom=7+rollDie(2,1);
-		allPlayers[lockActive].constitution=5+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseSabBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=7;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=10;
-		allPlayers[lockActive].hpCurr+=10;
-		allPlayers[lockActive].strength=8+rollDie(4,1);
-		allPlayers[lockActive].dexterity=8+rollDie(2,1);
-		allPlayers[lockActive].intelligence=14+rollDie(2,1);
-		allPlayers[lockActive].wisdom=8+rollDie(4,1);
-		allPlayers[lockActive].constitution=8+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseOccBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "hidden";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=8;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=1;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=10;
-		allPlayers[lockActive].hpCurr+=10;
-		allPlayers[lockActive].strength=5+rollDie(2,1);
-		allPlayers[lockActive].dexterity=9+rollDie(2,1);
-		allPlayers[lockActive].intelligence=11+rollDie(4,1);
-		allPlayers[lockActive].wisdom=11+rollDie(2,1);
-		allPlayers[lockActive].constitution=11+rollDie(2,1);
-		allPlayers[lockActive].luck-=2; //unlucky
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseBasBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "visible";
-	document.getElementById("chooseOrcBut").style.visibility = "hidden";
-	document.getElementById("chooseElfBut").style.visibility = "hidden";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=9;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=5;
-		
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=15;
-		allPlayers[lockActive].hpCurr+=15;
-		allPlayers[lockActive].strength+=6+rollDie(2,1);
-		allPlayers[lockActive].dexterity=6+rollDie(2,1);
-		allPlayers[lockActive].intelligence=8+rollDie(2,1);
-		allPlayers[lockActive].wisdom=12+rollDie(2,1);
-		allPlayers[lockActive].constitution=14+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseTriBut" ).click(function( event ) {
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "visible";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "hidden";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-<<<<<<< HEAD
-
-	
-	//edit stats for class here
-	
-	allPlayers[lockActive].playClass=0;
-	allPlayers[lockActive].hasClass=true;
-
-	allPlayers[lockActive].AC=12;
-	allPlayers[lockActive].speed=12;
-	allPlayers[lockActive].luck=0;
-	allPlayers[lockActive].hpMax=0;
-	allPlayers[lockActive].hpCurr=0;
-	allPlayers[lockActive].energyCurr=0;
-	allPlayers[lockActive].energyMax=0;
-	allPlayers[lockActive].strength=0;
-	allPlayers[lockActive].dexterity=0;
-	allPlayers[lockActive].intelligence=0;
-	allPlayers[lockActive].wisdom=0;
-	allPlayers[lockActive].constitution=0;	//initialize
-	
-	allPlayers[lockActive].hunger=200;	
-	allPlayers[lockActive].AC-=5;
-	//allPlayers[lockActive].playerPassives.protection=0;
-	
-	allPlayers[lockActive].hpMax+=15;
-	allPlayers[lockActive].hpCurr+=15;
-	allPlayers[lockActive].strength=11+rollDie(2, 1);
-	allPlayers[lockActive].dexterity=9+rollDie(2, 1);
-	allPlayers[lockActive].intelligence=5+rollDie(2, 1);
-	allPlayers[lockActive].wisdom=6+rollDie(2, 1);
-	allPlayers[lockActive].constitution=13+rollDie(4, 1);
-	allPlayers[lockActive].luck-=2;
-	
-	
-	allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;
-});
-
-// Link to open the dialog
-$( "#chooseWizBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
-	document.getElementById("chooseOrcBut").style.visibility = "hidden";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
-	
-	event.preventDefault();
-	
-	//edit stats for class here
-
-	
-		allPlayers[lockActive].playClass=1;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=1;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=9;
-		allPlayers[lockActive].hpCurr+=9;
-		allPlayers[lockActive].strength=6+rollDie(2, 1);
-		allPlayers[lockActive].dexterity=8+rollDie(4, 1);
-		allPlayers[lockActive].intelligence=15+rollDie(2, 1);
-		allPlayers[lockActive].wisdom=11+rollDie(2, 1);
-		allPlayers[lockActive].constitution=5+rollDie(2, 1);
-
-		allPlayers[lockActive].energyCurr+=7;
-		allPlayers[lockActive].energyMax+=7; //hat + sceptre
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseHealBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "visible";
-	document.getElementById("chooseOrcBut").style.visibility = "hidden";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=2;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=9;
-		allPlayers[lockActive].hpCurr+=9;
-		allPlayers[lockActive].strength=7+rollDie(2,1);
-		allPlayers[lockActive].dexterity=6+rollDie(2,1);
-		allPlayers[lockActive].intelligence=9+rollDie(2,1);
-		allPlayers[lockActive].wisdom=16+rollDie(2,1);
-		allPlayers[lockActive].constitution=6+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseRapBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=3;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=3;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=10;
-		allPlayers[lockActive].hpCurr+=10;
-		allPlayers[lockActive].strength=8+rollDie(2,1);
-		allPlayers[lockActive].dexterity=14+rollDie(2,1);
-		allPlayers[lockActive].intelligence=10+rollDie(2,1);
-		allPlayers[lockActive].wisdom=8+rollDie(2,1);
-		allPlayers[lockActive].constitution=6+rollDie(2,1);
-		allPlayers[lockActive].luck+=2; //lucky
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseMonkBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "visible";
-	document.getElementById("chooseOrcBut").style.visibility = "visible";
-	document.getElementById("chooseElfBut").style.visibility = "hidden";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-	
-		allPlayers[lockActive].playClass=4;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=4;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=13;
-		allPlayers[lockActive].hpCurr+=13;
-		allPlayers[lockActive].strength=12+rollDie(4,1);
-		allPlayers[lockActive].dexterity=10+rollDie(4,1);
-		allPlayers[lockActive].intelligence=8+rollDie(2,1);
-		allPlayers[lockActive].wisdom=9+rollDie(4,1);
-		allPlayers[lockActive].constitution=8+rollDie(4,1);
-		allPlayers[lockActive].toHit+=1;
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		allPlayers[lockActive].playerPassives.sleepResist=true;
+		allPlayers[lockActive].playerPassives.confuseResist=true;
 		
 });
 
@@ -2472,7 +2275,7 @@ $( "#chooseSnipBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=5;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2486,8 +2289,10 @@ $( "#chooseSnipBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=2;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=10;
 		allPlayers[lockActive].hpCurr+=10;
@@ -2499,6 +2304,12 @@ $( "#chooseSnipBut" ).click(function( event ) {
 
 
 		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+		//passives
+		
+		allPlayers[lockActive].playerPassives.searching=true;
+		allPlayers[lockActive].playerPassives.stealth=true; // faded cloak
+		allPlayers[lockActive].playerPassives.blindResist=true;
 		
 });
 
@@ -2518,7 +2329,7 @@ $( "#chooseMyrmBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=6;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2532,8 +2343,10 @@ $( "#chooseMyrmBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=3;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=3;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=8;
 		allPlayers[lockActive].hpCurr+=8;
@@ -2544,7 +2357,12 @@ $( "#chooseMyrmBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=5+rollDie(2,1);
 
 
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;
+
+		//passives
+		
+		allPlayers[lockActive].playerPassives.disinResist=true;
+		allPlayers[lockActive].playerPassives.agileDash=2;
 		
 });
 
@@ -2564,7 +2382,7 @@ $( "#chooseSabBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=7;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2578,8 +2396,10 @@ $( "#chooseSabBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=2;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=10;
 		allPlayers[lockActive].hpCurr+=10;
@@ -2591,6 +2411,12 @@ $( "#chooseSabBut" ).click(function( event ) {
 
 
 		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+		//passives
+		
+		allPlayers[lockActive].playerPassives.sleepResist=true;
+		allPlayers[lockActive].playerPassives.noHungCast=true;
+		allPlayers[lockActive].playerPassives.warning=true;
 		
 });
 
@@ -2610,7 +2436,7 @@ $( "#chooseOccBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=8;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2624,8 +2450,10 @@ $( "#chooseOccBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=1;
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].armorAC=1;
+		allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=10;
 		allPlayers[lockActive].hpCurr+=10;
@@ -2637,7 +2465,10 @@ $( "#chooseOccBut" ).click(function( event ) {
 		allPlayers[lockActive].luck-=2; //unlucky
 
 
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;	
+
+		allPlayers[lockActive].playerPassives.drainResist=true;
+		allPlayers[lockActive].playerPassives.warning=true;		
 		
 });
 
@@ -2657,7 +2488,7 @@ $( "#chooseBasBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=9;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2671,9 +2502,12 @@ $( "#chooseBasBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=5;
+		allPlayers[lockActive].armorAC=5;
 		
-		//allPlayers[lockActive].playerPassives.protection=0;
+		allPlayers[lockActive].playerPassives.protection=3;
+		//allPlayers[lockActive].totalAC-=allPlayers[lockActive].playerPassives.protection;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=15;
 		allPlayers[lockActive].hpCurr+=15;
@@ -2685,6 +2519,10 @@ $( "#chooseBasBut" ).click(function( event ) {
 
 
 		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+		//passives
+		
+		allPlayers[i].playerPassives.slowDigest=true;
 		
 });
 
@@ -2704,7 +2542,7 @@ $( "#chooseTriBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=10;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2718,8 +2556,10 @@ $( "#chooseTriBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=7;
-		//allPlayers[lockActive].playerPassives.protection=0;		
+		allPlayers[lockActive].armorAC=7;
+		allPlayers[lockActive].playerPassives.protection=0;		
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=14;
 		allPlayers[lockActive].hpCurr+=14;
@@ -2731,6 +2571,8 @@ $( "#chooseTriBut" ).click(function( event ) {
 
 
 		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+		//passives
 		
 });
 
@@ -2750,7 +2592,7 @@ $( "#chooseSymBut" ).click(function( event ) {
 		allPlayers[lockActive].playClass=11;
 		allPlayers[lockActive].hasClass=true;
 
-		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].hpMax=0;
@@ -2764,8 +2606,10 @@ $( "#chooseSymBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution=0;	//initialize
 		
 		allPlayers[lockActive].hunger=200;	
-		//allPlayers[lockActive].AC-=2;
+		//allPlayers[lockActive].totalAC-=2;
 		//allPlayers[lockActive].playerPassives.protection=0;
+		
+		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
 
 		allPlayers[lockActive].hpMax+=6;
 		allPlayers[lockActive].hpCurr+=6;
@@ -2779,6 +2623,12 @@ $( "#chooseSymBut" ).click(function( event ) {
 
 
 		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+		
+		//passives
+		
+		allPlayers[lockActive].playerPassives.disinResist=true;
+		allPlayers[lockActive].playerPassives.confuseResist=true;
 		
 });
 
@@ -2798,12 +2648,79 @@ $( "#chooseHumanBut" ).click(function( event ) {
 	allPlayers[lockActive].hpCurr+=2;
 	allPlayers[lockActive].energyMax+=2;
 	allPlayers[lockActive].energyCurr+=2;
-	//allPlayers[lockActive].playerPassives.protection+=1; // divine protection 1
-	//allPlayers[lockActive].AC-=allPlayers[lockActive].playerPassives.protection;
+	allPlayers[lockActive].playerPassives.protection+=1; // divine protection 1
+	
+	allPlayers[whoIsActive].otherAC=allPlayers[lockActive].playerPassives.protection;
+	
+	allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
+	
+	//allPlayers[lockActive].totalAC-=allPlayers[lockActive].playerPassives.protection;
 	allPlayers[lockActive].luck+=3;
 	allPlayers[lockActive].vision=2;	
 
 	allPlayers[lockActive].playerExists=true;
+	partyCount++;
+	
+	allPlayers[lockActive].daggerProf = 0;
+	allPlayers[lockActive].axeProf = 0;
+	allPlayers[lockActive].swordProf = 0;
+	allPlayers[lockActive].bludgeonProf = 0;
+	allPlayers[lockActive].staffProf = 0;
+	allPlayers[lockActive].spearProf = 0;
+	allPlayers[lockActive].polearmProf = 0;
+	allPlayers[lockActive].bowProf = 0;
+	allPlayers[lockActive].martialProf = 0;
+	allPlayers[lockActive].barehandProf = 0;
+	allPlayers[lockActive].augmentProf = 0;
+	allPlayers[lockActive].mobilityProf = 0;
+
+	allPlayers[lockActive].attackSpellProf = 0;
+	allPlayers[lockActive].matterSpellProf = 0;
+	allPlayers[lockActive].divinationSpellProf = 0;
+	allPlayers[lockActive].clericalSpellProf = 0;
+	allPlayers[lockActive].enchantmentSpellProf = 0;
+	allPlayers[lockActive].healingSpellProf = 0;
+
+	allPlayers[lockActive].//bar progress
+	allPlayers[lockActive].daggerBar = 0;
+	allPlayers[lockActive].axeBar = 0;
+	allPlayers[lockActive].swordBar = 0;
+	allPlayers[lockActive].bludgeonBar = 0;
+	allPlayers[lockActive].staffBar = 0;
+	allPlayers[lockActive].spearBar = 0;
+	allPlayers[lockActive].polearmBar = 0;
+	allPlayers[lockActive].bowBar = 0;
+	allPlayers[lockActive].martialBar = 0;
+	allPlayers[lockActive].barehandBar = 0;
+	allPlayers[lockActive].augmentBar = 0;
+	allPlayers[lockActive].mobilityBar = 0;
+
+	allPlayers[lockActive].attackSpellBar = 0;
+	allPlayers[lockActive].matterSpellBar = 0;
+	allPlayers[lockActive].divinationSpellBar = 0;
+	allPlayers[lockActive].clericalSpellBar = 0;
+	allPlayers[lockActive].enchantmentSpellBar = 0;
+	allPlayers[lockActive].healingSpellBar = 0;
+
+	allPlayers[lockActive].daggerLev = 0;
+	allPlayers[lockActive].axeLev = 0;
+	allPlayers[lockActive].swordLev = 0;
+	allPlayers[lockActive].bludgeonLev = 0;
+	allPlayers[lockActive].staffLev = 0;
+	allPlayers[lockActive].spearLev = 0;
+	allPlayers[lockActive].polearmLev = 0;
+	allPlayers[lockActive].bowLev = 0;
+	allPlayers[lockActive].martialLev = 0;
+	allPlayers[lockActive].barehandLev = 0;
+	allPlayers[lockActive].augmentLev = 0;
+	allPlayers[lockActive].mobilityLev = 0;
+
+	allPlayers[lockActive].attackSpellLev = 0;
+	allPlayers[lockActive].matterSpellLev = 0;
+	allPlayers[lockActive].divinationSpellLev = 0;
+	allPlayers[lockActive].clericalSpellLev = 0;
+	allPlayers[lockActive].enchantmentSpellLev = 0;
+	allPlayers[lockActive].healingSpellLev = 0;
 	
 	//update display
 	
@@ -2842,11 +2759,73 @@ $( "#chooseDwarfBut" ).click(function( event ) {
 		allPlayers[lockActive].constitution+=2;
 		allPlayers[lockActive].intelligence-=1;
 		allPlayers[lockActive].dexterity-=1;
-		//allPlayers[lockActive].playerPassives.petrifyResist==TRUE; //petrify resist
+		allPlayers[lockActive].playerPassives.petrifyResist==true; //petrify resist
 		allPlayers[lockActive].luck=2;
 		allPlayers[lockActive].vision=2;
 		
 		allPlayers[lockActive].playerExists=true;
+		partyCount++;
+		
+		allPlayers[lockActive].daggerProf = 0;
+		allPlayers[lockActive].axeProf = 0;
+		allPlayers[lockActive].swordProf = 0;
+		allPlayers[lockActive].bludgeonProf = 0;
+		allPlayers[lockActive].staffProf = 0;
+		allPlayers[lockActive].spearProf = 0;
+		allPlayers[lockActive].polearmProf = 0;
+		allPlayers[lockActive].bowProf = 0;
+		allPlayers[lockActive].martialProf = 0;
+		allPlayers[lockActive].barehandProf = 0;
+		allPlayers[lockActive].augmentProf = 0;
+		allPlayers[lockActive].mobilityProf = 0;
+
+		allPlayers[lockActive].attackSpellProf = 0;
+		allPlayers[lockActive].matterSpellProf = 0;
+		allPlayers[lockActive].divinationSpellProf = 0;
+		allPlayers[lockActive].clericalSpellProf = 0;
+		allPlayers[lockActive].enchantmentSpellProf = 0;
+		allPlayers[lockActive].healingSpellProf = 0;
+
+		allPlayers[lockActive].//bar progress
+		allPlayers[lockActive].daggerBar = 0;
+		allPlayers[lockActive].axeBar = 0;
+		allPlayers[lockActive].swordBar = 0;
+		allPlayers[lockActive].bludgeonBar = 0;
+		allPlayers[lockActive].staffBar = 0;
+		allPlayers[lockActive].spearBar = 0;
+		allPlayers[lockActive].polearmBar = 0;
+		allPlayers[lockActive].bowBar = 0;
+		allPlayers[lockActive].martialBar = 0;
+		allPlayers[lockActive].barehandBar = 0;
+		allPlayers[lockActive].augmentBar = 0;
+		allPlayers[lockActive].mobilityBar = 0;
+
+		allPlayers[lockActive].attackSpellBar = 0;
+		allPlayers[lockActive].matterSpellBar = 0;
+		allPlayers[lockActive].divinationSpellBar = 0;
+		allPlayers[lockActive].clericalSpellBar = 0;
+		allPlayers[lockActive].enchantmentSpellBar = 0;
+		allPlayers[lockActive].healingSpellBar = 0;
+
+		allPlayers[lockActive].daggerLev = 0;
+		allPlayers[lockActive].axeLev = 0;
+		allPlayers[lockActive].swordLev = 0;
+		allPlayers[lockActive].bludgeonLev = 0;
+		allPlayers[lockActive].staffLev = 0;
+		allPlayers[lockActive].spearLev = 0;
+		allPlayers[lockActive].polearmLev = 0;
+		allPlayers[lockActive].bowLev = 0;
+		allPlayers[lockActive].martialLev = 0;
+		allPlayers[lockActive].barehandLev = 0;
+		allPlayers[lockActive].augmentLev = 0;
+		allPlayers[lockActive].mobilityLev = 0;
+
+		allPlayers[lockActive].attackSpellLev = 0;
+		allPlayers[lockActive].matterSpellLev = 0;
+		allPlayers[lockActive].divinationSpellLev = 0;
+		allPlayers[lockActive].clericalSpellLev = 0;
+		allPlayers[lockActive].enchantmentSpellLev = 0;
+		allPlayers[lockActive].healingSpellLev = 0;
 		
 		//update display 
 		
@@ -2900,12 +2879,74 @@ $( "#chooseOrcBut" ).click(function( event ) {
 		//orc penalty
 		allPlayers[lockActive].intelligence-=1;
 		allPlayers[lockActive].wisdom-=1;
-		//allPlayers[lockActive].playerPassives.poisonResist==TRUE; //poison resist
+		allPlayers[lockActive].playerPassives.poisonResist==true; //poison resist
 		
 		allPlayers[lockActive].luck=0;
 		allPlayers[lockActive].vision=2;
 		
 		allPlayers[lockActive].playerExists=true;
+		partyCount++;
+		
+		allPlayers[lockActive].daggerProf = 0;
+		allPlayers[lockActive].axeProf = 0;
+		allPlayers[lockActive].swordProf = 0;
+		allPlayers[lockActive].bludgeonProf = 0;
+		allPlayers[lockActive].staffProf = 0;
+		allPlayers[lockActive].spearProf = 0;
+		allPlayers[lockActive].polearmProf = 0;
+		allPlayers[lockActive].bowProf = 0;
+		allPlayers[lockActive].martialProf = 0;
+		allPlayers[lockActive].barehandProf = 0;
+		allPlayers[lockActive].augmentProf = 0;
+		allPlayers[lockActive].mobilityProf = 0;
+
+		allPlayers[lockActive].attackSpellProf = 0;
+		allPlayers[lockActive].matterSpellProf = 0;
+		allPlayers[lockActive].divinationSpellProf = 0;
+		allPlayers[lockActive].clericalSpellProf = 0;
+		allPlayers[lockActive].enchantmentSpellProf = 0;
+		allPlayers[lockActive].healingSpellProf = 0;
+
+		allPlayers[lockActive].//bar progress
+		allPlayers[lockActive].daggerBar = 0;
+		allPlayers[lockActive].axeBar = 0;
+		allPlayers[lockActive].swordBar = 0;
+		allPlayers[lockActive].bludgeonBar = 0;
+		allPlayers[lockActive].staffBar = 0;
+		allPlayers[lockActive].spearBar = 0;
+		allPlayers[lockActive].polearmBar = 0;
+		allPlayers[lockActive].bowBar = 0;
+		allPlayers[lockActive].martialBar = 0;
+		allPlayers[lockActive].barehandBar = 0;
+		allPlayers[lockActive].augmentBar = 0;
+		allPlayers[lockActive].mobilityBar = 0;
+
+		allPlayers[lockActive].attackSpellBar = 0;
+		allPlayers[lockActive].matterSpellBar = 0;
+		allPlayers[lockActive].divinationSpellBar = 0;
+		allPlayers[lockActive].clericalSpellBar = 0;
+		allPlayers[lockActive].enchantmentSpellBar = 0;
+		allPlayers[lockActive].healingSpellBar = 0;
+
+		allPlayers[lockActive].daggerLev = 0;
+		allPlayers[lockActive].axeLev = 0;
+		allPlayers[lockActive].swordLev = 0;
+		allPlayers[lockActive].bludgeonLev = 0;
+		allPlayers[lockActive].staffLev = 0;
+		allPlayers[lockActive].spearLev = 0;
+		allPlayers[lockActive].polearmLev = 0;
+		allPlayers[lockActive].bowLev = 0;
+		allPlayers[lockActive].martialLev = 0;
+		allPlayers[lockActive].barehandLev = 0;
+		allPlayers[lockActive].augmentLev = 0;
+		allPlayers[lockActive].mobilityLev = 0;
+
+		allPlayers[lockActive].attackSpellLev = 0;
+		allPlayers[lockActive].matterSpellLev = 0;
+		allPlayers[lockActive].divinationSpellLev = 0;
+		allPlayers[lockActive].clericalSpellLev = 0;
+		allPlayers[lockActive].enchantmentSpellLev = 0;
+		allPlayers[lockActive].healingSpellLev = 0;
 		
 		//update display
 	
@@ -2924,235 +2965,6 @@ $( "#chooseOrcBut" ).click(function( event ) {
 		
 });
 
-=======
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=10;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].AC-=7;
-		//allPlayers[lockActive].playerPassives.protection=0;		
-
-		allPlayers[lockActive].hpMax+=14;
-		allPlayers[lockActive].hpCurr+=14;
-		allPlayers[lockActive].strength=9+rollDie(4,1);
-		allPlayers[lockActive].dexterity=11+rollDie(2,1);
-		allPlayers[lockActive].intelligence=9+rollDie(2,1);
-		allPlayers[lockActive].wisdom=9+rollDie(2,1);
-		allPlayers[lockActive].constitution=11+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-// Link to open the dialog
-$( "#chooseSymBut" ).click(function( event ) {
-	$("#classDialog").dialog("close");
-	document.getElementById("chooseHumanBut").style.visibility = "visible";
-	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
-	document.getElementById("chooseOrcBut").style.visibility = "hidden";
-	document.getElementById("chooseElfBut").style.visibility = "visible";
-	$( "#raceDialog" ).dialog( "open" );
-	event.preventDefault();
-	
-	//edit stats for class here
-	
-	
-		allPlayers[lockActive].playClass=11;
-		allPlayers[lockActive].hasClass=true;
-
-		allPlayers[lockActive].AC=12;
-		allPlayers[lockActive].speed=12;
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].hpMax=0;
-		allPlayers[lockActive].hpCurr=0;
-		allPlayers[lockActive].energyCurr=0;
-		allPlayers[lockActive].energyMax=0;
-		allPlayers[lockActive].strength=0;
-		allPlayers[lockActive].dexterity=0;
-		allPlayers[lockActive].intelligence=0;
-		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
-		
-		allPlayers[lockActive].hunger=200;	
-		//allPlayers[lockActive].AC-=2;
-		//allPlayers[lockActive].playerPassives.protection=0;
-
-		allPlayers[lockActive].hpMax+=6;
-		allPlayers[lockActive].hpCurr+=6;
-		allPlayers[lockActive].energyCurr+=5;
-		allPlayers[lockActive].energyMax+=5;
-		allPlayers[lockActive].strength=5+rollDie(2,1);
-		allPlayers[lockActive].dexterity=12+rollDie(4,1);
-		allPlayers[lockActive].intelligence=13+rollDie(2,1);
-		allPlayers[lockActive].wisdom+=12+rollDie(2,1);
-		allPlayers[lockActive].constitution+=6+rollDie(2,1);
-
-
-		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
-		
-});
-
-$( "#chooseHumanBut" ).click(function( event ) {
-	
-	$("#raceDialog").dialog("close");
-	event.preventDefault();
-	
-	//edit stats for race here
-	
-	allPlayers[lockActive].race=0;
-
-	allPlayers[lockActive].energyMax+=5;
-	allPlayers[lockActive].energyCurr+=5; //minimum
-
-	allPlayers[lockActive].hpMax+=2;
-	allPlayers[lockActive].hpCurr+=2;
-	allPlayers[lockActive].energyMax+=2;
-	allPlayers[lockActive].energyCurr+=2;
-	//allPlayers[lockActive].playerPassives.protection+=1; // divine protection 1
-	//allPlayers[lockActive].AC-=allPlayers[lockActive].playerPassives.protection;
-	allPlayers[lockActive].luck+=3;
-	allPlayers[lockActive].vision=2;	
-
-	allPlayers[lockActive].playerExists=true;
-	
-	//update display
-	
-	if(lockActive==whoIsActive) 
-		{
-	
-			updatePlayer();
-		}
-		
-});
-
-$( "#chooseDwarfBut" ).click(function( event ) {
-
-	//can't be wizard, rogue, sab, myrm, occ, or sym
-	if (allPlayers[lockActive].playClass==0 
-	|| allPlayers[lockActive].playClass==2 
-	|| allPlayers[lockActive].playClass==4 
-	|| allPlayers[lockActive].playClass==5 
-	|| allPlayers[lockActive].playClass==9 
-	|| allPlayers[lockActive].playClass==10)
-	{
-
-		$("#raceDialog").dialog("close");
-		event.preventDefault();
-
-		//edit stats for race here
-
-		allPlayers[lockActive].race=1;
-
-		allPlayers[lockActive].energyMax+=5;
-		allPlayers[lockActive].energyCurr+=5; //minimum
-
-		allPlayers[lockActive].hpMax+=5;
-		allPlayers[lockActive].hpCurr+=5;
-		allPlayers[lockActive].strength+=1;
-		allPlayers[lockActive].constitution+=2;
-		allPlayers[lockActive].intelligence-=1;
-		allPlayers[lockActive].dexterity-=1;
-		//allPlayers[lockActive].playerPassives.petrifyResist==TRUE; //petrify resist
-		allPlayers[lockActive].luck=2;
-		allPlayers[lockActive].vision=2;
-		
-		allPlayers[lockActive].playerExists=true;
-		
-		//update display 
-		
-		if(lockActive==whoIsActive) 
-		{
-	
-			updatePlayer();
-		}
-	
-	}
-	
-	else {
-		
-		$('#classInvalid').text("Invalid");
-	}
-		
-});
-
-$( "#chooseOrcBut" ).click(function( event ) {
-
-	//can't be wiz, heal, bas, sym
-	if (allPlayers[lockActive].playClass==0 
-	|| allPlayers[lockActive].playClass==3 
-	|| allPlayers[lockActive].playClass==4 
-	|| allPlayers[lockActive].playClass==5 
-	|| allPlayers[lockActive].playClass==6 
-	|| allPlayers[lockActive].playClass==7 
-	|| allPlayers[lockActive].playClass==8 
-	|| allPlayers[lockActive].playClass==10)
-	{
-
-		$("#raceDialog").dialog("close");
-		event.preventDefault();
-
-		//edit stats for race here
-
-		allPlayers[lockActive].race=2;
-
-		allPlayers[lockActive].energyMax+=5;
-		allPlayers[lockActive].energyCurr+=5; //minimum
-
-		//orc bonus
-		allPlayers[lockActive].energyMax+=1;
-		allPlayers[lockActive].energyCurr+=1; 
-		allPlayers[lockActive].hpMax+=3;
-		allPlayers[lockActive].hpCurr+=3;
-		allPlayers[lockActive].strength+=2;
-		allPlayers[lockActive].constitution+=1;
-		allPlayers[lockActive].toHit+=1;
-		
-		//orc penalty
-		allPlayers[lockActive].intelligence-=1;
-		allPlayers[lockActive].wisdom-=1;
-		//allPlayers[lockActive].playerPassives.poisonResist==TRUE; //poison resist
-		
-		allPlayers[lockActive].luck=0;
-		allPlayers[lockActive].vision=2;
-		
-		allPlayers[lockActive].playerExists=true;
-		
-		//update display
-	
-		if(lockActive==whoIsActive) 
-		{
-	
-			updatePlayer();
-		}
-	
-	}
-	
-	else {
-		
-		$('#classInvalid').text("Invalid");
-	}
-		
-});
-
->>>>>>> 6f3c0b45f887afb0eea3191125bd0dc2ba3e40d5
 $( "#chooseElfBut" ).click(function( event ) {
 
 	//can't be high, monk, sab, occ, bas, or tri
@@ -3183,11 +2995,73 @@ $( "#chooseElfBut" ).click(function( event ) {
 		//elf penalty
 		allPlayers[lockActive].strength-=1;
 		allPlayers[lockActive].constitution-=1;
-		//allPlayers[lockActive].playerPassives.sleepResist==TRUE; //sleep resist
+		allPlayers[lockActive].playerPassives.sleepResist==true; //sleep resist
 		allPlayers[lockActive].luck=2;
 		allPlayers[lockActive].vision=3;
 		
 		allPlayers[lockActive].playerExists=true;
+		partyCount++;
+		
+		allPlayers[lockActive].daggerProf = 0;
+		allPlayers[lockActive].axeProf = 0;
+		allPlayers[lockActive].swordProf = 0;
+		allPlayers[lockActive].bludgeonProf = 0;
+		allPlayers[lockActive].staffProf = 0;
+		allPlayers[lockActive].spearProf = 0;
+		allPlayers[lockActive].polearmProf = 0;
+		allPlayers[lockActive].bowProf = 0;
+		allPlayers[lockActive].martialProf = 0;
+		allPlayers[lockActive].barehandProf = 0;
+		allPlayers[lockActive].augmentProf = 0;
+		allPlayers[lockActive].mobilityProf = 0;
+
+		allPlayers[lockActive].attackSpellProf = 0;
+		allPlayers[lockActive].matterSpellProf = 0;
+		allPlayers[lockActive].divinationSpellProf = 0;
+		allPlayers[lockActive].clericalSpellProf = 0;
+		allPlayers[lockActive].enchantmentSpellProf = 0;
+		allPlayers[lockActive].healingSpellProf = 0;
+
+		allPlayers[lockActive].//bar progress
+		allPlayers[lockActive].daggerBar = 0;
+		allPlayers[lockActive].axeBar = 0;
+		allPlayers[lockActive].swordBar = 0;
+		allPlayers[lockActive].bludgeonBar = 0;
+		allPlayers[lockActive].staffBar = 0;
+		allPlayers[lockActive].spearBar = 0;
+		allPlayers[lockActive].polearmBar = 0;
+		allPlayers[lockActive].bowBar = 0;
+		allPlayers[lockActive].martialBar = 0;
+		allPlayers[lockActive].barehandBar = 0;
+		allPlayers[lockActive].augmentBar = 0;
+		allPlayers[lockActive].mobilityBar = 0;
+
+		allPlayers[lockActive].attackSpellBar = 0;
+		allPlayers[lockActive].matterSpellBar = 0;
+		allPlayers[lockActive].divinationSpellBar = 0;
+		allPlayers[lockActive].clericalSpellBar = 0;
+		allPlayers[lockActive].enchantmentSpellBar = 0;
+		allPlayers[lockActive].healingSpellBar = 0;
+
+		allPlayers[lockActive].daggerLev = 0;
+		allPlayers[lockActive].axeLev = 0;
+		allPlayers[lockActive].swordLev = 0;
+		allPlayers[lockActive].bludgeonLev = 0;
+		allPlayers[lockActive].staffLev = 0;
+		allPlayers[lockActive].spearLev = 0;
+		allPlayers[lockActive].polearmLev = 0;
+		allPlayers[lockActive].bowLev = 0;
+		allPlayers[lockActive].martialLev = 0;
+		allPlayers[lockActive].barehandLev = 0;
+		allPlayers[lockActive].augmentLev = 0;
+		allPlayers[lockActive].mobilityLev = 0;
+
+		allPlayers[lockActive].attackSpellLev = 0;
+		allPlayers[lockActive].matterSpellLev = 0;
+		allPlayers[lockActive].divinationSpellLev = 0;
+		allPlayers[lockActive].clericalSpellLev = 0;
+		allPlayers[lockActive].enchantmentSpellLev = 0;
+		allPlayers[lockActive].healingSpellLev = 0;
 		
 		//update display
 	
@@ -3288,6 +3162,93 @@ function turnInc() {
 		
 		}
 	}
+}
+
+function initStats() {
+
+	allPlayers[lockActive].hasClass=false;
+	allPlayers[lockActive].totalAC=12;
+	allPlayers[lockActive].speed=12;
+	allPlayers[lockActive].luck=0;
+	allPlayers[lockActive].hpMax=0;
+	allPlayers[lockActive].hpCurr=0;
+	allPlayers[lockActive].energyCurr=0;
+	allPlayers[lockActive].energyMax=0;
+	allPlayers[lockActive].strength=0;
+	allPlayers[lockActive].dexterity=0;
+	allPlayers[lockActive].intelligence=0;
+	allPlayers[lockActive].wisdom=0;
+	allPlayers[lockActive].constitution=0;
+	allPlayers[lockActive].armorAC=0;
+	allPlayers[lockActive].otherAC=0;
+	
+	allPlayers[lockActive].speed=0;
+	allPlayers[lockActive].weightCurr=0;
+	allPlayers[lockActive].weightMax=0;
+	allPlayers[lockActive].hunger=0;
+	
+	allPlayers[lockActive].daggerProf = 0;
+	allPlayers[lockActive].axeProf = 0;
+	allPlayers[lockActive].swordProf = 0;
+	allPlayers[lockActive].bludgeonProf = 0;
+	allPlayers[lockActive].staffProf = 0;
+	allPlayers[lockActive].spearProf = 0;
+	allPlayers[lockActive].polearmProf = 0;
+	allPlayers[lockActive].bowProf = 0;
+	allPlayers[lockActive].martialProf = 0;
+	allPlayers[lockActive].barehandProf = 0;
+	allPlayers[lockActive].augmentProf = 0;
+	allPlayers[lockActive].mobilityProf = 0;
+
+	allPlayers[lockActive].attackSpellProf = 0;
+	allPlayers[lockActive].matterSpellProf = 0;
+	allPlayers[lockActive].divinationSpellProf = 0;
+	allPlayers[lockActive].clericalSpellProf = 0;
+	allPlayers[lockActive].enchantmentSpellProf = 0;
+	allPlayers[lockActive].healingSpellProf = 0;
+
+	allPlayers[lockActive].//bar progress
+	allPlayers[lockActive].daggerBar = 0;
+	allPlayers[lockActive].axeBar = 0;
+	allPlayers[lockActive].swordBar = 0;
+	allPlayers[lockActive].bludgeonBar = 0;
+	allPlayers[lockActive].staffBar = 0;
+	allPlayers[lockActive].spearBar = 0;
+	allPlayers[lockActive].polearmBar = 0;
+	allPlayers[lockActive].bowBar = 0;
+	allPlayers[lockActive].martialBar = 0;
+	allPlayers[lockActive].barehandBar = 0;
+	allPlayers[lockActive].augmentBar = 0;
+	allPlayers[lockActive].mobilityBar = 0;
+
+	allPlayers[lockActive].attackSpellBar = 0;
+	allPlayers[lockActive].matterSpellBar = 0;
+	allPlayers[lockActive].divinationSpellBar = 0;
+	allPlayers[lockActive].clericalSpellBar = 0;
+	allPlayers[lockActive].enchantmentSpellBar = 0;
+	allPlayers[lockActive].healingSpellBar = 0;
+
+	allPlayers[lockActive].daggerLev = 0;
+	allPlayers[lockActive].axeLev = 0;
+	allPlayers[lockActive].swordLev = 0;
+	allPlayers[lockActive].bludgeonLev = 0;
+	allPlayers[lockActive].staffLev = 0;
+	allPlayers[lockActive].spearLev = 0;
+	allPlayers[lockActive].polearmLev = 0;
+	allPlayers[lockActive].bowLev = 0;
+	allPlayers[lockActive].martialLev = 0;
+	allPlayers[lockActive].barehandLev = 0;
+	allPlayers[lockActive].augmentLev = 0;
+	allPlayers[lockActive].mobilityLev = 0;
+
+	allPlayers[lockActive].attackSpellLev = 0;
+	allPlayers[lockActive].matterSpellLev = 0;
+	allPlayers[lockActive].divinationSpellLev = 0;
+	allPlayers[lockActive].clericalSpellLev = 0;
+	allPlayers[lockActive].enchantmentSpellLev = 0;
+	allPlayers[lockActive].healingSpellLev = 0;
+	
+	
 }
 </script>
 </body>
