@@ -15,12 +15,15 @@
 	.demoHeaders {
 		margin-top: 2em;
 	}
-	#dialog-link {
+	p{
+		font-size: 12px;
+	}
+	#initClass {
 		padding: .4em 1em .4em 20px;
 		text-decoration: none;
 		position: relative;
 	}
-	#dialog-link span.ui-icon {
+	#initClass span.ui-icon {
 		margin: 0 5px 0 0;
 		position: absolute;
 		left: .2em;
@@ -59,16 +62,9 @@
 	<p>This page demonstrates the widgets and theme you selected in Download Builder. Please make sure you are using them with a compatible jQuery version.</p>
 </div>
 
-<button id="player1But" onclick="player1Name()">Click me</button>
+<button id="player1But" onclick="player1Name1()">Click me</button>
 <script>
-var status="name1";
-var num;
-function player1Name() {
-    //document.getElementById('player1But').innerHTML=status;
 
-	num=Math.floor((Math.random() * 100) + 1);
-	document.getElementById('player1But').innerHTML=num;
-}
 </script>
 
 <!-- Menu -->
@@ -159,17 +155,269 @@ function player1Name() {
 
 
 <!-- Tabs -->
-<h2 class="demoHeaders">Tabs</h2>
+<h2 class="demoHeaders">Player Stuff</h2>
 <div id="tabs">
 	<ul>
-		<li><a href="#tabs-1">First</a></li>
-		<li><a href="#tabs-2">Second</a></li>
-		<li><a href="#tabs-3">Third</a></li>
+		<li><a href="#tabs-1">Player 1</a></li>
+		<li><a href="#tabs-2">Player 2</a></li>
+		<li><a href="#tabs-3">Player 3</a></li>
+		<li><a href="#tabs-4">Player 4</a></li>
+		<li><a href="#tabs-5">Player 5</a></li>
+		<li><a href="#tabs-6">Player 6</a></li>
+		<li><a href="#tabs-7">Player 7</a></li>
+		<li><a href="#tabs-8">Player 8</a></li>
+		<li><a href="#tabs-9">Player 9</a></li>
 	</ul>
-	<div id="tabs-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+	<div id="player1Title"><h2>Player 1</h2></div>
+	<div>
+		<p>
+			<button id="initClass" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Initialize Class/Race
+			</button>
+		</p>
+	<p><button id="initPlayerBut">Initialize Class/Race</button></p>
+<fieldset>
+	<legend>Attributes:</legend>
+	<div id="controlgroup">
+		Name: <input type="text" onfocus="this.value=''" id="player1NameEntry" value="Enter Name">
+		<p id="playerHP">HP:</p>
+		<p id="playerEnergy">Energy:</p>
+		<p id="playerStr">Strength:</p>
+		<p id="playerDex">Dexterity:</p>
+		<p id="playerInt">Intelligence:</p>
+		<p id="playerWis">Wisdom:</p>
+		<p id="playerCon">Constitution:</p>
+		
+		<label for="transmission-standard">Standard</label>
+		<input type="radio" name="transmission" id="transmission-standard">
+		<label for="transmission-automatic">Automatic</label>
+		<input type="radio" name="transmission" id="transmission-automatic">
+		<label for="insurance">Insurance</label>
+		<input type="checkbox" name="insurance" id="insurance">
+		<label for="horizontal-spinner" class="ui-controlgroup-label"># of cars</label>
+		<input id="horizontal-spinner" class="ui-spinner-input">
+		<button>Book Now!</button>
+		<select id="car-type">
+			<option>Compact car</option>
+			<option>Midsize car</option>
+			<option>Full size car</option>
+			<option>SUV</option>
+			<option>Luxury</option>
+			<option>Truck</option>
+			<option>Van</option>
+		</select>
+	</div>
+</fieldset></div>
+	<div id="tabs-1">asdf</div>
 	<div id="tabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
 	<div id="tabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
+	<div id="tabs-4">asdf</div>
+	<div id="tabs-5">asdf</div>
+	<div id="tabs-6">asdf</div>
+	<div id="tabs-7">asdf</div>
+	<div id="tabs-8">asdf</div>
+	<div id="tabs-9">asdf</div>
 </div>
+<script>
+$("#tabs").tabs();
+
+/*$(function() {
+            $( "#tabs-5" ).tabs({
+               heightStyle:"fill",
+               collapsible:true,
+               hide:"slideUp"
+            });
+         });*/
+
+//when tab is clicked
+$( "#tabs" ).tabs({
+  beforeActivate: function( event, ui ) {
+  
+	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
+	
+	//alert(ui.newPanel.attr('id'));
+	
+	if (tabCmp=="tabs-1")
+	{
+		whoIsActive=0;
+
+		updatePlayer();
+	}
+	
+	if (tabCmp=="tabs-2")
+	{
+		whoIsActive=1;
+		
+		updatePlayer();
+	}
+	
+	if (tabCmp=="tabs-3")
+	{
+		whoIsActive=2;
+		
+		updatePlayer();
+	}
+	
+	if (tabCmp=="tabs-4")
+	{
+		whoIsActive=3;
+
+		updatePlayer();
+	}
+	
+	if (tabCmp=="tabs-5")
+	{
+		whoIsActive=4;
+		
+		updatePlayer();
+	}	
+	
+	if (tabCmp=="tabs-6")
+	{
+		whoIsActive=5;
+		
+		updatePlayer();
+	}
+	
+	if (tabCmp=="tabs-7")
+	{
+		whoIsActive=6;
+		
+		updatePlayer();
+		
+	}
+	
+	if (tabCmp=="tabs-8")
+	{
+		whoIsActive=7;
+		updatePlayer();
+	}
+	
+	if (tabCmp=="tabs-9")
+	{
+		whoIsActive=8;
+		updatePlayer();
+	}
+	
+  }
+});
+
+function updatePlayer(){
+
+	var tempStat;
+		
+	tempStat="HP: " + allPlayers[whoIsActive].hpCurr;
+	tempStat+=" / " + allPlayers[whoIsActive].hpMax;
+	$('#playerHP').html(tempStat);
+	
+	tempStat="Energy: " + allPlayers[whoIsActive].energyCurr;
+	tempStat+=" / " + allPlayers[whoIsActive].energyMax;
+	$('#playerEnergy').html(tempStat);
+	
+	tempStat="Strength: " + allPlayers[whoIsActive].strength;
+	$('#playerStr').html(tempStat);
+	
+	tempStat="Dexterity: " + allPlayers[whoIsActive].dexterity;
+	$('#playerDex').html(tempStat);
+	
+	tempStat="Intelligence: " + allPlayers[whoIsActive].intelligence;
+	$('#playerInt').html(tempStat);
+	
+	tempStat="Wisdom: " + allPlayers[whoIsActive].wisdom;
+	$('#playerWis').html(tempStat);
+	
+	tempStat="Constitution: " + allPlayers[whoIsActive].constitution;
+	$('#playerCon').html(tempStat);
+
+}
+
+$("#player1NameEntry").keyup(function(event) {
+
+	
+    if (event.keyCode === 13) {
+	
+		var nameStyle ="<h2>";
+	
+		var nameEnter = document.getElementById("player1NameEntry").value;
+	
+        $("#player1NameEntry").click();
+		
+		
+    
+        $('#tabs ul:first li:eq('+whoIsActive+') a').text(nameEnter);
+		
+		nameStyle += nameEnter;
+		
+		nameStyle += ", the asdf asdf</h2>";
+		$('#player1Title').html(nameStyle);
+		
+		//player1Title.innerText = nameEnter;
+		
+		this.value=''; //empties text entry on enter
+		
+		allPlayers[whoIsActive].hasName=true;
+		
+		//$(".head h3").html("your new header");
+    }
+	
+	
+	
+});
+
+$(document).ready(function changePlayerButtonText() {
+
+	//var asdf=playerTest.test1;
+	
+	//var asdf=playerStuff.strength;
+	
+	//var asdf=1;
+	
+    //$("#tabs").tabs();
+    
+    $("#initPlayerBut").button().click(function(){
+	
+		//var asdf=rollDie(100, 1);
+        //$('#tabs ul:first li:eq(0) a').text(asdf);
+		
+		var tempStat;
+		
+		tempStat="HP: " + allPlayers[whoIsActive].hpCurr;
+		tempStat+=" / " + allPlayers[whoIsActive].hpMax;
+		$('#playerHP').html(tempStat);
+		
+		tempStat="Energy: " + allPlayers[whoIsActive].energyCurr;
+		tempStat+=" / " + allPlayers[whoIsActive].energyMax;
+		$('#playerEnergy').html(tempStat);
+		
+		tempStat="Strength: " + allPlayers[whoIsActive].strength;
+		$('#playerStr').html(tempStat);
+		
+		tempStat="Dexterity: " + allPlayers[whoIsActive].dexterity;
+		$('#playerDex').html(tempStat);
+		
+		tempStat="Intelligence: " + allPlayers[whoIsActive].intelligence;
+		$('#playerInt').html(tempStat);
+		
+		tempStat="Wisdom: " + allPlayers[whoIsActive].wisdom;
+		$('#playerWis').html(tempStat);
+		
+		tempStat="Constitution: " + allPlayers[whoIsActive].constitution;
+		$('#playerCon').html(tempStat);
+    });
+});
+
+/*function myFunction() {
+    var x = document.getElementById("myText").value;
+    document.getElementById("demo").innerHTML = x;
+}*/
+/*$(function player1Name1() {
+
+	$("#tabs-1").hide();
+	var status="asdf";
+    $("#tabs-1").document.getElementById('player1But').innerHTML=status;
+
+});*/
+</script>
 
 
 
@@ -181,23 +429,116 @@ function player1Name() {
 </p>
 
 <h2 class="demoHeaders">Overlay and Shadow Classes</h2>
-<div style="position: relative; width: 96%; height: 200px; padding:1% 2%; overflow:hidden;" class="fakewindowcontain">
+<div style="position: relative; width: 96%; height: 500px; padding:1% 2%; overflow:hidden;" class="fakewindowcontain">
 	<p>Lorem ipsum dolor sit amet,  Nulla nec tortor. Donec id elit quis purus consectetur consequat. </p><p>Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. </p><p>Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. </p><p>Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. </p><p>Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. Aliquam ante. </p><p>Suspendisse scelerisque dui nec velit. Duis augue augue, gravida euismod, vulputate ac, facilisis id, sem. Morbi in orci. Nulla purus lacus, pulvinar vel, malesuada ac, mattis nec, quam. Nam molestie scelerisque quam. Nullam feugiat cursus lacus.orem ipsum dolor sit amet, consectetur adipiscing elit. Donec libero risus, commodo vitae, pharetra mollis, posuere eu, pede. Nulla nec tortor. Donec id elit quis purus consectetur consequat. Nam congue semper tellus. Sed erat dolor, dapibus sit amet, venenatis ornare, ultrices ut, nisi. </p>
+	<input type="button" onclick="demoVisibility()" value="Hide text with visibility property">
 
 	<!-- ui-dialog -->
-	<div class="ui-widget-overlay ui-front"></div>
-	<div style="position: absolute; width: 320px; left: 50px; top: 30px; padding: 1.2em" class="ui-widget ui-front ui-widget-content ui-corner-all ui-widget-shadow">
+	<div class="ui-widget-overlay ui-front initHide"></div>
+	<div id="overlayTest" style="position: absolute; width: 320px; left: 50px; top: 30px; visibility:hidden; padding: 1.2em " class="ui-widget ui-front ui-widget-content ui-corner-all ui-widget-shadow">
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+	<button type="button" id="myBtn" onclick="myFunction()">Try it</button>
 	</div>
 
 </div>
+<div><input type="button" onclick="demoVisibility()" value="Hide text with visibility property"></div>
+<script>
+function demoVisibility() {
+    document.getElementById("overlayTest").style.visibility = "visible";
+}
+</script>
 
 <!-- ui-dialog -->
-<div id="dialog" title="Dialog Title">
-	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div id="classDialog" title="Choose Class">
+	<p>
+	<button id="chooseHighBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Highlander
+	</button>
+	<br>
+	<br>
+	<button id="chooseWizBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Istari
+	</button>
+	<br>
+	<br>
+	<button id="chooseHealBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Asclepian
+	</button>
+	<br>
+	<br>
+	<button id="chooseRapBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Rapscallion
+	</button>
+	<br>
+	<br>
+	<button id="chooseMonkBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Monk
+	</button>
+	<br>
+	<br>
+	<button id="chooseSnipBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Sniper
+	</button>
+	<br>
+	<br>
+	<button id="chooseMyrmBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Myrmidon
+	</button>
+	<br>
+	<br>
+	<button id="chooseSabBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Saboteur
+	</button>
+	<br>
+	<br>
+	<button id="chooseOccBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Occultist
+	</button>
+	<br>
+	<br>
+	<button id="chooseBasBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Basilica
+	</button>
+	<br>
+	<br>
+	<button id="chooseTriBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Triarius
+	</button>
+	<br>
+	<br>
+	<button id="chooseSymBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Symposiarch
+	</button>
+	</p>
 </div>
+<style>
 
+</style>
 
+<!-- ui-dialog -->
+<div id="raceDialog" title="Choose Race">
+	<div id="classInvalid"><h3> </h3></div>
+	<p>
+	<button id="chooseHumanBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Human
+	</button>
+	<br>
+	<br>
+	<button id="chooseDwarfBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Khuzdulan
+	</button>
+	<br>
+	<br>
+	<button id="chooseOrcBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Uruk
+	</button>
+	<br>
+	<br>
+	<button id="chooseElfBut" class="ui-button ui-corner-all ui-widget">
+			<span class="ui-icon ui-icon-newwin"></span>Teleri
+	</button>
+	</p>
+</div>
 
 <h2 class="demoHeaders">Framework Icons (content color preview)</h2>
 <ul id="icons" class="ui-widget ui-helper-clearfix">
@@ -441,12 +782,36 @@ the element with your mouse, the title attribute is displayed in a little box ne
 <script src="external/jquery/jquery.js"></script>
 <script src="jquery-ui.js"></script>
 <script>
-$( "#accordion" ).accordion();
+function rollDie(sides, amount) {
+	
+	let num=0;
+	
+	for (i=0; i<amount; i++){
+
+		num+=Math.floor((Math.random() * sides) + 1);
+	}
+
+	return num;
+}
+
+function rollDie0(sides, amount) {
+	
+	let num=0;
+	
+	for (i=0; i<amount; i++){
+
+		num+=Math.floor(Math.random() * sides);
+	}
+
+	return num;
+}
+
 
 var turn=0;
 var whoIsActive=0;
+var lockActive=0;
 var monstActive=0;
-var playersMax=7;
+var playersMax=9;
 var profCount=17; //18
 var currProf=0; //0-17
 var passiveCount=40;
@@ -497,6 +862,572 @@ var playerAilTurn=0;
 var currItem=0;
 var itemsMax=7;
 
+var allPlayers=[
+
+	//figure out how the fuck to populate array of objects in a loop
+
+	{
+		//player 1
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+	
+	
+	{
+		//player 2
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+	
+	{
+		//player 3
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+	
+	{
+		//player 4
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+	
+	{
+		//player 5
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+	
+	{
+		//player 6
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+	
+	{
+		//player 7
+
+		playerName:"",
+		hasName:false, //bool
+		hasClass:false, //bool
+		playerExists:false, //bool
+		/*profs playerProfs //proficiency
+		{
+		}
+		passives playerPassives //passives
+		{
+		}*/
+		hunger:200,
+		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+		luck:0,
+		prayTime:0,
+		weightCurr:0,
+		weightMax:0,
+		encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+		strength:0,
+		dexterity:0,
+		intelligence:0,
+		wisdom:0,
+		constitution:0,
+		speed:12,
+		affinAC:0,
+		affTH:0,
+		alignAC:0,
+		alignTH:0,
+		obj1Prog:0,
+		obj2Prog:0,
+		wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+		wearAmul:0, //0 if not, 1 if yes
+		vision:0,
+
+		energyClock:0,
+		hpClock:0,
+		newEnergyClock:true, //bool
+		newHpClock:true, //bool
+
+		overloadTempDex:0, //save for when 0
+		maxDex:0,
+
+		tempACVal:0,
+		tempACDur:0,
+		tempStrVal:0,
+		tempStrDur:0,
+		tempDexVal:0,
+		tempDexDur:0,
+		tempVal:0,
+		tempDur:0,
+		tempWisVal:0,
+		tempWisDur:0,
+		tempConVal:0,
+		tempConDur:0,
+		
+		playerLevel:0,
+		//class playerClass,
+		playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+		race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+		hpCurr:0,
+		hpMax:0,
+		energyCurr:0,
+		energyMax:0,
+		AC:12,
+		toHit:0
+	},
+
+];
+
+/*for (i=0; i<playersMax; i++)
+{
+	
+
+}*/
+
+
+var playerStuff = 
+{
+	playerName:"",
+	hasName:false, //bool
+	hasClass:false, //bool
+	playerExists:false, //bool
+	/*profs playerProfs //proficiency
+	{
+	}
+	passives playerPassives //passives
+	{
+	}*/
+	hunger:200,
+	nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
+	luck:0,
+	prayTime:0,
+	weightCurr:0,
+	weightMax:0,
+	encumbrance:0, //0 for normal, 1 for Burdened, 2 for Stressed, 3 for Strained, 4 for Overtaxed, 5 for Overloaded
+	strength:0,
+	dexterity:0,
+	intelligence:0,
+	wisdom:0,
+	constitution:0,
+	speed:12,
+	affinAC:0,
+	affTH:0,
+	alignAC:0,
+	alignTH:0,
+	obj1Prog:0,
+	obj2Prog:0,
+	wearRing:0, //0 if not, 1 if yes, 2 if wearing 2
+	wearAmul:0, //0 if not, 1 if yes
+	vision:0,
+
+	energyClock:0,
+	hpClock:0,
+	newEnergyClock:true, //bool
+	newHpClock:true, //bool
+
+	overloadTempDex:0, //save for when 0
+	maxDex:0,
+
+	tempACVal:0,
+	tempACDur:0,
+	tempStrVal:0,
+	tempStrDur:0,
+	tempDexVal:0,
+	tempDexDur:0,
+	tempVal:0,
+	tempDur:0,
+	tempWisVal:0,
+	tempWisDur:0,
+	tempConVal:0,
+	tempConDur:0,
+	
+	playerLevel:0,
+	//class playerClass,
+	playClass:0, //0=highlander, 1=wizard, 2=healer, 3=rapscallion, 4=monk, 5=sniper, 6=myrmidon, 7=saboteur, 8=occultist, 9=basilica, 10=triarius, 11=symposiarch
+	race:0, //0 for human, 1 for dwarf, 2 for orc, 3 for elf
+	hpCurr:0,
+	hpMax:0,
+	energyCurr:0,
+	energyMax:0,
+	AC:12,
+	toHit:0
+};
+
+$( "#accordion" ).accordion();
 
 var availableTags = [
 	"ActionScript",
@@ -548,32 +1479,966 @@ $( "#tabs" ).tabs();
 
 
 
-$( "#dialog" ).dialog({
+$( "#classDialog" ).dialog({
 	autoOpen: false,
 	width: 400,
 	buttons: [
-		{
+		/*{
 			text: "asdf",
 			click: function() {
 				$( this ).dialog( "close" );
 			}
-		},
+		},*/
 		{
 			text: "Cancel",
 			click: function() {
+			
+				document.getElementById("chooseHumanBut").style.visibility = "visible";
+				document.getElementById("chooseDwarfBut").style.visibility = "visible";
+				document.getElementById("chooseOrcBut").style.visibility = "visible";
+				document.getElementById("chooseElfBut").style.visibility = "visible";
 				$( this ).dialog( "close" );
 			}
 		}
 	]
 });
 
+$(document).on('click','.ui-dialog-titlebar-close',function(){
+
+    //reinitialize stats when dialog x button clicked
+	
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	
+	allPlayers[lockActive].hasClass=false;
+
+	allPlayers[lockActive].AC=12;
+	allPlayers[lockActive].speed=12;
+	allPlayers[lockActive].luck=0;
+	allPlayers[lockActive].hpMax=0;
+	allPlayers[lockActive].hpCurr=0;
+	allPlayers[lockActive].energyCurr=0;
+	allPlayers[lockActive].energyMax=0;
+	allPlayers[lockActive].strength=0;
+	allPlayers[lockActive].dexterity=0;
+	allPlayers[lockActive].intelligence=0;
+	allPlayers[lockActive].wisdom=0;
+	allPlayers[lockActive].constitution=0;	//initialize
+});
+
+$( "#raceDialog" ).dialog({
+	autoOpen: false,
+	width: 400,
+	buttons: [
+		{
+			text: "Back",
+			click: function() {
+				$( this ).dialog( "close" );
+				$("#classDialog").dialog("open");
+				
+				//reinitialize stats here
+				
+				allPlayers[lockActive].hasClass=false;
+
+				allPlayers[lockActive].AC=12;
+				allPlayers[lockActive].speed=12;
+				allPlayers[lockActive].luck=0;
+				allPlayers[lockActive].hpMax=0;
+				allPlayers[lockActive].hpCurr=0;
+				allPlayers[lockActive].energyCurr=0;
+				allPlayers[lockActive].energyMax=0;
+				allPlayers[lockActive].strength=0;
+				allPlayers[lockActive].dexterity=0;
+				allPlayers[lockActive].intelligence=0;
+				allPlayers[lockActive].wisdom=0;
+				allPlayers[lockActive].constitution=0;	//initialize
+			}
+		},
+		{
+			text: "Cancel",
+			click: function() {
+				
+				document.getElementById("chooseHumanBut").style.visibility = "visible";
+				document.getElementById("chooseDwarfBut").style.visibility = "visible";
+				document.getElementById("chooseOrcBut").style.visibility = "visible";
+				document.getElementById("chooseElfBut").style.visibility = "visible";
+				$( this ).dialog( "close" );
+				
+				//reinitialize stats here
+				
+				allPlayers[lockActive].hasClass=false;
+
+				allPlayers[lockActive].AC=12;
+				allPlayers[lockActive].speed=12;
+				allPlayers[lockActive].luck=0;
+				allPlayers[lockActive].hpMax=0;
+				allPlayers[lockActive].hpCurr=0;
+				allPlayers[lockActive].energyCurr=0;
+				allPlayers[lockActive].energyMax=0;
+				allPlayers[lockActive].strength=0;
+				allPlayers[lockActive].dexterity=0;
+				allPlayers[lockActive].intelligence=0;
+				allPlayers[lockActive].wisdom=0;
+				allPlayers[lockActive].constitution=0;	//initialize
+			}
+		}
+	]
+});
+
 // Link to open the dialog
-$( "#dialog-link" ).click(function( event ) {
-	$( "#dialog" ).dialog( "open" );
+$( "#initClass" ).click(function( event ) {
+	
+	lockActive=whoIsActive;
+
+	$( "#classDialog" ).dialog( "open" );
+	$("#classInvalid").text(" ");
 	event.preventDefault();
 });
 
+// Link to open the dialog
+$( "#chooseHighBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "hidden";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
 
+	
+	//edit stats for class here
+	
+	allPlayers[lockActive].playClass=0;
+	allPlayers[lockActive].hasClass=true;
+
+	allPlayers[lockActive].AC=12;
+	allPlayers[lockActive].speed=12;
+	allPlayers[lockActive].luck=0;
+	allPlayers[lockActive].hpMax=0;
+	allPlayers[lockActive].hpCurr=0;
+	allPlayers[lockActive].energyCurr=0;
+	allPlayers[lockActive].energyMax=0;
+	allPlayers[lockActive].strength=0;
+	allPlayers[lockActive].dexterity=0;
+	allPlayers[lockActive].intelligence=0;
+	allPlayers[lockActive].wisdom=0;
+	allPlayers[lockActive].constitution=0;	//initialize
+	
+	allPlayers[lockActive].hunger=200;	
+	allPlayers[lockActive].AC-=5;
+	//allPlayers[lockActive].playerPassives.protection=0;
+	
+	allPlayers[lockActive].hpMax+=15;
+	allPlayers[lockActive].hpCurr+=15;
+	allPlayers[lockActive].strength=11+rollDie(2, 1);
+	allPlayers[lockActive].dexterity=9+rollDie(2, 1);
+	allPlayers[lockActive].intelligence=5+rollDie(2, 1);
+	allPlayers[lockActive].wisdom=6+rollDie(2, 1);
+	allPlayers[lockActive].constitution=13+rollDie(4, 1);
+	allPlayers[lockActive].luck-=2;
+	
+	
+	allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;
+});
+
+// Link to open the dialog
+$( "#chooseWizBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
+	document.getElementById("chooseOrcBut").style.visibility = "hidden";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	
+	event.preventDefault();
+	
+	//edit stats for class here
+
+	
+		allPlayers[lockActive].playClass=1;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=1;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=9;
+		allPlayers[lockActive].hpCurr+=9;
+		allPlayers[lockActive].strength=6+rollDie(2, 1);
+		allPlayers[lockActive].dexterity=8+rollDie(4, 1);
+		allPlayers[lockActive].intelligence=15+rollDie(2, 1);
+		allPlayers[lockActive].wisdom=11+rollDie(2, 1);
+		allPlayers[lockActive].constitution=5+rollDie(2, 1);
+
+		allPlayers[lockActive].energyCurr+=7;
+		allPlayers[lockActive].energyMax+=7; //hat + sceptre
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseHealBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "hidden";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=2;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=2;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=9;
+		allPlayers[lockActive].hpCurr+=9;
+		allPlayers[lockActive].strength=7+rollDie(2,1);
+		allPlayers[lockActive].dexterity=6+rollDie(2,1);
+		allPlayers[lockActive].intelligence=9+rollDie(2,1);
+		allPlayers[lockActive].wisdom=16+rollDie(2,1);
+		allPlayers[lockActive].constitution=6+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseRapBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=3;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=3;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=10;
+		allPlayers[lockActive].hpCurr+=10;
+		allPlayers[lockActive].strength=8+rollDie(2,1);
+		allPlayers[lockActive].dexterity=14+rollDie(2,1);
+		allPlayers[lockActive].intelligence=10+rollDie(2,1);
+		allPlayers[lockActive].wisdom=8+rollDie(2,1);
+		allPlayers[lockActive].constitution=6+rollDie(2,1);
+		allPlayers[lockActive].luck+=2; //lucky
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseMonkBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "hidden";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+	
+		allPlayers[lockActive].playClass=4;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=4;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=13;
+		allPlayers[lockActive].hpCurr+=13;
+		allPlayers[lockActive].strength=12+rollDie(4,1);
+		allPlayers[lockActive].dexterity=10+rollDie(4,1);
+		allPlayers[lockActive].intelligence=8+rollDie(2,1);
+		allPlayers[lockActive].wisdom=9+rollDie(4,1);
+		allPlayers[lockActive].constitution=8+rollDie(4,1);
+		allPlayers[lockActive].toHit+=1;
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseSnipBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+	
+		allPlayers[lockActive].playClass=5;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=2;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=10;
+		allPlayers[lockActive].hpCurr+=10;
+		allPlayers[lockActive].strength=11+rollDie(2,1);
+		allPlayers[lockActive].dexterity=13+rollDie(2,1);
+		allPlayers[lockActive].intelligence=9+rollDie(4,1);
+		allPlayers[lockActive].wisdom=7+rollDie(4,1);
+		allPlayers[lockActive].constitution=6+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseMyrmBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=6;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=3;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=8;
+		allPlayers[lockActive].hpCurr+=8;
+		allPlayers[lockActive].strength=15+rollDie(2,1);
+		allPlayers[lockActive].dexterity=10+rollDie(4,1);
+		allPlayers[lockActive].intelligence=10+rollDie(2,1);
+		allPlayers[lockActive].wisdom=7+rollDie(2,1);
+		allPlayers[lockActive].constitution=5+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseSabBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=7;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=2;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=10;
+		allPlayers[lockActive].hpCurr+=10;
+		allPlayers[lockActive].strength=8+rollDie(4,1);
+		allPlayers[lockActive].dexterity=8+rollDie(2,1);
+		allPlayers[lockActive].intelligence=14+rollDie(2,1);
+		allPlayers[lockActive].wisdom=8+rollDie(4,1);
+		allPlayers[lockActive].constitution=8+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseOccBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "hidden";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=8;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=1;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=10;
+		allPlayers[lockActive].hpCurr+=10;
+		allPlayers[lockActive].strength=5+rollDie(2,1);
+		allPlayers[lockActive].dexterity=9+rollDie(2,1);
+		allPlayers[lockActive].intelligence=11+rollDie(4,1);
+		allPlayers[lockActive].wisdom=11+rollDie(2,1);
+		allPlayers[lockActive].constitution=11+rollDie(2,1);
+		allPlayers[lockActive].luck-=2; //unlucky
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseBasBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "hidden";
+	document.getElementById("chooseElfBut").style.visibility = "hidden";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=9;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=5;
+		
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=15;
+		allPlayers[lockActive].hpCurr+=15;
+		allPlayers[lockActive].strength+=6+rollDie(2,1);
+		allPlayers[lockActive].dexterity=6+rollDie(2,1);
+		allPlayers[lockActive].intelligence=8+rollDie(2,1);
+		allPlayers[lockActive].wisdom=12+rollDie(2,1);
+		allPlayers[lockActive].constitution=14+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseTriBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "visible";
+	document.getElementById("chooseOrcBut").style.visibility = "visible";
+	document.getElementById("chooseElfBut").style.visibility = "hidden";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=10;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].AC-=7;
+		//allPlayers[lockActive].playerPassives.protection=0;		
+
+		allPlayers[lockActive].hpMax+=14;
+		allPlayers[lockActive].hpCurr+=14;
+		allPlayers[lockActive].strength=9+rollDie(4,1);
+		allPlayers[lockActive].dexterity=11+rollDie(2,1);
+		allPlayers[lockActive].intelligence=9+rollDie(2,1);
+		allPlayers[lockActive].wisdom=9+rollDie(2,1);
+		allPlayers[lockActive].constitution=11+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+// Link to open the dialog
+$( "#chooseSymBut" ).click(function( event ) {
+	$("#classDialog").dialog("close");
+	document.getElementById("chooseHumanBut").style.visibility = "visible";
+	document.getElementById("chooseDwarfBut").style.visibility = "hidden";
+	document.getElementById("chooseOrcBut").style.visibility = "hidden";
+	document.getElementById("chooseElfBut").style.visibility = "visible";
+	$( "#raceDialog" ).dialog( "open" );
+	event.preventDefault();
+	
+	//edit stats for class here
+	
+	
+		allPlayers[lockActive].playClass=11;
+		allPlayers[lockActive].hasClass=true;
+
+		allPlayers[lockActive].AC=12;
+		allPlayers[lockActive].speed=12;
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].hpMax=0;
+		allPlayers[lockActive].hpCurr=0;
+		allPlayers[lockActive].energyCurr=0;
+		allPlayers[lockActive].energyMax=0;
+		allPlayers[lockActive].strength=0;
+		allPlayers[lockActive].dexterity=0;
+		allPlayers[lockActive].intelligence=0;
+		allPlayers[lockActive].wisdom=0;
+		allPlayers[lockActive].constitution=0;	//initialize
+		
+		allPlayers[lockActive].hunger=200;	
+		//allPlayers[lockActive].AC-=2;
+		//allPlayers[lockActive].playerPassives.protection=0;
+
+		allPlayers[lockActive].hpMax+=6;
+		allPlayers[lockActive].hpCurr+=6;
+		allPlayers[lockActive].energyCurr+=5;
+		allPlayers[lockActive].energyMax+=5;
+		allPlayers[lockActive].strength=5+rollDie(2,1);
+		allPlayers[lockActive].dexterity=12+rollDie(4,1);
+		allPlayers[lockActive].intelligence=13+rollDie(2,1);
+		allPlayers[lockActive].wisdom+=12+rollDie(2,1);
+		allPlayers[lockActive].constitution+=6+rollDie(2,1);
+
+
+		allPlayers[lockActive].weightMax=(12*(allPlayers[lockActive].strength+allPlayers[lockActive].constitution))+50;		
+		
+});
+
+$( "#chooseHumanBut" ).click(function( event ) {
+	
+	$("#raceDialog").dialog("close");
+	event.preventDefault();
+	
+	//edit stats for race here
+	
+	allPlayers[lockActive].race=0;
+
+	allPlayers[lockActive].energyMax+=5;
+	allPlayers[lockActive].energyCurr+=5; //minimum
+
+	allPlayers[lockActive].hpMax+=2;
+	allPlayers[lockActive].hpCurr+=2;
+	allPlayers[lockActive].energyMax+=2;
+	allPlayers[lockActive].energyCurr+=2;
+	//allPlayers[lockActive].playerPassives.protection+=1; // divine protection 1
+	//allPlayers[lockActive].AC-=allPlayers[lockActive].playerPassives.protection;
+	allPlayers[lockActive].luck+=3;
+	allPlayers[lockActive].vision=2;		
+	
+	//update display
+	
+	if(lockActive==whoIsActive) 
+		{
+	
+			var tempStat;
+				
+			tempStat="HP: " + allPlayers[lockActive].hpCurr;
+			tempStat+=" / " + allPlayers[lockActive].hpMax;
+			$('#playerHP').html(tempStat);
+			
+			tempStat="Energy: " + allPlayers[lockActive].energyCurr;
+			tempStat+=" / " + allPlayers[lockActive].energyMax;
+			$('#playerEnergy').html(tempStat);
+			
+			tempStat="Strength: " + allPlayers[lockActive].strength;
+			$('#playerStr').html(tempStat);
+			
+			tempStat="Dexterity: " + allPlayers[lockActive].dexterity;
+			$('#playerDex').html(tempStat);
+			
+			tempStat="Intelligence: " + allPlayers[lockActive].intelligence;
+			$('#playerInt').html(tempStat);
+			
+			tempStat="Wisdom: " + allPlayers[lockActive].wisdom;
+			$('#playerWis').html(tempStat);
+			
+			tempStat="Constitution: " + allPlayers[lockActive].constitution;
+			$('#playerCon').html(tempStat);
+		}
+		
+});
+
+$( "#chooseDwarfBut" ).click(function( event ) {
+
+	//can't be wizard, rogue, sab, myrm, occ, or sym
+	if (allPlayers[lockActive].playClass==0 
+	|| allPlayers[lockActive].playClass==2 
+	|| allPlayers[lockActive].playClass==4 
+	|| allPlayers[lockActive].playClass==5 
+	|| allPlayers[lockActive].playClass==9 
+	|| allPlayers[lockActive].playClass==10)
+	{
+
+		$("#raceDialog").dialog("close");
+		event.preventDefault();
+
+		//edit stats for race here
+
+		allPlayers[lockActive].race=1;
+
+		allPlayers[lockActive].energyMax+=5;
+		allPlayers[lockActive].energyCurr+=5; //minimum
+
+		allPlayers[lockActive].hpMax+=5;
+		allPlayers[lockActive].hpCurr+=5;
+		allPlayers[lockActive].strength+=1;
+		allPlayers[lockActive].constitution+=2;
+		allPlayers[lockActive].intelligence-=1;
+		allPlayers[lockActive].dexterity-=1;
+		//allPlayers[lockActive].playerPassives.petrifyResist==TRUE; //petrify resist
+		allPlayers[lockActive].luck=2;
+		allPlayers[lockActive].vision=2;
+		
+		//update display 
+		
+		if(lockActive==whoIsActive) 
+		{
+	
+			var tempStat;
+				
+			tempStat="HP: " + allPlayers[lockActive].hpCurr;
+			tempStat+=" / " + allPlayers[lockActive].hpMax;
+			$('#playerHP').html(tempStat);
+			
+			tempStat="Energy: " + allPlayers[lockActive].energyCurr;
+			tempStat+=" / " + allPlayers[lockActive].energyMax;
+			$('#playerEnergy').html(tempStat);
+			
+			tempStat="Strength: " + allPlayers[lockActive].strength;
+			$('#playerStr').html(tempStat);
+			
+			tempStat="Dexterity: " + allPlayers[lockActive].dexterity;
+			$('#playerDex').html(tempStat);
+			
+			tempStat="Intelligence: " + allPlayers[lockActive].intelligence;
+			$('#playerInt').html(tempStat);
+			
+			tempStat="Wisdom: " + allPlayers[lockActive].wisdom;
+			$('#playerWis').html(tempStat);
+			
+			tempStat="Constitution: " + allPlayers[lockActive].constitution;
+			$('#playerCon').html(tempStat);
+		}
+	
+	}
+	
+	else {
+		
+		$('#classInvalid').text("Invalid");
+	}
+		
+});
+
+$( "#chooseOrcBut" ).click(function( event ) {
+
+	//can't be wiz, heal, bas, sym
+	if (allPlayers[lockActive].playClass==0 
+	|| allPlayers[lockActive].playClass==3 
+	|| allPlayers[lockActive].playClass==4 
+	|| allPlayers[lockActive].playClass==5 
+	|| allPlayers[lockActive].playClass==6 
+	|| allPlayers[lockActive].playClass==7 
+	|| allPlayers[lockActive].playClass==8 
+	|| allPlayers[lockActive].playClass==10)
+	{
+
+		$("#raceDialog").dialog("close");
+		event.preventDefault();
+
+		//edit stats for race here
+
+		allPlayers[lockActive].race=2;
+
+		allPlayers[lockActive].energyMax+=5;
+		allPlayers[lockActive].energyCurr+=5; //minimum
+
+		//orc bonus
+		allPlayers[lockActive].energyMax+=1;
+		allPlayers[lockActive].energyCurr+=1; 
+		allPlayers[lockActive].hpMax+=3;
+		allPlayers[lockActive].hpCurr+=3;
+		allPlayers[lockActive].strength+=2;
+		allPlayers[lockActive].constitution+=1;
+		allPlayers[lockActive].toHit+=1;
+		
+		//orc penalty
+		allPlayers[lockActive].intelligence-=1;
+		allPlayers[lockActive].wisdom-=1;
+		//allPlayers[lockActive].playerPassives.poisonResist==TRUE; //poison resist
+		
+		allPlayers[lockActive].luck=0;
+		allPlayers[lockActive].vision=2;
+		
+		//update display
+	
+		if(lockActive==whoIsActive) 
+		{
+	
+			var tempStat;
+				
+			tempStat="HP: " + allPlayers[lockActive].hpCurr;
+			tempStat+=" / " + allPlayers[lockActive].hpMax;
+			$('#playerHP').html(tempStat);
+			
+			tempStat="Energy: " + allPlayers[lockActive].energyCurr;
+			tempStat+=" / " + allPlayers[lockActive].energyMax;
+			$('#playerEnergy').html(tempStat);
+			
+			tempStat="Strength: " + allPlayers[lockActive].strength;
+			$('#playerStr').html(tempStat);
+			
+			tempStat="Dexterity: " + allPlayers[lockActive].dexterity;
+			$('#playerDex').html(tempStat);
+			
+			tempStat="Intelligence: " + allPlayers[lockActive].intelligence;
+			$('#playerInt').html(tempStat);
+			
+			tempStat="Wisdom: " + allPlayers[lockActive].wisdom;
+			$('#playerWis').html(tempStat);
+			
+			tempStat="Constitution: " + allPlayers[lockActive].constitution;
+			$('#playerCon').html(tempStat);
+		}
+	
+	}
+	
+	else {
+		
+		$('#classInvalid').text("Invalid");
+	}
+		
+});
+
+$( "#chooseElfBut" ).click(function( event ) {
+
+	//can't be high, monk, sab, occ, bas, or tri
+	if (allPlayers[lockActive].playClass==1 
+	|| allPlayers[lockActive].playClass==2 
+	|| allPlayers[lockActive].playClass==3 
+	|| allPlayers[lockActive].playClass==5 
+	|| allPlayers[lockActive].playClass==6 
+	|| allPlayers[lockActive].playClass==11)
+	{
+
+		$("#raceDialog").dialog("close");
+		event.preventDefault();
+
+		//edit stats for race here
+
+		allPlayers[lockActive].race=3;
+
+		allPlayers[lockActive].energyMax+=5;
+		allPlayers[lockActive].energyCurr+=5; //minimum
+	
+		//elf bonus
+		allPlayers[lockActive].energyMax+=3;
+		allPlayers[lockActive].energyCurr+=3;
+		allPlayers[lockActive].dexterity+=1;
+		allPlayers[lockActive].toHit+=1;
+		
+		//elf penalty
+		allPlayers[lockActive].strength-=1;
+		allPlayers[lockActive].constitution-=1;
+		//allPlayers[lockActive].playerPassives.sleepResist==TRUE; //sleep resist
+		allPlayers[lockActive].luck=2;
+		allPlayers[lockActive].vision=3;
+		
+		//update display
+	
+		if(lockActive==whoIsActive) 
+		{
+	
+			var tempStat;
+				
+			tempStat="HP: " + allPlayers[lockActive].hpCurr;
+			tempStat+=" / " + allPlayers[lockActive].hpMax;
+			$('#playerHP').html(tempStat);
+			
+			tempStat="Energy: " + allPlayers[lockActive].energyCurr;
+			tempStat+=" / " + allPlayers[lockActive].energyMax;
+			$('#playerEnergy').html(tempStat);
+			
+			tempStat="Strength: " + allPlayers[lockActive].strength;
+			$('#playerStr').html(tempStat);
+			
+			tempStat="Dexterity: " + allPlayers[lockActive].dexterity;
+			$('#playerDex').html(tempStat);
+			
+			tempStat="Intelligence: " + allPlayers[lockActive].intelligence;
+			$('#playerInt').html(tempStat);
+			
+			tempStat="Wisdom: " + allPlayers[lockActive].wisdom;
+			$('#playerWis').html(tempStat);
+			
+			tempStat="Constitution: " + allPlayers[lockActive].constitution;
+			$('#playerCon').html(tempStat);
+		}
+	
+	}
+	
+	else {
+		
+		$('#classInvalid').text("Invalid");
+	}
+		
+});
 
 $( "#datepicker" ).datepicker({
 	inline: true
