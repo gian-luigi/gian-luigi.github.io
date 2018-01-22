@@ -138,502 +138,6 @@
 
 <h1>Welcome to chardee macdennis!</h1>
 
-<div class="ui-widget">
-	<p>This page demonstrates the widgets and theme you selected in Download Builder. Please make sure you are using them with a compatible jQuery version.</p>
-</div>
-
-<button id="player1But" onclick="tileTest()">Click me</button>
-<script>
-
-/*function tileTest() {
-
-	var tempStr;
-	
-	var tempA=300;
-	var tempB=300;
-	
-	var tile=0;
-	
-	tempA=roomGridArr[tile].a;
-	tempB=roomGridArr[tile].b;
-	
-	tempStr= tempA + ", " + tempB;
-
-	alert(tempStr);
-
-}*/
-
-
-</script>
-
-<div id="turnCount">Turn: </div>
-
-<!-- Menu -->
-<h2 class="demoHeaders">Menu</h2>
-<ul style="width:100px;" id="menu">
-	<li><div>Player 1</div></li>
-	<li><div>Player 2</div></li>
-	<li><div>Player 3</div>
-		<ul>
-			<li><div>Item 3-1</div></li>
-			<li><div>Item 3-2</div></li>
-			<li><div>Item 3-3</div></li>
-			<li><div>Item 3-4</div></li>
-			<li><div>Item 3-5</div></li>
-		</ul>
-	</li>
-	<li><div>Item 4</div></li>
-	<li><div>Item 5</div></li>
-</ul>
-
-<div id="dungeonTabs">
-	<h2>Dungeon</h2>
-  <ul>
-    <li><a href="#dungeonTabs-1">Floors</a></li>
-    <li><a href="#dungeonTabs-2">Room</a></li>
-  </ul>
-  <div id="dungeonTabs-1">
-	<div class="floorGrid">
-		<fieldset>
-			<legend>Floor 1</legend>
-			<p>Create Floor</p>
-			<div class="controlgroup">
-				<div class="menu-container">
-					<div class="floorContainer">
-						<button id="floor0">a</button>
-						<button id="floor1">a</button>
-						<button id="floor2">a</button>
-						<button id="floor3">a</button>
-						<button id="floor4">a</button>
-						<button id="floor5">a</button>
-						<button id="floor6">a</button>
-						<button id="floor7">a</button>
-						<button id="floor8">a</button>
-						<button id="floor9">a</button>
-						<button id="floor10">a</button>
-						<button id="floor11">a</button>
-						<button id="floor12">a</button>
-						<button id="floor13">a</button>
-						<button id="floor14">a</button>
-						<button id="floor15">a</button>
-						<button id="floor16">a</button>
-						<button id="floor17">a</button>
-						<button id="floor18">a</button>
-						<button id="floor19">a</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="dungeonTabs-2">
-	
-		<div class="roomGridClass">
-		<fieldset>
-			<legend>Room</legend>
-			<p>Create Room</p>
-			<div class="controlgroup">
-				<div class="menu-container">
-					<div class="roomContainer">
-						<button id="roomTile0"></button>
-						<button id="roomTile1"> </button>
-						<button id="roomTile2"> </button>
-						<button id="roomTile3"> </button>
-						<button id="roomTile4"> </button>
-						<button id="roomTile5"> </button>
-						<button id="roomTile6"> </button>
-						<button id="roomTile7"> </button>
-						<button id="roomTile8"> </button>
-						<button id="roomTile9"> </button>
-						<button id="roomTile10"> </button>
-						<button id="roomTile11"> </button>
-						<button id="roomTile12"> </button>
-						<button id="roomTile13"> </button>
-						<button id="roomTile14"> </button>
-						<button id="roomTile15"> </button>
-						<button id="roomTile16"> </button>
-						<button id="roomTile17"> </button>
-						<button id="roomTile18"> </button>
-						<button id="roomTile19"> </button>
-						<button id="roomTile20"> </button>
-						<button id="roomTile21"> </button>
-						<button id="roomTile22"> </button>
-						<button id="roomTile23"> </button>
-						<button id="roomTile24"> </button>
-						<button id="roomTile25"> </button>
-						<button id="roomTile26"> </button>
-						<button id="roomTile27"> </button>
-						<button id="roomTile28"> </button>
-						<button id="roomTile29"> </button>
-						<button id="roomTile30"> </button>
-						<button id="roomTile31"> </button>
-						<button id="roomTile32"> </button>
-						<button id="roomTile33"> </button>
-						<button id="roomTile34"> </button>
-						<button id="roomTile35"> </button>
-						<button id="roomTile36"> </button>
-						<button id="roomTile37"> </button>
-						<button id="roomTile38"> </button>
-						<button id="roomTile39"> </button>
-						<button id="roomTile40"> </button>
-						<button id="roomTile41"> </button>
-						<button id="roomTile42"> </button>
-						<button id="roomTile43"> </button>
-						<button id="roomTile44"> </button>
-						<button id="roomTile45"> </button>
-						<button id="roomTile46"> </button>
-						<button id="roomTile47"> </button>
-						<button id="roomTile48"> </button>
-						<button id="roomTile49"> </button>
-						<button id="roomTile50"> </button>
-						<button id="roomTile51"> </button>
-						<button id="roomTile52"> </button>
-						<button id="roomTile53"> </button>
-						<button id="roomTile54"> </button>
-						<button id="roomTile55"> </button>
-						<button id="roomTile56"> </button>
-						<button id="roomTile57"> </button>
-						<button id="roomTile58"> </button>
-						<button id="roomTile59"> </button>
-						<button id="roomTile60"> </button>
-						<button id="roomTile61"> </button>
-						<button id="roomTile62"> </button>
-						<button id="roomTile63"> </button>
-						<button id="roomTile64"> </button>
-						<button id="roomTile65"> </button>
-						<button id="roomTile66"> </button>
-						<button id="roomTile67"> </button>
-						<button id="roomTile68"> </button>
-						<button id="roomTile69"> </button>
-						<button id="roomTile70"> </button>
-						<button id="roomTile71"> </button>
-						<button id="roomTile72"> </button>
-						<button id="roomTile73"> </button>
-						<button id="roomTile74"> </button>
-						<button id="roomTile75"> </button>
-						<button id="roomTile76"> </button>
-						<button id="roomTile77"> </button>
-						<button id="roomTile78"> </button>
-						<button id="roomTile79"> </button>
-						<button id="roomTile80"> </button>
-						<button id="roomTile81"> </button>
-						<button id="roomTile82"> </button>
-						<button id="roomTile83"> </button>
-						<button id="roomTile84"> </button>
-						<button id="roomTile85"> </button>
-						<button id="roomTile86"> </button>
-						<button id="roomTile87"> </button>
-						<button id="roomTile88"> </button>
-						<button id="roomTile89"> </button>
-						<button id="roomTile90"> </button>
-						<button id="roomTile91"> </button>
-						<button id="roomTile92"> </button>
-						<button id="roomTile93"> </button>
-						<button id="roomTile94"> </button>
-						<button id="roomTile95"> </button>
-						<button id="roomTile96"> </button>
-						<button id="roomTile97"> </button>
-						<button id="roomTile98"> </button>
-						<button id="roomTile99"> </button>
-						<button id="roomTile100"> </button>
-						<button id="roomTile101"> </button>
-						<button id="roomTile102"> </button>
-						<button id="roomTile103"> </button>
-						<button id="roomTile104"> </button>
-						<button id="roomTile105"> </button>
-						<button id="roomTile106"> </button>
-						<button id="roomTile107"> </button>
-						<button id="roomTile108"> </button>
-						<button id="roomTile109"> </button>
-						<button id="roomTile110"> </button>
-						<button id="roomTile111"> </button>
-						<button id="roomTile112"> </button>
-						<button id="roomTile113"> </button>
-						<button id="roomTile114"> </button>
-						<button id="roomTile115"> </button>
-						<button id="roomTile116"> </button>
-						<button id="roomTile117"> </button>
-						<button id="roomTile118"> </button>
-						<button id="roomTile119"> </button>
-						<button id="roomTile120"> </button>
-						<button id="roomTile121"> </button>
-						<button id="roomTile122"> </button>
-						<button id="roomTile123"> </button>
-						<button id="roomTile124"> </button>
-						<button id="roomTile125"> </button>
-						<button id="roomTile126"> </button>
-						<button id="roomTile127"> </button>
-						<button id="roomTile128"> </button>
-						<button id="roomTile129"> </button>
-						<button id="roomTile130"> </button>
-						<button id="roomTile131"> </button>
-						<button id="roomTile132"> </button>
-						<button id="roomTile133"> </button>
-						<button id="roomTile134"> </button>
-						<button id="roomTile135"> </button>
-						<button id="roomTile136"> </button>
-						<button id="roomTile137"> </button>
-						<button id="roomTile138"> </button>
-						<button id="roomTile139"> </button>
-						<button id="roomTile140"> </button>
-						<button id="roomTile141"> </button>
-						<button id="roomTile142"> </button>
-						<button id="roomTile143"> </button>
-						<button id="roomTile144"> </button>
-						<button id="roomTile145"> </button>
-						<button id="roomTile146"> </button>
-						<button id="roomTile147"> </button>
-						<button id="roomTile148"> </button>
-						<button id="roomTile149"> </button>
-						<button id="roomTile150"> </button>
-						<button id="roomTile151"> </button>
-						<button id="roomTile152"> </button>
-						<button id="roomTile153"> </button>
-						<button id="roomTile154"> </button>
-						<button id="roomTile155"> </button>
-						<button id="roomTile156"> </button>
-						<button id="roomTile157"> </button>
-						<button id="roomTile158"> </button>
-						<button id="roomTile159"> </button>
-						<button id="roomTile160"> </button>
-						<button id="roomTile161"> </button>
-						<button id="roomTile162"> </button>
-						<button id="roomTile163"> </button>
-						<button id="roomTile164"> </button>
-						<button id="roomTile165"> </button>
-						<button id="roomTile166"> </button>
-						<button id="roomTile167"> </button>
-						<button id="roomTile168"> </button>
-						<button id="roomTile169"> </button>
-						<button id="roomTile170"> </button>
-						<button id="roomTile171"> </button>
-						<button id="roomTile172"> </button>
-						<button id="roomTile173"> </button>
-						<button id="roomTile174"> </button>
-						<button id="roomTile175"> </button>
-						<button id="roomTile176"> </button>
-						<button id="roomTile177"> </button>
-						<button id="roomTile178"> </button>
-						<button id="roomTile179"> </button>
-						<button id="roomTile180"> </button>
-						<button id="roomTile181"> </button>
-						<button id="roomTile182"> </button>
-						<button id="roomTile183"> </button>
-						<button id="roomTile184"> </button>
-						<button id="roomTile185"> </button>
-						<button id="roomTile186"> </button>
-						<button id="roomTile187"> </button>
-						<button id="roomTile188"> </button>
-						<button id="roomTile189"> </button>
-						<button id="roomTile190"> </button>
-						<button id="roomTile191"> </button>
-						<button id="roomTile192"> </button>
-						<button id="roomTile193"> </button>
-						<button id="roomTile194"> </button>
-						<button id="roomTile195"> </button>
-						<button id="roomTile196"> </button>
-						<button id="roomTile197"> </button>
-						<button id="roomTile198"> </button>
-						<button id="roomTile199"> </button>
-						<button id="roomTile200"> </button>
-						<button id="roomTile201"> </button>
-						<button id="roomTile202"> </button>
-						<button id="roomTile203"> </button>
-						<button id="roomTile204"> </button>
-						<button id="roomTile205"> </button>
-						<button id="roomTile206"> </button>
-						<button id="roomTile207"> </button>
-						<button id="roomTile208"> </button>
-						<button id="roomTile209"> </button>
-						<button id="roomTile210"> </button>
-						<button id="roomTile211"> </button>
-						<button id="roomTile212"> </button>
-						<button id="roomTile213"> </button>
-						<button id="roomTile214"> </button>
-						<button id="roomTile215"> </button>
-						<button id="roomTile216"> </button>
-						<button id="roomTile217"> </button>
-						<button id="roomTile218"> </button>
-						<button id="roomTile219"> </button>
-						<button id="roomTile220"> </button>
-						<button id="roomTile221"> </button>
-						<button id="roomTile222"> </button>
-						<button id="roomTile223"> </button>
-						<button id="roomTile224"> </button>
-						<button id="roomTile225"> </button>
-						<button id="roomTile226"> </button>
-						<button id="roomTile227"> </button>
-						<button id="roomTile228"> </button>
-						<button id="roomTile229"> </button>
-						<button id="roomTile230"> </button>
-						<button id="roomTile231"> </button>
-						<button id="roomTile232"> </button>
-						<button id="roomTile233"> </button>
-						<button id="roomTile234"> </button>
-						<button id="roomTile235"> </button>
-						<button id="roomTile236"> </button>
-						<button id="roomTile237"> </button>
-						<button id="roomTile238"> </button>
-						<button id="roomTile239"> </button>
-						<button id="roomTile240"> </button>
-						<button id="roomTile241"> </button>
-						<button id="roomTile242"> </button>
-						<button id="roomTile243"> </button>
-						<button id="roomTile244"> </button>
-						<button id="roomTile245"> </button>
-						<button id="roomTile246"> </button>
-						<button id="roomTile247"> </button>
-						<button id="roomTile248"> </button>
-						<button id="roomTile249"> </button>
-						<button id="roomTile250"> </button>
-						<button id="roomTile251"> </button>
-						<button id="roomTile252"> </button>
-						<button id="roomTile253"> </button>
-						<button id="roomTile254"> </button>
-						<button id="roomTile255"></button>
-					</div>
-				</div>
-			</div>
-		</div>
-  
-	</div>
-</div>
-
-<script>
-
-//there's gotta be a better way to do this
-
-$("#roomTile0").click(function() {
-
-	roomTileA=0;
-	roomTileB=0;
-	
-	//var but = document.getElementById("roomTile0");
-	
-	//but.setFont(new Font("Arial", Font.PLAIN, 40));
-	//$("#roomTile0").text("a");
-	//var asdf= $("#roomTile0").text();
-	//if (asdf!= " ") {
-		//but.style.width = "25px";
-		//but.style.height = "25px";
-	//}
-	//alert(asdf);
-
-})
-
-/*function getRoomTile () {
-
-
-	if ($("#roomTile0").button().click) {
-
-		alert("asdf");
-
-	}	
-}*/
-
-
-</script>
-
-<!---
-<div class="floorGrid">
-  <fieldset>
-    <legend>Floor</legend>
-    <div class="controlgroup">
-		<div class="menu-container">
-			<div class="floorContainer">
-				<button id="floor0">a</button>
-				<button id="floor1">a</button>
-				<button id="floor2">a</button>
-				<button id="floor3">a</button>
-				<button id="floor4">a</button>
-				<button id="floor5">a</button>
-				<button id="floor6">a</button>
-				<button id="floor7">a</button>
-				<button id="floor8">a</button>
-				<button id="floor9">a</button>
-				<button id="floor10">a</button>
-				<button id="floor11">a</button>
-				<button id="floor12">a</button>
-				<button id="floor13">a</button>
-				<button id="floor14">a</button>
-				<button id="floor15">a</button>
-				<button id="floor16">a</button>
-				<button id="floor17">a</button>
-				<button id="floor18">a</button>
-				<button id="floor19">a</button>
-			</div>
-		</div>
-    </div>
-</div> -->
-
-
-<!-- Accordion -->
-<h2 class="demoHeaders">Accordion</h2>
-<div id="accordion">
-	<h3>First</h3>
-	<div>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>
-	<h3>Second</h3>
-	<div>Phasellus mattis tincidunt nibh.</div>
-	<h3>Third</h3>
-	<div>Nam dui erat, auctor a, dignissim quis.</div>
-</div>
-
-
-
-<!-- Autocomplete -->
-<h2 class="demoHeaders">Autocomplete</h2>
-<div>
-	<input id="autocomplete" title="type &quot;a&quot;">
-</div>
-
-
-
-<!-- Button -->
-<h2 class="demoHeaders">Button</h2>
-<button id="button">A button element</button>
-<button id="button-icon">An icon-only button</button>
-
-
-
-<!-- Checkboxradio -->
-<h2 class="demoHeaders">Checkboxradio</h2>
-<form style="margin-top: 1em;">
-	<div id="radioset">
-		<input type="radio" id="radio1" name="radio"><label for="radio1">Choice 1</label>
-		<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">Choice 2</label>
-		<input type="radio" id="radio3" name="radio"><label for="radio3">Choice 3</label>
-	</div>
-</form>
-
-
-
-<!-- Controlgroup -->
-<h2 class="demoHeaders">Controlgroup</h2>
-<fieldset>
-	<legend>Rental Car</legend>
-	<div id="controlgroup">
-		<select id="car-type">
-			<option>Compact car</option>
-			<option>Midsize car</option>
-			<option>Full size car</option>
-			<option>SUV</option>
-			<option>Luxury</option>
-			<option>Truck</option>
-			<option>Van</option>
-		</select>
-		<label for="transmission-standard">Standard</label>
-		<input type="radio" name="transmission" id="transmission-standard">
-		<label for="transmission-automatic">Automatic</label>
-		<input type="radio" name="transmission" id="transmission-automatic">
-		<label for="insurance">Insurance</label>
-		<input type="checkbox" name="insurance" id="insurance">
-		<label for="horizontal-spinner" class="ui-controlgroup-label"># of cars</label>
-		<input id="horizontal-spinner" class="ui-spinner-input">
-		<button>Book Now!</button>
-	</div>
-</fieldset>
-
-
-
 <!-- Tabs -->
 <h2 class="demoHeaders">Player Stuff</h2>
 <div id="playerTabs">
@@ -655,7 +159,7 @@ $("#roomTile0").click(function() {
 			<span class="ui-icon ui-icon-newwin"></span>Initialize Class/Race
 			</button>
 		</p>
-	<p><button id="initPlayerBut">Initialize Class/Race</button></p>
+	<p><button id="initPlayerBut">Test</button></p>
 <fieldset>
 	<legend>Attributes 'n stuff:</legend>
 	<div id="controlgroup">
@@ -1201,6 +705,485 @@ $(document).ready(function changePlayerButtonText() {
 });*/
 </script>
 
+<div class="ui-widget">
+	<p>This page demonstrates the widgets and theme you selected in Download Builder. Please make sure you are using them with a compatible jQuery version.</p>
+</div>
+
+<button id="player1But">asdf</button>
+<script>
+
+/*function tileTest() {
+
+	var tempStr;
+	
+	var tempA=300;
+	var tempB=300;
+	
+	var tile=0;
+	
+	tempA=roomGridArr[tile].a;
+	tempB=roomGridArr[tile].b;
+	
+	tempStr= tempA + ", " + tempB;
+
+	alert(tempStr);
+
+}*/
+
+
+</script>
+
+<div id="turnCount">Turn: </div>
+
+
+
+<div id="dungeonTabs">
+	<h2>Dungeon</h2>
+  <ul>
+    <li><a href="#dungeonTabs-1">Floors</a></li>
+    <li><a href="#dungeonTabs-2">Room</a></li>
+  </ul>
+  <div id="dungeonTabs-1">
+	<div class="floorGrid">
+		<fieldset>
+			<legend>Floor 1</legend>
+			<p>Create Floor</p>
+			<div class="controlgroup">
+				<div class="menu-container">
+					<div class="floorContainer">
+						<button id="floor0">a</button>
+						<button id="floor1">a</button>
+						<button id="floor2">a</button>
+						<button id="floor3">a</button>
+						<button id="floor4">a</button>
+						<button id="floor5">a</button>
+						<button id="floor6">a</button>
+						<button id="floor7">a</button>
+						<button id="floor8">a</button>
+						<button id="floor9">a</button>
+						<button id="floor10">a</button>
+						<button id="floor11">a</button>
+						<button id="floor12">a</button>
+						<button id="floor13">a</button>
+						<button id="floor14">a</button>
+						<button id="floor15">a</button>
+						<button id="floor16">a</button>
+						<button id="floor17">a</button>
+						<button id="floor18">a</button>
+						<button id="floor19">a</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="dungeonTabs-2">
+	
+		<div class="roomGridClass">
+		<fieldset>
+			<legend>Room</legend>
+			<p>Create Room</p>
+			<div class="controlgroup">
+				<div class="menu-container">
+					<div class="roomContainer">
+						<button id="roomTile0"></button>
+						<button id="roomTile1"> </button>
+						<button id="roomTile2"> </button>
+						<button id="roomTile3"> </button>
+						<button id="roomTile4"> </button>
+						<button id="roomTile5"> </button>
+						<button id="roomTile6"> </button>
+						<button id="roomTile7"> </button>
+						<button id="roomTile8"> </button>
+						<button id="roomTile9"> </button>
+						<button id="roomTile10"> </button>
+						<button id="roomTile11"> </button>
+						<button id="roomTile12"> </button>
+						<button id="roomTile13"> </button>
+						<button id="roomTile14"> </button>
+						<button id="roomTile15"> </button>
+						<button id="roomTile16"> </button>
+						<button id="roomTile17"> </button>
+						<button id="roomTile18"> </button>
+						<button id="roomTile19"> </button>
+						<button id="roomTile20"> </button>
+						<button id="roomTile21"> </button>
+						<button id="roomTile22"> </button>
+						<button id="roomTile23"> </button>
+						<button id="roomTile24"> </button>
+						<button id="roomTile25"> </button>
+						<button id="roomTile26"> </button>
+						<button id="roomTile27"> </button>
+						<button id="roomTile28"> </button>
+						<button id="roomTile29"> </button>
+						<button id="roomTile30"> </button>
+						<button id="roomTile31"> </button>
+						<button id="roomTile32"> </button>
+						<button id="roomTile33"> </button>
+						<button id="roomTile34"> </button>
+						<button id="roomTile35"> </button>
+						<button id="roomTile36"> </button>
+						<button id="roomTile37"> </button>
+						<button id="roomTile38"> </button>
+						<button id="roomTile39"> </button>
+						<button id="roomTile40"> </button>
+						<button id="roomTile41"> </button>
+						<button id="roomTile42"> </button>
+						<button id="roomTile43"> </button>
+						<button id="roomTile44"> </button>
+						<button id="roomTile45"> </button>
+						<button id="roomTile46"> </button>
+						<button id="roomTile47"> </button>
+						<button id="roomTile48"> </button>
+						<button id="roomTile49"> </button>
+						<button id="roomTile50"> </button>
+						<button id="roomTile51"> </button>
+						<button id="roomTile52"> </button>
+						<button id="roomTile53"> </button>
+						<button id="roomTile54"> </button>
+						<button id="roomTile55"> </button>
+						<button id="roomTile56"> </button>
+						<button id="roomTile57"> </button>
+						<button id="roomTile58"> </button>
+						<button id="roomTile59"> </button>
+						<button id="roomTile60"> </button>
+						<button id="roomTile61"> </button>
+						<button id="roomTile62"> </button>
+						<button id="roomTile63"> </button>
+						<button id="roomTile64"> </button>
+						<button id="roomTile65"> </button>
+						<button id="roomTile66"> </button>
+						<button id="roomTile67"> </button>
+						<button id="roomTile68"> </button>
+						<button id="roomTile69"> </button>
+						<button id="roomTile70"> </button>
+						<button id="roomTile71"> </button>
+						<button id="roomTile72"> </button>
+						<button id="roomTile73"> </button>
+						<button id="roomTile74"> </button>
+						<button id="roomTile75"> </button>
+						<button id="roomTile76"> </button>
+						<button id="roomTile77"> </button>
+						<button id="roomTile78"> </button>
+						<button id="roomTile79"> </button>
+						<button id="roomTile80"> </button>
+						<button id="roomTile81"> </button>
+						<button id="roomTile82"> </button>
+						<button id="roomTile83"> </button>
+						<button id="roomTile84"> </button>
+						<button id="roomTile85"> </button>
+						<button id="roomTile86"> </button>
+						<button id="roomTile87"> </button>
+						<button id="roomTile88"> </button>
+						<button id="roomTile89"> </button>
+						<button id="roomTile90"> </button>
+						<button id="roomTile91"> </button>
+						<button id="roomTile92"> </button>
+						<button id="roomTile93"> </button>
+						<button id="roomTile94"> </button>
+						<button id="roomTile95"> </button>
+						<button id="roomTile96"> </button>
+						<button id="roomTile97"> </button>
+						<button id="roomTile98"> </button>
+						<button id="roomTile99"> </button>
+						<button id="roomTile100"> </button>
+						<button id="roomTile101"> </button>
+						<button id="roomTile102"> </button>
+						<button id="roomTile103"> </button>
+						<button id="roomTile104"> </button>
+						<button id="roomTile105"> </button>
+						<button id="roomTile106"> </button>
+						<button id="roomTile107"> </button>
+						<button id="roomTile108"> </button>
+						<button id="roomTile109"> </button>
+						<button id="roomTile110"> </button>
+						<button id="roomTile111"> </button>
+						<button id="roomTile112"> </button>
+						<button id="roomTile113"> </button>
+						<button id="roomTile114"> </button>
+						<button id="roomTile115"> </button>
+						<button id="roomTile116"> </button>
+						<button id="roomTile117"> </button>
+						<button id="roomTile118"> </button>
+						<button id="roomTile119"> </button>
+						<button id="roomTile120"> </button>
+						<button id="roomTile121"> </button>
+						<button id="roomTile122"> </button>
+						<button id="roomTile123"> </button>
+						<button id="roomTile124"> </button>
+						<button id="roomTile125"> </button>
+						<button id="roomTile126"> </button>
+						<button id="roomTile127"> </button>
+						<button id="roomTile128"> </button>
+						<button id="roomTile129"> </button>
+						<button id="roomTile130"> </button>
+						<button id="roomTile131"> </button>
+						<button id="roomTile132"> </button>
+						<button id="roomTile133"> </button>
+						<button id="roomTile134"> </button>
+						<button id="roomTile135"> </button>
+						<button id="roomTile136"> </button>
+						<button id="roomTile137"> </button>
+						<button id="roomTile138"> </button>
+						<button id="roomTile139"> </button>
+						<button id="roomTile140"> </button>
+						<button id="roomTile141"> </button>
+						<button id="roomTile142"> </button>
+						<button id="roomTile143"> </button>
+						<button id="roomTile144"> </button>
+						<button id="roomTile145"> </button>
+						<button id="roomTile146"> </button>
+						<button id="roomTile147"> </button>
+						<button id="roomTile148"> </button>
+						<button id="roomTile149"> </button>
+						<button id="roomTile150"> </button>
+						<button id="roomTile151"> </button>
+						<button id="roomTile152"> </button>
+						<button id="roomTile153"> </button>
+						<button id="roomTile154"> </button>
+						<button id="roomTile155"> </button>
+						<button id="roomTile156"> </button>
+						<button id="roomTile157"> </button>
+						<button id="roomTile158"> </button>
+						<button id="roomTile159"> </button>
+						<button id="roomTile160"> </button>
+						<button id="roomTile161"> </button>
+						<button id="roomTile162"> </button>
+						<button id="roomTile163"> </button>
+						<button id="roomTile164"> </button>
+						<button id="roomTile165"> </button>
+						<button id="roomTile166"> </button>
+						<button id="roomTile167"> </button>
+						<button id="roomTile168"> </button>
+						<button id="roomTile169"> </button>
+						<button id="roomTile170"> </button>
+						<button id="roomTile171"> </button>
+						<button id="roomTile172"> </button>
+						<button id="roomTile173"> </button>
+						<button id="roomTile174"> </button>
+						<button id="roomTile175"> </button>
+						<button id="roomTile176"> </button>
+						<button id="roomTile177"> </button>
+						<button id="roomTile178"> </button>
+						<button id="roomTile179"> </button>
+						<button id="roomTile180"> </button>
+						<button id="roomTile181"> </button>
+						<button id="roomTile182"> </button>
+						<button id="roomTile183"> </button>
+						<button id="roomTile184"> </button>
+						<button id="roomTile185"> </button>
+						<button id="roomTile186"> </button>
+						<button id="roomTile187"> </button>
+						<button id="roomTile188"> </button>
+						<button id="roomTile189"> </button>
+						<button id="roomTile190"> </button>
+						<button id="roomTile191"> </button>
+						<button id="roomTile192"> </button>
+						<button id="roomTile193"> </button>
+						<button id="roomTile194"> </button>
+						<button id="roomTile195"> </button>
+						<button id="roomTile196"> </button>
+						<button id="roomTile197"> </button>
+						<button id="roomTile198"> </button>
+						<button id="roomTile199"> </button>
+						<button id="roomTile200"> </button>
+						<button id="roomTile201"> </button>
+						<button id="roomTile202"> </button>
+						<button id="roomTile203"> </button>
+						<button id="roomTile204"> </button>
+						<button id="roomTile205"> </button>
+						<button id="roomTile206"> </button>
+						<button id="roomTile207"> </button>
+						<button id="roomTile208"> </button>
+						<button id="roomTile209"> </button>
+						<button id="roomTile210"> </button>
+						<button id="roomTile211"> </button>
+						<button id="roomTile212"> </button>
+						<button id="roomTile213"> </button>
+						<button id="roomTile214"> </button>
+						<button id="roomTile215"> </button>
+						<button id="roomTile216"> </button>
+						<button id="roomTile217"> </button>
+						<button id="roomTile218"> </button>
+						<button id="roomTile219"> </button>
+						<button id="roomTile220"> </button>
+						<button id="roomTile221"> </button>
+						<button id="roomTile222"> </button>
+						<button id="roomTile223"> </button>
+						<button id="roomTile224"> </button>
+						<button id="roomTile225"> </button>
+						<button id="roomTile226"> </button>
+						<button id="roomTile227"> </button>
+						<button id="roomTile228"> </button>
+						<button id="roomTile229"> </button>
+						<button id="roomTile230"> </button>
+						<button id="roomTile231"> </button>
+						<button id="roomTile232"> </button>
+						<button id="roomTile233"> </button>
+						<button id="roomTile234"> </button>
+						<button id="roomTile235"> </button>
+						<button id="roomTile236"> </button>
+						<button id="roomTile237"> </button>
+						<button id="roomTile238"> </button>
+						<button id="roomTile239"> </button>
+						<button id="roomTile240"> </button>
+						<button id="roomTile241"> </button>
+						<button id="roomTile242"> </button>
+						<button id="roomTile243"> </button>
+						<button id="roomTile244"> </button>
+						<button id="roomTile245"> </button>
+						<button id="roomTile246"> </button>
+						<button id="roomTile247"> </button>
+						<button id="roomTile248"> </button>
+						<button id="roomTile249"> </button>
+						<button id="roomTile250"> </button>
+						<button id="roomTile251"> </button>
+						<button id="roomTile252"> </button>
+						<button id="roomTile253"> </button>
+						<button id="roomTile254"> </button>
+						<button id="roomTile255"></button>
+					</div>
+				</div>
+			</div>
+		</div>
+  
+	</div>
+</div>
+
+<script>
+
+//there's gotta be a better way to do this
+
+$("#roomTile0").click(function() {
+
+	roomTileA=0;
+	roomTileB=0;
+	
+	//var but = document.getElementById("roomTile0");
+	
+	//but.setFont(new Font("Arial", Font.PLAIN, 40));
+	//$("#roomTile0").text("a");
+	//var asdf= $("#roomTile0").text();
+	//if (asdf!= " ") {
+		//but.style.width = "25px";
+		//but.style.height = "25px";
+	//}
+	//alert(asdf);
+
+})
+
+/*function getRoomTile () {
+
+
+	if ($("#roomTile0").button().click) {
+
+		alert("asdf");
+
+	}	
+}*/
+
+
+</script>
+
+<!---
+<div class="floorGrid">
+  <fieldset>
+    <legend>Floor</legend>
+    <div class="controlgroup">
+		<div class="menu-container">
+			<div class="floorContainer">
+				<button id="floor0">a</button>
+				<button id="floor1">a</button>
+				<button id="floor2">a</button>
+				<button id="floor3">a</button>
+				<button id="floor4">a</button>
+				<button id="floor5">a</button>
+				<button id="floor6">a</button>
+				<button id="floor7">a</button>
+				<button id="floor8">a</button>
+				<button id="floor9">a</button>
+				<button id="floor10">a</button>
+				<button id="floor11">a</button>
+				<button id="floor12">a</button>
+				<button id="floor13">a</button>
+				<button id="floor14">a</button>
+				<button id="floor15">a</button>
+				<button id="floor16">a</button>
+				<button id="floor17">a</button>
+				<button id="floor18">a</button>
+				<button id="floor19">a</button>
+			</div>
+		</div>
+    </div>
+</div> -->
+
+
+<!-- Accordion -->
+<h2 class="demoHeaders">Accordion</h2>
+<div id="accordion">
+	<h3>First</h3>
+	<div>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>
+	<h3>Second</h3>
+	<div>Phasellus mattis tincidunt nibh.</div>
+	<h3>Third</h3>
+	<div>Nam dui erat, auctor a, dignissim quis.</div>
+</div>
+
+
+
+<!-- Autocomplete -->
+<h2 class="demoHeaders">Autocomplete</h2>
+<div>
+	<input id="autocomplete" title="type &quot;a&quot;">
+</div>
+
+
+
+<!-- Button -->
+<h2 class="demoHeaders">Button</h2>
+<button id="button">A button element</button>
+<button id="button-icon">An icon-only button</button>
+
+
+
+<!-- Checkboxradio -->
+<h2 class="demoHeaders">Checkboxradio</h2>
+<form style="margin-top: 1em;">
+	<div id="radioset">
+		<input type="radio" id="radio1" name="radio"><label for="radio1">Choice 1</label>
+		<input type="radio" id="radio2" name="radio" checked="checked"><label for="radio2">Choice 2</label>
+		<input type="radio" id="radio3" name="radio"><label for="radio3">Choice 3</label>
+	</div>
+</form>
+
+
+
+<!-- Controlgroup -->
+<h2 class="demoHeaders">Controlgroup</h2>
+<fieldset>
+	<legend>Rental Car</legend>
+	<div id="controlgroup">
+		<select id="car-type">
+			<option>Compact car</option>
+			<option>Midsize car</option>
+			<option>Full size car</option>
+			<option>SUV</option>
+			<option>Luxury</option>
+			<option>Truck</option>
+			<option>Van</option>
+		</select>
+		<label for="transmission-standard">Standard</label>
+		<input type="radio" name="transmission" id="transmission-standard">
+		<label for="transmission-automatic">Automatic</label>
+		<input type="radio" name="transmission" id="transmission-automatic">
+		<label for="insurance">Insurance</label>
+		<input type="checkbox" name="insurance" id="insurance">
+		<label for="horizontal-spinner" class="ui-controlgroup-label"># of cars</label>
+		<input id="horizontal-spinner" class="ui-spinner-input">
+		<button>Book Now!</button>
+	</div>
+</fieldset>
+
+
 
 
 <h2 class="demoHeaders">Dialog</h2>
@@ -1296,6 +1279,24 @@ function demoVisibility() {
 <style>
 
 </style>
+
+<!-- Menu -->
+<h2 class="demoHeaders">Menu</h2>
+<ul style="width:100px;" id="menu">
+	<li><div>Player 1</div></li>
+	<li><div>Player 2</div></li>
+	<li><div>Player 3</div>
+		<ul>
+			<li><div>Item 3-1</div></li>
+			<li><div>Item 3-2</div></li>
+			<li><div>Item 3-3</div></li>
+			<li><div>Item 3-4</div></li>
+			<li><div>Item 3-5</div></li>
+		</ul>
+	</li>
+	<li><div>Item 4</div></li>
+	<li><div>Item 5</div></li>
+</ul>
 
 <!-- ui-dialog -->
 <div id="raceDialog" title="Choose Race">
