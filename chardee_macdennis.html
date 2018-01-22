@@ -112,14 +112,24 @@
 	
 	.profGrid {
 		display: grid;
-		grid-template-columns: auto auto auto auto auto auto;
+		grid-template-columns: 125px 125px 125px 125px 125px 125px;
 		
 		width: 800px;
-		height: 300px;
+		height: 65px;
 		overflow-y: auto;
 		
-		grid-gap: 20px;
+		grid-row-gap: 5px;
+		
+		padding-bottom: 20px;
+		
+		/*grid-gap: 20px 5px;*/
 	}
+	
+	.profLabel {
+	
+		font-size: 14px;
+	}
+
 	
 	
 	</style>
@@ -177,6 +187,7 @@
 </ul>
 
 <div id="dungeonTabs">
+	<h2>Dungeon</h2>
   <ul>
     <li><a href="#dungeonTabs-1">Floors</a></li>
     <li><a href="#dungeonTabs-2">Room</a></li>
@@ -680,27 +691,50 @@ $("#roomTile0").click(function() {
 		  <!-- Proficiencies -->
 		  <div id="playerMiscTabs-3">
 			<div class="profGrid">
+				<div class="profLabel"><b><br>Daggers:</b></div>
+				<div class="profLabel"><b><br>Axes:</b></div>
+				<div class="profLabel"><b><br>Swords:</b></div>
+				<div class="profLabel"><b><br>Bludgeons:</b></div>
+				<div class="profLabel"><b><br>Staves:</b></div>
+				<div class="profLabel"><b><br>Spears:</b></div>
 				<div class="profBar" id="daggerProfBar"></div>
 				<div class="profBar" id="axeProfBar"></div>
 				<div class="profBar" id="swordProfBar"></div>
 				<div class="profBar" id="bludgeonProfBar"></div>
 				<div class="profBar" id="staffProfBar"></div>
 				<div class="profBar" id="spearProfBar"></div>
+			</div>
+			<div class="profGrid">
+				<div class="profLabel"><b><br>Polearms:</b></div>
+				<div class="profLabel"><b><br>Bows:</b></div>
+				<div class="profLabel"><b>Martial<br>Arts:</b></div>
+				<div class="profLabel"><b><br>Barehanded:</b></div>
+				<div class="profLabel"><b><br>Augments:</b></div>
+				<div class="profLabel"><b><br>Mobility:</b></div>
 				<div class="profBar" id="polearmProfBar"></div>
 				<div class="profBar" id="bowProfBar"></div>
 				<div class="profBar" id="martialProfBar"></div>
 				<div class="profBar" id="barehandedProfBar"></div>
 				<div class="profBar" id="augmentProfBar"></div>
 				<div class="profBar" id="mobilityProfBar"></div>
+			</div>
+			<div class="profGrid">
+				<div class="profLabel"><b>Attack<br>Spells:</b></div>
+				<div class="profLabel"><b>Matter<br>Spells:</b></div>
+				<div class="profLabel"><b>Divination<br>Spells:</b></div>
+				<div class="profLabel"><b>Clerical<br>Spells:</b></div>
+				<div class="profLabel"><b>Enchantment<br>Spells:</b></div>
+				<div class="profLabel"><b>Healing<br>Spells:</b></div>
 				<div class="profBar" id="attackSpellProfBar"></div>
 				<div class="profBar" id="matterSpellProfBar"></div>
 				<div class="profBar" id="divinationSpellProfBar"></div>
 				<div class="profBar" id="clericalSpellProfBar"></div>
 				<div class="profBar" id="enchantmentSpellProfBar"></div>
 				<div class="profBar" id="healingSpellProfBar"></div>
-				<button onclick="profDec()" id="profDecBut">-</button>
-				<button onclick="profInc()" id="profIncBut">+</button>
 			</div>
+			<button onclick="profDec()" id="profDecBut">-</button>
+			<button onclick="profInc()" id="profIncBut">+</button>
+			
 			
 			
 		  </div>
@@ -727,6 +761,7 @@ function profInc() {
 		$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
 		
 		//alert(allPlayers[whoIsActive].playerProfs.daggerProf);
+		
 	}
 
 }
@@ -738,6 +773,7 @@ $( "#daggerProfBar" ).progressbar({
 	value: 0,
 	max:20
 });
+
 
 $( "#axeProfBar" ).progressbar({
 	value: 0,
@@ -891,6 +927,7 @@ $("#playerMiscTabs").tabs({collapsible: true});
 $( "#playerTabs" ).tabs({
   beforeActivate: function( event, ui ) {
   
+	
 	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
 	
 	//alert(ui.newPanel.attr('id'));
@@ -957,6 +994,27 @@ $( "#playerTabs" ).tabs({
 		updatePlayer();
 	}
 	
+	//reset prof bars
+	currProf=-1;
+	$("#daggerProfBar").css("background-color", "white");
+	$("#axeProfBar").css("background-color", "white");
+	$("#swordProfBar").css("background-color", "white");
+	$("#bludgeonProfBar").css("background-color", "white");
+	$("#staffProfBar").css("background-color", "white");
+	$("#spearProfBar").css("background-color", "white");
+	$("#polearmProfBar").css("background-color", "white");
+	$("#bowProfBar").css("background-color", "white");
+	$("#martialProfBar").css("background-color", "white");
+	$("#barehandedProfBar").css("background-color", "white");
+	$("#augmentProfBar").css("background-color", "white");
+	$("#mobilityProfBar").css("background-color", "white");
+	$("#attackSpellProfBar").css("background-color", "white");
+	$("#matterSpellProfBar").css("background-color", "white");
+	$("#divinationSpellProfBar").css("background-color", "white");
+	$("#clericalSpellProfBar").css("background-color", "white");
+	$("#enchantmentSpellProfBar").css("background-color", "white");
+	$("#healingSpellProfBar").css("background-color", "white");
+	
   }
 });
 
@@ -1017,6 +1075,7 @@ function updatePlayer(){
 	tempStat+=" (+" + allPlayers[whoIsActive].armorAC +" from armor, +" + allPlayers[whoIsActive].otherAC + " other)";
 	$('#playerAC').html(tempStat);
 	
+	//actions
 	tempStat="Actions this turn: "; 
 	if (allPlayers[whoIsActive].speed>=12 && allPlayers[whoIsActive].speed<24){
 		tempStat+="1";
@@ -1030,6 +1089,27 @@ function updatePlayer(){
 	}
 	
 	$('#playerTurnAct').html(tempStat);
+	
+	
+	//update profs
+	$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
+	$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeProf );
+	$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordProf );
+	$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonProf );
+	$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffProf );
+	$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearProf );
+	$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmProf );
+	$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowProf );
+	$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialProf );
+	$( "#barehandedProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandedProf );
+	$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentProf );
+	$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityProf );
+	$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellProf );
+	$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellProf );
+	$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellProf );
+	$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellProf );
+	$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellProf );
+	$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellProf );
 
 }
 
@@ -1514,7 +1594,7 @@ var lockActive=0;
 var monstActive=0;
 var playersMax=9;
 var profCount=17; //18
-var currProf=0; //0-17
+var currProf=-1; //0-17
 var passiveCount=40;
 var currMonPassives=0;
 var radioCurrMax=0; //0 if curr, 1 if max; edit player hp/energy
@@ -2681,7 +2761,7 @@ $( "#chooseHumanBut" ).click(function( event ) {
 	allPlayers[lockActive].enchantmentSpellProf = 0;
 	allPlayers[lockActive].healingSpellProf = 0;
 
-	allPlayers[lockActive].//bar progress
+	//bar progress
 	allPlayers[lockActive].daggerBar = 0;
 	allPlayers[lockActive].axeBar = 0;
 	allPlayers[lockActive].swordBar = 0;
@@ -2786,7 +2866,7 @@ $( "#chooseDwarfBut" ).click(function( event ) {
 		allPlayers[lockActive].enchantmentSpellProf = 0;
 		allPlayers[lockActive].healingSpellProf = 0;
 
-		allPlayers[lockActive].//bar progress
+		//bar progress
 		allPlayers[lockActive].daggerBar = 0;
 		allPlayers[lockActive].axeBar = 0;
 		allPlayers[lockActive].swordBar = 0;
@@ -2907,7 +2987,7 @@ $( "#chooseOrcBut" ).click(function( event ) {
 		allPlayers[lockActive].enchantmentSpellProf = 0;
 		allPlayers[lockActive].healingSpellProf = 0;
 
-		allPlayers[lockActive].//bar progress
+		//bar progress
 		allPlayers[lockActive].daggerBar = 0;
 		allPlayers[lockActive].axeBar = 0;
 		allPlayers[lockActive].swordBar = 0;
@@ -3022,7 +3102,7 @@ $( "#chooseElfBut" ).click(function( event ) {
 		allPlayers[lockActive].enchantmentSpellProf = 0;
 		allPlayers[lockActive].healingSpellProf = 0;
 
-		allPlayers[lockActive].//bar progress
+		//bar progress
 		allPlayers[lockActive].daggerBar = 0;
 		allPlayers[lockActive].axeBar = 0;
 		allPlayers[lockActive].swordBar = 0;
