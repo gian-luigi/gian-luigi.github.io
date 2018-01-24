@@ -3105,6 +3105,7 @@ $("#floor1").click(function() {
 
 $("#createFloorBut").click(function() {
 
+	console.log("NEW-------------------------");
 
 	//to do...?
 	//to scale to any dimension floor,
@@ -3178,6 +3179,11 @@ $("#createFloorBut").click(function() {
 		
 	}
 	
+	northConnect=false;
+	eastConnect=false;
+	southConnect=false;
+	westConnect=false;
+	
 	/*//test
 		floorLabel=floorGridArr[7].label;
 		$("#" + floorLabel).html(".");
@@ -3192,7 +3198,26 @@ $("#createFloorBut").click(function() {
 	floorArrIndex=rollDie0(20, 1);
 	
 	//start in custom position, 0-19
-	floorArrIndex=19; //test
+	//floorArrIndex=9; //test
+	
+	let tempRoll=rollDie(4,1);
+	
+	if (tempRoll==1) {
+		floorArrIndex=4;
+	}
+	
+	if (tempRoll==2) {
+		floorArrIndex=9;
+	}
+	
+	if (tempRoll==3) {
+		floorArrIndex=14;
+	}
+	
+	if (tempRoll==4) {
+		floorArrIndex=19;
+	}
+	
 	
 	buildRoom[0].floorIndex=floorArrIndex;
 	
@@ -3206,7 +3231,7 @@ $("#createFloorBut").click(function() {
 	floorArrIndex=rollDie0(20, 1);
 	
 	//descend in custom position, 1-19
-	floorArrIndex=13; //test
+	floorArrIndex=0; //test
 	
 	//if descend = arrival
 	while (floorArrIndex==aArrLoc) {
@@ -3513,17 +3538,39 @@ $("#createFloorBut").click(function() {
 
 function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDesLoc) {
 
+	let testVal=floorArrIndex;
+
+	//console.log(floorArrIndex);
+
 	var compareLabel=""; //for comparing in case of bump
 	
 	isMulti=false;
+	buildRoom[0].hasMultipiece=false;
 	
-	//but for now
+	stackPopped=false;
 		
+
+	//check if hit destination, don't change current, should be okay here
+
+	if (floorArrIndex==bDesLoc) {
+	
+		console.log("hit descend!");
+		buildRoom.shift();
+		stackPopped=true;
+		floorArrIndex=buildRoom[0].floorIndex; //popped stack
+		
+	}
+		
+
+	
 	//move up one if has north exit
 	if (buildRoom[0].hasNorthExit==true) {
 	
 		prevRoomIndex=floorArrIndex;
 		floorArrIndex-=5;
+		
+		//test
+		//floorArrIndex=777;
 	}
 	
 	//move right one if has east exit
@@ -3531,6 +3578,9 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 	
 		prevRoomIndex=floorArrIndex;
 		floorArrIndex+=1;
+		
+		//test
+		//floorArrIndex=777;
 	}
 	
 	//move down one if has south exit
@@ -3538,6 +3588,9 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 	
 		prevRoomIndex=floorArrIndex;
 		floorArrIndex+=5;
+		
+		//test
+		//floorArrIndex=777;
 	}
 	
 	//move left one if has west exit
@@ -3545,6 +3598,33 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 	
 		prevRoomIndex=floorArrIndex;
 		floorArrIndex-=1;
+		
+		//test
+		//floorArrIndex=777;
+	}
+	
+	//console.log(floorArrIndex);
+	
+	/*//test west + north
+	if (buildRoom[0].hasWestExit==true || buildRoom[0].hasEastExit==true) {
+	
+		prevRoomIndex=floorArrIndex;
+		floorArrIndex-=1;
+	}
+	
+	else if (buildRoom[0].hasNorthExit==true || buildRoom[0].hasSouthExit==true) {
+	
+		prevRoomIndex=floorArrIndex;
+		floorArrIndex-=5;
+		
+		//test
+		//floorArrIndex=777;
+	}*/
+	
+	if (buildRoom[0].hasNorthExit==true && buildRoom[0].hasSouthExit==true && buildRoom[0].hasWestExit==true && buildRoom[0].hasEastExit==true) {
+	
+		floorArrIndex=777;
+		console.log("all directions false");
 	}
 	
 	//test east
@@ -3566,1906 +3646,1937 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 	//prevRoomIndex=floorArrIndex;
 	//floorArrIndex-=5;
 	
-	//---
-	buildRoom[0].floorIndex=floorArrIndex;
+	checkConnect (compareLabel, floorLabel, floorArrIndex, floorArrIndex);
 	
-	//---
 	
-	//create random valid feature in new current room
-	//check current position (having just moved), then make feature
-
-	
-	//moving east
-	if (floorArrIndex==prevRoomIndex+1) {
-	
-		//set previous room hasEast to false if multipiece
-		//necessarily is at top of stack
-		if (isMulti==true) {
+	if (floorArrIndex>=0 && floorArrIndex<=19) {
+		//---
 		
-			let tempInd=buildRoom.length;
-			tempInd--;
+		buildRoom[0].floorIndex=floorArrIndex;
+		
+		//---
+		
+		
+		//create random valid feature in new current room
+		//check current position (having just moved), then make feature
+
+
+		
+		//moving east
+		if (floorArrIndex==prevRoomIndex+1 || stackPopped==true) {
+		
+			console.log("east");
 			
-			if (tempInd>=0) {
 			
-				buildRoom[tempInd].hasEastExit=false;
+		
+			//set previous room hasEast to false if multipiece
+			//necessarily is at top of stack
+			if (isMulti==true) {
+			
+				let tempInd=buildRoom.length;
+				tempInd--;
+				
+				if (tempInd>=0) {
+				
+					buildRoom[tempInd].hasEastExit=false;
+				
+				}
 			
 			}
+			
+			//check if on descend tile
+			//if (floorArrIndex!=bDesLoc) {
 		
-		}
-		
-		//check if on descend tile
-		if (floorArrIndex!=bDesLoc) {
-	
-			//check if bumping into feature that's not descending room
-						
-			floorLabel=floorGridArr[floorArrIndex].label;
-			compareLabel=$("#" + floorLabel).html();
-			
-			
-			
-			if (compareLabel!="█" && floorArrIndex!=bDesLoc)
-			{
+				//check if bumping into feature that's not descending room
+							
+				floorLabel=floorGridArr[floorArrIndex].label;
+				compareLabel=$("#" + floorLabel).html();
+				
+				
+				
+				if (compareLabel!="█")
+				{
 
-				//if different, then bump
-				
-				
-				//move back (west) one square
-				floorArrIndex--;
-				
-				//reroute
-				
-				floorArrIndex=bumpFloor(floorArrIndex, "east");
-				
-				
-				floorArrIndex=777;
-				
-			}
-			
-			//if not bump
-			else {
-		
-				//moving east in top row
-				if (floorArrIndex<5) {
-				
-					//moving east in top row, not in corner (top right)
-					if (floorArrIndex<4) {
+					//if different, then bump
 					
-						//floorArrIndex=777;
-						
-						//four options: ╦, ═, ╗, or room
-						
-						roomRoll=rollDie(4,1);
-						
-						
-						
-						//╦
-						if (roomRoll==1 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
 					
-							$("#" + floorLabel).html("╦");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-							
+					//move back (west) one square
+					floorArrIndex--;
+					
+					
+					
+					//reroute
+					
+					floorArrIndex=bumpFloor(floorArrIndex, "east");
+					
+					
+					//floorArrIndex=777;
+					
+				}
+				
+				//if not bump
+				else {
+			
+					//moving east in top row
+					if (floorArrIndex<5) {
+					
+						//moving east in top row, not in corner (top right)
+						if (floorArrIndex<4) {
 						
 							//floorArrIndex=777;
 							
-						} //╦
-						
-						//═
-						if (roomRoll==2) {
-						
-							$("#" + floorLabel).html("═");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
+							//four options: ╦, ═, ╗, or room
 							
-							buildRoom[0].exitAmount=1;
+							roomRoll=rollDie(4,1);
 							
-							//floorArrIndex=777;
-						
-						} //═
-						
-						//╗
-						if (roomRoll==3 && buildRoom[0].hasMultipiece==true) {
+							//roomRoll=rollDie(3,1);
+							
+							
+							//═
+							if (roomRoll==1 && (northConnect!=true && southConnect!=true) && eastConnect==true) {
+							
+								$("#" + floorLabel).html("═");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+								//floorArrIndex=777;
+							
+							} //═
+							
+							//╗
+							if (roomRoll==2 && buildRoom[0].hasMultipiece==true && southConnect==true && eastConnect!=true) {
 
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
 							
-							buildRoom[0].exitAmount=1;
-						
+								
+								//floorArrIndex=777;
 							
-							//floorArrIndex=777;
+							} //╗
+							
+							//╦
+							else if (roomRoll==2 || roomRoll==3 || buildRoom[0].hasMultipiece==false && eastConnect==true && southConnect==true) {
 						
-						} //╗
-						
-						//room
-						if (roomRoll==4) {
+								$("#" + floorLabel).html("╦");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
+								console.log("╦");
+							
+								//floorArrIndex=777;
+								
+							} //╦
+							
+							
+							//room
+							else {
 
+								
+								setFloorAsRoom(floorArrIndex, "east");
 							
-							setFloorAsRoom(floorArrIndex, "east");
+								//floorArrIndex=777; //test
+							
+							} //room
+						
+						
+						} //moving east in top row and not in corner
+						
+						//moving east, in top right corner
+						if (floorArrIndex==4) {
+						
+						
+							roomRoll=rollDie(2,1);
+							
+							//roomRoll=1;
+							
+							//╗
+							if (roomRoll==1 && southConnect==true) {
+							
+
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+							
+							} //╗
+							
+							//room
+							else {
+							
+								
+								setFloorAsRoom(floorArrIndex, "east");
+								
+							
+							} //room
 						
 							//floorArrIndex=777; //test
 						
-						} //room
+						}//moving east, in top right corner
 					
+					} //moving east in top row
 					
-					} //moving east in top row and not in corner
+					//moving east in bottom row
+					if (floorArrIndex>14) {
 					
-					//moving east, in top right corner
-					if (floorArrIndex==4) {
-					
-					
-						roomRoll=rollDie(2,1);
+						//moving east in bottom row, not in corner
+						if (floorArrIndex<19) {
 						
-						
-						//╗
-						if (roomRoll==1) {
-						
+							//four options: ╩, ═, ╝, or room
+							
+							roomRoll=rollDie(4,1);
+							
+							//roomRoll=rollDie(3,1); //test
+							
+							
+							
+							//═
+							if (roomRoll==1 && northConnect!=true && eastConnect==true) {
+							
+								
+								$("#" + floorLabel).html("═");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+								
+								//floorArrIndex=777;
+							
+							} //═
+							
+							
+							//╝
+							if (roomRoll==2 && buildRoom[0].hasMultipiece==true && eastConnect!=true) {
 
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
 							
-							buildRoom[0].exitAmount=1;
+							} //╝
 							
-						
-						} //╗
-						
-						//room
-						if (roomRoll==2) {
-						
-							
-							setFloorAsRoom(floorArrIndex, "east");
-							
-						
-						} //room
-					
-						//floorArrIndex=777; //test
-					
-					}//moving east, in top right corner
-				
-				} //moving east in top row
-				
-				//moving east in bottom row
-				if (floorArrIndex>14) {
-				
-					//moving east in bottom row, not in corner
-					if (floorArrIndex<19) {
-					
-						//four options: ╩, ═, ╝, or room
-						
-						roomRoll=rollDie(4,1);
-						
-						//╩
-						if (roomRoll==1 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
-							
-							$("#" + floorLabel).html("╩");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-						
-						
-						} //╩
-						
-						
-						//═
-						if (roomRoll==2) {
-						
-							
-							$("#" + floorLabel).html("═");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].exitAmount=1;
+							//╩
+							else if (roomRoll==2 || roomRoll==3 || buildRoom[0].hasMultipiece==false && eastConnect==true && northConnect==true) {
+								
+								$("#" + floorLabel).html("╩");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
 							
 							
-							//floorArrIndex=777;
-						
-						} //═
-						
-						
-						//╝
-						if (roomRoll==3 && buildRoom[0].hasMultipiece==true) {
-
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].exitAmount=1;
-							
-						
-						} //╝
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "east");
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					
-					} // moving east in bottom row and not in corner
-					
-					//moving east, in bottom right corner 
-					if (floorArrIndex==19) {
-					
-						//two choices: ╝, room
-					
-						roomRoll=rollDie(2,1);
-						
-						
-						//╝
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].exitAmount=1;
-							
-						} //╝
-						
-						//room
-						if (roomRoll==2) {
-							
-							setFloorAsRoom(floorArrIndex, "east");
-							
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving east, in bottom corner
-				
-				} //moving east in bottom row
-				
-				//moving east, somewhere in middle (not in top or bottom row)
-				if (floorArrIndex>4 && floorArrIndex<15) {
-				
-					//moving east, somewhere in middle, not in rightmost column
-					if (floorArrIndex%5 != 4) {
-					
-						//seven choices: ═,  ╝, ╗, ╩, ╦, ╬, room
-						
-						roomRoll=rollDie(7, 1);
-						
-						//roomRoll=6;//test
-						
-						//═
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("═");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].exitAmount=1;
+							} //╩
 							
 							
-							//floorArrIndex=777;
-						
-						
-						} //═
-						
-						
-						//╝
-						if (roomRoll==2) {
-
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
+							//room
+							else{
 							
-							buildRoom[0].exitAmount=1;
-						
-						} //╝
-						
-						
-						//╗
-						if (roomRoll==3) {
-
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
+								setFloorAsRoom(floorArrIndex, "east");
 							
-							buildRoom[0].exitAmount=1;
-						
-						} //╗
-						
-						
-						//╩
-						if (roomRoll==4) {
-
-							$("#" + floorLabel).html("╩");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						
-						} //╩
-						
-						
-						//╦
-						if (roomRoll==5) {
-
-							$("#" + floorLabel).html("╦");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
+							} //room
 						
 							//floorArrIndex=777;
 						
 						
-						} //╦
+						} // moving east in bottom row and not in corner
 						
+						//moving east, in bottom right corner 
+						if (floorArrIndex==19) {
 						
-						//╬
-						if (roomRoll==6) {
-
-							$("#" + floorLabel).html("╬");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
+							//two choices: ╝, room
+						
+							roomRoll=rollDie(2,1);
 							
-							isMulti=true;
+							//roomRoll=1;
 							
-							//to do: change to multiple exits	
-							buildRoom[0].exitAmount=3;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-				
+							
+							//╝
+							if (roomRoll==1) {
+							
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+							} //╝
+							
+							//room
+							if (roomRoll==2) {
+								
+								setFloorAsRoom(floorArrIndex, "east");
+								
+							
+							} //room
+						
 							//floorArrIndex=777;
 						
+						} //moving east, in bottom corner
+					
+					} //moving east in bottom row
+					
+					//moving east, somewhere in middle (not in top or bottom row)
+					if (floorArrIndex>4 && floorArrIndex<15) {
+					
+						//moving east, somewhere in middle, not in rightmost column
+						if (floorArrIndex%5 != 4) {
 						
-						} //╬
-						
-						
-						//room
-						if (roomRoll==7) {
-						
-							setFloorAsRoom(floorArrIndex, "east");
+							//seven choices: ═,  ╝, ╗, ╩, ╦, ╬, room
+							
+							roomRoll=rollDie(7, 1);
+							
+							
+							//roomRoll=rollDie(6,1); //test
+							
+							//roomRoll=6;//test
+							
+							//═
+							if (roomRoll==1 && southConnect!=true && northConnect!=true && eastConnect==true) {
+							
+								$("#" + floorLabel).html("═");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+								
+								//floorArrIndex=777;
+							
+							
+							} //═
+							
+							
+							//╝
+							else if (roomRoll==2 && southConnect!=true && eastConnect!=true && northConnect==true) {
 
-						
-						
-						} //room
-						
-					
-						//floorArrIndex=777;
-					
-					}
-					
-					//moving east, somewhere in middle, in rightmost column
-					if (floorArrIndex%5==4) {
-					
-						//four choices: ╣, ╝ , ╗, room
-						
-						roomRoll=rollDie(4,1);
-						
-						
-						//╝
-						if (roomRoll==1 && buildRoom[0].hasMultipiece==true) {
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╝
+							
+							
+							//╗
+							else if (roomRoll==3 && northConnect!=true && eastConnect!=true && southConnect==true) {
 
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
 							
-							buildRoom[0].exitAmount=1;
+							} //╗
 							
-						
-						} //╝
-						
-						
-						//╗
-						if (roomRoll==2 && buildRoom[0].hasMultipiece==true) {
+							
+							//╩
+							else if (roomRoll==4 && southConnect!=true && northConnect==true && eastConnect==true) {
 
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from west
+								$("#" + floorLabel).html("╩");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
 							
-							buildRoom[0].exitAmount=1;
 							
-						
-						} //╗
-						
-						
-						//room
-						if (roomRoll==3 || (roomRoll==1 && buildRoom[0].hasMultipiece==false) ) {
+							} //╩
+							
+							
+							//╦
+							else if (roomRoll==5 && northConnect!=true && southConnect==true && eastConnect==true) {
 
-							setFloorAsRoom(floorArrIndex, "east");
+								$("#" + floorLabel).html("╦");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
 							
-						
-						} //╣
-						
-						//room
-						if (roomRoll==4 || (roomRoll==2 && buildRoom[0].hasMultipiece==false) ) {
+								//floorArrIndex=777;
+							
+							
+							} //╦
+							
+							//╬
+							else if (roomRoll==1|| roomRoll==2 || roomRoll==6 && northConnect==true && southConnect==true && eastConnect==true && westConnect==true) {
 
-							$("#" + floorLabel).html("╣");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false; //coming from west
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-						
-						} //╣
+								$("#" + floorLabel).html("╬");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits	
+								buildRoom[0].exitAmount=3;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
 					
-						//floorArrIndex=777;
+								//floorArrIndex=777;
+							
+							
+							} //╬
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "east");
+
+							
+							} //room
+							
+						
+							//floorArrIndex=777;
+						
+						}
+						
+						//moving east, somewhere in middle, in rightmost column
+						if (floorArrIndex%5==4) {
+						
+							//four choices: ╣, ╝ , ╗, room
+							
+							roomRoll=rollDie(4,1);
+							
+							
+							//roomRoll=rollDie(3,1); //test
+							
+							
+							//╝
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && southConnect!=true) {
+
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+							
+							} //╝
+							
+							
+							//╗
+							else if (roomRoll==2 && buildRoom[0].hasMultipiece==true && northConnect!=true) {
+
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].exitAmount=1;
+								
+							
+							} //╗
+							
+							
+							
+							//╣
+							else if (roomRoll==1 || roomRoll==3 || buildRoom[0].hasMultipiece==false && northConnect==true && southConnect==true) {
+
+								$("#" + floorLabel).html("╣");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; //coming from west
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
+							
+							} //╣
+							
+							//room
+							else {
+
+								setFloorAsRoom(floorArrIndex, "east");
+								
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving east, somewhere in middle, rightmost column
 					
-					} //moving east, somewhere in middle, rightmost column
-				
-				} //moving east, somewhere in middle
-				
-			} //bump
-		
-		}//not on descend tile
-	
-	} //moving east
-	
-	//moving west
-	if (floorArrIndex==prevRoomIndex-1) {
-	
-		//set previous room hasEast to false if multipiece
-		//necessarily is at top of stack
-		if (isMulti==true) {
-		
-			let tempInd=buildRoom.length;
-			tempInd--;
+					} //moving east, somewhere in middle
+					
+				} //bump
 			
-			if (tempInd>0) {
-			
-				buildRoom[tempInd].hasWestExit=false;
-			}
+			//}//not on descend tile
 		
-		}
+		} //moving east
 		
-		//check if on descend tile
-		if (floorArrIndex!=bDesLoc) {
-	
-			//check if bumping into feature
-						
-			floorLabel=floorGridArr[floorArrIndex].label;
-			compareLabel=$("#" + floorLabel).html();
+		//moving west
+		if (floorArrIndex==prevRoomIndex-1 || stackPopped==true) {
+		
+			console.log("west");
+		
+			//set previous room hasEast to false if multipiece
+			//necessarily is at top of stack
+			if (isMulti==true) {
 			
+				let tempInd=buildRoom.length;
+				tempInd--;
+				
+				if (tempInd>0) {
+				
+					buildRoom[tempInd].hasWestExit=false;
+				}
 			
-			if (compareLabel!="█" && floorArrIndex!=bDesLoc)
-			{
-				//if different, then bump
-
-				//move back (east) one square
-				floorArrIndex++;
-				
-				//reroute
-				floorArrIndex=bumpFloor(floorArrIndex, "west");
-				
-				//floorArrIndex=777;
-				
 			}
 			
-			//if not bump
-			else {
+			//check if on descend tile
+			//if (floorArrIndex!=bDesLoc) {
 		
-				//moving west, in top row
-				if (floorArrIndex<5) {
-				
-					//moving west, in top row, not in corner
-					if (floorArrIndex>0) {
-					
-						//four choices: ═, ╦, ╔, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//═
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("═");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true; 
+				//check if bumping into feature
 							
-							buildRoom[0].exitAmount=1;
-							
-							
-							//floorArrIndex=777;
-						
-						} //═
-						
-						
-						//╦
-						if (roomRoll==2 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╦");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true; 
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-							
-						
-							//floorArrIndex=777;
-						
-						} //╦
-						
-						
-						//╔
-						if (roomRoll==3 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; 
-							
-							buildRoom[0].exitAmount=1;
-						
-						} //╔
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "west");
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving west, in top row, not in corner
-					
-					//moving west, in top corner
-					if (floorArrIndex==0) {
-					
-						//two choices: ╔, room
-						
-						roomRoll=rollDie(2,1);
-						
-						//╔
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; 
-							
-							buildRoom[0].exitAmount=1;
-						
-						} //╔
-						
-						
-						//room
-						if (roomRoll==2) {
-						
-							setFloorAsRoom(floorArrIndex, "west");
-						
-						} //room
-					
-						floorArrIndex=777;
-					
-					} //moving west, in top corner (top left)
-				
-				} //moving west, in top row
+				floorLabel=floorGridArr[floorArrIndex].label;
+				compareLabel=$("#" + floorLabel).html();
 				
 				
-				
-				
-				//moving west, in bottom row
-				if (floorArrIndex>14) {
-				
-					//moving west, in bottom row, not in corner (bottom left)
-					if (floorArrIndex<19) {
-					
-						//four choices: ═, ╩, ╚, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//═
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("═");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true; 
-							
-							buildRoom[0].exitAmount=1;
-							
-							
-							//floorArrIndex=777;
-						
-						} //═
-						
-						
-						//╩
-						if (roomRoll==2 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╩");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=true; 
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-							
-						
-							//floorArrIndex=777;
-						
-						} //╩
-						
-						
-						//╚
-						if (roomRoll==3 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; 
-							
-							buildRoom[0].exitAmount=1;
-						
-						} //╚
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "west");
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving west, in bottom row, not in corner
-					
-					//moving west, in bottom left corner
-					if (floorArrIndex==15) {
-					
-						//two choices: ╚, room
-						
-						roomRoll=rollDie(2,1);
-						
-						//╚
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; 
-							
-							buildRoom[0].exitAmount=1;
-						
-						} //╚
-						
-						
-						//room
-						if (roomRoll==2) {
-						
-							setFloorAsRoom(floorArrIndex, "west");
-						
-						} //room
-					
-						floorArrIndex=777;
-					
-					}//moving west, in bottom row, not in corner
-					
-				
-				} //moving west, in bottom row
-				
-				
-				//moving west, not in top/bottom row, somewhere in middle
-				if (floorArrIndex>4 && floorArrIndex<15) {
-				
-					//moving west, somewhere in middle, not in leftmost column
-					if (floorArrIndex%5!=0) {
-					
-						//seven choices: ═,  ╚, ╔, ╩, ╦, ╬, room
-						
-						roomRoll=rollDie(7, 1);
-						
-						//roomRoll=6;//test
-						
-						//═
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("═");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; 
-							
-							buildRoom[0].exitAmount=1;
-							
-							
-							//floorArrIndex=777;
-						
-						
-						} //═
-						
-						
-						//╚
-						if (roomRoll==2) {
+				if (compareLabel!="█")
+				{
+					//if different, then bump
 
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].exitAmount=1;
-						
-						} //╚
-						
-						
-						//╔
-						if (roomRoll==3) {
-
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].exitAmount=1;
-						
-						} //╔
-						
-						
-						//╩
-						if (roomRoll==4) {
-
-							$("#" + floorLabel).html("╩");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=true;
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						
-						} //╩
-						
-						
-						//╦
-						if (roomRoll==5) {
-
-							$("#" + floorLabel).html("╦");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true;
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-						
-							//floorArrIndex=777;
-						
-						
-						} //╦
-						
-						
-						//╬
-						if (roomRoll==6) {
-
-							$("#" + floorLabel).html("╬");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=true;
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits	
-							buildRoom[0].exitAmount=3;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+					//move back (east) one square
+					floorArrIndex++;
+					
+					//reroute
+					floorArrIndex=bumpFloor(floorArrIndex, "west");
+					
+					//floorArrIndex=777;
+					
+				}
 				
-							//floorArrIndex=777;
-						
-						
-						} //╬
-						
-						
-						//room
-						if (roomRoll==7) {
-						
-							setFloorAsRoom(floorArrIndex, "west");
-
-						
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving west, somewhere in middle, not in leftmost column
-					
-					
-					
-					//moving west, somewhere in middle, in leftmost column
-					if (floorArrIndex%5==0) {
-					
-						//four choices: ╠, ╔, ╚, room
-						
-						roomRoll=rollDie(4,1);
-						
-						
-						//╚
-						if (roomRoll==1 && buildRoom[0].hasMultipiece==true) {
-
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].exitAmount=1;
-							
-						
-						} //╚
-						
-						
-						//╔
-						if (roomRoll==2 && buildRoom[0].hasMultipiece==true) {
-
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false; //coming from east
-							
-							buildRoom[0].exitAmount=1;
-							
-						
-						} //╔
-						
-						
-						//room
-						if (roomRoll==3 || (roomRoll==1 && buildRoom[0].hasMultipiece==false) ) {
-
-							setFloorAsRoom(floorArrIndex, "west");
-							
-						
-						} //╠
-						
-						//room
-						if (roomRoll==4 || (roomRoll==2 && buildRoom[0].hasMultipiece==false) ) {
-
-							$("#" + floorLabel).html("╠");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false; //coming from east
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-							
-						
-						} //╠
-						
-						
-					
-						floorArrIndex=777;
-					
-					} //moving west, somewhere in middle, in leftmost column
-				
-				} //moving west, not in top/bottom row, somewhere in middle
-		
-			} //bump
-		
-		} //not on descend
-	
-	} //moving west
-	
-	
-	//moving south
-	if (floorArrIndex==prevRoomIndex+5) {
-	
-	
-		//set previous room hasEast to false if multipiece
-		//necessarily is at top of stack
-		if (isMulti==true) {
-		
-			let tempInd=buildRoom.length;
-			tempInd--;
+				//if not bump
+				else {
 			
-			if (tempInd>0) {
-			
-				buildRoom[tempInd].hasSouthExit=false;
-			}
-		
-		}
-		
-		//check if on descend
-		if (floorArrIndex!=bDesLoc) {
-		
-			//check if bumping into feature
-						
-			floorLabel=floorGridArr[floorArrIndex].label;
-			compareLabel=$("#" + floorLabel).html();
-
-			if (compareLabel!="█" && floorArrIndex!=bDesLoc)
-			{
-				
-				//if different, then bump
-				
-				//move back up (north) one square
-				floorArrIndex-=5;
-				
-				//reroute
-				floorArrIndex=bumpFloor(floorArrIndex, "south");
-				
-				floorArrIndex=777;
-				
-			}
-			
-			
-			
-			//if not bump
-			else {
-		
-
-				//---
-				//moving south, in leftmost column
-				if (floorArrIndex%5==0) {
-				
-					//moving south in leftmost column, not in corner
-					if (floorArrIndex != 15) {
-					
-						//four choices: ╠, ╚, ║, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//╚
-						if (roomRoll==1 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-						
-						} //╚
-						
-						
-						//╠
-						if (roomRoll==2 || (roomRoll==1 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╠");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╠
-						
-						
-						//║
-						if (roomRoll==3) {
-						
-							$("#" + floorLabel).html("║");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-						
-						} //║
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-		
-					
-						//floorArrIndex=777;
-						
-					
-					}//moving south in leftmost column, not in corner (bottom left)
-					
-					
-					//moving south in leftmost column, in bottom left corner
-					if (floorArrIndex == 15) {
-					
-						//two choices: ╚, room
-						
-						roomRoll=rollDie(2,1);
-						
-						
-						//╚
-						if (roomRoll==1) {
-						
-							
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-						
-						
-						} //╚
-						
-						//room
-						if (roomRoll==2) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-					
-						floorArrIndex=777;
-					
-					} //moving south in leftmost column, in bottom left corner
-				
-				} //moving south, in leftmost column
-				
-				
-				//---
-				//moving south, in rightmost column
-				if (floorArrIndex %5 == 4 ) {
-				
-					//moving south, in rightmost column, not in corner (bottom right)
-					if (floorArrIndex != 19) {
-					
-						//four choices: ╣, ╝, ║, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//╝
-						if (roomRoll==1 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-						
-						} //╝
-						
-						
-						//╣
-						if (roomRoll==2 || (roomRoll==1 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╣");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╣
-						
-						
-						//║
-						if (roomRoll==3) {
-						
-							$("#" + floorLabel).html("║");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-						
-						} //║
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-					
-						
-					
-					} //moving south, in rightmost column, not in corner (bottom right)
-					
-					//moving south, in rightmost column, in bottom right corner
-					if (floorArrIndex == 19) {
-					
-						//two choices: ╚, room
-						
-						roomRoll=rollDie(2,1);
-						
-						
-						//╝
-						if (roomRoll==1) {
-						
-							
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-						
-						
-						} //╝
-						
-						//room
-						if (roomRoll==2) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-					
-						floorArrIndex=777;
-					
-					} //moving south, in rightmost column, in bottom right corner
-				
-				
-				} //moving south, in rightmost column
-				
-				//moving south, somewhere in the middle
-				if (floorArrIndex%5 != 0 && floorArrIndex%5 != 4 && floorArrIndex<19){
-				
-					//console.log("no");
-				
-					//moving south, somewhere in middle, not in bottom row
-					if (floorArrIndex<15) {
-					
-						//eight choices: ╩, ║, ╝, ╚, ╣, ╠, ╬, room
-						
-						roomRoll=rollDie(8,1);
-						
-						//╩
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╩");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╩
-						
-						
-						//║
-						if (roomRoll==2) {
-						
-							$("#" + floorLabel).html("║");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-						
-						} //║
-						
-						
-						//╝
-						if (roomRoll==3) {
-						
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-						
-						} //╝
-						
-						
-						//╚
-						if (roomRoll==4) {
-						
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-						
-						} //╚
-						
-						
-						//╣
-						if (roomRoll==5) {
-						
-							$("#" + floorLabel).html("╣");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						
-						} //╣
-						
-						
-						//╠
-						if (roomRoll==6) {
-						
-							$("#" + floorLabel).html("╠");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						
-							
-						
-						} //╠
-						
-						//╬
-						if (roomRoll==7) {
-						
-							$("#" + floorLabel).html("╬");
-							buildRoom[0].hasSouthExit=true;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true; 
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits	
-							buildRoom[0].exitAmount=3;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-				
-						
-						} //╬
-						
-						
-						
-						//room
-						if (roomRoll==8) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving south, somewhere in middle, not in bottom row
-					
-					//moving south, somewhere in middle, in bottom row
-					if (floorArrIndex>15) {
-					
-						//four choices: ╩, ╚, ╝, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//╩
-						if (roomRoll==1 || (roomRoll==2 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╩");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╩
-						
-						//╝
-						if (roomRoll==2 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╝");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-						
-						} //╝
-						
-						
-						//╚
-						if (roomRoll==3 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╚");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-						
-						} //╚
-						
-						//room
-						if (roomRoll==4 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-					
-						floorArrIndex=777;
-					
-					} //moving south, somewhere in middle, in bottom row
-				
-				} //moving south, somewhere in the middle
-				
-			} //bump
-		
-		} //not on descend
-	
-	} //moving south
-	
-	//moving north
-	if (floorArrIndex==prevRoomIndex-5) {
-	
-	
-		//set previous room hasNorth to false if multipiece
-		//necessarily is at top of stack
-		if (isMulti==true) {
-		
-			let tempInd=buildRoom.length;
-			tempInd--;
-			
-			if (tempInd>0) {
-			
-				buildRoom[tempInd].hasNorthExit=false;
-			}
-		
-		}
-		
-		//check if not on descend tile
-		if (floorArrIndex!=bDesLoc) {
-		
-			//check if bumping into feature
-
-			//console.log(floorArrIndex);
-			
-			floorLabel=floorGridArr[floorArrIndex].label;
-			compareLabel=$("#" + floorLabel).html();
-		
-			if (compareLabel!="█" && floorArrIndex!=bDesLoc)
-			{
-				
-			
-				//if different, then bump
-				
-				//move back (south) one square
-				floorArrIndex+=5;
-				
-				//reroute
-				floorArrIndex=bumpFloor(floorArrIndex, "north");
-				
-			}
-			
-			//if not bump
-			else {
-		
-				//floorArrIndex=777;
-				
-				//moving north, in leftmost column
-				if (floorArrIndex%5==0) {
-				
-					//moving north, in leftmost column, not in corner (top left)
-					if (floorArrIndex != 0) {
-					
-						//four choices: ╠, ╔, ║, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//╔
-						if (roomRoll==1 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false;
-						
-						} //╔
-						
-						
-						//╠
-						if (roomRoll==2 || (roomRoll==1 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╠");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╠
-						
-						
-						//║
-						if (roomRoll==3) {
-						
-							$("#" + floorLabel).html("║");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-						
-						} //║
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-		
-					
-						//floorArrIndex=777;
-					
-					} //moving north, in leftmost column, not in corner (top left)
-					
-					//moving north, in top left corner
-					if (floorArrIndex == 0) {
-					
-						//two choices: ╔, room
-						
-						roomRoll=rollDie(2,1);
-						
-						
-						//╔
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false;
-						
-						} //╔
-						
-						//room
-						if (roomRoll==2) {
-						
-							setFloorAsRoom(floorArrIndex, "south");
-						
-						} //room
-					
-						floorArrIndex=777;
-					
-					} //moving north, in top left corner
-					
-					
-				
-				} //moving north, in leftmost column
-				
-				//moving north, in rightmost column
-				if (floorArrIndex%5==4) {
-				
-					//moving north, in rightmost column, not in corner (top right)
-					if (floorArrIndex != 4) {
-					
-						//four choices: ╣, ╗, ║, room
-						
-						roomRoll=rollDie(4,1);
-						
-						//╗
-						if (roomRoll==1 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true;
-						
-						} //╗
-						
-						
-						//╣
-						if (roomRoll==2 || (roomRoll==1 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╣");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=true;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╣
-						
-						
-						//║
-						if (roomRoll==3) {
-						
-							$("#" + floorLabel).html("║");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-						
-						} //║
-						
-						
-						//room
-						if (roomRoll==4) {
-						
-							setFloorAsRoom(floorArrIndex, "north");
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving north, in rightmost column, not in corner (top right)
-					
-					//moving north, in top right corner
-					if (floorArrIndex == 4) {
-					
-						//two choices: ╗, room
-						
-						roomRoll=rollDie(2,1);
-						
-						
-						//╗
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true;
-						
-						} //╗
-						
-						//room
-						if (roomRoll==2) {
-						
-							setFloorAsRoom(floorArrIndex, "north");
-						
-						} //room
-					
-						floorArrIndex=-1;
-					
-					} //moving north, in top right corner
-				
-				
-				} //moving north, in rightmost column
-				
-				
-				//moving north, somewhere in middle
-				if (floorArrIndex%5 != 0 && floorArrIndex%5 != 4 && floorArrIndex>0) {
-				
-					//console.log(floorArrIndex%5);
-				
-					//console.log("asdf");
-				
-					//moving north, somewhere in middle, not in top row
-					if (floorArrIndex>5) {
-					
-						//eight choices: ╦, ║, ╝, ╚, ╣, ╠, ╬, room
-						
-						roomRoll=rollDie(8,1);
-						
-						//╦
-						if (roomRoll==1) {
-						
-							$("#" + floorLabel).html("╦");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true;
-
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						} //╦
-						
-						
-						//║
-						if (roomRoll==2) {
-						
-							$("#" + floorLabel).html("║");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-						
-						} //║
-						
-						
-						//╗
-						if (roomRoll==3) {
-						
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true;
-						
-						} //╗
-						
-						
-						//╔
-						if (roomRoll==4) {
-						
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false;
-						
-						} //╔
-						
-						
-						//╣
-						if (roomRoll==5) {
-						
-							$("#" + floorLabel).html("╣");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=true;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						
-						} //╣
-						
-						
-						//╠
-						if (roomRoll==6) {
-						
-							$("#" + floorLabel).html("╠");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=false;
-							
-							buildRoom[0].hasMultipiece=true;
-							isMulti=true;
-							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-						
-						
-							
-						
-						} //╠
-						
-						//╬
-						if (roomRoll==7) {
-						
-							$("#" + floorLabel).html("╬");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=true;
-							buildRoom[0].hasWestExit=true; 
-							
-							isMulti=true;
-							
-							//to do: change to multiple exits	
-							buildRoom[0].exitAmount=3;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-				
-						
-						} //╬
-						
-						
-						
-						//room
-						if (roomRoll==8) {
-						
-							setFloorAsRoom(floorArrIndex, "north");
-						
-						} //room
-					
-						//floorArrIndex=777;
-					
-					} //moving north, somewhere in middle, not in top row
-					
-					//moving north, somewhere in middle, in top row
+					//moving west, in top row
 					if (floorArrIndex<5) {
 					
-						//four choices: ╩, ╚, ╝, room
+						//moving west, in top row, not in corner
+						if (floorArrIndex>0) {
 						
-						roomRoll=rollDie(4,1);
-						
-						//╦
-						if (roomRoll==1 || (roomRoll==2 && buildRoom[0].hasMultipiece==false)) {
-						
-							$("#" + floorLabel).html("╦");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=true;
-
-							isMulti=true;
+							//four choices: ═, ╦, ╔, room
 							
-							//to do: change to multiple exits
-							buildRoom[0].exitAmount=2;
-							newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							roomRoll=rollDie(4,1);
+							
+							//═
+							if (roomRoll==1 && southConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("═");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true; 
+								
+								buildRoom[0].exitAmount=1;
+								
+								
+								//floorArrIndex=777;
+							
+							} //═
+							
+							//╔
+							else if (roomRoll==2 && buildRoom[0].hasMultipiece==true && westConnect!=true && southConnect==true) {
+							
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; 
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╔
+							
+							
+							//╦
+							else if (roomRoll==1 || roomRoll==2 || buildRoom[0].hasMultipiece==false) {
+							
+								$("#" + floorLabel).html("╦");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true; 
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
+								
+							
+								//floorArrIndex=777;
+							
+							} //╦
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "west");
+							
+							} //room
 						
-						} //╦
+							//floorArrIndex=777;
 						
-						//╔
-						if (roomRoll==2 && buildRoom[0].hasMultipiece==true) {
+						} //moving west, in top row, not in corner
 						
-							$("#" + floorLabel).html("╔");
-							buildRoom[0].hasSouthExit=false; //coming from south
-							buildRoom[0].hasEastExit=true;
-							buildRoom[0].hasNorthExit=false;
-							buildRoom[0].hasWestExit=false;
+						//moving west, in top corner
+						if (floorArrIndex==0) {
 						
-						} //╔
+							//two choices: ╔, room
+							
+							roomRoll=rollDie(2,1);
+							
+							//╔
+							if (roomRoll==1 && southConnect==true) {
+							
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; 
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╔
+							
+							
+							//room
+							else  {
+							
+								setFloorAsRoom(floorArrIndex, "west");
+							
+							} //room
 						
+							//floorArrIndex=777;
 						
-						//╗
-						if (roomRoll==3 && buildRoom[0].hasMultipiece==true) {
-						
-							$("#" + floorLabel).html("╗");
-							buildRoom[0].hasSouthExit=false;
-							buildRoom[0].hasEastExit=false;
-							buildRoom[0].hasNorthExit=false; //coming from north
-							buildRoom[0].hasWestExit=true;
-						
-						} //╗
-						
-						//room
-						if (roomRoll==4 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
-						
-							setFloorAsRoom(floorArrIndex, "north");
-						
-						} //room
+						} //moving west, in top corner (top left)
 					
+					} //moving west, in top row
+					
+					
+					
+					
+					//moving west, in bottom row
+					if (floorArrIndex>14) {
+					
+						//moving west, in bottom row, not in corner (bottom left)
+						if (floorArrIndex<19) {
+						
+							//four choices: ═, ╩, ╚, room
+							
+							roomRoll=rollDie(2,1);
+							
+							//═
+							if (roomRoll==1 && westConnect==true && southConnect!=true) {
+							
+								$("#" + floorLabel).html("═");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true; 
+								
+								buildRoom[0].exitAmount=1;
+								
+								
+								//floorArrIndex=777;
+							
+							} //═
+							
+							
+							//╩
+							else if (roomRoll==2 || (roomRoll==3 && buildRoom[0].hasMultipiece==false)) {
+							
+								$("#" + floorLabel).html("╩");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=true; 
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
+								
+							
+								//floorArrIndex=777;
+							
+							} //╩
+							
+							
+							//╚
+							else if (buildRoom[0].hasMultipiece==true) {
+							
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; 
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╚
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "west");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving west, in bottom row, not in corner
+						
+						//moving west, in bottom left corner
+						if (floorArrIndex==15) {
+						
+							//two choices: ╚, room
+							
+							roomRoll=rollDie(2,1);
+							
+							//╚
+							if (roomRoll==1 && northConnect==true) {
+							
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false; 
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╚
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "west");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						}//moving west, in bottom row, not in corner
+						
+					
+					} //moving west, in bottom row
+					
+					
+					//moving west, not in top/bottom row, somewhere in middle
+					if (floorArrIndex>4 && floorArrIndex<15) {
+					
+						//moving west, somewhere in middle, not in leftmost column
+						if (floorArrIndex%5!=0) {
+						
+							//seven choices: ═,  ╚, ╔, ╩, ╦, ╬, room
+							
+							roomRoll=rollDie(7, 1);
+							
+							//roomRoll=6;//test
+							
+							//═
+							if (roomRoll==1 && westConnect==true && southConnect!=true && northConnect!=true) {
+							
+								$("#" + floorLabel).html("═");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true; 
+								
+								buildRoom[0].exitAmount=1;
+								
+								
+								//floorArrIndex=777;
+							
+							
+							} //═
+							
+							
+							//╚
+							else if (roomRoll==2 && northConnect==true && southConnect!=true && westConnect!=true) {
+
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╚
+							
+							
+							//╔
+							else if (roomRoll==3 && northConnect!=true && southConnect==true && westConnect!=true) {
+
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false;
+								
+								buildRoom[0].exitAmount=1;
+							
+							} //╔
+							
+							
+							//╩
+							else if (roomRoll==4 && northConnect==true && southConnect!=true && westConnect==true) {
+
+								$("#" + floorLabel).html("╩");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=true;
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							
+							} //╩
+							
+							
+							//╦
+							else if (roomRoll==5 && northConnect!=true && southConnect==true && westConnect==true) {
+
+								$("#" + floorLabel).html("╦");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true;
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
+							
+								//floorArrIndex=777;
+							
+							
+							} //╦
+							
+							
+							//╬
+							else if (roomRoll==6 && northConnect==true && southConnect==true && westConnect==true) {
+
+								$("#" + floorLabel).html("╬");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=true;
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits	
+								buildRoom[0].exitAmount=3;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+					
+								//floorArrIndex=777;
+							
+							
+							} //╬
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "west");
+
+							
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving west, somewhere in middle, not in leftmost column
 						
 						
-					} //moving north, somewhere in middle, in top row
-				
-				}//moving north, somewhere in middle
-				
-			} //bump
+						
+						//moving west, somewhere in middle, in leftmost column
+						if (floorArrIndex%5==0) {
+						
+							//four choices: ╠, ╔, ╚, room
+							
+							roomRoll=rollDie(4,1);
+							
+							
+							//╚
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && northConnect==true && southConnect!=true) {
+
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+								
+								buildRoom[0].exitAmount=1;
+								
+							
+							} //╚
+							
+							
+							//╔
+							else if (roomRoll==2 && buildRoom[0].hasMultipiece==true && northConnect!=true && southConnect==true) {
+
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false; //coming from east
+								
+								buildRoom[0].exitAmount=1;
+								
+							
+							} //╔
+							
+
+							
+							//╠
+							else if (roomRoll==3 || buildRoom[0].hasMultipiece==false) {
+
+								$("#" + floorLabel).html("╠");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false; //coming from east
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+								
+							
+							} //╠
+							
+							
+							//room
+							else  {
+
+								setFloorAsRoom(floorArrIndex, "west");
+								
+							
+							} //room
+							
+							
+						
+							//floorArrIndex=777;
+							
+							
+						
+						} //moving west, somewhere in middle, in leftmost column
+					
+					} //moving west, not in top/bottom row, somewhere in middle
 			
-		} //not on descend tile
-	
-	} //moving north
-	
-	//if on descend tile, pop stack if length>1
-	if (floorArrIndex==bDesLoc) {
-	
-		//console.log("on descend");
-		
-		if (buildRoom.length>1) {
-		
-			buildRoom[0].floorIndex=buildRoom[1].floorIndex;
-			buildRoom[1]=buildRoom[0];
-			buildRoom.shift();
-			floorArrIndex=buildRoom[0].floorIndex;
+				} //bump
 			
-			//console.log(floorArrIndex);
-		}
+			//} //not on descend
 		
+		} //moving west
+		
+		
+		//moving south
+		if (floorArrIndex==prevRoomIndex+5 || stackPopped==true) {
+		
+			console.log("south");
+		
+			//set previous room hasEast to false if multipiece
+			//necessarily is at top of stack
+			if (isMulti==true) {
+			
+				let tempInd=buildRoom.length;
+				tempInd--;
+				
+				if (tempInd>0) {
+				
+					buildRoom[tempInd].hasSouthExit=false;
+				}
+			
+			}
+			
+			//check if on descend
+			//if (floorArrIndex!=bDesLoc) {
+			
+				//check if bumping into feature
+							
+				floorLabel=floorGridArr[floorArrIndex].label;
+				compareLabel=$("#" + floorLabel).html();
+
+				if (compareLabel!="█")
+				{
+					
+					//if different, then bump
+					
+					//move back up (north) one square
+					floorArrIndex-=5;
+					
+					//reroute
+					floorArrIndex=bumpFloor(floorArrIndex, "south");
+					
+					//floorArrIndex=777;
+					
+				}
+				
+				
+				
+				//if not bump
+				else {
+			
+
+					//---
+					//moving south, in leftmost column
+					if (floorArrIndex%5==0) {
+					
+						//moving south in leftmost column, not in corner
+						if (floorArrIndex != 15) {
+						
+							//four choices: ╠, ╚, ║, room
+							
+							roomRoll=rollDie(4,1);
+							
+							//╚
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && eastConnect==true && southConnect!=true) {
+							
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							} //╚
+							
+							
+							//╠
+							else if (roomRoll==2 || roomRoll==1 && buildRoom[0].hasMultipiece==false && eastConnect==true && southConnect==true) {
+							
+								$("#" + floorLabel).html("╠");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╠
+							
+							
+							//║
+							else if (roomRoll==3 && eastConnect!=true && southConnect==true) {
+							
+								$("#" + floorLabel).html("║");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							} //║
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+			
+						
+							//floorArrIndex=777;
+							
+						
+						}//moving south in leftmost column, not in corner (bottom left)
+						
+						
+						//moving south in leftmost column, in bottom left corner
+						if (floorArrIndex == 15) {
+						
+							//two choices: ╚, room
+							
+							roomRoll=rollDie(2,1);
+							
+							roomRoll=1;
+							
+							//╚
+							if (roomRoll==1 && eastConnect==true) {
+							
+								
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							
+							} //╚
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving south in leftmost column, in bottom left corner
+					
+					} //moving south, in leftmost column
+					
+					
+					//---
+					//moving south, in rightmost column
+					if (floorArrIndex %5 == 4 ) {
+					
+						//moving south, in rightmost column, not in corner (bottom right)
+						if (floorArrIndex != 19) {
+						
+							//four choices: ╣, ╝, ║, room
+							
+							roomRoll=rollDie(2,1);
+							
+							//╝
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && westConnect==true && southConnect!=true) {
+							
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+							
+							} //╝
+							
+							
+							//╣
+							else if (roomRoll==1 && buildRoom[0].hasMultipiece==false && westConnect==true && southConnect==true) {
+							
+								$("#" + floorLabel).html("╣");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╣
+							
+							
+							//║
+							else if (roomRoll==2 && southConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("║");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							} //║
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+						
+							
+						
+						} //moving south, in rightmost column, not in corner (bottom right)
+						
+						//moving south, in rightmost column, in bottom right corner
+						if (floorArrIndex == 19) {
+						
+							//two choices: ╝, room
+							
+							roomRoll=rollDie(2,1);
+							
+							roomRoll=1;
+							
+							
+							//╝
+							if (roomRoll==1 && westConnect==true) {
+							
+								
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+							
+							
+							} //╝
+							
+							//room
+							if (roomRoll==2) {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving south, in rightmost column, in bottom right corner
+					
+					
+					} //moving south, in rightmost column
+					
+					//moving south, somewhere in the middle
+					if (floorArrIndex%5 != 0 && floorArrIndex%5 != 4 && floorArrIndex<19){
+					
+						//console.log("no");
+					
+						//moving south, somewhere in middle, not in bottom row
+						if (floorArrIndex<15) {
+						
+							//eight choices: ╩, ║, ╝, ╚, ╣, ╠, ╬, room
+							
+							roomRoll=rollDie(2,1);
+							
+							//╩
+							if (roomRoll==1 && eastConnect==true && southConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╩");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╩
+							
+							
+							//║
+							if (roomRoll==2 && eastConnect!=true && southConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("║");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							} //║
+							
+							
+							//╝
+							if (roomRoll==1 && eastConnect!=true && southConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+							
+							} //╝
+							
+							
+							//╚
+							if (roomRoll==2 && eastConnect==true && southConnect!=true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							} //╚
+							
+							
+							//╣
+							if (roomRoll==1 && eastConnect!=true && southConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╣");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							
+							} //╣
+							
+							
+							//╠
+							if (roomRoll==2 && eastConnect==true && southConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("╠");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							
+								
+							
+							} //╠
+							
+							//╬
+							if (roomRoll==1 && eastConnect==true && southConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╬");
+								buildRoom[0].hasSouthExit=true;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true; 
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits	
+								buildRoom[0].exitAmount=3;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+					
+							
+							} //╬
+							
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving south, somewhere in middle, not in bottom row
+						
+						//moving south, somewhere in middle, in bottom row
+						if (floorArrIndex>15) {
+						
+							//four choices: ╩, ╚, ╝, room
+							
+							roomRoll=rollDie(2,1);
+							
+							
+							//╝
+							if (roomRoll==2 && buildRoom[0].hasMultipiece==true && eastConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("╝");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+							
+							} //╝
+							
+							
+							//╚
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && eastConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╚");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=false;
+							
+							} //╚
+							
+							//╩
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==false && eastConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╩");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╩
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving south, somewhere in middle, in bottom row
+					
+					} //moving south, somewhere in the middle
+					
+				} //bump
+			
+			//} //not on descend
+		
+		} //moving south
+		
+		//moving north
+		if (floorArrIndex==prevRoomIndex-5 || stackPopped==true) {
+		
+			console.log("north");
+		
+			//set previous room hasNorth to false if multipiece
+			//necessarily is at top of stack
+			if (isMulti==true) {
+			
+				let tempInd=buildRoom.length;
+				tempInd--;
+				
+				if (tempInd>0) {
+				
+					buildRoom[tempInd].hasNorthExit=false;
+				}
+			
+			}
+			
+			//check if not on descend tile
+			//if (floorArrIndex!=bDesLoc) {
+			
+				//check if bumping into feature
+
+				//console.log(floorArrIndex);
+				
+				floorLabel=floorGridArr[floorArrIndex].label;
+				compareLabel=$("#" + floorLabel).html();
+			
+				if (compareLabel!="█")
+				{
+					
+				
+					//if different, then bump
+					
+					//move back (south) one square
+					floorArrIndex+=5;
+					
+					//reroute
+					floorArrIndex=bumpFloor(floorArrIndex, "north");
+					
+				}
+				
+				//if not bump
+				else {
+			
+					//floorArrIndex=777;
+					
+					//moving north, in leftmost column
+					if (floorArrIndex%5==0) {
+					
+						//moving north, in leftmost column, not in corner (top left)
+						if (floorArrIndex != 0) {
+						
+							//four choices: ╠, ╔, ║, room
+							
+							roomRoll=rollDie(4,1);
+							
+							//╔
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && northConnect!=true && eastConnect==true) {
+							
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false;
+							
+							} //╔
+							
+							
+							//╠
+							else if (roomRoll==2 || roomRoll==1 && buildRoom[0].hasMultipiece==false && northConnect==true && eastConnect==true) {
+							
+								$("#" + floorLabel).html("╠");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╠
+							
+							
+							//║
+							else if (roomRoll==3 && northConnect==true && eastConnect!=true) {
+							
+								$("#" + floorLabel).html("║");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+							
+							} //║
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+			
+						
+							//floorArrIndex=777;
+						
+						} //moving north, in leftmost column, not in corner (top left)
+						
+						//moving north, in top left corner
+						if (floorArrIndex == 0) {
+						
+							//two choices: ╔, room
+							
+							roomRoll=rollDie(2,1);
+							
+							roomRoll=1;
+							
+							
+							//╔
+							if (roomRoll==1 && eastConnect==true) {
+							
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false;
+							
+							} //╔
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "south");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving north, in top left corner
+						
+						
+					
+					} //moving north, in leftmost column
+					
+					//moving north, in rightmost column
+					if (floorArrIndex%5==4) {
+					
+						//moving north, in rightmost column, not in corner (top right)
+						if (floorArrIndex != 4) {
+						
+							//four choices: ╣, ╗, ║, room
+							
+							roomRoll=rollDie(4,1);
+							
+							//╗
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && northConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true;
+							
+							} //╗
+							
+							
+							//╣
+							else if (roomRoll==2 || roomRoll==1 && buildRoom[0].hasMultipiece==false && northConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╣");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=true;
+								
+								buildRoom[0].hasMultipiece=true;
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╣
+							
+							
+							//║
+							else if (roomRoll==3 && northConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("║");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+							
+							} //║
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "north");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving north, in rightmost column, not in corner (top right)
+						
+						//moving north, in top right corner
+						if (floorArrIndex == 4) {
+						
+							//two choices: ╗, room
+							
+							roomRoll=rollDie(2,1);
+							
+							roomRoll=1;
+							
+							
+							//╗
+							if (roomRoll==1 && westConnect==true) {
+							
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true;
+							
+							} //╗
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "north");
+							
+							} //room
+						
+							//floorArrIndex=-1;
+						
+						} //moving north, in top right corner
+					
+					
+					} //moving north, in rightmost column
+					
+					
+					//moving north, somewhere in middle
+					if (floorArrIndex%5 != 0 && floorArrIndex%5 != 4 && floorArrIndex>0) {
+					
+						//console.log(floorArrIndex%5);
+					
+						//console.log("asdf");
+					
+						//moving north, somewhere in middle, not in top row
+						if (floorArrIndex>5) {
+						
+							//eight choices: ╦, ║, ╝, ╚, ╣, ╠, ╬, room
+							
+							roomRoll=rollDie(2,1);
+							
+							//║
+							if (roomRoll==1 && northConnect==true && eastConnect!=true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("║");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+							
+							} //║
+							
+							
+							//╗
+							else if (roomRoll==1 && northConnect!=true && eastConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true;
+							
+							} //╗
+							
+							
+							//╔
+							else if (roomRoll==2 && northConnect!=true && eastConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false;
+							
+							} //╔
+							
+							//╦
+							else if (roomRoll==1 && northConnect!=true && eastConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╦");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true;
+
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╦
+							
+							
+							
+							//╣
+							else if (roomRoll==1 && northConnect==true && eastConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╣");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=true;
+
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							
+							} //╣
+							
+							
+							//╠
+							else if (roomRoll==2 && northConnect==true && eastConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("╠");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=false;
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							
+								
+							
+							} //╠
+							
+							//╬
+							else if (roomRoll==1 && northConnect==true && eastConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╬");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=true;
+								buildRoom[0].hasWestExit=true; 
+								
+								isMulti=true;
+								
+								//to do: change to multiple exits	
+								buildRoom[0].exitAmount=3;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+					
+							
+							} //╬
+							
+							
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "north");
+							
+							} //room
+						
+							//floorArrIndex=777;
+						
+						} //moving north, somewhere in middle, not in top row
+						
+						//moving north, somewhere in middle, in top row
+						if (floorArrIndex<5) {
+						
+							//four choices: ╩, ╚, ╝, room
+							
+							roomRoll=rollDie(4,1);
+							
+							
+							//╔
+							if (roomRoll==1 && buildRoom[0].hasMultipiece==true && eastConnect==true && westConnect!=true) {
+							
+								$("#" + floorLabel).html("╔");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=false;
+							
+							} //╔
+							
+							
+							//╗
+							else if (roomRoll==2 && buildRoom[0].hasMultipiece==true && eastConnect!=true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╗");
+								buildRoom[0].hasSouthExit=false;
+								buildRoom[0].hasEastExit=false;
+								buildRoom[0].hasNorthExit=false; //coming from north
+								buildRoom[0].hasWestExit=true;
+							
+							} //╗
+							
+							//╦
+							else if (roomRoll==3 || roomRoll==2 && buildRoom[0].hasMultipiece==false && eastConnect==true && westConnect==true) {
+							
+								$("#" + floorLabel).html("╦");
+								buildRoom[0].hasSouthExit=false; //coming from south
+								buildRoom[0].hasEastExit=true;
+								buildRoom[0].hasNorthExit=false;
+								buildRoom[0].hasWestExit=true;
+
+								isMulti=true;
+								
+								//to do: change to multiple exits
+								buildRoom[0].exitAmount=2;
+								newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+							
+							} //╦
+							
+							//room
+							else {
+							
+								setFloorAsRoom(floorArrIndex, "north");
+							
+							} //room
+						
+							
+							
+						} //moving north, somewhere in middle, in top row
+					
+					}//moving north, somewhere in middle
+					
+				} //bump
+				
+			//} //not on descend tile
+		
+		} //moving north
+		
+		
+	} //in bounds
+	
+	if (testVal==floorArrIndex) {
+	
+		console.log("nothing updated");
+		floorArrIndex=777;
 	}
 	
+	stackPopped=false;
 	return floorArrIndex;
 }
 
@@ -6072,7 +6183,12 @@ var profBarColor = "#6ad18c";
 
 var isMulti=false; //previously created was multi piece, used for removing an exit when stack popped
 
+var northConnect=false;
+var eastConnect=false;
+var southConnect=false;
+var westConnect=false;
 
+var stackPopped=false;
 
 
 //format = (a,b) / (horizontal, vertical)
@@ -6124,6 +6240,7 @@ newBuildRoom();
 
 function newBuildRoom(flrInd, hasNthExt, hasEstExt, hasSthExt, hasWstExt, extAm, hasMulti, nthPos, estPos, sthPos, wstPos) {
 
+	console.log("push");
 
 	if (extAm==undefined) {
 		extAm=0;
@@ -7882,6 +7999,8 @@ function createCharacterStats () {
 
 function bumpFloor (floorArrIndex, directionFrom) {
 
+	console.log("bump");
+
 	//called when bumping into an already-existing floor feature
 	
 	//reroute
@@ -7889,6 +8008,142 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	//return floorArrIndex
 	//should return to while loop, redirected
 
+	
+	var compareLabel=".";
+	var floorLabel="";
+	var tempRoomIndex=floorArrIndex;
+	
+	buildRoom[0].exitAmount=0;
+	
+	buildRoom[0].hasNorthExit=false;
+	buildRoom[0].hasEastExit=false;
+	buildRoom[0].hasSouthExit=false;
+	buildRoom[0].hasWestExit=false;
+	buildRoom[0].northPossible=false;
+	buildRoom[0].eastPossible=false;
+	buildRoom[0].southPossible=false;
+	buildRoom[0].westPossible=false;
+	
+	floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+	checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+	
+	//set current room equal to appropriate direction
+	
+	let choose=false;
+	
+	if (buildRoom[0].hasNorthExit==true) {
+	
+
+	
+		floorArrIndex-=5;
+		choose=true;
+		console.log("N");
+	}
+	
+	else if (buildRoom[0].hasEastExit==true && choose==false) {
+	
+
+	
+		floorArrIndex+=1;
+		choose=true;
+		console.log("E");
+	}
+	
+	else if (buildRoom[0].hasSouthExit==true && choose==false) {
+	
+
+	
+		floorArrIndex+=5;
+		choose=true;
+		console.log("S");
+	}
+	
+	else if (buildRoom[0].hasWestExit==true && choose==false) {
+
+	
+		floorArrIndex-=1;
+		choose=true;
+		console.log("W");
+	}
+	
+	
+
+	buildRoom[0].floorIndex=floorArrIndex;
+	 
+	//if totally surrounded, make "room", better hope hasMultipiece == true
+	//.shift buildRoom
+	
+	if (buildRoom[0].hasNorthExit==false && buildRoom[0].hasEastExit==false && buildRoom[0].hasSouthExit==false && buildRoom[0].hasWestExit==false) {
+	
+		deadEnd=true;
+		console.log("dead end");
+		
+		
+		//if moving onto empty, aka if not stack popped and surrounded
+
+		floorLabel=floorGridArr[floorArrIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+	
+		if (compareLabel!="█") {
+			floorLabel=floorGridArr[floorArrIndex].label;
+			$("#" + floorLabel).html("room");
+			console.log("ran into dead end, made room");
+		}
+		
+		
+		//remove old deadend from stack if multipiece
+		//preserve stack if this was only multipiece
+		
+		let tempInd=buildRoom.length;
+		tempInd--;
+		
+
+		
+		if (buildRoom[tempInd].isMulti==true && buildRoom.length>1) {
+		
+			console.log("prune");
+			buildRoom.pop();
+			
+
+			//console.log(buildRoom[0].floorIndex);
+			//floorArrIndex=buildRoom[0].floorIndex; //dont use this!
+		}
+		
+		console.log("buildRoom length is: " + buildRoom.length);
+		
+		//pop head of stack to first multipiece
+		if (buildRoom.length>1) {
+		
+			console.log("pop");
+			//buildRoom[1]=buildRoom[0];
+			buildRoom.shift();
+			stackPopped=true;
+			
+			//console.log(buildRoom[0].floorIndex);
+			floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+			console.log("new index is: " + floorArrIndex);
+
+		}
+		
+		
+	}
+	
+	
+
+
+	//buildRoom[0].floorIndex=floorArrIndex;
+	//return buildRoom[0].floorIndex;
+	return floorArrIndex; //instead?
+
+}
+
+function setFloorAsRoom (floorArrIndex, directionFrom) {
+
+	//called when creating floor
+	//whenever room is made
+	//chance of being normal room, shop, or secret room
+
+	//create random valid exits
 	
 	var compareLabel="";
 	var floorLabel="";
@@ -7905,10 +8160,116 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	buildRoom[0].southPossible=false;
 	buildRoom[0].westPossible=false;
 	
+	floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+	//checkConnect(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+	
+	//if (northConnect
+	
+	
+	console.log("make room");
+	floorLabel=floorGridArr[floorArrIndex].label;
+	$("#" + floorLabel).html("room");
+	
+}
+
+function checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
+
+	console.log("checking connect");
+
+	//check for connections when making new floor piece
+	
+	compareLabel=" ";
+
+	northConnect=false;
+	eastConnect=false;
+	southConnect=false;
+	westConnect=false;
+	
+
+	
 	//check north of arrival
 	tempRoomIndex=floorArrIndex-5;
 	
-	if (tempRoomIndex>=0) {
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+	
+		floorLabel=floorGridArr[tempRoomIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+		
+	}
+
+	if (compareLabel!="█" || compareLabel=="╔" || compareLabel=="╗" || compareLabel=="╦" || compareLabel=="╠" || compareLabel=="╣" || compareLabel=="╬" || compareLabel=="║") {
+		
+		southConnect=true;
+	}
+
+
+	
+	
+	//check east of arrival
+	tempRoomIndex=floorArrIndex+1;
+	
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+		floorLabel=floorGridArr[tempRoomIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+	}
+
+	if (compareLabel!="█" || compareLabel=="╗" || compareLabel=="╝" || compareLabel=="╦" || compareLabel=="╩" || compareLabel=="╣" || compareLabel=="╬" || compareLabel=="═") {
+		
+		westConnect=true;
+		
+	}
+
+	
+	
+	//check south of arrival
+	tempRoomIndex=floorArrIndex+5;
+	
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+	
+		floorLabel=floorGridArr[tempRoomIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+	}
+	
+	
+	if (compareLabel!="█" || compareLabel=="╚" || compareLabel=="╝" || compareLabel=="╩" || compareLabel=="╠" || compareLabel=="╣" || compareLabel=="╬" || compareLabel=="║") {
+		
+		northConnect=true;
+		
+	}
+
+	
+	
+	//check west of arrival
+	tempRoomIndex=floorArrIndex-1;
+	
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+		floorLabel=floorGridArr[tempRoomIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+	}
+	
+	if (compareLabel!="█" || compareLabel=="╔" || compareLabel=="╚" || compareLabel=="╦" || compareLabel=="╠" || compareLabel=="╩" || compareLabel=="╬" || compareLabel=="═") {
+		
+		eastConnect=true;
+	}
+
+}
+
+function floorCheckSurround (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
+
+	console.log("check surround");
+
+	buildRoom[0].hasNorthExit=false;
+	buildRoom[0].hasEastExit=false;
+	buildRoom[0].hasSouthExit=false;
+	buildRoom[0].hasWestExit=false;
+	
+	compareLabel=" ";
+
+	
+	//check north of arrival
+	tempRoomIndex=floorArrIndex-5;
+	
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
 	
 		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
@@ -7916,35 +8277,44 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	}
 	
 	
-	if (tempRoomIndex<0 || compareLabel!="█")
-	buildRoom[0].hasNorthExit=false;
-	else{
+	if (tempRoomIndex<0 || compareLabel!="█") {
+
+	
+		buildRoom[0].hasNorthExit=false;
+	}
+	else if ((tempRoomIndex>=0 && tempRoomIndex<=19) && compareLabel=="█"){
 		buildRoom[0].hasNorthExit=true;
 		buildRoom[0].exitAmount++;
+		console.log("N open");
 	}
 	
 	
 	
 	//check east of arrival
-	tempRoomIndex=floorArrIndex;
+	tempRoomIndex=floorArrIndex+1;
 	
-	if (tempRoomIndex!=4 || tempRoomIndex!=9 || tempRoomIndex!=14 || tempRoomIndex!=19) {
-		floorLabel=floorGridArr[tempRoomIndex+1].label;
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
 	}
 	
+	tempRoomIndex=floorArrIndex;
 	
-	if (compareLabel!="█")
-	buildRoom[0].hasEastExit=false;
-	else if  (tempRoomIndex>=0 && tempRoomIndex<=19) {
+	if (compareLabel!="█") {
+
+	
+		buildRoom[0].hasEastExit=false;
+	}
+	else if  (compareLabel=="█" && (tempRoomIndex>=0 && tempRoomIndex<=19) && (tempRoomIndex!=4 && tempRoomIndex!=9 && tempRoomIndex!=14 && tempRoomIndex!=19)) {
 		buildRoom[0].hasEastExit=true;
 		buildRoom[0].exitAmount++;
+		console.log("E open");
 	}
 	
 	//check south of arrival
 	tempRoomIndex=floorArrIndex+5;
 	
-	if (tempRoomIndex<=19) {
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
 	
 		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
@@ -7953,106 +8323,39 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	
 	if (tempRoomIndex>19 ||compareLabel!="█")
 	buildRoom[0].hasSouthExit=false;
-	else if  (tempRoomIndex>=0 && tempRoomIndex<=19) {
+	else if  ((tempRoomIndex>=0 && tempRoomIndex<=19) && compareLabel=="█") {
 	
 		buildRoom[0].hasSouthExit=true;
 		buildRoom[0].exitAmount++;
+		
+		console.log("S open");
 		
 	}
 	
 	
 	//check west of arrival
-	tempRoomIndex=floorArrIndex;
+	tempRoomIndex=floorArrIndex-1;
 	
-	if (tempRoomIndex!=0 || tempRoomIndex!=5 || tempRoomIndex!=10 || tempRoomIndex!=15) {
-		floorLabel=floorGridArr[tempRoomIndex-1].label;
+	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
 	}
 	
+	tempRoomIndex=floorArrIndex;
+	
 	if (compareLabel!="█")
 	buildRoom[0].hasWestExit=false;
-	else if  (tempRoomIndex>=0 && tempRoomIndex<=19) {
+	else if  (compareLabel=="█" && (tempRoomIndex>=0 && tempRoomIndex<=19) && (tempRoomIndex!=0 && tempRoomIndex!=5 && tempRoomIndex!=10 && tempRoomIndex!=15)) {
 		buildRoom[0].hasWestExit=true;
 		buildRoom[0].exitAmount++;
+		
+		console.log("W open");
 	}
 	
-	/*//if multiple exits, push onto stack
-	if (buildRoom[0].exitAmount>1) {
-	
-		newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
-	}*/
-
-	buildRoom[0].floorIndex=floorArrIndex;
-	 
-	//if totally surrounded, make "room", better hope hasMultipiece == true
-	//.shift buildRoom
-	
-	if (buildRoom[0].hasNorthExit==false && buildRoom[0].hasEastExit==false && buildRoom[0].hasSouthExit==false && buildRoom[0].hasWestExit==false) {
-	
-		deadEnd=true;
-		
-		floorLabel=floorGridArr[floorArrIndex].label;
-		$("#" + floorLabel).html("room");
-		
-		
-		//remove old deadend from stack if multipiece
-		//preserve stack if this was only multipiece
-		
-		let tempInd=buildRoom.length;
-		tempInd--;
-		
-		let tempInd2=buildRoom.length;
-		
-		if (buildRoom[tempInd].isMulti==true && buildRoom.length>1) {
-		
-			console.log("prune");
-			buildRoom.pop();
-			
-
-			//console.log(buildRoom[0].floorIndex);
-			//floorArrIndex=buildRoom[0].floorIndex; //dont use this!
-		}
-		
-		tempInd2=buildRoom.length;
-		
-		//pop head of stack
-		if (buildRoom.length>1) {
-		
-			console.log("pop");
-			buildRoom[1]=buildRoom[0];
-			buildRoom.shift();
-			
-			//console.log(buildRoom[0].floorIndex);
-			floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
-
-		}
-		
-		
-	}
-	
-	//buildRoom[0].floorIndex=floorArrIndex;
-	return buildRoom[0].floorIndex;
-	//return floorArrIndex; //instead?
-
-}
-
-function setFloorAsRoom (floorArrIndex, directionFrom) {
-
-	//called when creating floor
-	//whenever room is made
-	//chance of being normal room, shop, or secret room
-
-	//create random valid exits
-	
-	//test
-	floorArrIndex=777;
-	console.log("test");
-	
-	floorLabel=floorGridArr[floorArrIndex].label;
-	$("#" + floorLabel).html("room");
 	
 	
-
+	
+	return floorArrIndex;
 }
 </script>
 </body>
