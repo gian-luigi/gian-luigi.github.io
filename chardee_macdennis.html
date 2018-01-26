@@ -151,7 +151,7 @@
 		grid-template-columns: 100px 100px;
 		
 		width: 100px;
-		height: 50px;
+		height: 100px;
 		background: gray;
 
 	}
@@ -3196,15 +3196,26 @@ $( "#dungeonTabs" ).tabs({
 		
 		if (tabCmp=="dungeonTabs-2") {
 		
-			//load selected room
+			$("div.roomContainer").find("button").html(""); //initialize
 			
 			var isRoom=currFloorSym.includes("■");
+			var isDes=currFloorSym.includes("b");
+			var isArr=currFloorSym.includes("a");
+		
+			//load selected room if it exists
 			
-			if (isRoom==true) {
 			
+			//if doesnt exist, make one
+			if (isRoom==true || isDes==true || isArr==true) {
+			
+				for (i=0;i<10;i++) {
+					
+					
+					$("#roomTile" + i).html("-");
+				}
 				
 				
-				$("div.roomContainer").find("button").html("M");
+				//$("div.roomContainer").find("button").html("M");
 			}
 		
 		}
@@ -3281,7 +3292,7 @@ $("#createFloorBut").click(function() {
 	var deadEndIndex=0; //for when moving one-way into dead end
 	var compareLabel=""; //for comparing button for dead end
 		
-	floorExistsArr[currFloor]=true;
+	//allFloors[currFloor].floorExists=true;
 	
 	
 	for (i=0;i<floorSize;i++) //initialize floor
@@ -3358,16 +3369,16 @@ $("#createFloorBut").click(function() {
 	//descend in custom position, 1-19
 	//floorArrIndex=4; //test
 	
-	//if descend = arrival
-	while (floorArrIndex==aArrLoc) {
+	//if descend = arrival, or is horizonal/vertical adjacent
+	while (floorArrIndex==aArrLoc || floorArrIndex+1==aArrLoc || floorArrIndex-1==aArrLoc || floorArrIndex+5==aArrLoc || floorArrIndex-5==aArrLoc) {
 	
 		floorArrIndex=rollDie0(20, 1);
 		
 	}
 	
 	
-	//if descend is vertical adjacent
-	while (floorArrIndex+5==aArrLoc || floorArrIndex-5==aArrLoc) {
+	/*//if descend is vertical adjacent
+	while (floorArrIndex+5==aArrLoc || floorArrIndex-5==aArrLoc || floorArrIndex==aArrLoc) {
 	
 		floorArrIndex=rollDie0(20, 1);
 		
@@ -3375,11 +3386,11 @@ $("#createFloorBut").click(function() {
 	
 	
 	//if descend is horizontal adjacent
-	while (floorArrIndex+1==aArrLoc || floorArrIndex-1==aArrLoc) {
+	while (floorArrIndex+1==aArrLoc || floorArrIndex-1==aArrLoc || floorArrIndex==aArrLoc) {
 	
 		floorArrIndex=rollDie0(20, 1);
 		
-	}
+	}*/
 	
 	bDesLoc=floorArrIndex; //save descending tile
 	floorLabel=floorGridArr[floorArrIndex].label;
@@ -3657,12 +3668,19 @@ $("#createFloorBut").click(function() {
 	while (floorArrIndex!=bDesLoc && buildRoom.length>0 && (floorArrIndex>=0 && floorArrIndex<=19)) {
 	
 		console.log(floorArrIndex);
-		floorArrIndex=buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel, roomRoll, bDesLoc);
+		floorArrIndex=buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel, roomRoll, bDesLoc, aArrLoc);
 
 	} // create feature while loop 
+	
+	for (i=0;i<floorSize;i++) {
+		
+			floorGridArr[i].symbol=$("#floor"+i).html();
+			
+		
+	}
 })
 
-function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDesLoc) {
+function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDesLoc, aArrLoc) {
 
 	let testVal=floorArrIndex;
 
@@ -3812,7 +3830,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 		floorLabel=floorGridArr[floorArrIndex].label;
 		compareLabel=$("#" + floorLabel).html();
 		
-		if (prevRoomIndex==floorArrIndex-1 && (floorArrIndex!=4 && floorArrIndex!=9 && floorArrIndex!=14 && floorArrIndex!=19) && compareLabel!="█" && compareLabel!="b")
+		if (prevRoomIndex==floorArrIndex-1 && (floorArrIndex!=4 && floorArrIndex!=9 && floorArrIndex!=14 && floorArrIndex!=19) && compareLabel!="█" && compareLabel!="b" && floorArrIndex!=aArrLoc)
 		{
 
 			//if different, then bump
@@ -3820,10 +3838,11 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 			
 			//move back east one square
 			floorArrIndex--;
+			prevRoomIndex=floorArrIndex;
 			
 			//reroute
-			console.log("bump in west");
-			floorArrIndex=bumpFloor(floorArrIndex, "east");
+			console.log("bump in east");
+			floorArrIndex=bumpFloor(floorArrIndex, "east", aArrLoc, bDesLoc);
 			
 		}
 		
@@ -3838,10 +3857,11 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 			
 			//move back west one square
 			floorArrIndex++;
+			prevRoomIndex=floorArrIndex;
 			
 			//reroute
-			console.log("bump in east");
-			floorArrIndex=bumpFloor(floorArrIndex, "west");
+			console.log("bump in west");
+			floorArrIndex=bumpFloor(floorArrIndex, "west", aArrLoc, bDesLoc);
 			
 		}
 		
@@ -3857,11 +3877,12 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 			//move back north one square
 			
 			floorArrIndex+=5;
+			prevRoomIndex=floorArrIndex;
 			
 			//reroute
 			
-			console.log("bump in south");
-			floorArrIndex=bumpFloor(floorArrIndex, "north");
+			console.log("bump in north");
+			floorArrIndex=bumpFloor(floorArrIndex, "north", aArrLoc, bDesLoc);
 			
 		}
 		
@@ -3876,10 +3897,11 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 			
 			//move back south one square
 			floorArrIndex-=5;
+			prevRoomIndex=floorArrIndex;
 			
 			//reroute
-			console.log("bump in north");
-			floorArrIndex=bumpFloor(floorArrIndex, "south");
+			console.log("bump in south");
+			floorArrIndex=bumpFloor(floorArrIndex, "south", aArrLoc, bDesLoc);
 			
 		}
 		
@@ -3952,6 +3974,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 				
 				//console.log(buildRoom[0].floorIndex);
 				floorArrIndex=buildRoom[0].floorIndex;
+				buildRoom[0].hasMultiPiece=false;
 				console.log("new index is: " + floorArrIndex);
 				
 				console.log("checking surroundings of new popped room");
@@ -3967,6 +3990,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 					
 					//console.log(buildRoom[0].floorIndex);
 					floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+					buildRoom[0].hasMultiPiece=false;
 					console.log("new index is: " + floorArrIndex);
 					
 					console.log("checking surroundings of new popped room");
@@ -4131,6 +4155,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 		//check current position (having just moved), then make feature
 
 
+		if (floorArrIndex!=aArrLoc || floorArrIndex!=bDesLoc) {
 		
 		//moving east
 		//if (floorArrIndex==prevRoomIndex+1 || (stackPopped==true && buildRoom[0].hasEastExit==true)) {
@@ -6027,6 +6052,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 		
 		} //moving north
 		
+		} //not on arrival tile
 		
 	} //in bounds
 	
@@ -6042,6 +6068,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 			
 			//console.log(buildRoom[0].floorIndex);
 			floorArrIndex=buildRoom[0].floorIndex;
+			buildRoom[0].hasMultiPiece=false;
 			console.log("new index is: " + floorArrIndex);
 			
 			console.log("checking surroundings of new popped room");
@@ -6057,6 +6084,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 				
 				//console.log(buildRoom[0].floorIndex);
 				floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+				buildRoom[0].hasMultiPiece=false;
 				console.log("new index is: " + floorArrIndex);
 				
 				console.log("checking surroundings of new popped room");
@@ -6205,6 +6233,17 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 		
 		else if (buildRoom.length==1 && buildRoom[0].eastPossible==false && buildRoom[0].westPossible==false && buildRoom[0].northPossible==false && buildRoom[0].southPossible==false){
 			console.log("nothing updated and stack empty");
+			floorArrIndex=777;
+		}
+		
+		else if (stackPopped==true){
+		
+			console.log("stack was popped");
+		}
+		
+		else {
+		
+			console.log("nothing updated, a case is not considered");
 			floorArrIndex=777;
 		}
 	}
@@ -6757,7 +6796,7 @@ var currProf=-1; //0-17
 var passiveCount=40;
 var currMonPassives=0;
 var radioCurrMax=0; //0 if curr, 1 if max; edit player hp/energy
-var currFloor=1;
+var currFloor=0;
 var currRoomIndex=0; //for accessing roomStuff array
 var floorSize=20; //1-20, amount of squares in floors
 var floorMax=10; //total amount of floors, also edit floorExistsArr
@@ -6771,7 +6810,8 @@ var floorTileIndex=-1;
 var roomTileIndex=-1;
 var roomTileMove=1; //amount to move tiles, 1 by default
 var roomTilePrev; //string; save char if moving being onto tile with items or something
-var roomMax=224; //13x16
+var roomSize=224; //14x16
+var roomMax=200; //10 floors, 20 rooms each
 var tileDir=1; // move tile direciton, 1 for up, 2 for right, 3 for down, 4 for left, 1 by default; 5 NE, 6 NW, 7 SE, 8 SW
 var createTile; //string
 var floorExistsArr= [false, false, false, false, false, false, false, false, false, false]; //bool, array of whether or not a floor exists
@@ -6817,16 +6857,222 @@ var currFloorSym="█";
 var butDefColor="lightgray";
 var butSelColor='#6ad18c';
 
+var monMax=12; //max mons per room?
+var itemMax=7; //max items per room?
+
 
 //format = (a,b) / (horizontal, vertical)
+
+/*var roomGridArr =[];
+initRooms();*/
+
+function initMonster() {
+
+	/*{
+			
+				monsterName: "",
+				
+				monsterExists:false,
+				
+				size: -1, //0 for tiny, 1 for small, 2 for medium, 3 for large, 4 for huge, 5 for gigantic
+
+				tier: 0, //+1 per difficulty
+				
+				monsterSymbol: "M!", //placeholder symbol
+				
+				monRoomIndex:-1, //where it is in a room
+			
+				monsterPassives: //passives
+				{
+						fireResist :false,//0,0
+						coldResist :false,//0,1
+						shockResist :false,//0,2
+						disinResist :false,//0,3
+						sleepResist :false,//0,4
+						poisonResist :false,//0,5
+						paralysisResist :false,//0,6
+						blindResist :false,//0,7
+						petrifyResist :false,//0,8
+						sicknessResist :false,//0,9
+						drainResist :false,//0,10
+						woundResist :false,//1,0
+						breathless :false,//1,1
+						searching :false,//1,2
+						seeInvis :false,//1,3
+						invis :false,//1,4
+						levitate :false,//1,5
+						flying :false,//1,6
+						adornment :false,//1,7
+						warning :false,//1,8
+						telepathy :false,//1,9
+						foodApp :false,//1,10
+						reflection :false,//2,0
+						magicResist :false,//2,1
+						waterWalking :false,//2,2
+						displacement :false,//2,3
+						sustainAbility :false,//2,4
+						slowDigest :false,//2,5
+						lifeSaving :false,//2,6
+						stealth :false,//2,7
+						confuseResist :false,//2,8
+
+
+						brisk :0,//2,9
+						haste :0,//2,10
+						dash :0,//3,0 //int
+						agileDash :0,//3,1 //int
+						infravision :false,//3,2 //int
+						regen :false,//3,3
+						protection:0, //int
+						energyRegen :false,//3,4
+						noHungCast :false,//3,5
+
+						permSlow:false,
+						permBrisk:false,
+						permHaste:false,
+
+
+						fumbling :false,
+						isHungry :false,
+						tempBrisk:0,//int
+						tempHaste:0, //int
+						tempRegen:0, //int
+						tempConfluence:0, //int
+						tempInvis:0, //int
+
+						slow:0, //int
+						blind:0, //int 
+						sleep:0, //int
+						poisoned:0, //int
+						confused:0, //int
+						taunted:0, //int
+						aggravated:0, //int
+						paralyzed:0, //int
+
+						hallucin:0, //int
+						enfeebled:0, //int
+						vulnerable:0, //int
+						slippery:0, //int
+						petrify:0, //int
+						vomit:0, //int
+						strangle:0, //int 
+						engulfed:0, //int
+
+						woundedArmLeft:0, //int
+						woundedArmRight:0, //int
+						woundedLegLeft:0, //int
+						woundedLegRight:0 //int
+				},
+				speed:0,
+
+				energyClock:0,
+				hpClock:0,
+				newEnergyClock:true, //bool
+				newHpClock:true, //bool
+
+				tempACVal:0,
+				tempACDur:0,
+				
+				hpCurr:0,
+				hpMax:0,
+				energyCurr:0,
+				energyMax:0,
+				armorAC:0,
+				otherAC:0,
+				totalAC:0,
+				toHit:0
+		},*/
+
+	
+
+}
+
+
+var allRooms=[];
+initAllRooms();
+
+function initAllRooms() {
+
+
+	//var tempSymArray=[];
+	
+	var	tempTile={
+		
+			hasItem:false,
+			hasMonster:false,
+			symbol:"",
+		
+		};
+	
+	
+	var tempMonArray=[];
+	
+	
+	var tempItemArray=[];
+	
+	/*for (j=0;j<monMax;j++) {
+	
+		tempMonArray[j]="";
+	}
+	
+	for (j=0;j<itemMax;j++) {
+	
+		tempItemArray[j]="";
+	}*/
+
+	for (i=0;i<roomMax;i++) {
+	
+		allRooms.push({
+		
+			roomTile: tempTile,
+			
+			roomMonsters: tempMonArray,
+			
+			roomItems: tempItemArray,
+			
+			//monsters and items go here too (and players?)
+		
+		});
+		
+		
+		tempTile={
+		
+				hasItem:false,
+				hasMonster:false,
+				symbol:"",
+		
+			};
+	
+		
+		var tempMonArray=[];
+		
+		var tempItemArray=[];
+		
+		/*for (j=0;j<monMax;j++) {
+		
+			tempMonArray[j]="";
+		}
+		
+		
+		for (j=0;j<itemMax;j++) {
+		
+			tempItemArray[j]="";
+		}*/
+			
+	}
+}
+
+//allRooms[0].roomMonsters.push({asdf:0});
+
+
 
 var floorGridArr = [];
 initFloor();
 
 function initFloor() {
 	
-	var tileCoorA=0;
-	var tileCoorB=0;
+	//var tileCoorA=0;
+	//var tileCoorB=0;
 	var tempArrIndex=0;
 	
 	var tempStr="floor0";
@@ -6835,14 +7081,74 @@ function initFloor() {
 	for (i=0;i<floorSize;i++){
 	
 		floorGridArr.push({
-			a:tileCoorA,
-			b:tileCoorB,
+
 		
 			symbol:" ",
 			
-			touch:false,
-			
 			label:tempStr
+		});
+	
+		tempArrIndex++;
+		
+		tempStr="floor" + tempArrIndex;
+		
+	
+		
+		
+	}
+
+}
+
+var allFloors=[];
+initAllFloors();
+
+function initAllFloors() {
+
+	var tempArray=[];
+	for (i=0;i<floorSize;i++) {
+		
+		tempArray[i]="";
+	}
+
+	for (i=0;i<floorMax;i++) {
+	
+		allFloors.push({
+				
+				floorExists: false,
+				
+				floorTileIndex: 0,
+				
+				gridSymbols: tempArray,
+				
+			
+		});
+		
+		tempArray=[];
+	
+	}
+	
+}	
+
+/*initAllFloors();
+
+function initAllFloors() {
+	
+	var tileCoorA=0;
+	var tileCoorB=0;
+	var tempArrIndex=0;
+	
+	var tempStr="floor0";
+	
+	
+	for (i=0;i<floorMax;i++){
+	
+		allFloors.push({
+			
+			floorTileIndex: i,
+		
+			symbol:" ",
+			
+		
 		});
 	
 		tileCoorA++;
@@ -6850,17 +7156,12 @@ function initFloor() {
 		
 		tempStr="floor" + tempArrIndex;
 		
-		if (tileCoorA==5) {
-		
-			tileCoorA=0;
-			tileCoorB++;
-		}
 	
 		
 		
 	}
 
-}
+}*/
 
 var buildRoom = [];
 newBuildRoom();
@@ -6981,26 +7282,15 @@ initRoom();
 
 function initRoom() {
 	
-	var tileCoorA=0;
-	var tileCoorB=0;
 	
 	
 	for (i=0;i<roomMax;i++){
 	
 		roomGridArr.push({
-			a:tileCoorA,
-			b:tileCoorB,
+
 		
 			symbol:" "
 		});
-	
-		tileCoorA++;
-		
-		if (tileCoorA==14) {
-		
-			tileCoorA=0;
-			tileCoorB++;
-		}
 	
 		
 		
@@ -8693,7 +8983,7 @@ function createCharacterStats () {
 
 }
 
-function bumpFloor (floorArrIndex, directionFrom) {
+function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 
 	console.log("bump");
 
@@ -8717,10 +9007,14 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	buildRoom[0].hasEastExit=false;
 	buildRoom[0].hasSouthExit=false;
 	buildRoom[0].hasWestExit=false;
-	buildRoom[0].northPossible=false;
-	buildRoom[0].eastPossible=false;
-	buildRoom[0].southPossible=false;
-	buildRoom[0].westPossible=false;
+	/*buildRoom[0].northPossible;
+	buildRoom[0].eastPossible;
+	buildRoom[0].southPossible;
+	buildRoom[0].westPossible;
+	buildRoom[0].northMand;
+	buildRoom[0].eastMand;
+	buildRoom[0].southMand;
+	buildRoom[0].westMand;*/
 	
 	console.log("bumped, index before checking connect is " +floorArrIndex);
 	
@@ -8735,302 +9029,319 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	
 	console.log("bumped, index after checking connect is " +floorArrIndex);
 	
-	//if coming from east
-	if (directionFrom=="west") {
+	if (floorArrIndex>=0 && floorArrIndex<=19 && floorArrIndex!=0 && floorArrIndex!=4 && floorArrIndex!=15 && floorArrIndex!=19) {
 	
-		let tempRoll=rollDie(2,1);
-	
-		if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true) {
+		//floorLabel=floorGridArr[floorArrIndex].label;
 		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╣");
+		//var arrCmp=floorLabel.includes("a");
+		
+		if (buildRoom[0].northPossible==true || buildRoom[0].southPossible==true || buildRoom[0].eastPossible==true || buildRoom[0].westPossible==true ){
+		
+		if (floorArrIndex!=aArrLoc && floorArrIndex!=bDesLoc) {
+		
+			//if coming from west
+			if (directionFrom=="west") {
 			
-			buildRoom[0].hasNorthExit=true;
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╦");
+				let tempRoll=rollDie(2,1);
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].northMand==true || buildRoom[0].northPossible==true) && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╩");
+				if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╣");
+					
+					buildRoom[0].hasNorthExit=true;
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if ((floorArrIndex%5!=4) &&(buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true) && buildRoom[0].westMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╦");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if ((floorArrIndex%5!=4) && (buildRoom[0].northMand==true || buildRoom[0].northPossible==true) && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && buildRoom[0].westMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╩");
+					
+					buildRoom[0].hasNorthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].eastMand!=true && (buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╗");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].eastMand!=true && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].northMand==true || buildRoom[0].northPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╝");
+					
+					buildRoom[0].hasNorthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("←■");
+					console.log("made this ←■");
+				
+				}*/
+				
+				else {
+				
+					console.log("bump to the east, a case is not considered");
+				}
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╗");
+			}
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].northMand==true || buildRoom[0].northPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╝");
+			if (directionFrom=="east") {
 			
-			buildRoom[0].hasNorthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("←■");
-			console.log("made this ←■");
-		
-		}*/
-		
-		else {
-		
-			console.log("bump to the east, a case is not considered");
-		}
-	
-	}
-	
-	if (directionFrom=="east") {
-	
-		let tempRoll=rollDie(2,1);
-	
-		if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╠");
+				let tempRoll=rollDie(2,1);
 			
-			buildRoom[0].hasNorthExit=true;
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╦");
+				if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╠");
+					
+					buildRoom[0].hasNorthExit=true;
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if ((floorArrIndex%5!=0) && (buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true) && buildRoom[0].eastMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╦");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if ((floorArrIndex%5!=0) &&(buildRoom[0].northMand==true || buildRoom[0].northPossible==true) && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && buildRoom[0].eastMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╩");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].westMand!=true && (buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╔");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].westMand!=true && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].northMand==true || buildRoom[0].northPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╚");
+					
+					buildRoom[0].hasNorthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("■→");
+					console.log("made this ■→");
+				
+				}*/
+				
+				else {
+				
+					console.log("bump to the west, a case is not considered");
+				}
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].northMand==true || buildRoom[0].northPossible==true) && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╩");
+			}
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╔");
+			if (directionFrom=="north") {
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].northMand==true || buildRoom[0].northPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╚");
+				let tempRoll=rollDie(2,1);
 			
-			buildRoom[0].hasNorthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("■→");
-			console.log("made this ■→");
-		
-		}*/
-		
-		else {
-		
-			console.log("bump to the west, a case is not considered");
-		}
-	
-	}
-	
-	if (directionFrom=="north") {
-	
-		let tempRoll=rollDie(2,1);
-	
-		if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╦");
+				if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand!=true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╦");
+					
+					buildRoom[0].hasEastExit=true;
+					buildRoom[0].hasWestExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].northMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╣");
+					
+					buildRoom[0].hasWestExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].northMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╠");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].northMand!=true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && (buildRoom[0].westMand!=true || buildRoom[0].westPossible!=true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╔");
+					
+					buildRoom[0].hasEastExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].northMand!=true && (buildRoom[0].eastMand!=true || buildRoom[0].eastPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╗");
+					
+					buildRoom[0].hasWestExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("■<br>↓");
+					console.log("made this ■<br>↓");
+				
+				}*/
+				
+				else {
+				
+					console.log("bump to the north, a case is not considered");
+				}
 			
-			buildRoom[0].hasEastExit=true;
-			buildRoom[0].hasWestExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╦");
+			}
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].northMand==true || buildRoom[0].northPossible==true) && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╩");
+			if (directionFrom=="south") {
 			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && (buildRoom[0].westMand!=true || buildRoom[0].westPossible!=true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╔");
+				let tempRoll=rollDie(2,1);
 			
-			buildRoom[0].hasEastExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].eastMand!=true || buildRoom[0].eastPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╗");
-			
-			buildRoom[0].hasWestExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("■<br>↓");
-			console.log("made this ■<br>↓");
-		
-		}*/
-		
-		else {
-		
-			console.log("bump to the north, a case is not considered");
-		}
-	
-	}
-	
-	if (directionFrom=="south") {
-	
-		let tempRoll=rollDie(2,1);
-	
-		if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╩");
-			
-			buildRoom[0].hasEastExit=true;
-			buildRoom[0].hasWestExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].southMand==true || buildRoom[0].southPossible==true) && (buildRoom[0].northMand!=true || buildRoom[0].northPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╦");
-			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].northMand==true || buildRoom[0].northPossible==true) && (buildRoom[0].southMand!=true || buildRoom[0].southPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╩");
-			
-			buildRoom[0].hasSouthExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && (buildRoom[0].westMand!=true || buildRoom[0].westPossible!=true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╚");
-			
-			buildRoom[0].hasEastExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		else if ((buildRoom[0].eastMand!=true || buildRoom[0].eastPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("╝");
-			
-			buildRoom[0].hasWestExit=true;
-			buildRoom[0].reroute=true;
-		}
-		
-		/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
-		
-			floorLabel=floorGridArr[floorArrIndex].label;
-			$("#" + floorLabel).html("■<br>↓");
-			console.log("made this ■<br>↓");
-		}*/
-		
-		else {
-		
-			console.log("bump to the south, a case is not considered");
-		}
-	
-	}
-	
-	/*let choose=false;
-	
-	if (buildRoom[0].hasNorthExit==true) {
-	
+				if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].southMand!=true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╩");
+					
+					buildRoom[0].hasEastExit=true;
+					buildRoom[0].hasWestExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].southMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╣");
+					
+					buildRoom[0].hasWestExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].southMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╠");
+					
+					buildRoom[0].hasSouthExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
 
-	
-		floorArrIndex-=5;
-		choose=true;
-		console.log("N");
-	}
-	
-	else if (buildRoom[0].hasEastExit==true && choose==false) {
-	
+				else if (buildRoom[0].southMand!=true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && (buildRoom[0].westMand!=true || buildRoom[0].westPossible!=true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╚");
+					
+					buildRoom[0].hasEastExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				else if (buildRoom[0].southMand!=true && (buildRoom[0].eastMand!=true || buildRoom[0].eastPossible!=true) && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╝");
+					
+					buildRoom[0].hasWestExit=true;
+					buildRoom[0].reroute=true;
+				}
+				
+				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("■<br>↓");
+					console.log("made this ■<br>↓");
+				}*/
+				
+				else {
+				
+					console.log("bump to the south, a case is not considered");
+				}
+			
+			}
+			
+			/*let choose=false;
+			
+			if (buildRoom[0].hasNorthExit==true) {
+			
 
-	
-		floorArrIndex+=1;
-		choose=true;
-		console.log("E");
-	}
-	
-	else if (buildRoom[0].hasSouthExit==true && choose==false) {
-	
+			
+				floorArrIndex-=5;
+				choose=true;
+				console.log("N");
+			}
+			
+			else if (buildRoom[0].hasEastExit==true && choose==false) {
+			
 
-	
-		floorArrIndex+=5;
-		choose=true;
-		console.log("S");
-	}
-	
-	else if (buildRoom[0].hasWestExit==true && choose==false) {
+			
+				floorArrIndex+=1;
+				choose=true;
+				console.log("E");
+			}
+			
+			else if (buildRoom[0].hasSouthExit==true && choose==false) {
+			
 
+			
+				floorArrIndex+=5;
+				choose=true;
+				console.log("S");
+			}
+			
+			else if (buildRoom[0].hasWestExit==true && choose==false) {
+
+			
+				floorArrIndex-=1;
+				choose=true;
+				console.log("W");
+			}*/
+		
+		}//not on arrival or descend tile
+		
+		} //has a possible exit
 	
-		floorArrIndex-=1;
-		choose=true;
-		console.log("W");
-	}*/
+	} //in bounds
 	
 	
 
@@ -9091,6 +9402,7 @@ function bumpFloor (floorArrIndex, directionFrom) {
 			
 			//console.log(buildRoom[0].floorIndex);
 			floorArrIndex=buildRoom[0].floorIndex;
+			buildRoom[0].hasMultiPiece=false;
 			console.log("new index is: " + floorArrIndex);
 			
 			console.log("checking surroundings of new popped room");
@@ -9106,6 +9418,7 @@ function bumpFloor (floorArrIndex, directionFrom) {
 				
 				//console.log(buildRoom[0].floorIndex);
 				floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+				buildRoom[0].hasMultiPiece=false;
 				console.log("new index is: " + floorArrIndex);
 				
 				console.log("checking surroundings of new popped room");
@@ -9120,6 +9433,7 @@ function bumpFloor (floorArrIndex, directionFrom) {
 				//floorArrIndex=777;
 				
 				floorArrIndex=buildRoom[0].floorIndex;
+				buildRoom[0].hasMultiPiece=false;
 				console.log("new index is: " + floorArrIndex);
 				
 				console.log("checking surroundings of new popped room");
@@ -9135,6 +9449,7 @@ function bumpFloor (floorArrIndex, directionFrom) {
 					
 					//console.log(buildRoom[0].floorIndex);
 					floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+					buildRoom[0].hasMultiPiece=false;
 					console.log("new index is: " + floorArrIndex);
 					
 					console.log("checking surroundings of new popped room");
@@ -9385,7 +9700,10 @@ function setFloorAsRoom (floorArrIndex, directionFrom) {
 	
 	} //while
 	
+	if (buildRoom[0].exitAmount>2) {
 	
+		newBuildRoom(floorArrIndex, buildRoom[0].hasNorthExit, buildRoom[0].hasEastExit, buildRoom[0].hasSouthExit, buildRoom[0].hasWestExit, buildRoom[0].exitAmount);
+	}
 	
 	
 	//console.log("room n " +  + + + +
@@ -9636,6 +9954,11 @@ function checkConnect (compareLabel, floorLabel, floorArrIndex) {
 	
 	if ((tempRoomIndex>=0 && tempRoomIndex<=19) && (floorArrIndex!=4 && floorArrIndex!=9 && floorArrIndex!=14 && floorArrIndex!=19) ) {
 	
+		if (floorArrIndex%5==4) {
+		
+			console.log("wtf");
+		}
+	
 		//tempRoomIndex=floorArrIndex+1;
 	
 		floorLabel=floorGridArr[tempRoomIndex].label;
@@ -9714,6 +10037,7 @@ function checkConnect (compareLabel, floorLabel, floorArrIndex) {
 	
 	if ((tempRoomIndex>=0 && tempRoomIndex<=19) && (floorArrIndex!=0 && floorArrIndex!=5 && floorArrIndex!=10 && floorArrIndex!=15)) {
 	
+
 		//tempRoomIndex=floorArrIndex-1;
 	
 		floorLabel=floorGridArr[tempRoomIndex].label;
@@ -10461,54 +10785,70 @@ $( "#floor19" ).click(function( event ) {
 
 $( "#floorDecBut" ).click(function( event ) {
 
-	if (currFloor>1) {
+
+	
+
+	if (currFloor>0) {
 		currFloor--;
 	
+		let labInd=currFloor;
+		labInd++;
 	
-		$("#floorLab").html("Floor " + currFloor);
-	
-	}
-	
-	if (floorExistsArr[currFloor]==true) {
-	
-		//load floor
+		$("#floorLab").html("Floor " + labInd);
 	
 	}
 	
-	else {
 	
-		for (i=0;i<floorSize;i++)
-		{
+	//clear floor
+	for (i=0;i<floorSize;i++)
+	{
 			$("div.floorContainer").find("button").css("background", butDefColor);
 			$("#floor" + i).html("█");
+	}
+	
+	if (allFloors[currFloor].floorExists==true) {
+	
+		//load floor
+		for (i=0;i<floorSize;i++) {
+		
+			$("#floor" + i).html(allFloors[currFloor].gridSymbols[i])
+		
 		}
 	
 	}
+	
 
 })
 
 $( "#floorIncBut" ).click(function( event ) {
 
-	if (currFloor<10) {
+	//console.log("inc");
+	
+	
+	if (currFloor<9) {
 		currFloor++;
 	
+		let labInd=currFloor;
+		labInd++;
 	
-		$("#floorLab").html("Floor " + currFloor);
+		$("#floorLab").html("Floor " + labInd);
 		
 	}
 	
-	if (floorExistsArr[currFloor]==true) {
-		
-		//load floor
-	
-	}
-	
-	else {
-	
-		for (i=0;i<floorSize;i++)
-		{
+	//clear floor
+	for (i=0;i<floorSize;i++)
+	{
 			$("div.floorContainer").find("button").css("background", butDefColor);
 			$("#floor" + i).html("█");
+	}
+	
+	if (allFloors[currFloor].floorExists==true) {
+		
+		//load floor
+		for (i=0;i<floorSize;i++) {
+		
+			$("#floor" + i).html(allFloors[currFloor].gridSymbols[i])
+		
 		}
 	
 	}
@@ -10555,6 +10895,21 @@ $("div.floorEdit").find("button").click(function( event ) {
 
 	
 })
+
+$("#saveFloorBut").click(function() {
+
+	
+	for (i=0;i<floorSize;i++) {
+
+		allFloors[currFloor].gridSymbols[i]=floorGridArr[i].symbol;
+		
+	}
+	
+	allFloors[currFloor].floorExists=true;
+	
+	
+
+});
 
 </script>
 </body>
