@@ -2798,7 +2798,7 @@ $(document).ready(function changePlayerButtonText() {
   <div id="dungeonTabs-1">
 	<div class="floorGrid">
 
-			<legend>Floor 1</legend>
+			<h2>Floor 1</h2>
 			<button id="createFloorBut">Create Floor</button>
 
 
@@ -3256,7 +3256,7 @@ $("#createFloorBut").click(function() {
 	floorArrIndex=rollDie0(20, 1);
 	
 	//descend in custom position, 1-19
-	floorArrIndex=4; //test
+	//floorArrIndex=4; //test
 	
 	//if descend = arrival
 	while (floorArrIndex==aArrLoc) {
@@ -3576,431 +3576,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 	stackPopped=false;
 	buildRoom[0].reroute=false;
 		
-
-	//check if hit destination, don't change current, should be okay here
-
 	
-	checkConnect (compareLabel, floorLabel, floorArrIndex, floorArrIndex);
-	
-	if (buildRoom[0].northPossible!=true)
-	{
-
-		buildRoom[0].hasNorthExit=false;
-		
-	}
-	
-	if (buildRoom[0].eastPossible!=true)
-	{
-
-		buildRoom[0].hasEastExit=false;
-		
-	}
-	
-	if (buildRoom[0].southPossible!=true)
-	{
-
-		buildRoom[0].hasSouthExit=false;
-		
-	}
-	
-	if (buildRoom[0].westPossible!=true)
-	{
-
-		buildRoom[0].hasWestExit=false;
-		
-	}
-	
-	
-
-	
-	//move up one if has north exit
-	if (buildRoom[0].hasNorthExit==true) {
-	
-		prevRoomIndex=floorArrIndex;
-		floorArrIndex-=5;
-		
-
-	}
-	
-	//move right one if has east exit
-	else if (buildRoom[0].hasEastExit==true) {
-	
-		prevRoomIndex=floorArrIndex;
-		floorArrIndex+=1;
-		
-
-	}
-	
-	//move down one if has south exit
-	else if (buildRoom[0].hasSouthExit==true) {
-	
-		prevRoomIndex=floorArrIndex;
-		floorArrIndex+=5;
-		
-
-	}
-	
-	//move left one if has west exit
-	else if (buildRoom[0].hasWestExit==true) {
-	
-		prevRoomIndex=floorArrIndex;
-		floorArrIndex-=1;
-		
-
-	}
-	
-	console.log("now in " + floorArrIndex);
-	
-	/*//test west + north
-	if (buildRoom[0].hasWestExit==true || buildRoom[0].hasEastExit==true) {
-	
-		prevRoomIndex=floorArrIndex;
-		floorArrIndex-=1;
-	}
-	
-	else if (buildRoom[0].hasNorthExit==true || buildRoom[0].hasSouthExit==true) {
-	
-		prevRoomIndex=floorArrIndex;
-		floorArrIndex-=5;
-		
-		//test
-		//floorArrIndex=777;
-	}*/
-	
-	//test east
-	//prevRoomIndex=floorArrIndex;
-	//floorArrIndex+=1;
-	
-	
-	//test west
-	//prevRoomIndex=floorArrIndex;
-	//floorArrIndex-=1;
-	
-	
-	//test south
-	//prevRoomIndex=floorArrIndex;
-	//floorArrIndex+=5;
-
-	
-	//test north
-	//prevRoomIndex=floorArrIndex;
-	//floorArrIndex-=5;
-	
-	
-	
-	//check if bumping into feature that's not descending room
-							
-	floorLabel=floorGridArr[floorArrIndex].label;
-	compareLabel=$("#" + floorLabel).html();
-	
-	if (prevRoomIndex==floorArrIndex-1 && compareLabel!="█" && compareLabel!="b")
-	{
-
-		//if different, then bump
-		
-		
-		//move back (west) one square
-		floorArrIndex--;
-		
-		//reroute
-		console.log("bump in east");
-		floorArrIndex=bumpFloor(floorArrIndex, "east");
-		
-	}
-	
-	floorLabel=floorGridArr[floorArrIndex].label;
-	compareLabel=$("#" + floorLabel).html();
-	
-	if (prevRoomIndex==floorArrIndex+1 && compareLabel!="█" && compareLabel!="b")
-	{
-
-		//if different, then bump
-		
-		
-		//move back (east) one square
-		floorArrIndex++;
-		
-		//reroute
-		console.log("bump in west");
-		floorArrIndex=bumpFloor(floorArrIndex, "west");
-		
-	}
-	
-	floorLabel=floorGridArr[floorArrIndex].label;
-	compareLabel=$("#" + floorLabel).html();
-	
-	if (prevRoomIndex==floorArrIndex-5 && compareLabel!="█" && compareLabel!="b")
-	{
-
-		//if different, then bump
-		
-		
-		//move back (south) one square
-		floorArrIndex+=5;
-		
-		//reroute
-		
-		console.log("bump in north");
-		floorArrIndex=bumpFloor(floorArrIndex, "north");
-		
-	}
-	
-	floorLabel=floorGridArr[floorArrIndex].label;
-	compareLabel=$("#" + floorLabel).html();
-	
-	if (prevRoomIndex==floorArrIndex+5 && compareLabel!="█" && compareLabel!="b")
-	{
-
-		//if different, then bump
-		
-		
-		//move back (north) one square
-		floorArrIndex-=5;
-		
-		//reroute
-		console.log("bump in south");
-		floorArrIndex=bumpFloor(floorArrIndex, "south");
-		
-	}
-	
-	
-	/*if (buildRoom[0].reroute==true) {
-	
-		//redo exits if bump
-		
-		//move up one if has north exit
-		if (buildRoom[0].hasNorthExit==true) {
-		
-			prevRoomIndex=floorArrIndex;
-			floorArrIndex-=5;
-			
-			//test
-			//floorArrIndex=777;
-		}
-		
-		//move right one if has east exit
-		else if (buildRoom[0].hasEastExit==true) {
-		
-			prevRoomIndex=floorArrIndex;
-			floorArrIndex+=1;
-			
-			//test
-			//floorArrIndex=777;
-		}
-		
-		//move down one if has south exit
-		else if (buildRoom[0].hasSouthExit==true) {
-		
-			prevRoomIndex=floorArrIndex;
-			floorArrIndex+=5;
-			
-			//test
-			//floorArrIndex=777;
-		}
-		
-		//move left one if has west exit
-		else if (buildRoom[0].hasWestExit==true) {
-		
-			prevRoomIndex=floorArrIndex;
-			floorArrIndex-=1;
-			
-			//test
-			//floorArrIndex=777;
-		}
-	
-	}*/
-	
-	
-	
-	if (floorArrIndex==bDesLoc) {
-	
-		let tempRoomIndex=0; //lazy
-		hitDes=true;
-	
-		console.log("hit descend!");
-		if (buildRoom.length==1) {
-		
-			console.log("popped all in stack and all were dead ends");
-			floorArrIndex=777;
-		}
-		
-		if (buildRoom.length>1) {
-		
-			buildRoom.shift();
-			stackPopped=true;
-			//floorArrIndex=buildRoom[0].floorIndex; //popped stack*/
-			
-			//console.log(buildRoom[0].floorIndex);
-			floorArrIndex=buildRoom[0].floorIndex;
-			console.log("new index is: " + floorArrIndex);
-			
-			console.log("checking surroundings of new popped room");
-			checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
-			//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
-			
-			while (buildRoom.length>1 && buildRoom[0].northPossible==false && buildRoom[0].eastPossible==false && buildRoom[0].southPossible==false && buildRoom[0].westPossible==false) {
-				
-				console.log("last popped room was dead end");
-				//buildRoom[1]=buildRoom[0];
-				buildRoom.shift();
-				stackPopped=true;
-				
-				//console.log(buildRoom[0].floorIndex);
-				floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
-				console.log("new index is: " + floorArrIndex);
-				
-				console.log("checking surroundings of new popped room");
-				checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
-				//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
-				
-			} //while
-			
-			//check if exits of popped room are now occupied
-			
-			//move to appropriate position from popped room
-			
-			let dirChosen=false;
-			prevRoomIndex=777;
-			
-			//move up one if has north exit
-			if (buildRoom[0].hasNorthExit==true) {
-			
-				//not occupied
-				if (buildRoom[0].northPossible==true) {
-			
-					prevRoomIndex=floorArrIndex;
-					floorArrIndex-=5;
-					
-					//check if destination
-					floorLabel=floorGridArr[floorArrIndex].label;
-					compareLabel=$("#" + floorLabel).html();
-					
-					if (compareLabel!="b" && compareLabel=="█") {
-						dirChosen=true;
-					}
-					
-					//move back and exit is false
-					else {
-					
-						buildRoom[0].hasNorthExit=false;
-						floorArrIndex+=5;
-						prevRoomIndex=777;
-					}
-				}
-				
-				//occupied
-				else {
-				
-					buildRoom[0].hasNorthExit=false;
-				}
-	
-			}
-			
-			//move right one if has east exit
-			else if (buildRoom[0].hasEastExit==true && dirChosen==false) {
-			
-				if (buildRoom[0].eastPossible==true) {
-				
-					prevRoomIndex=floorArrIndex;
-					floorArrIndex+=1;
-					
-					//check if destination
-					floorLabel=floorGridArr[floorArrIndex].label;
-					compareLabel=$("#" + floorLabel).html();
-					
-					if (compareLabel!="b" && compareLabel=="█") {
-						dirChosen=true;
-					}
-					
-					//move back and exit is false
-					else {
-					
-						buildRoom[0].hasEastExit=false;
-						floorArrIndex-=1;
-						prevRoomIndex=777;
-					}			
-				}
-				
-				//occupied
-				else {
-				
-					buildRoom[0].hasEastExit=false;
-				}
-			}
-			
-			//move down one if has south exit
-			else if (buildRoom[0].hasSouthExit==true && dirChosen==false) {
-			
-				if (buildRoom[0].southPossible==true) {
-					prevRoomIndex=floorArrIndex;
-					floorArrIndex+=5;
-					
-					//check if destination
-					floorLabel=floorGridArr[floorArrIndex].label;
-					compareLabel=$("#" + floorLabel).html();
-					
-					if (compareLabel!="b" && compareLabel=="█") {
-						dirChosen=true;
-					}
-					
-					//move back and exit is false
-					else {
-					
-						buildRoom[0].hasSouthExit=false;
-						floorArrIndex-=5;
-						prevRoomIndex=777;
-					}
-					
-				}
-	
-				//occupied
-				else {
-				
-					buildRoom[0].hasSouthExit=false;
-				}
-			}
-			
-			//move left one if has west exit
-			else if (buildRoom[0].hasWestExit==true && dirChosen==false) {
-			
-				if (buildRoom[0].westPossible==true) {
-					prevRoomIndex=floorArrIndex;
-					floorArrIndex-=1;
-					//check if destination
-					floorLabel=floorGridArr[floorArrIndex].label;
-					compareLabel=$("#" + floorLabel).html();
-					
-					if (compareLabel!="b" && compareLabel=="█") {
-						dirChosen=true;
-					}
-					
-					//move back and exit is false
-					else {
-						
-						buildRoom[0].hasWestExit=false;
-						floorArrIndex+=1;
-						prevRoomIndex=777;
-					}
-				}
-				
-				//occupied
-				else {
-				
-					buildRoom[0].hasWestExit=false;
-				}
-
-			}
-		
-		} //if stack length >1
-		
-		console.log("hit des, now in index " + floorArrIndex);
-		
-	} //ran into des
-	
-	console.log("prevRoomIndex is " + prevRoomIndex);
-	
-	checkConnect (compareLabel, floorLabel, floorArrIndex, floorArrIndex);
-	//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, floorArrIndex, floorArrIndex);
 	
 	if (buildRoom[0].hasNorthExit==false && buildRoom[0].hasSouthExit==false && buildRoom[0].hasWestExit==false && buildRoom[0].hasEastExit==false && buildRoom.length==1) {
 	
@@ -4016,6 +3592,435 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 	
 	if (floorArrIndex>=0 && floorArrIndex<=19) {
 		//---
+		
+		//to do
+		//all of the below should really go into the inbounds if...
+
+		//check if hit destination, don't change current, should be okay here
+
+		
+		checkConnect (compareLabel, floorLabel, floorArrIndex, floorArrIndex);
+		
+		if (buildRoom[0].northPossible!=true)
+		{
+
+			buildRoom[0].hasNorthExit=false;
+			
+		}
+		
+		if (buildRoom[0].eastPossible!=true)
+		{
+
+			buildRoom[0].hasEastExit=false;
+			
+		}
+		
+		if (buildRoom[0].southPossible!=true)
+		{
+
+			buildRoom[0].hasSouthExit=false;
+			
+		}
+		
+		if (buildRoom[0].westPossible!=true)
+		{
+
+			buildRoom[0].hasWestExit=false;
+			
+		}
+		
+		
+
+		
+		//move up one if has north exit
+		if (buildRoom[0].hasNorthExit==true) {
+		
+			prevRoomIndex=floorArrIndex;
+			floorArrIndex-=5;
+			
+
+		}
+		
+		//move right one if has east exit
+		else if (buildRoom[0].hasEastExit==true) {
+		
+			prevRoomIndex=floorArrIndex;
+			floorArrIndex+=1;
+			
+
+		}
+		
+		//move down one if has south exit
+		else if (buildRoom[0].hasSouthExit==true) {
+		
+			prevRoomIndex=floorArrIndex;
+			floorArrIndex+=5;
+			
+
+		}
+		
+		//move left one if has west exit
+		else if (buildRoom[0].hasWestExit==true) {
+		
+			prevRoomIndex=floorArrIndex;
+			floorArrIndex-=1;
+			
+
+		}
+		
+		console.log("now in " + floorArrIndex);
+		
+		/*//test west + north
+		if (buildRoom[0].hasWestExit==true || buildRoom[0].hasEastExit==true) {
+		
+			prevRoomIndex=floorArrIndex;
+			floorArrIndex-=1;
+		}
+		
+		else if (buildRoom[0].hasNorthExit==true || buildRoom[0].hasSouthExit==true) {
+		
+			prevRoomIndex=floorArrIndex;
+			floorArrIndex-=5;
+			
+			//test
+			//floorArrIndex=777;
+		}*/
+		
+		//test east
+		//prevRoomIndex=floorArrIndex;
+		//floorArrIndex+=1;
+		
+		
+		//test west
+		//prevRoomIndex=floorArrIndex;
+		//floorArrIndex-=1;
+		
+		
+		//test south
+		//prevRoomIndex=floorArrIndex;
+		//floorArrIndex+=5;
+
+		
+		//test north
+		//prevRoomIndex=floorArrIndex;
+		//floorArrIndex-=5;
+		
+		
+		
+		//check if bumping into feature that's not descending room
+								
+		floorLabel=floorGridArr[floorArrIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+		
+		if (prevRoomIndex==floorArrIndex-1 && (floorArrIndex!=4 && floorArrIndex!=9 && floorArrIndex!=14 && floorArrIndex!=19) && compareLabel!="█" && compareLabel!="b")
+		{
+
+			//if different, then bump
+			
+			
+			//move back east one square
+			floorArrIndex--;
+			
+			//reroute
+			console.log("bump in west");
+			floorArrIndex=bumpFloor(floorArrIndex, "east");
+			
+		}
+		
+		floorLabel=floorGridArr[floorArrIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+		
+		if (prevRoomIndex==floorArrIndex+1 && floorArrIndex!=0 && floorArrIndex!=5 && floorArrIndex!=10 && floorArrIndex!=15 && compareLabel!="█" && compareLabel!="b")
+		{
+
+			//if different, then bump
+			
+			
+			//move back west one square
+			floorArrIndex++;
+			
+			//reroute
+			console.log("bump in east");
+			floorArrIndex=bumpFloor(floorArrIndex, "west");
+			
+		}
+		
+		floorLabel=floorGridArr[floorArrIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+		
+		if (prevRoomIndex==floorArrIndex-5 && floorArrIndex<15 && compareLabel!="█" && compareLabel!="b")
+		{
+
+			//if different, then bump
+			
+			
+			//move back north one square
+			
+			floorArrIndex+=5;
+			
+			//reroute
+			
+			console.log("bump in south");
+			floorArrIndex=bumpFloor(floorArrIndex, "north");
+			
+		}
+		
+		floorLabel=floorGridArr[floorArrIndex].label;
+		compareLabel=$("#" + floorLabel).html();
+		
+		if (prevRoomIndex==floorArrIndex+5 && floorArrIndex>4 && compareLabel!="█" && compareLabel!="b")
+		{
+
+			//if different, then bump
+			
+			
+			//move back south one square
+			floorArrIndex-=5;
+			
+			//reroute
+			console.log("bump in north");
+			floorArrIndex=bumpFloor(floorArrIndex, "south");
+			
+		}
+		
+		
+		/*if (buildRoom[0].reroute==true) {
+		
+			//redo exits if bump
+			
+			//move up one if has north exit
+			if (buildRoom[0].hasNorthExit==true) {
+			
+				prevRoomIndex=floorArrIndex;
+				floorArrIndex-=5;
+				
+				//test
+				//floorArrIndex=777;
+			}
+			
+			//move right one if has east exit
+			else if (buildRoom[0].hasEastExit==true) {
+			
+				prevRoomIndex=floorArrIndex;
+				floorArrIndex+=1;
+				
+				//test
+				//floorArrIndex=777;
+			}
+			
+			//move down one if has south exit
+			else if (buildRoom[0].hasSouthExit==true) {
+			
+				prevRoomIndex=floorArrIndex;
+				floorArrIndex+=5;
+				
+				//test
+				//floorArrIndex=777;
+			}
+			
+			//move left one if has west exit
+			else if (buildRoom[0].hasWestExit==true) {
+			
+				prevRoomIndex=floorArrIndex;
+				floorArrIndex-=1;
+				
+				//test
+				//floorArrIndex=777;
+			}
+		
+		}*/
+		
+		
+		
+		if (floorArrIndex==bDesLoc) {
+		
+			let tempRoomIndex=0; //lazy
+			hitDes=true;
+		
+			console.log("hit descend!");
+			if (buildRoom.length==1) {
+			
+				console.log("popped all in stack and all were dead ends");
+				floorArrIndex=777;
+			}
+			
+			if (buildRoom.length>1) {
+			
+				buildRoom.shift();
+				stackPopped=true;
+				//floorArrIndex=buildRoom[0].floorIndex; //popped stack*/
+				
+				//console.log(buildRoom[0].floorIndex);
+				floorArrIndex=buildRoom[0].floorIndex;
+				console.log("new index is: " + floorArrIndex);
+				
+				console.log("checking surroundings of new popped room");
+				checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+				//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+				
+				while (buildRoom.length>1 && buildRoom[0].northPossible==false && buildRoom[0].eastPossible==false && buildRoom[0].southPossible==false && buildRoom[0].westPossible==false) {
+					
+					console.log("last popped room was dead end");
+					//buildRoom[1]=buildRoom[0];
+					buildRoom.shift();
+					stackPopped=true;
+					
+					//console.log(buildRoom[0].floorIndex);
+					floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+					console.log("new index is: " + floorArrIndex);
+					
+					console.log("checking surroundings of new popped room");
+					checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+					//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+					
+				} //while
+				
+				//check if exits of popped room are now occupied
+				
+				//move to appropriate position from popped room
+				
+				let dirChosen=false;
+				prevRoomIndex=777;
+				
+				//move up one if has north exit
+				if (buildRoom[0].hasNorthExit==true) {
+				
+					//not occupied
+					if (buildRoom[0].northPossible==true) {
+				
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex-=5;
+						
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+						
+							buildRoom[0].hasNorthExit=false;
+							floorArrIndex+=5;
+							prevRoomIndex=777;
+						}
+					}
+					
+					//occupied
+					else {
+					
+						buildRoom[0].hasNorthExit=false;
+					}
+		
+				}
+				
+				//move right one if has east exit
+				else if (buildRoom[0].hasEastExit==true && dirChosen==false) {
+				
+					if (buildRoom[0].eastPossible==true) {
+					
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex+=1;
+						
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+						
+							buildRoom[0].hasEastExit=false;
+							floorArrIndex-=1;
+							prevRoomIndex=777;
+						}			
+					}
+					
+					//occupied
+					else {
+					
+						buildRoom[0].hasEastExit=false;
+					}
+				}
+				
+				//move down one if has south exit
+				else if (buildRoom[0].hasSouthExit==true && dirChosen==false) {
+				
+					if (buildRoom[0].southPossible==true) {
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex+=5;
+						
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+						
+							buildRoom[0].hasSouthExit=false;
+							floorArrIndex-=5;
+							prevRoomIndex=777;
+						}
+						
+					}
+		
+					//occupied
+					else {
+					
+						buildRoom[0].hasSouthExit=false;
+					}
+				}
+				
+				//move left one if has west exit
+				else if (buildRoom[0].hasWestExit==true && dirChosen==false) {
+				
+					if (buildRoom[0].westPossible==true) {
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex-=1;
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+							
+							buildRoom[0].hasWestExit=false;
+							floorArrIndex+=1;
+							prevRoomIndex=777;
+						}
+					}
+					
+					//occupied
+					else {
+					
+						buildRoom[0].hasWestExit=false;
+					}
+
+				}
+			
+			} //if stack length >1
+			
+			console.log("hit des, now in index " + floorArrIndex);
+			
+		} //ran into des
+		
+		console.log("prevRoomIndex is " + prevRoomIndex);
+		
+		checkConnect (compareLabel, floorLabel, floorArrIndex, floorArrIndex);
+		//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, floorArrIndex, floorArrIndex);
 		
 		buildRoom[0].floorIndex=floorArrIndex;
 		
@@ -6098,7 +6103,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 		
 		} //if stack length >1
 		
-		else if (buildRoom.length==1 && (buildRoom[0].hasEastExit==false && buildRoom[0].hasWestExit==false && buildRoom[0].hasNorthExit==false && buildRoom[0].hasSouthExit==false)){
+		else if (buildRoom.length==1 && buildRoom[0].eastPossible==false && buildRoom[0].westPossible==false && buildRoom[0].northPossible==false && buildRoom[0].southPossible==false){
 			console.log("nothing updated and stack empty");
 			floorArrIndex=777;
 		}
@@ -6715,6 +6720,10 @@ var isMulti=false; //previously created was multi piece, used for removing an ex
 var stackPopped=false;
 
 var hitDes=false;
+
+var currFloorSym="";
+var butDefColor="lightgray";
+var butSelColor='#6ad18c';
 
 
 //format = (a,b) / (horizontal, vertical)
@@ -8621,6 +8630,8 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	buildRoom[0].southPossible=false;
 	buildRoom[0].westPossible=false;
 	
+	console.log("bumped, index before checking connect is " +floorArrIndex);
+	
 	checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
 	//console.log("bump index before calling surround is " + floorArrIndex);
 	
@@ -8630,7 +8641,7 @@ function bumpFloor (floorArrIndex, directionFrom) {
 	
 	//set current room equal to appropriate direction
 	
-	
+	console.log("bumped, index after checking connect is " +floorArrIndex);
 	
 	//if coming from east
 	if (directionFrom=="west") {
@@ -9014,7 +9025,167 @@ function bumpFloor (floorArrIndex, directionFrom) {
 			if (buildRoom.length==1) {
 			
 				console.log("popped all in stack and all were dead ends");
-				floorArrIndex=777;
+				//floorArrIndex=777;
+				
+				floorArrIndex=buildRoom[0].floorIndex;
+				console.log("new index is: " + floorArrIndex);
+				
+				console.log("checking surroundings of new popped room");
+				checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+				//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+				
+				while (buildRoom.length>1 && buildRoom[0].northPossible==false && buildRoom[0].eastPossible==false && buildRoom[0].southPossible==false && buildRoom[0].westPossible==false) {
+					
+					console.log("last popped room was dead end");
+					//buildRoom[1]=buildRoom[0];
+					buildRoom.shift();
+					stackPopped=true;
+					
+					//console.log(buildRoom[0].floorIndex);
+					floorArrIndex=buildRoom[0].floorIndex; //not needed since return buildRoom's anyway?
+					console.log("new index is: " + floorArrIndex);
+					
+					console.log("checking surroundings of new popped room");
+					checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+					//floorArrIndex=floorCheckSurround(compareLabel, floorLabel, tempRoomIndex, floorArrIndex);
+					
+				} //while
+				
+				//check if exits of popped room are now occupied
+				
+				//move to appropriate position from popped room
+				
+				let dirChosen=false;
+				prevRoomIndex=777;
+				
+				//move up one if has north exit
+				if (buildRoom[0].hasNorthExit==true) {
+				
+					//not occupied
+					if (buildRoom[0].northPossible==true) {
+				
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex-=5;
+						
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+						
+							buildRoom[0].hasNorthExit=false;
+							floorArrIndex+=5;
+							prevRoomIndex=777;
+						}
+					}
+					
+					//occupied
+					else {
+					
+						buildRoom[0].hasNorthExit=false;
+					}
+		
+				}
+				
+				//move right one if has east exit
+				else if (buildRoom[0].hasEastExit==true && dirChosen==false) {
+				
+					if (buildRoom[0].eastPossible==true) {
+					
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex+=1;
+						
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+						
+							buildRoom[0].hasEastExit=false;
+							floorArrIndex-=1;
+							prevRoomIndex=777;
+						}			
+					}
+					
+					//occupied
+					else {
+					
+						buildRoom[0].hasEastExit=false;
+					}
+				}
+				
+				//move down one if has south exit
+				else if (buildRoom[0].hasSouthExit==true && dirChosen==false) {
+				
+					if (buildRoom[0].southPossible==true) {
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex+=5;
+						
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+						
+							buildRoom[0].hasSouthExit=false;
+							floorArrIndex-=5;
+							prevRoomIndex=777;
+						}
+						
+					}
+		
+					//occupied
+					else {
+					
+						buildRoom[0].hasSouthExit=false;
+					}
+				}
+				
+				//move left one if has west exit
+				else if (buildRoom[0].hasWestExit==true && dirChosen==false) {
+				
+					if (buildRoom[0].westPossible==true) {
+						prevRoomIndex=floorArrIndex;
+						floorArrIndex-=1;
+						//check if destination
+						floorLabel=floorGridArr[floorArrIndex].label;
+						compareLabel=$("#" + floorLabel).html();
+						
+						if (compareLabel!="b" && compareLabel=="█") {
+							dirChosen=true;
+						}
+						
+						//move back and exit is false
+						else {
+							
+							buildRoom[0].hasWestExit=false;
+							floorArrIndex+=1;
+							prevRoomIndex=777;
+						}
+					}
+					
+					//occupied
+					else {
+					
+						buildRoom[0].hasWestExit=false;
+					}
+
+				}
 			}
 
 		}
@@ -9303,7 +9474,9 @@ function setFloorAsRoom (floorArrIndex, directionFrom) {
 	
 }
 
-function checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
+function checkConnect (compareLabel, floorLabel, floorArrIndex) {
+
+	var tempRoomIndex;
 
 	console.log("checking connect");
 
@@ -9333,25 +9506,29 @@ function checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
 	
 	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
 	
+		//tempRoomIndex=floorArrIndex-5;
+	
 		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
 		
 		checkArrowS=compareLabel.includes("↓");
-	}
-	
-	//check if opening to north
-	if (compareLabel=="█" || compareLabel=="b") {
-	
-		buildRoom[0].northPossible=true;
-		console.log("checking north, empty space/des");
 		
-	}
+		//check if opening to north
+		if (compareLabel=="█" || compareLabel=="b") {
+		
+			buildRoom[0].northPossible=true;
+			console.log("checking north, empty space/des");
+			
+		}
 
-	if (checkArrowS==true || compareLabel=="╔" || compareLabel=="╗" || compareLabel=="╦" || compareLabel=="╠" || compareLabel=="╣" || compareLabel=="╬" || compareLabel=="║") {
-		
-		buildRoom[0].northPossible=true;
-		buildRoom[0].northMand=true;
+		if (checkArrowS==true || compareLabel=="╔" || compareLabel=="╗" || compareLabel=="╦" || compareLabel=="╠" || compareLabel=="╣" || compareLabel=="╬" || compareLabel=="║") {
+			
+			buildRoom[0].northPossible=true;
+			buildRoom[0].northMand=true;
+		}
 	}
+	
+	
 	
 	compareLabel=" ";
 	
@@ -9366,6 +9543,9 @@ function checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
 	tempRoomIndex=floorArrIndex+1;
 	
 	if ((tempRoomIndex>=0 && tempRoomIndex<=19) && (floorArrIndex!=4 && floorArrIndex!=9 && floorArrIndex!=14 && floorArrIndex!=19) ) {
+	
+		//tempRoomIndex=floorArrIndex+1;
+	
 		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
 		
@@ -9403,6 +9583,8 @@ function checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
 	
 	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
 	
+		//tempRoomIndex=floorArrIndex+5;
+	
 		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
 		
@@ -9438,7 +9620,9 @@ function checkConnect (compareLabel, floorLabel, tempRoomIndex, floorArrIndex) {
 	//check west of arrival
 	tempRoomIndex=floorArrIndex-1;
 	
-	if (tempRoomIndex>=0 && tempRoomIndex<=19 && (floorArrIndex!=0 && floorArrIndex!=5 && floorArrIndex!=10 && floorArrIndex!=15)) {
+	if ((tempRoomIndex>=0 && tempRoomIndex<=19) && (floorArrIndex!=0 && floorArrIndex!=5 && floorArrIndex!=10 && floorArrIndex!=15)) {
+	
+		//tempRoomIndex=floorArrIndex-1;
 	
 		floorLabel=floorGridArr[tempRoomIndex].label;
 		compareLabel=$("#" + floorLabel).html();
@@ -9585,8 +9769,604 @@ function floorCheckSurround (compareLabel, floorLabel, tempRoomIndex, floorArrIn
 
 $( "#floor0" ).click(function( event ) {
 
-	this.style.background='#6ad18c';
+	//blank out color for all other buttons
+	
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor0").text();
+
 })
+
+$( "#floor1" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor1").text();
+
+})
+
+$( "#floor2" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor2").text();
+
+})
+
+$( "#floor3" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor3").text();
+
+})
+
+$( "#floor4" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor4").text();
+
+})
+
+$( "#floor5" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor5").text();
+
+})
+
+$( "#floor6" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor6").text();
+
+})
+
+$( "#floor7" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor7").text();
+
+})
+
+$( "#floor8" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor8").text();
+
+})
+
+$( "#floor9" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor9").text();
+
+})
+
+$( "#floor10" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor10").text();
+
+})
+
+$( "#floor11" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor11").text();
+
+})
+
+$( "#floor12" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor12").text();
+
+})
+
+$( "#floor13" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor13").text();
+
+})
+
+$( "#floor14" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor14").text();
+
+})
+
+$( "#floor15" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor14").text();
+
+})
+
+$( "#floor16" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor16").text();
+
+})
+
+$( "#floor17" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor17").text();
+
+})
+
+$( "#floor18" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor19").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor18").text();
+
+})
+
+$( "#floor19" ).click(function( event ) {
+
+	//blank out color for all other buttons
+	
+	$("#floor0").css("background", butDefColor);
+	$("#floor1").css("background", butDefColor);
+	$("#floor2").css("background", butDefColor);
+	$("#floor3").css("background", butDefColor);
+	$("#floor4").css("background", butDefColor);
+	$("#floor5").css("background", butDefColor);
+	$("#floor6").css("background", butDefColor);
+	$("#floor7").css("background", butDefColor);
+	$("#floor8").css("background", butDefColor);
+	$("#floor9").css("background", butDefColor);
+	$("#floor10").css("background", butDefColor);
+	$("#floor11").css("background", butDefColor);
+	$("#floor12").css("background", butDefColor);
+	$("#floor13").css("background", butDefColor);
+	$("#floor14").css("background", butDefColor);
+	$("#floor15").css("background", butDefColor);
+	$("#floor16").css("background", butDefColor);
+	$("#floor17").css("background", butDefColor);
+	$("#floor18").css("background", butDefColor);
+
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#floor19").text();
+
+})
+
 </script>
 </body>
 </html>
