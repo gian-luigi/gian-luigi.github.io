@@ -76,6 +76,7 @@
 		background: gray;
 
 	}
+	
 
 	.floorContainer > button {
 		width: 73px;
@@ -139,7 +140,50 @@
 	
 		font-size: 12px;
 	}
+	
+	.floorButCont {
+	
+		display:grid;
+		
+		grid-template-columns: 100px 100px;
+		
+		width: 100px;
+		height: 50px;
+		background: gray;
 
+	}
+	
+	.createFloor {
+	
+		grid-column: 1/3;
+	}
+
+	.floorEditGrid1 {
+	
+		display:grid;
+	
+		grid-template-columns: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
+		grid-column-gap:30px;
+		grid-row-gap:20px;
+		
+		height:40px;
+
+		
+		text-align: center;
+	}
+	
+	.floorEditGrid2 {
+	
+		display:grid;
+	
+		grid-template-columns: 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px 60px;
+		grid-column-gap:20px;
+		grid-row-gap:20px;
+		
+		height:70px;
+		
+		text-align: center;
+	}
 	
 	
 	</style>
@@ -2798,8 +2842,9 @@ $(document).ready(function changePlayerButtonText() {
   <div id="dungeonTabs-1">
 	<div class="floorGrid">
 
-			<h2>Floor 1</h2>
-			<button id="createFloorBut">Create Floor</button>
+			<h3 id="floorLab">Floor 1</h3>
+			<div class="floorButCont"><button id="createFloorBut" class="createFloor">Create Floor</button><button id="floorDecBut">-</button><button id="floorIncBut">+</button></div>
+			<br><br>
 
 
 					<div class="floorContainer">
@@ -2824,7 +2869,40 @@ $(document).ready(function changePlayerButtonText() {
 						<button id="floor18">█</button>
 						<button id="floor19">█</button>
 					</div>
-
+		
+					<br>Edit Floor Tile:<br><br>
+					<div class="floorEditGrid1">
+					<button class="floorEditBut" id="editFloor1">║</button>
+					<button class="floorEditBut" id="editFloor2">═</button>
+					<button class="floorEditBut" id="editFloor3">╗</button>
+					<button class="floorEditBut" id="editFloor4">╔</button>
+					<button class="floorEditBut" id="editFloor5">╚</button>
+					<button class="floorEditBut" id="editFloor6">╝</button>
+					<button class="floorEditBut" id="editFloor7">╦</button>
+					<button class="floorEditBut" id="editFloor8">╩</button>
+					<button class="floorEditBut" id="editFloor9">╠</button>
+					<button class="floorEditBut" id="editFloor10">╣</button>
+					<button class="floorEditBut" id="editFloor11">╬</button>
+					<button class="floorEditBut" id="editFloor12">█</button>
+					</div>
+					<br>
+					<div class="floorEditGrid2">
+					<button id="editFloor13">↑<br>■</button>
+					<button id="editFloor14">■<br>↓</button>
+					<button id="editFloor15">←■</button>
+					<button id="editFloor16">■→</button>
+					<button id="editFloor17">↑<br>■<br>↓</button>
+					<button id="editFloor18">←■→</button>
+					<button id="editFloor19">↑<br>■→</button>
+					<button id="editFloor20">↑<br>←■</button>
+					<button id="editFloor21">■→<br>↓</button>
+					<button id="editFloor22">←■<br>↓</button>
+					<button id="editFloor23">↑<br>←■→</button>
+					<button id="editFloor24">↑<br>■→<br>↓</button>
+					<button id="editFloor25">←■→<br>↓</button>
+					<button id="editFloor26">↑<br>←■<br>↓</button>
+					<button id="editFloor27">↑<br>←■→<br>↓</button>
+					</div>
 			
 		</div>
 	</div>
@@ -6721,7 +6799,7 @@ var stackPopped=false;
 
 var hitDes=false;
 
-var currFloorSym="";
+var currFloorSym="█";
 var butDefColor="lightgray";
 var butSelColor='#6ad18c';
 
@@ -7098,7 +7176,7 @@ function initPlayers() {
 			woundedLegLeft:0, //int
 			woundedLegRight:0 //int
 		},
-		hunger:200,
+		hunger:0,
 		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
 		luck:0,
 		prayTime:0,
@@ -7110,7 +7188,7 @@ function initPlayers() {
 		intelligence:0,
 		wisdom:0,
 		constitution:0,
-		speed:12,
+		speed:0,
 		affinAC:0,
 		affTH:0,
 		alignAC:0,
@@ -10364,6 +10442,30 @@ $( "#floor19" ).click(function( event ) {
 	this.style.background=butSelColor;
 	
 	currFloorSym=$("#floor19").text();
+
+})
+
+$( "#floorDecBut" ).click(function( event ) {
+
+	if (currFloor>1) {
+		currFloor--;
+	
+	
+		$("#floorLab").html("Floor " + currFloor);
+	
+	}
+
+})
+
+$( "#floorIncBut" ).click(function( event ) {
+
+	if (currFloor<10) {
+		currFloor++;
+	
+	
+		$("#floorLab").html("Floor " + currFloor);
+		
+	}
 
 })
 
