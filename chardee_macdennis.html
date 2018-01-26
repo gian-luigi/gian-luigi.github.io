@@ -89,10 +89,11 @@
 	
 	.roomContainer {
 		display: grid;
-		grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto auto;
-		
-		width: 550px;
-		height: 550px;
+		grid-template-columns: 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px;
+		grid-column-gap: 10px;
+		grid-row-gap: 10px;
+		width: 480px;
+		height: 600px;
 		background: gray;
 		overflow-y: auto;
 	}
@@ -100,11 +101,13 @@
 	.roomContainer > button {
 	
 		width: 25px;
+		height:25px;
 		float: left;
 		background: lightgray;   
-		margin: 4px;
-		padding-top: 8px;
-		padding-bottom: 8px;
+		//margin: 4px;
+		//padding-top: 8px;
+		//padding-bottom: 8px;
+		//	padding-left: 10px;
 		text-align: center;
 		font-size: 11px;
 	}
@@ -1933,6 +1936,8 @@ $("#playerMiscTabs").tabs({collapsible: true});
          });*/
 
 //when tab is clicked
+
+
 $( "#playerTabs" ).tabs({
   beforeActivate: function( event, ui ) {
   
@@ -2843,7 +2848,7 @@ $(document).ready(function changePlayerButtonText() {
 	<div class="floorGrid">
 
 			<h3 id="floorLab">Floor 1</h3>
-			<div class="floorButCont"><button id="createFloorBut" class="createFloor">Create Floor</button><button id="floorDecBut">-</button><button id="floorIncBut">+</button></div>
+			<div class="floorButCont"><button id="createFloorBut" class="createFloor">Create Floor</button><button id="saveFloorBut" class="createFloor">Save Floor</button><button id="floorDecBut">-</button><button id="floorIncBut">+</button></div>
 			<br><br>
 
 
@@ -2871,37 +2876,39 @@ $(document).ready(function changePlayerButtonText() {
 					</div>
 		
 					<br>Edit Floor Tile:<br><br>
-					<div class="floorEditGrid1">
-					<button class="floorEditBut" id="editFloor1">║</button>
-					<button class="floorEditBut" id="editFloor2">═</button>
-					<button class="floorEditBut" id="editFloor3">╗</button>
-					<button class="floorEditBut" id="editFloor4">╔</button>
-					<button class="floorEditBut" id="editFloor5">╚</button>
-					<button class="floorEditBut" id="editFloor6">╝</button>
-					<button class="floorEditBut" id="editFloor7">╦</button>
-					<button class="floorEditBut" id="editFloor8">╩</button>
-					<button class="floorEditBut" id="editFloor9">╠</button>
-					<button class="floorEditBut" id="editFloor10">╣</button>
-					<button class="floorEditBut" id="editFloor11">╬</button>
-					<button class="floorEditBut" id="editFloor12">█</button>
-					</div>
+					<div class="floorEdit">
+						<div class="floorEditGrid1">
+						<button class="floorEditBut" id="editFloor1">║</button>
+						<button class="floorEditBut" id="editFloor2">═</button>
+						<button class="floorEditBut" id="editFloor3">╗</button>
+						<button class="floorEditBut" id="editFloor4">╔</button>
+						<button class="floorEditBut" id="editFloor5">╚</button>
+						<button class="floorEditBut" id="editFloor6">╝</button>
+						<button class="floorEditBut" id="editFloor7">╦</button>
+						<button class="floorEditBut" id="editFloor8">╩</button>
+						<button class="floorEditBut" id="editFloor9">╠</button>
+						<button class="floorEditBut" id="editFloor10">╣</button>
+						<button class="floorEditBut" id="editFloor11">╬</button>
+						<button class="floorEditBut" id="editFloor12">█</button>
+						</div>
 					<br>
-					<div class="floorEditGrid2">
-					<button id="editFloor13">↑<br>■</button>
-					<button id="editFloor14">■<br>↓</button>
-					<button id="editFloor15">←■</button>
-					<button id="editFloor16">■→</button>
-					<button id="editFloor17">↑<br>■<br>↓</button>
-					<button id="editFloor18">←■→</button>
-					<button id="editFloor19">↑<br>■→</button>
-					<button id="editFloor20">↑<br>←■</button>
-					<button id="editFloor21">■→<br>↓</button>
-					<button id="editFloor22">←■<br>↓</button>
-					<button id="editFloor23">↑<br>←■→</button>
-					<button id="editFloor24">↑<br>■→<br>↓</button>
-					<button id="editFloor25">←■→<br>↓</button>
-					<button id="editFloor26">↑<br>←■<br>↓</button>
-					<button id="editFloor27">↑<br>←■→<br>↓</button>
+						<div class="floorEditGrid2">
+						<button id="editFloor13">↑<br>■</button>
+						<button id="editFloor14">■<br>↓</button>
+						<button id="editFloor15">←■</button>
+						<button id="editFloor16">■→</button>
+						<button id="editFloor17">↑<br>■<br>↓</button>
+						<button id="editFloor18">←■→</button>
+						<button id="editFloor19">↑<br>■→</button>
+						<button id="editFloor20">↑<br>←■</button>
+						<button id="editFloor21">■→<br>↓</button>
+						<button id="editFloor22">←■<br>↓</button>
+						<button id="editFloor23">↑<br>←■→</button>
+						<button id="editFloor24">↑<br>■→<br>↓</button>
+						<button id="editFloor25">←■→<br>↓</button>
+						<button id="editFloor26">↑<br>←■<br>↓</button>
+						<button id="editFloor27">↑<br>←■→<br>↓</button>
+						</div>
 					</div>
 			
 		</div>
@@ -2914,7 +2921,7 @@ $(document).ready(function changePlayerButtonText() {
 			<div class="controlgroup">
 				<div class="menu-container">
 					<div class="roomContainer">
-						<button id="roomTile0"></button>
+						<button id="roomTile0"> </button>
 						<button id="roomTile1"> </button>
 						<button id="roomTile2"> </button>
 						<button id="roomTile3"> </button>
@@ -3179,23 +3186,31 @@ $(document).ready(function changePlayerButtonText() {
 </div>
 
 <script>
-/*$("#floor0").click(function() {
+$( "#dungeonTabs" ).tabs({
+  beforeActivate: function( event, ui ) {
+        //var active = $('#tabs').tabs('option', 'active');
+        //$("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
 
+		var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
 
-	floorTileA=0;
-	floorTileB=0;
-
-})
-
-$("#floor1").click(function() {
-	
-
-	floorTileA=1;
-	floorTileB=0;
-	
-	
-
-})*/
+		
+		if (tabCmp=="dungeonTabs-2") {
+		
+			//load selected room
+			
+			var isRoom=currFloorSym.includes("■");
+			
+			if (isRoom==true) {
+			
+				
+				
+				$("div.roomContainer").find("button").html("M");
+			}
+		
+		}
+		
+    }
+});
 
 $("#createFloorBut").click(function() {
 
@@ -3223,6 +3238,13 @@ $("#createFloorBut").click(function() {
 	
 	
 	$("#" + floorLabel).html("room");*/
+	
+	//initialize floor button colors
+	for (i=0;i<floorSize;i++)
+	{
+		$("div.floorContainer").find("button").css("background", butDefColor);
+	}
+	floorTileIndex=-1;
 	
 	let tempInd=buildRoom.length;
 	tempInd--;
@@ -6422,9 +6444,6 @@ function demoVisibility() {
 
 </style>
 
-<div class="ui-widget">
-	<p>This page demonstrates the widgets and theme you selected in Download Builder. Please make sure you are using them with a compatible jQuery version.</p>
-</div>
 
 <!-- Menu -->
 <h2 class="demoHeaders">Menu</h2>
@@ -6684,13 +6703,6 @@ function demoVisibility() {
 
 
 
-<!-- Tooltip -->
-<h2 class="demoHeaders">Tooltip</h2>
-<p id="tooltip">
-	<a href="#" title="That&apos;s what this widget is">Tooltips</a> can be attached to any element. When you hover
-the element with your mouse, the title attribute is displayed in a little box next to the element, just like a native tooltip.
-</p>
-
 
 <!-- Highlight / Error -->
 <h2 class="demoHeaders">Highlight / Error</h2>
@@ -6751,10 +6763,12 @@ var floorSize=20; //1-20, amount of squares in floors
 var floorMax=10; //total amount of floors, also edit floorExistsArr
 //var visited=0;
 var deadEnd=false; //boolean, determines dead ends in floor creation
-var floorTileA=0;
-var floorTileB=0;
-var roomTileA=0;
-var roomTileB=0;
+//var floorTileA=0;
+//var floorTileB=0;
+var floorTileIndex=-1;
+//var roomTileA=0;
+//var roomTileB=0;
+var roomTileIndex=-1;
 var roomTileMove=1; //amount to move tiles, 1 by default
 var roomTilePrev; //string; save char if moving being onto tile with items or something
 var roomMax=224; //13x16
@@ -9845,7 +9859,7 @@ function floorCheckSurround (compareLabel, floorLabel, tempRoomIndex, floorArrIn
 	return floorArrIndex;
 }
 
-$( "#floor0" ).click(function( event ) {
+/*$( "#floor0" ).click(function( event ) {
 
 	//blank out color for all other buttons
 	
@@ -10443,7 +10457,7 @@ $( "#floor19" ).click(function( event ) {
 	
 	currFloorSym=$("#floor19").text();
 
-})
+})*/
 
 $( "#floorDecBut" ).click(function( event ) {
 
@@ -10452,6 +10466,22 @@ $( "#floorDecBut" ).click(function( event ) {
 	
 	
 		$("#floorLab").html("Floor " + currFloor);
+	
+	}
+	
+	if (floorExistsArr[currFloor]==true) {
+	
+		//load floor
+	
+	}
+	
+	else {
+	
+		for (i=0;i<floorSize;i++)
+		{
+			$("div.floorContainer").find("button").css("background", butDefColor);
+			$("#floor" + i).html("█");
+		}
 	
 	}
 
@@ -10466,7 +10496,64 @@ $( "#floorIncBut" ).click(function( event ) {
 		$("#floorLab").html("Floor " + currFloor);
 		
 	}
+	
+	if (floorExistsArr[currFloor]==true) {
+		
+		//load floor
+	
+	}
+	
+	else {
+	
+		for (i=0;i<floorSize;i++)
+		{
+			$("div.floorContainer").find("button").css("background", butDefColor);
+			$("#floor" + i).html("█");
+		}
+	
+	}
 
+})
+
+$("div.floorContainer").find("button").click(function( event ) {
+
+	var butId=this.id;
+	//var tempStr="";
+	
+	for (i=0;i<floorSize;i++)
+	{
+		$("div.floorContainer").find("button").css("background", butDefColor);
+	}
+	
+	this.style.background=butSelColor;
+	
+	currFloorSym=$("#" + this.id).text();
+	
+	//tempStr=butId.replace("floor", "");
+	//tempStr=parseInt(tempStr);
+	
+	
+	floorTileIndex=butId.replace("floor", "");
+	//alert(floorTileIndex);
+
+	
+})
+
+$("div.floorEdit").find("button").click(function( event ) {
+
+	if (floorTileIndex>=0) {
+
+		var tempStr=$("#" + this.id).html();
+
+		$("#floor" + floorTileIndex).html(tempStr);
+
+		currFloorSym=tempStr;
+		
+		//alert(currFloorSym);
+		
+	}
+
+	
 })
 
 </script>
