@@ -16,7 +16,7 @@
 		margin-top: 2em;
 	}
 	p{
-		font-size: 12px;
+		font-size: 14px;
 	}
 	#initClass {
 		padding: .4em 1em .4em 20px;
@@ -205,6 +205,62 @@
 		overflow-y: auto;
 	}
 	
+	.passivesResistGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto auto auto;
+		
+		
+		grid-row-gap: 20px;
+		grid-column-gap: 20px;
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
+	
+	.passivesImmuneGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto auto auto;
+		
+		
+		grid-row-gap: 20px;
+		grid-column-gap: 20px;
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
+	
+	.passivesGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto;
+		
+		
+		grid-row-gap: 10px;
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
+	
+	.passivesGrid > label {
+	
+		width: 150px;
+		height: 40px;
+		font: 12px;
+	}
+	
+	.playerStatsGrid {
+	
+		display: grid;
+		grid-template-columns: 150px 150px;
+		
+		width:400px;
+		grid-row-gap: 20px;
+		grid-column-gap: 20px;
+	
+	}
+
 	
 	</style>
 </head>
@@ -214,7 +270,7 @@
 
 <p><a href="https://docs.google.com/document/d/1-gGId2ghVJlkAES-ZdD8JQEqY_TpWLZn89FcLH-449A/edit?usp=sharing">Manual</a></p>
 
-<p><iframe src="https://docs.google.com/document/d/e/2PACX-1vR0xJ-v5zoks4Dh39WHsoJwqJeZ60bYLEOi_8S9tOiHnHuQ_4U27HqXK5JOhlwWbZaeJx-jyQUdAJPU/pub?embedded=true"></iframe></p>
+<iframe src="https://docs.google.com/document/d/e/2PACX-1vR0xJ-v5zoks4Dh39WHsoJwqJeZ60bYLEOi_8S9tOiHnHuQ_4U27HqXK5JOhlwWbZaeJx-jyQUdAJPU/pub?embedded=true"></iframe>
 <div id="formationTab">
 	<ul>
 		<li><a href="#formationTab-1">Formation</a></li>
@@ -266,6 +322,7 @@
 var currFormIndex=-1;
 
 $("#formationTab").tabs({collapsible: true});
+
 $( function() {
 	$( "input[type=\"radio\"]" ).checkboxradio();
 } );
@@ -311,7 +368,9 @@ $("div.formSetGrid").find("button").click(function( event ) {
 			//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio"+tempIndex + "\">" + tempText + "</label>");
 			//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio1\">" + tempText + "</label>");
 			
-			$("label[for=formRadio" + tempIndex + "]").html(tempText);
+			//$("label[for=formRadio" + tempIndex + "]").label(tempText);
+			
+			$("#formRadio" + tempIndex).checkboxradio("option", "label", tempText );
 			
 			tempIndex--;
 			
@@ -329,7 +388,9 @@ $( "#clearForm" ).click(function( event ) {
 	
 		formArr[i]="";
 		
-		$("label[for=formRadio" + tempIndex + "]").html("");
+		//$("label[for=formRadio" + tempIndex + "]").html("");
+		
+		$("#formRadio" + tempIndex).checkboxradio("option", "label" , " ");
 		
 	}
 
@@ -364,18 +425,20 @@ $( "#clearForm" ).click(function( event ) {
 	<legend>Attributes 'n stuff:</legend>
 	<div id="controlgroup">
 		Name: <input type="text" onfocus="this.value=''" id="player1NameEntry" value="Enter Name">
-		<p id="playerHP">HP:</p>
-		<p id="playerEnergy">Energy:</p>
-		<p id="playerStr">Strength:</p>
-		<p id="playerDex">Dexterity:</p>
-		<p id="playerInt">Intelligence:</p>
-		<p id="playerWis">Wisdom:</p>
-		<p id="playerCon">Constitution:</p>
-		<p id="playerAC">AC:</p>
-		<p id="playerEncumb">Encumbrance:</p>
-		<p id="playerHunger">Hunger:</p>
-		<p id="playerTurnAct">Actions this turn:</p>
-		
+		<br><br>
+		<div class="playerStatsGrid">
+			<p id="playerHP">HP:</p><input id="HPSpinner" style="width: 50px">
+			<p id="playerEnergy">Energy:</p><input id="EnergySpinner" style="width: 50px">
+			<p id="playerEncumb">Encumbrance:</p><input id="encumbSpinner" style="width: 50px">
+			<p id="playerStr">Strength:</p><input id="StrSpinner" style="width: 50px">
+			<p id="playerDex">Dexterity:</p><input id="DexSpinner" style="width: 50px">
+			<p id="playerInt">Intelligence:</p><input id="IntSpinner" style="width: 50px">
+			<p id="playerWis">Wisdom:</p><input id="WisSpinner" style="width: 50px">
+			<p id="playerCon">Constitution:</p><input id="ConSpinner" style="width: 50px">
+			<p id="playerAC">AC:</p><input id="ACSpinner" style="width: 50px">
+			<p id="playerHunger">Hunger:</p><input id="hungerSpinner" style="width: 50px">
+		</div>
+			<p id="playerTurnAct">Actions this turn:</p>
 		<div id="playerMiscTabs">
 		  <ul>
 			<li><a href="#playerMiscTabs-1">Inventory</a></li>
@@ -388,6 +451,111 @@ $( "#clearForm" ).click(function( event ) {
 		  
 		  <!-- Passives -->
 		  <div id="playerMiscTabs-2">
+			<fieldset>
+			<legend>Resistances</legend>
+				<div class="passivesResistGrid">
+				
+					<label class="passivesBut" for="coldResist">Cold</label>
+					<input type="checkbox" name="passivesCheck1" id="coldResist">
+					<label class="passivesBut" for="fireResist">Fire</label>
+					<input type="checkbox" name="passivesCheck2" id="fireResist">
+					<label class="passivesBut" for="shockResist">Shock</label>
+					<input type="checkbox" name="passivesCheck3" id="shockResist">
+					<label class="passivesBut" for="disinResist">Disintegration</label>
+					<input type="checkbox" name="passivesCheck4" id="disinResist">
+					<label class="passivesBut" for="slowResist">Slow</label>
+					<input type="checkbox" name="passivesCheck5" id="slowResist">
+					<label class="passivesBut" for="blindResist">Blind</label>
+					<input type="checkbox" name="passivesCheck6" id="blindResist">
+					<label class="passivesBut" for="sleepResist">Sleep</label>
+					<input type="checkbox" name="passivesCheck7" id="sleepResist">
+					<label class="passivesBut" for="poisonResist">Poison</label>
+					<input type="checkbox" name="passivesCheck8" id="poisonResist">
+					<label class="passivesBut" for="confuseResist">Confusion</label>
+					<input type="checkbox" name="passivesCheck9" id="confuseResist">
+					<label class="passivesBut" for="woundResist">Wound</label>
+					<input type="checkbox" name="passivesCheck10" id="woundResist">
+					<label class="passivesBut" for="petrifyResist">Petrification</label>
+					<input type="checkbox" name="passivesCheck11" id="petrifyResist">
+					<label class="passivesBut" for="magicResist">Magic</label>
+					<input type="checkbox" name="passivesCheck12" id="magicResist">
+					<label class="passivesBut" for="physicalResist">Physical</label>
+					<input type="checkbox" name="passivesCheck13" id="physicalResist">
+				
+				
+				</div>
+			</fieldset>
+			<br>
+			<fieldset>
+			<legend>Immunities</legend>
+				<div class="passivesResistGrid">
+				
+					<label class="passivesBut" for="coldResist1">Cold</label>
+					<input type="checkbox" name="passivesCheck1" id="coldResist1">
+					<label class="passivesBut" for="fireResist1">Fire</label>
+					<input type="checkbox" name="passivesCheck2" id="fireResist1">
+					<label class="passivesBut" for="shockResist1">Shock</label>
+					<input type="checkbox" name="passivesCheck3" id="shockResist1">
+					<label class="passivesBut" for="disinResist1">Disintegration</label>
+					<input type="checkbox" name="passivesCheck4" id="disinResist1">
+					<label class="passivesBut" for="slowResist1">Slow</label>
+					<input type="checkbox" name="passivesCheck5" id="slowResist1">
+					<label class="passivesBut" for="blindResist1">Blind</label>
+					<input type="checkbox" name="passivesCheck6" id="blindResist1">
+					<label class="passivesBut" for="sleepResist1">Sleep</label>
+					<input type="checkbox" name="passivesCheck7" id="sleepResist1">
+					<label class="passivesBut" for="poisonResist1">Poison</label>
+					<input type="checkbox" name="passivesCheck8" id="poisonResist1">
+					<label class="passivesBut" for="confuseResist1">Confusion</label>
+					<input type="checkbox" name="passivesCheck9" id="confuseResist1">
+					<label class="passivesBut" for="woundResist1">Wound</label>
+					<input type="checkbox" name="passivesCheck10" id="woundResist1">
+					<label class="passivesBut" for="petrifyResist1">Petrification</label>
+					<input type="checkbox" name="passivesCheck11" id="petrifyResist1">
+					<label class="passivesBut" for="magicResist1">Magic</label>
+					<input type="checkbox" name="passivesCheck12" id="magicResist1">
+					<label class="passivesBut" for="physicalResist1">Physical</label>
+					<input type="checkbox" name="passivesCheck13" id="physicalResist1">
+				
+				
+				</div>
+			</fieldset>
+			<br>
+			<fieldset>
+			<legend>Other</legend>
+				<div class="passivesGrid">
+				
+					<label class="passivesBut" for="brisk">Brisk</label>
+					<input type="checkbox" name="passivesCheck1" id="brisk">
+					<label class="passivesBut" for="haste">Haste</label>
+					<input type="checkbox" name="passivesCheck2" id="haste">
+					<label class="passivesBut" for="invis">Invisible</label>
+					<input type="checkbox" name="passivesCheck3" id="invis">
+					<label class="passivesBut" for="seeInvis">See Invisible</label>
+					<input type="checkbox" name="passivesCheck4" id="seeInvis">
+					<label class="passivesBut" for="searching">Searching</label>
+					<input type="checkbox" name="passivesCheck5" id="searching">
+					<label class="passivesBut" for="levitate">Levitation</label>
+					<input type="checkbox" name="passivesCheck6" id="levitate">
+					<label class="passivesBut" for="flying">Flying</label>
+					<input type="checkbox" name="passivesCheck7" id="flying">
+					<label class="passivesBut" for="warning">Warning</label>
+					<input type="checkbox" name="passivesCheck8" id="warning">
+					<label class="passivesBut" for="breathless">Breathless</label>
+					<input type="checkbox" name="passivesCheck9" id="breathless">
+					<label class="passivesBut" for="foodApp">Food Appraisal</label>
+					<input type="checkbox" name="passivesCheck10" id="foodApp">
+					<label class="passivesBut" for="waterwalking">Waterwalking</label>
+					<input type="checkbox" name="passivesCheck11" id="waterwalking">
+					<label class="passivesBut" for="stealth">Stealth</label>
+					<input type="checkbox" name="passivesCheck12" id="stealth">
+					<label class="passivesBut" for="reflection">Reflection</label>
+					<input type="checkbox" name="passivesCheck13" id="reflection">
+				
+				
+				</div>
+			</fieldset>
+			
 			
 			
 		  </div>
@@ -395,12 +563,12 @@ $( "#clearForm" ).click(function( event ) {
 		  <!-- Proficiencies -->
 		  <div id="playerMiscTabs-3">
 			<div class="profGrid">
-				<div class="profLabel"><b><br>Daggers:</b></div>
-				<div class="profLabel"><b><br>Axes:</b></div>
-				<div class="profLabel"><b><br>Swords:</b></div>
-				<div class="profLabel"><b><br>Bludgeons:</b></div>
-				<div class="profLabel"><b><br>Staves:</b></div>
-				<div class="profLabel"><b><br>Spears:</b></div>
+				<div class="profLabel" id="dagger"><b><br>Daggers:</b></div>
+				<div class="profLabel" id="axe"><b><br>Axes:</b></div>
+				<div class="profLabel" id="sword"><b><br>Swords:</b></div>
+				<div class="profLabel" id="bludgeon"><b><br>Bludgeons:</b></div>
+				<div class="profLabel" id="staff"><b><br>Staves:</b></div>
+				<div class="profLabel" id="spear"><b><br>Spears:</b></div>
 				<div class="profLevLab" id="daggerProfLevLab"> </div>
 				<div class="profLevLab" id="axeProfLevLab"> </div>
 				<div class="profLevLab" id="swordProfLevLab"> </div>
@@ -415,12 +583,12 @@ $( "#clearForm" ).click(function( event ) {
 				<div class="profBar" id="spearProfBar"></div>
 			</div>
 			<div class="profGrid">
-				<div class="profLabel"><b><br>Polearms:</b></div>
-				<div class="profLabel"><b><br>Bows:</b></div>
-				<div class="profLabel"><b>Martial<br>Arts:</b></div>
-				<div class="profLabel"><b><br>Barehanded:</b></div>
-				<div class="profLabel"><b><br>Augments:</b></div>
-				<div class="profLabel"><b><br>Mobility:</b></div>
+				<div class="profLabel" id="polearm"><b><br>Polearms:</b></div>
+				<div class="profLabel" id="bow"><b><br>Bows:</b></div>
+				<div class="profLabel" id="martial"><b>Martial<br>Arts:</b></div>
+				<div class="profLabel" id="barehand"><b><br>Barehanded:</b></div>
+				<div class="profLabel" id="augment"><b><br>Augments:</b></div>
+				<div class="profLabel" id="mobility"><b><br>Mobility:</b></div>
 				<div class="profLevLab" id="polearmProfLevLab"> </div>
 				<div class="profLevLab" id="bowProfLevLab"> </div>
 				<div class="profLevLab" id="martialProfLevLab"> </div>
@@ -435,12 +603,12 @@ $( "#clearForm" ).click(function( event ) {
 				<div class="profBar" id="mobilityProfBar"></div>
 			</div>
 			<div class="profGrid">
-				<div class="profLabel"><b>Attack<br>Spells:</b></div>
-				<div class="profLabel"><b>Matter<br>Spells:</b></div>
-				<div class="profLabel"><b>Divination<br>Spells:</b></div>
-				<div class="profLabel"><b>Clerical<br>Spells:</b></div>
-				<div class="profLabel"><b>Enchantment<br>Spells:</b></div>
-				<div class="profLabel"><b>Healing<br>Spells:</b></div>
+				<div class="profLabel" id="attackSpell"><b>Attack<br>Spells:</b></div>
+				<div class="profLabel" id="matterSpell"><b>Matter<br>Spells:</b></div>
+				<div class="profLabel" id="divinationSpell"><b>Divination<br>Spells:</b></div>
+				<div class="profLabel" id="clericalSpell"><b>Clerical<br>Spells:</b></div>
+				<div class="profLabel" id="enchantmentSpell"><b>Enchantment<br>Spells:</b></div>
+				<div class="profLabel" id="healingSpell"><b>Healing<br>Spells:</b></div>
 				<div class="profLevLab" id="attackSpellProfLevLab"> </div>
 				<div class="profLevLab" id="matterSpellProfLevLab"> </div>
 				<div class="profLevLab" id="divinationSpellProfLevLab"> </div>
@@ -464,17 +632,62 @@ $( "#clearForm" ).click(function( event ) {
 		</div>
 	</div>
 </fieldset></div>
-	<div id="playerTabs-1">asdf</div>
-	<div id="playerTabs-2">Phasellus mattis tincidunt nibh. Cras orci urna, blandit id, pretium vel, aliquet ornare, felis. Maecenas scelerisque sem non nisl. Fusce sed lorem in enim dictum bibendum.</div>
-	<div id="playerTabs-3">Nam dui erat, auctor a, dignissim quis, sollicitudin eu, felis. Pellentesque nisi urna, interdum eget, sagittis et, consequat vestibulum, lacus. Mauris porttitor ullamcorper augue.</div>
-	<div id="playerTabs-4">asdf</div>
-	<div id="playerTabs-5">asdf</div>
-	<div id="playerTabs-6">asdf</div>
-	<div id="playerTabs-7">asdf</div>
-	<div id="playerTabs-8">asdf</div>
-	<div id="playerTabs-9">asdf</div>
+	<div id="playerTabs-1"></div>
+	<div id="playerTabs-2"></div>
+	<div id="playerTabs-3"></div>
+	<div id="playerTabs-4"></div>
+	<div id="playerTabs-5"></div>
+	<div id="playerTabs-6"></div>
+	<div id="playerTabs-7"></div>
+	<div id="playerTabs-8"></div>
+	<div id="playerTabs-9"></div>
 </div>
 <script>
+$( function() {
+	$( "input[type=\"checkbox\"]" ).checkboxradio();
+} );
+
+//$( "#hpSpinner" ).spinner();
+$("div.playerStatsGrid").find("input").spinner();
+
+$("div.playerStatsGrid").find("input").keyup(function(event) {
+
+
+	var enterVal = this.value;
+	var tempStr;
+	var tempStr2;
+	enterVal=parseInt(enterVal);
+	//alert(typeof(enterVal));
+	
+    if (event.keyCode === 13) {
+	
+		if (isNaN(enterVal)==false && allPlayers[whoIsActive].playerExists==true) {
+	
+			tempStr=this.id;
+			tempStr=tempStr.replace("Spinner","");
+			tempStr2=tempStr.toLowerCase();
+			
+			if (tempStr2=="hp") {
+			
+				tempStr2+="Curr";
+				
+				
+				allPlayers[whoIsActive].hpCurr+=enterVal;
+				
+			}
+			
+			//alert(allPlayers[whoIsActive].hpCurr);
+			
+			updatePlayer();
+			
+	
+		}
+    }
+	
+	
+	
+});
+
 function profInc() {
 
 	if (allPlayers[whoIsActive].playerExists==true)
@@ -1593,6 +1806,127 @@ $( "#healingSpellProfBar" ).progressbar({
 	max:20
 });
 
+$("div.profGrid").find("div.profLabel").click(function( event ) {
+
+	//alert("asdf");
+	
+	var tempStr=this.id;
+	
+	//alert(tempStr);
+	
+	$("#daggerProfBar").css("background-color", "white");
+	$("#axeProfBar").css("background-color", "white");
+	$("#swordProfBar").css("background-color", "white");
+	$("#bludgeonProfBar").css("background-color", "white");
+	$("#staffProfBar").css("background-color", "white");
+	$("#spearProfBar").css("background-color", "white");
+	$("#polearmProfBar").css("background-color", "white");
+	$("#bowProfBar").css("background-color", "white");
+	$("#martialProfBar").css("background-color", "white");
+	$("#barehandProfBar").css("background-color", "white");
+	$("#augmentProfBar").css("background-color", "white");
+	$("#mobilityProfBar").css("background-color", "white");
+	$("#attackSpellProfBar").css("background-color", "white");
+	$("#matterSpellProfBar").css("background-color", "white");
+	$("#divinationSpellProfBar").css("background-color", "white");
+	$("#clericalSpellProfBar").css("background-color", "white");
+	$("#enchantmentSpellProfBar").css("background-color", "white");
+	$("#healingSpellProfBar").css("background-color", "white");
+	
+	$("#"+tempStr+"ProfBar").css("background-color", profBarColor);
+	
+	if (tempStr=="dagger") {
+	
+		currProf=0;
+	}
+	
+	if (tempStr=="axe") {
+	
+		currProf=1;
+	}
+	
+	if (tempStr=="sword") {
+	
+		currProf=2;
+	}
+	
+	if (tempStr=="bludgeon") {
+	
+		currProf=3;
+	}
+	
+	if (tempStr=="staff") {
+	
+		currProf=4;
+	}
+	
+	if (tempStr=="spear") {
+	
+		currProf=5;
+	}
+	
+	if (tempStr=="polearm") {
+	
+		currProf=6;
+	}
+	
+	if (tempStr=="bow") {
+	
+		currProf=7;
+	}
+	
+	if (tempStr=="martial") {
+	
+		currProf=8;
+	}
+	
+	if (tempStr=="barehand") {
+	
+		currProf=9;
+	}
+	
+	if (tempStr=="augment") {
+	
+		currProf=10;
+	}
+	
+	if (tempStr=="mobility") {
+	
+		currProf=11;
+	}
+	
+	if (tempStr=="attackSpell") {
+	
+		currProf=12;
+	}
+	
+	if (tempStr=="matterSpell") {
+	
+		currProf=13;
+	}
+	
+	if (tempStr=="divinationSpell") {
+	
+		currProf=14;
+	}
+	
+	if (tempStr=="clericalSpell") {
+	
+		currProf=15;
+	}
+	
+	if (tempStr=="enchantmentSpell") {
+	
+		currProf=16;
+	}
+	
+	if (tempStr=="healingSpell") {
+	
+		currProf=17;
+	}
+	
+});
+
 $("#daggerProfBar").click(function(){
 
 	currProf=0;
@@ -2168,6 +2502,11 @@ $( "#playerTabs" ).tabs({
 	$("#clericalSpellProfBar").css("background-color", "white");
 	$("#enchantmentSpellProfBar").css("background-color", "white");
 	$("#healingSpellProfBar").css("background-color", "white");
+	
+	
+	//clears spinner entries
+	$("div.playerStatsGrid").find("input").spinner("value", '');
+	
 	
   }
 });
@@ -4316,7 +4655,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 		//check current position (having just moved), then make feature
 
 
-		if (floorArrIndex!=aArrLoc || floorArrIndex!=bDesLoc) {
+		if (floorArrIndex!=aArrLoc && floorArrIndex!=bDesLoc) {
 		
 		//moving east
 		//if (floorArrIndex==prevRoomIndex+1 || (stackPopped==true && buildRoom[0].hasEastExit==true)) {
@@ -7571,48 +7910,49 @@ function initPlayers() {
 		},
 		playerPassives: //passives
 		{
-			fireResist :false,//0,0
-			coldResist :false,//0,1
-			shockResist :false,//0,2
-			disinResist :false,//0,3
-			sleepResist :false,//0,4
-			poisonResist :false,//0,5
-			paralysisResist :false,//0,6
-			blindResist :false,//0,7
-			petrifyResist :false,//0,8
-			sicknessResist :false,//0,9
-			drainResist :false,//0,10
-			woundResist :false,//1,0
-			breathless :false,//1,1
-			searching :false,//1,2
-			seeInvis :false,//1,3
-			invis :false,//1,4
-			levitate :false,//1,5
-			flying :false,//1,6
-			adornment :false,//1,7
-			warning :false,//1,8
-			telepathy :false,//1,9
-			foodApp :false,//1,10
-			reflection :false,//2,0
-			magicResist :false,//2,1
-			waterWalking :false,//2,2
-			displacement :false,//2,3
-			sustainAbility :false,//2,4
-			slowDigest :false,//2,5
-			lifeSaving :false,//2,6
-			stealth :false,//2,7
-			confuseResist :false,//2,8
+			fireResist :0, //1 for resistant, 2 for immune, 3 for absorb
+			coldResist :0,
+			shockResist :0,
+			disinResist :0,
+			slowResist :0,
+			sleepResist :0,
+			poisonResist :0,
+			paralysisResist :0,
+			blindResist :0,
+			petrifyResist :0,
+			sicknessResist :0,
+			drainResist :0,
+			woundResist :0,
+			breathless :false,
+			searching :false,
+			seeInvis :false,
+			invis :false,
+			levitate :false,
+			flying :false,
+			adornment :false,
+			warning :false,
+			telepathy :false,
+			foodApp :false,
+			reflection :false,
+			magicResist :false,
+			waterWalking :false,
+			displacement :false,
+			sustainAbility :false,
+			slowDigest :false,
+			lifeSaving :false,
+			stealth :false,
+			confuseResist :false,
 
 
-			brisk :0,//2,9
-			haste :0,//2,10
-			dash :0,//3,0 //int
-			agileDash :0,//3,1 //int
-			infravision :false,//3,2 //int
-			regen :false,//3,3
-			protection:0, //int
-			energyRegen :false,//3,4
-			noHungCast :false,//3,5
+			brisk :0,
+			haste :0,
+			dash :0,
+			agileDash :0,
+			infravision :false,
+			regen :false,
+			protection:0, 
+			energyRegen :false,
+			noHungCast :false,
 
 			permSlow:false,
 			permBrisk:false,
@@ -8550,7 +8890,7 @@ function initStats() {
 	allPlayers[lockActive].enchantmentSpellProf = 0;
 	allPlayers[lockActive].healingSpellProf = 0;
 
-	allPlayers[lockActive].//bar progress
+	//bar progress
 	allPlayers[lockActive].daggerBar = 0;
 	allPlayers[lockActive].axeBar = 0;
 	allPlayers[lockActive].swordBar = 0;
@@ -9214,7 +9554,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 			
 				let tempRoll=rollDie(2,1);
 			
-				if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true) {
+				if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true && (buildRoom[0].eastMand!=true || buildRoom[0].eastPossible!=true) && floorArrIndex>4) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╣");
@@ -9260,13 +9600,22 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				else if (buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand==true && buildRoom[0].southMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╬");
+					
+					buildRoom[0].reroute=true;
+					
+				}
+				
+				else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("←■");
 					console.log("made this ←■");
 				
-				}*/
+				}
 				
 				else {
 				
@@ -9279,7 +9628,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 			
 				let tempRoll=rollDie(2,1);
 			
-				if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true) {
+				if (tempRoll==1 && buildRoom[0].southMand==true && buildRoom[0].northMand==true && floorArrIndex>4) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╠");
@@ -9325,13 +9674,22 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				else if (buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand==true && buildRoom[0].southMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╬");
+					
+					buildRoom[0].reroute=true;
+					
+				}
+				
+				else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("■→");
 					console.log("made this ■→");
 				
-				}*/
+				}
 				
 				else {
 				
@@ -9354,7 +9712,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].northMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
+				else if (buildRoom[0].northMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true) && floorArrIndex>4) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╣");
@@ -9363,7 +9721,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].northMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true)) {
+				else if (buildRoom[0].northMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && floorArrIndex>4) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╠");
@@ -9390,13 +9748,22 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				else if (buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand==true && buildRoom[0].southMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╬");
+					
+					buildRoom[0].reroute=true;
+					
+				}
+				
+				else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("■<br>↓");
 					console.log("made this ■<br>↓");
 				
-				}*/
+				}
 				
 				else {
 				
@@ -9419,7 +9786,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].southMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true)) {
+				else if (buildRoom[0].southMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true) && floorArrIndex>4) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╣");
@@ -9428,7 +9795,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].southMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true)) {
+				else if (buildRoom[0].southMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && floorArrIndex>4) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╠");
@@ -9456,12 +9823,21 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				/*else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
+				else if (buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand==true && buildRoom[0].southMand==true) {
+				
+					floorLabel=floorGridArr[floorArrIndex].label;
+					$("#" + floorLabel).html("╬");
+					
+					buildRoom[0].reroute=true;
+					
+				}
+				
+				else if (buildRoom[0].northPossible!=true && buildRoom[0].eastPossible!=true && buildRoom[0].southPossible!=true && buildRoom[0].westPossible!=true){
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("■<br>↓");
 					console.log("made this ■<br>↓");
-				}*/
+				}
 				
 				else {
 				
@@ -10086,6 +10462,11 @@ function checkConnect (compareLabel, floorLabel, floorArrIndex) {
 	
 	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
 	
+		if (tempRoomIndex<0) {
+		
+			alert("wtf");
+		}
+	
 		//tempRoomIndex=floorArrIndex-5;
 	
 		floorLabel=floorGridArr[tempRoomIndex].label;
@@ -10167,6 +10548,12 @@ function checkConnect (compareLabel, floorLabel, floorArrIndex) {
 	tempRoomIndex=floorArrIndex+5;
 	
 	if (tempRoomIndex>=0 && tempRoomIndex<=19) {
+	
+		if (tempRoomIndex>19) {
+		
+			alert("wtf");
+		}
+	
 	
 		//tempRoomIndex=floorArrIndex+5;
 	
