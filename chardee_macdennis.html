@@ -188,6 +188,23 @@
 		text-align: center;
 	}
 	
+	.formGrid {
+		display: grid;
+		grid-template-columns: auto auto auto;
+		width: 500px;
+		height: 150px;
+		overflow-y: auto;
+	}
+	
+	.formSetGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto auto auto auto;
+		grid-column-gap: 20px;
+		width: 600px;
+		height: 30px;
+		overflow-y: auto;
+	}
+	
 	
 	</style>
 </head>
@@ -196,6 +213,129 @@
 <h1>Welcome to chardee macdennis!</h1>
 
 <p><a href="https://docs.google.com/document/d/1-gGId2ghVJlkAES-ZdD8JQEqY_TpWLZn89FcLH-449A/edit?usp=sharing">Manual</a></p>
+
+<p><iframe src="https://docs.google.com/document/d/e/2PACX-1vR0xJ-v5zoks4Dh39WHsoJwqJeZ60bYLEOi_8S9tOiHnHuQ_4U27HqXK5JOhlwWbZaeJx-jyQUdAJPU/pub?embedded=true"></iframe></p>
+<div id="formationTab">
+	<ul>
+		<li><a href="#formationTab-1">Formation</a></li>
+	</ul>
+
+	<div id="formationTab-1">
+		
+		<fieldset>
+			<legend>Set Formation</legend>
+			<div class="formGrid">
+				<label for="formRadio1"> </label>
+				<input type="radio" name="formRadio1" id="formRadio1">
+				<label for="formRadio2"> </label>
+				<input type="radio" name="formRadio1" id="formRadio2">
+				<label for="formRadio3"> </label>
+				<input type="radio" name="formRadio1" id="formRadio3">
+				<label for="formRadio4"> </label>
+				<input type="radio" name="formRadio1" id="formRadio4">
+				<label for="formRadio5"> </label>
+				<input type="radio" name="formRadio1" id="formRadio5">
+				<label for="formRadio6"> </label>
+				<input type="radio" name="formRadio1" id="formRadio6">
+				<label for="formRadio7"> </label>
+				<input type="radio" name="formRadio1" id="formRadio7">
+				<label for="formRadio8"> </label>
+				<input type="radio" name="formRadio1" id="formRadio8">
+				<label for="formRadio9"> </label>
+				<input type="radio" name="formRadio1" id="formRadio9">
+			</div>
+			<br>
+			<div class="formSetGrid">
+				<button id="formSet1">P1</button>
+				<button id="formSet2">P2</button>
+				<button id="formSet3">P3</button>
+				<button id="formSet4">P4</button>
+				<button id="formSet5">P5</button>
+				<button id="formSet6">P6</button>
+				<button id="formSet7">P7</button>
+				<button id="formSet8">P8</button>
+				<button id="formSet9">P9</button>
+			</div>
+			<br>
+			<button id="clearForm">Clear Formation</button>
+		</fieldset>
+	
+	</div>
+</div>
+<script>
+var currFormIndex=-1;
+
+$("#formationTab").tabs({collapsible: true});
+$( function() {
+	$( "input[type=\"radio\"]" ).checkboxradio();
+} );
+  
+// $( "#formRadio1" ).click(function( event ) { 
+$("div.formGrid").find("input").click(function( event ) {
+ 
+		//currFormIndex=0;
+		
+		//alert(this.id);
+		
+		var tempIndex=this.id;
+		
+		tempIndex=tempIndex.replace("formRadio", "");
+
+		tempIndex=parseInt(tempIndex);
+		
+		tempIndex--;
+		
+		//alert(tempIndex);
+		
+		currFormIndex=tempIndex;
+});
+
+$("div.formSetGrid").find("button").click(function( event ) {
+ 
+		if (currFormIndex>=0) {
+			
+			var tempIndex=currFormIndex;
+			var tempSetIndex;
+			var tempText;
+			
+			tempIndex++;
+			
+			tempSetIndex=this.id;
+			tempSetIndex=tempSetIndex.replace("formSet", "")
+			
+			tempText=$("#formSet" + tempSetIndex).html();
+			
+			//alert(tempText);
+			
+			//<label for="formRadio8"> </label>
+			//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio"+tempIndex + "\">" + tempText + "</label>");
+			//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio1\">" + tempText + "</label>");
+			
+			$("label[for=formRadio" + tempIndex + "]").html(tempText);
+			
+			tempIndex--;
+			
+			formArr[tempIndex]=tempText;
+		
+		}
+});
+
+$( "#clearForm" ).click(function( event ) {
+
+	for (i=0;i<playersMax; i++) {
+	
+		tempIndex=i;
+		tempIndex++;
+	
+		formArr[i]="";
+		
+		$("label[for=formRadio" + tempIndex + "]").html("");
+		
+	}
+
+});
+
+</script>
 
 
 <!-- Tabs -->
@@ -2712,10 +2852,13 @@ function updatePlayer(){
 
 $("#player1NameEntry").keyup(function(event) {
 
+
 	var nameEnter = document.getElementById("player1NameEntry").value;
 
 	
     if (event.keyCode === 13 && nameEnter!="") {
+	
+		
 	
 		var nameStyle ="<h2>";
 	
@@ -3198,30 +3341,48 @@ $( "#dungeonTabs" ).tabs({
 		
 			$("div.roomContainer").find("button").html(""); //initialize
 			
-			var isRoom=currFloorSym.includes("■");
-			var isDes=currFloorSym.includes("b");
-			var isArr=currFloorSym.includes("a");
+			
 		
 			//load selected room if it exists
 			
 			
 			//if doesnt exist, make one
-			if (isRoom==true || isDes==true || isArr==true) {
+			if (allRooms[currRoomIndex].roomExists==false) {
 			
-				for (i=0;i<10;i++) {
-					
-					
-					$("#roomTile" + i).html("-");
-				}
+				roomGen();
+			
 				
-				
-				//$("div.roomContainer").find("button").html("M");
+			
 			}
 		
 		}
 		
     }
 });
+
+function roomGen() {
+
+	//determine what the room/hall is, then create it
+
+	var isRoom=currFloorSym.includes("■");
+	var isDes=currFloorSym.includes("b");
+	var isArr=currFloorSym.includes("a");
+
+	//if room
+	if (isRoom==true || isDes==true || isArr==true) {
+	
+		for (i=0;i<10;i++) {
+			
+			
+			$("#roomTile" + i).html("-");
+		}
+		
+		
+		//$("div.roomContainer").find("button").html("M");
+	}
+	
+
+}
 
 $("#createFloorBut").click(function() {
 
@@ -6814,7 +6975,7 @@ var roomSize=224; //14x16
 var roomMax=200; //10 floors, 20 rooms each
 var tileDir=1; // move tile direciton, 1 for up, 2 for right, 3 for down, 4 for left, 1 by default; 5 NE, 6 NW, 7 SE, 8 SW
 var createTile; //string
-var floorExistsArr= [false, false, false, false, false, false, false, false, false, false]; //bool, array of whether or not a floor exists
+//var floorExistsArr= [false, false, false, false, false, false, false, false, false, false]; //bool, array of whether or not a floor exists
 var currRoomIs=0; //shape of room, 0 for room, 1-9 for hall, 10/11 for straight hall, 12 for secret
 var currRoomSizeA=0;
 var currRoomSizeB=0;
@@ -6829,7 +6990,7 @@ var partyCount=0;
 
 var partyLevel=0;
 
-var formArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+var formArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 var currFormA=0;
 var currFormB=0; //grid coordinates
 var formIndex=0; //for setting array
@@ -6860,15 +7021,22 @@ var butSelColor='#6ad18c';
 var monMax=12; //max mons per room?
 var itemMax=7; //max items per room?
 
+var offset=0; //offset for rooms on higher floors, access allRooms array indicies
+
 
 //format = (a,b) / (horizontal, vertical)
 
 /*var roomGridArr =[];
 initRooms();*/
 
+//monster stuff
+
+var currMonsters=[];
+//initMonster();
+
 function initMonster() {
 
-	/*{
+	currMonsters.push ({
 			
 				monsterName: "",
 				
@@ -6981,7 +7149,7 @@ function initMonster() {
 				otherAC:0,
 				totalAC:0,
 				toHit:0
-		},*/
+		});
 
 	
 
@@ -7031,6 +7199,8 @@ function initAllRooms() {
 			roomItems: tempItemArray,
 			
 			//monsters and items go here too (and players?)
+			
+			roomExists: false,
 		
 		});
 		
@@ -10183,606 +10353,6 @@ function floorCheckSurround (compareLabel, floorLabel, tempRoomIndex, floorArrIn
 	return floorArrIndex;
 }
 
-/*$( "#floor0" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor0").text();
-
-})
-
-$( "#floor1" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor1").text();
-
-})
-
-$( "#floor2" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor2").text();
-
-})
-
-$( "#floor3" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor3").text();
-
-})
-
-$( "#floor4" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor4").text();
-
-})
-
-$( "#floor5" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor5").text();
-
-})
-
-$( "#floor6" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor6").text();
-
-})
-
-$( "#floor7" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor7").text();
-
-})
-
-$( "#floor8" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor8").text();
-
-})
-
-$( "#floor9" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor9").text();
-
-})
-
-$( "#floor10" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor10").text();
-
-})
-
-$( "#floor11" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor11").text();
-
-})
-
-$( "#floor12" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor12").text();
-
-})
-
-$( "#floor13" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor13").text();
-
-})
-
-$( "#floor14" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor14").text();
-
-})
-
-$( "#floor15" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor14").text();
-
-})
-
-$( "#floor16" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor16").text();
-
-})
-
-$( "#floor17" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor17").text();
-
-})
-
-$( "#floor18" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor19").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor18").text();
-
-})
-
-$( "#floor19" ).click(function( event ) {
-
-	//blank out color for all other buttons
-	
-	$("#floor0").css("background", butDefColor);
-	$("#floor1").css("background", butDefColor);
-	$("#floor2").css("background", butDefColor);
-	$("#floor3").css("background", butDefColor);
-	$("#floor4").css("background", butDefColor);
-	$("#floor5").css("background", butDefColor);
-	$("#floor6").css("background", butDefColor);
-	$("#floor7").css("background", butDefColor);
-	$("#floor8").css("background", butDefColor);
-	$("#floor9").css("background", butDefColor);
-	$("#floor10").css("background", butDefColor);
-	$("#floor11").css("background", butDefColor);
-	$("#floor12").css("background", butDefColor);
-	$("#floor13").css("background", butDefColor);
-	$("#floor14").css("background", butDefColor);
-	$("#floor15").css("background", butDefColor);
-	$("#floor16").css("background", butDefColor);
-	$("#floor17").css("background", butDefColor);
-	$("#floor18").css("background", butDefColor);
-
-	this.style.background=butSelColor;
-	
-	currFloorSym=$("#floor19").text();
-
-})*/
-
 $( "#floorDecBut" ).click(function( event ) {
 
 
@@ -10874,7 +10444,13 @@ $("div.floorContainer").find("button").click(function( event ) {
 	
 	
 	floorTileIndex=butId.replace("floor", "");
-	//alert(floorTileIndex);
+
+	tempIndex=parseInt(floorTileIndex);
+	
+	offset=currFloor;
+	offset*=20;
+	//alert(tempIndex+offset);
+	currRoomIndex=tempIndex+offset;
 
 	
 })
