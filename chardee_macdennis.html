@@ -260,6 +260,26 @@
 		grid-column-gap: 20px;
 	
 	}
+	
+	.levelGrid {
+		display: grid;
+		grid-template-columns: 80px 40px 40px;
+		
+		
+		grid-column-gap: 10px;
+		width:200px
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
+	
+	.levelGrid > button{
+		height:30px;
+		width:30px;
+		padding: 2px 6px 6px 6px;
+		
+	}
 
 	
 	</style>
@@ -354,6 +374,7 @@ $("div.formSetGrid").find("button").click(function( event ) {
 			var tempIndex=currFormIndex;
 			var tempSetIndex;
 			var tempText;
+			var tempIndex2;
 			
 			tempIndex++;
 			
@@ -361,23 +382,67 @@ $("div.formSetGrid").find("button").click(function( event ) {
 			tempSetIndex=tempSetIndex.replace("formSet", "")
 			
 			tempText=$("#formSet" + tempSetIndex).html();
-			
 			//alert(tempText);
 			
-			//<label for="formRadio8"> </label>
-			//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio"+tempIndex + "\">" + tempText + "</label>");
-			//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio1\">" + tempText + "</label>");
+			if (formArr.includes(tempText)==false) {
 			
-			//$("label[for=formRadio" + tempIndex + "]").label(tempText);
+				
+				
+				//alert(tempText);
+				
+				//<label for="formRadio8"> </label>
+				//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio"+tempIndex + "\">" + tempText + "</label>");
+				//$("label[for=formRadio" + tempIndex + "]").html("<label for=\"formRadio1\">" + tempText + "</label>");
+				
+				//$("label[for=formRadio" + tempIndex + "]").label(tempText);
+				
+				$("#formRadio" + tempIndex).checkboxradio("option", "label", tempText );
+				
+				tempIndex--;
+				
+				formArr[tempIndex]=tempText;
 			
-			$("#formRadio" + tempIndex).checkboxradio("option", "label", tempText );
+			}
 			
-			tempIndex--;
+			else if (formArr.includes(tempText)==true){
 			
-			formArr[tempIndex]=tempText;
+
+	
+				
+				//find index of where the current one is
+				
+				
+				for (i=0;i<playersMax;i++) {
+					
+						if (formArr[i]==tempText) {
+						
+							formArr[i]=0;
+							tempIndex2=i;
+						}
+				}
+			
+				//formArr[tempIndex2]=0;
+				tempIndex2++;
+			
+				
+				//blank it
+				$("#formRadio" + tempIndex2).checkboxradio("option", "label", " " );
+				
+				
+				
+				//set new location
+				$("#formRadio" + tempIndex).checkboxradio("option", "label", tempText );
+				
+				tempIndex--;
+				
+				formArr[tempIndex]=tempText;
+				
+			
+			}
 		
 		}
 });
+
 
 $( "#clearForm" ).click(function( event ) {
 
@@ -425,20 +490,36 @@ $( "#clearForm" ).click(function( event ) {
 	<legend>Attributes 'n stuff:</legend>
 	<div id="controlgroup">
 		Name: <input type="text" onfocus="this.value=''" id="player1NameEntry" value="Enter Name">
-		<br><br>
+		<br><br><br>
+		<div class="levelGrid"><div id="levelLab">Level: 0</div><button id="levelDec">-</button><button id="levelInc">+</button></div>
+		<br>
+		<fieldset>
+			<div class="playerStatsGrid">
+				<label for="statEditRadio1">Current</label>
+				<input type="radio" name="statEditRadio" id="statEditRadio1">
+				<label for="statEditRadio2">Max</label>
+				<input type="radio" name="statEditRadio" id="statEditRadio2">
+				<p id="playerHP">HP:</p><input type="spinner" id="hp" style="width: 50px">
+				<p id="playerEnergy">Energy:</p><input type="spinner" id="energy" style="width: 50px">
+				<p id="playerEncumb">Encumbrance:</p><input type="spinner" id="encumbrance" style="width: 50px">
+			</div>
+		</fieldset>
+		<fieldset>
 		<div class="playerStatsGrid">
-			<p id="playerHP">HP:</p><input id="HPSpinner" style="width: 50px">
-			<p id="playerEnergy">Energy:</p><input id="EnergySpinner" style="width: 50px">
-			<p id="playerEncumb">Encumbrance:</p><input id="encumbSpinner" style="width: 50px">
-			<p id="playerStr">Strength:</p><input id="StrSpinner" style="width: 50px">
-			<p id="playerDex">Dexterity:</p><input id="DexSpinner" style="width: 50px">
-			<p id="playerInt">Intelligence:</p><input id="IntSpinner" style="width: 50px">
-			<p id="playerWis">Wisdom:</p><input id="WisSpinner" style="width: 50px">
-			<p id="playerCon">Constitution:</p><input id="ConSpinner" style="width: 50px">
-			<p id="playerAC">AC:</p><input id="ACSpinner" style="width: 50px">
-			<p id="playerHunger">Hunger:</p><input id="hungerSpinner" style="width: 50px">
+			<p id="playerStr">Strength:</p><input type="spinner" id="strength" style="width: 50px">
+			<p id="playerDex">Dexterity:</p><input type="spinner" id="dexterity" style="width: 50px">
+			<p id="playerInt">Intelligence:</p><input type="spinner" id="intelligence" style="width: 50px">
+			<p id="playerWis">Wisdom:</p><input type="spinner" id="wisdom" style="width: 50px">
+			<p id="playerCon">Constitution:</p><input type="spinner" id="constitution" style="width: 50px">
+			<p id="playerAC">AC:</p><input type="spinner" id="AC" style="width: 50px">
+			<p id="playerHunger">Hunger:</p><input type="spinner" id="hunger" style="width: 50px">
+			<p id="playerLuck">Luck:</p><input type="spinner" id="luck" style="width: 50px">
+			<p id="playerTurnAct">Actions this turn:</p><br>
+			<p>To Hit:</p><br>
+			<button id="prayTime" style="height: 40px">Prayer:</button>
 		</div>
-			<p id="playerTurnAct">Actions this turn:</p>
+		</fieldset>
+			
 		<div id="playerMiscTabs">
 		  <ul>
 			<li><a href="#playerMiscTabs-1">Inventory</a></li>
@@ -551,6 +632,10 @@ $( "#clearForm" ).click(function( event ) {
 					<input type="checkbox" name="passivesCheck12" id="stealth">
 					<label class="passivesBut" for="reflection">Reflection</label>
 					<input type="checkbox" name="passivesCheck13" id="reflection">
+					<label class="passivesBut" for="telepathy">Telepathy</label>
+					<input type="checkbox" name="passivesCheck13" id="telepathy">
+					<label class="passivesBut" for="displacement">Displacement</label>
+					<input type="checkbox" name="passivesCheck13" id="displacement">
 				
 				
 				</div>
@@ -643,12 +728,532 @@ $( "#clearForm" ).click(function( event ) {
 	<div id="playerTabs-9"></div>
 </div>
 <script>
+$("#levelDec").click(function() {
+
+	if(allPlayers[whoIsActive].playerExists==true) {
+
+		allPlayers[whoIsActive].playerLevel--;
+		
+		//edit stats
+		
+		if (allPlayers[whoIsActive].race==0) //human
+		{
+			allPlayers[whoIsActive].hpMax-=1;
+			allPlayers[whoIsActive].hpCurr-=1;
+			allPlayers[whoIsActive].energyMax-=2;
+			allPlayers[whoIsActive].energyCurr-=2;
+		}
+
+		if (allPlayers[whoIsActive].race==1) //dwarf
+		{
+			allPlayers[whoIsActive].hpMax-=3;
+			allPlayers[whoIsActive].hpCurr-=3;	
+		}
+		
+		if (allPlayers[whoIsActive].race==2) //orc
+		{
+			allPlayers[whoIsActive].hpMax-=2;
+			allPlayers[whoIsActive].hpCurr-=2;
+			allPlayers[whoIsActive].energyMax-=1;
+			allPlayers[whoIsActive].energyCurr-=1;
+		}
+
+		if (allPlayers[whoIsActive].race==3) //elf
+		{
+			allPlayers[whoIsActive].energyMax-=3;
+			allPlayers[whoIsActive].energyCurr-=3;	
+		}
+
+		if (allPlayers[whoIsActive].playClass==0) //highlander
+		{
+			tempRoll=rollDie(4,2);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(2,1);
+
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==1) //wizard
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(2,2);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+			allPlayers[whoIsActive].energyMax--;
+			allPlayers[whoIsActive].energyCurr--;
+		}
+
+		if (allPlayers[whoIsActive].playClass==2) //healer
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==3) //rapscallion
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==4) //monk
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+			allPlayers[whoIsActive].hpMax-=2;
+			allPlayers[whoIsActive].hpCurr-=2;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+	
+		if (allPlayers[whoIsActive].playClass==5) //sniper
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==6) //myrmidon
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==7) //saboteur
+		{
+			tempRoll=rollDie(6,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==8) //occultist
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(2,2);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==9) //basilica
+		{
+			tempRoll=rollDie(4,2);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==10) //triarius
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+			allPlayers[whoIsActive].hpMax--;
+			allPlayers[whoIsActive].hpCurr--;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==11) //symposiarch
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax-=tempRoll;
+			allPlayers[whoIsActive].hpCurr-=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax-=tempRoll;
+			allPlayers[whoIsActive].energyCurr-=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].wisdom==10 || allPlayers[whoIsActive].wisdom==11) //10-11
+		{
+			allPlayers[whoIsActive].energyMax--;
+			allPlayers[whoIsActive].energyCurr--;
+		}
+	
+		if (allPlayers[whoIsActive].wisdom>11 && allPlayers[whoIsActive].wisdom<15) //12-14
+		{
+			allPlayers[whoIsActive].energyMax-=2;
+			allPlayers[whoIsActive].energyCurr-=2;
+		}
+
+		if (allPlayers[whoIsActive].wisdom>14 && allPlayers[whoIsActive].wisdom<17) //15-16
+		{
+			allPlayers[whoIsActive].energyMax-=3;
+			allPlayers[whoIsActive].energyCurr-=3;
+		}
+
+		if (allPlayers[whoIsActive].wisdom>18 && allPlayers[whoIsActive].wisdom<21) //17-19
+		{
+			allPlayers[whoIsActive].energyMax-=4;
+			allPlayers[whoIsActive].energyCurr-=4;
+		}
+
+		if (allPlayers[whoIsActive].wisdom>20 && allPlayers[whoIsActive].wisdom<23) //20+
+		{
+			allPlayers[whoIsActive].energyMax-=5;
+			allPlayers[whoIsActive].energyCurr-=5;
+		}
+
+		
+		//update
+		updatePlayer();
+		
+		}
+
+});
+
+$("#levelInc").click(function() {
+
+	if(allPlayers[whoIsActive].playerExists==true) {
+
+		allPlayers[whoIsActive].playerLevel++;
+		
+		//edit stats
+		
+		if (allPlayers[whoIsActive].race==0) //human
+		{
+			allPlayers[whoIsActive].hpMax+=1;
+			allPlayers[whoIsActive].hpCurr+=1;
+			allPlayers[whoIsActive].energyMax+=2;
+			allPlayers[whoIsActive].energyCurr+=2;
+		}
+
+		if (allPlayers[whoIsActive].race==1) //dwarf
+		{
+			allPlayers[whoIsActive].hpMax+=3;
+			allPlayers[whoIsActive].hpCurr+=3;	
+		}
+		
+		if (allPlayers[whoIsActive].race==2) //orc
+		{
+			allPlayers[whoIsActive].hpMax+=2;
+			allPlayers[whoIsActive].hpCurr+=2;
+			allPlayers[whoIsActive].energyMax+=1;
+			allPlayers[whoIsActive].energyCurr+=1;
+		}
+
+		if (allPlayers[whoIsActive].race==3) //elf
+		{
+			allPlayers[whoIsActive].energyMax+=3;
+			allPlayers[whoIsActive].energyCurr+=3;	
+		}
+
+		if (allPlayers[whoIsActive].playClass==0) //highlander
+		{
+			tempRoll=rollDie(4,2);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(2,1);
+
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==1) //wizard
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(2,2);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+			allPlayers[whoIsActive].energyMax++;
+			allPlayers[whoIsActive].energyCurr++;
+		}
+
+		if (allPlayers[whoIsActive].playClass==2) //healer
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==3) //rapscallion
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==4) //monk
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+			allPlayers[whoIsActive].hpMax+=2;
+			allPlayers[whoIsActive].hpCurr+=2;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+	
+		if (allPlayers[whoIsActive].playClass==5) //sniper
+		{
+			tempRoll=rollDie(2,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==6) //myrmidon
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==7) //saboteur
+		{
+			tempRoll=rollDie(6,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==8) //occultist
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(2,2);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==9) //basilica
+		{
+			tempRoll=rollDie(4,2);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==10) //triarius
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+			allPlayers[whoIsActive].hpMax++;
+			allPlayers[whoIsActive].hpCurr++;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].playClass==11) //symposiarch
+		{
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].hpMax+=tempRoll;
+			allPlayers[whoIsActive].hpCurr+=tempRoll;
+
+			tempRoll=rollDie(4,1);
+			allPlayers[whoIsActive].energyMax+=tempRoll;
+			allPlayers[whoIsActive].energyCurr+=tempRoll;
+		}
+
+		if (allPlayers[whoIsActive].wisdom==10 || allPlayers[whoIsActive].wisdom==11) //10-11
+		{
+			allPlayers[whoIsActive].energyMax++;
+			allPlayers[whoIsActive].energyCurr++;
+		}
+	
+		if (allPlayers[whoIsActive].wisdom>11 && allPlayers[whoIsActive].wisdom<15) //12-14
+		{
+			allPlayers[whoIsActive].energyMax+=2;
+			allPlayers[whoIsActive].energyCurr+=2;
+		}
+
+		if (allPlayers[whoIsActive].wisdom>14 && allPlayers[whoIsActive].wisdom<17) //15-16
+		{
+			allPlayers[whoIsActive].energyMax+=3;
+			allPlayers[whoIsActive].energyCurr+=3;
+		}
+
+		if (allPlayers[whoIsActive].wisdom>18 && allPlayers[whoIsActive].wisdom<21) //17-19
+		{
+			allPlayers[whoIsActive].energyMax+=4;
+			allPlayers[whoIsActive].energyCurr+=4;
+		}
+
+		if (allPlayers[whoIsActive].wisdom>20 && allPlayers[whoIsActive].wisdom<23) //20+
+		{
+			allPlayers[whoIsActive].energyMax+=5;
+			allPlayers[whoIsActive].energyCurr+=5;
+		}
+
+		
+		//update
+		updatePlayer();
+	
+	}
+});
+
+$("div.passivesResistGrid").find( "input[type=\"checkbox\"]").click(function( event ) {
+
+	//alert(this.id);
+	
+	var passId=this.id;
+	var immune=passId.includes("1");
+	var newPass;
+
+	if (immune==true) {
+	
+		newPass=passId.replace("1","");
+	}
+	
+	if ($('#'+ this.id).prop('checked')==true && immune!=true) {
+    
+		allPlayers[whoIsActive].playerPassives[passId]=1;
+		
+	}
+	
+	if ($('#'+ this.id).prop('checked')!=true && immune!=true && allPlayers[whoIsActive].playerPassives[passId]!=2) {
+    
+		allPlayers[whoIsActive].playerPassives[passId]=0;
+	}
+	
+	if ($('#'+ this.id).prop('checked')==true && immune==true) {
+    
+		allPlayers[whoIsActive].playerPassives[newPass]=2;
+		$("#" + newPass).prop('checked', true);
+		$("#" + newPass).checkboxradio('refresh')
+		
+		
+	}
+	
+	if ($('#'+ this.id).prop('checked')!=true && immune==true && allPlayers[whoIsActive].playerPassives[passId]!=1) {
+    
+		allPlayers[whoIsActive].playerPassives[newPass]=0;
+	}
+});
+
+$("div.passivesGrid").find( "input[type=\"checkbox\"]").click(function( event ) {
+
+
+	
+	var passId=this.id;
+
+	
+	if ($('#'+ this.id).prop('checked')==true) {
+    
+		allPlayers[whoIsActive].playerPassives[passId]=1;
+		
+	}
+	
+	if ($('#'+ this.id).prop('checked')!=true) {
+    
+		allPlayers[whoIsActive].playerPassives[passId]=0;
+	}
+	
+});
+
+var currMax=-1; //0 for curr, 1 for max
+
+$("#prayTime").click(function() {
+
+	if (allPlayers[whoIsActive].playerExists==true && allPlayers[whoIsActive].prayTime==0) {
+		
+		var pTime=100;
+		
+		var minusPlus=rollDie(2,1);
+		
+		if (minusPlus==1) {
+		
+			pTime+=rollDie(10,1);
+		
+		}
+		
+		else {
+		
+			pTime-=rollDie(10,1);
+		}
+		
+		$("#prayTime").html("Prayer: "+ pTime);
+		allPlayers[whoIsActive].prayTime=pTime;
+	}
+});
+
+$( "#statEditRadio1" ).click(function( event ) {
+
+	currMax=0;
+});
+
+$( "#statEditRadio2" ).click(function( event ) {
+
+	currMax=1;
+});
+
 $( function() {
 	$( "input[type=\"checkbox\"]" ).checkboxradio();
 } );
 
 //$( "#hpSpinner" ).spinner();
-$("div.playerStatsGrid").find("input").spinner();
+$("div.playerStatsGrid").find("input[type=\"spinner\"]").spinner();
 
 $("div.playerStatsGrid").find("input").keyup(function(event) {
 
@@ -667,13 +1272,69 @@ $("div.playerStatsGrid").find("input").keyup(function(event) {
 			tempStr=tempStr.replace("Spinner","");
 			tempStr2=tempStr.toLowerCase();
 			
-			if (tempStr2=="hp") {
+			//var element_id = this.data()[element_type + 'id'];
 			
-				tempStr2+="Curr";
+			
+			//allPlayers[whoIsActive][tempStr2]+=enterVal;
+			
+			//current
+			if (tempStr2=="hp" && currMax==0) {
+
 				
 				
 				allPlayers[whoIsActive].hpCurr+=enterVal;
 				
+			}
+			
+			//max
+			if (tempStr2=="hp" && currMax==1) {
+			
+				
+				
+				allPlayers[whoIsActive].hpMax+=enterVal;
+				
+			}
+			
+			//current
+			if (tempStr2=="energy" && currMax==0) {
+
+				
+				
+				allPlayers[whoIsActive].energyCurr+=enterVal;
+				
+			}
+			
+			//max
+			if (tempStr2=="energy" && currMax==1) {
+			
+				
+				
+				allPlayers[whoIsActive].energyMax+=enterVal;
+				
+			}
+			
+			//current
+			if (tempStr2=="encumbrance" && currMax==0) {
+
+				
+				
+				allPlayers[whoIsActive].weightCurr+=enterVal;
+				
+			}
+			
+			//max
+			if (tempStr2=="encumbrance" && currMax==1) {
+			
+				
+				
+				allPlayers[whoIsActive].weightMax+=enterVal;
+				
+			}
+		
+			
+			else {
+			
+				allPlayers[whoIsActive][tempStr2]+=enterVal;
 			}
 			
 			//alert(allPlayers[whoIsActive].hpCurr);
@@ -2505,7 +3166,7 @@ $( "#playerTabs" ).tabs({
 	
 	
 	//clears spinner entries
-	$("div.playerStatsGrid").find("input").spinner("value", '');
+	$("div.playerStatsGrid").find("input[type=\"spinner\"]").spinner("value", '');
 	
 	
   }
@@ -2527,645 +3188,745 @@ function updatePlayer(){
 	
 	
 	
-	if (allPlayers[whoIsActive].hasTitle==true){
+		
 	
-		$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "<h2>");
+	if (allPlayers[whoIsActive].hasName!=true && allPlayers[whoIsActive].hasTitle==true) {
+	
+		let tempInt=whoIsActive;
+		tempInt++;
+		//tempInt=toString(tempInt);
+	
+		//$('#playerTitle').html("asdf");
+		$('#playerTitle').html("<h2>Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
 	}
 	
-	if (allPlayers[whoIsActive].hasName==false){
+	else if (allPlayers[whoIsActive].hasTitle==true && allPlayers[whoIsActive].hasName!=true){
+	
+		$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
+	}
+	
+	else if (allPlayers[whoIsActive].hasName==true && allPlayers[whoIsActive].hasTitle!=true) {
+	
+		$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + "</h2>");
+	}
+	
+	else if (allPlayers[whoIsActive].hasName!=true && allPlayers[whoIsActive].hasTitle!=true){
 		tempInt=whoIsActive+1;
 		tempStyle="<h2>Player " + tempInt + "</h2>";
 		$('#playerTitle').html(tempStyle);
 	}
+	
+	//to do: if player does not exist blank everything...
 		
-	tempStat="HP: " + allPlayers[whoIsActive].hpCurr;
-	tempStat+=" / " + allPlayers[whoIsActive].hpMax;
-	$('#playerHP').html(tempStat);
-	
-	tempStat="Energy: " + allPlayers[whoIsActive].energyCurr;
-	tempStat+=" / " + allPlayers[whoIsActive].energyMax;
-	$('#playerEnergy').html(tempStat);
-	
-	tempStat="Strength: " + allPlayers[whoIsActive].strength;
-	$('#playerStr').html(tempStat);
-	
-	tempStat="Dexterity: " + allPlayers[whoIsActive].dexterity;
-	$('#playerDex').html(tempStat);
-	
-	tempStat="Intelligence: " + allPlayers[whoIsActive].intelligence;
-	$('#playerInt').html(tempStat);
-	
-	tempStat="Wisdom: " + allPlayers[whoIsActive].wisdom;
-	$('#playerWis').html(tempStat);
-	
-	tempStat="Constitution: " + allPlayers[whoIsActive].constitution;
-	$('#playerCon').html(tempStat);
-	
-	tempStat="Encumbrance: " + allPlayers[whoIsActive].weightCurr;
-	tempStat+=" / " + allPlayers[whoIsActive].weightMax;
-	$('#playerEncumb').html(tempStat);
-	
-	tempStat="Hunger: " + allPlayers[whoIsActive].hunger;
-	$('#playerHunger').html(tempStat);
-	
-	tempStat="AC: " + allPlayers[whoIsActive].totalAC;
-	armorACInt=allPlayers[whoIsActive].armorAC;
-	tempStat+=" (+" + allPlayers[whoIsActive].armorAC +" from armor, +" + allPlayers[whoIsActive].otherAC + " other)";
-	$('#playerAC').html(tempStat);
-	
-	//actions
-	tempStat="Actions this turn: "; 
-	if (allPlayers[whoIsActive].speed>=12 && allPlayers[whoIsActive].speed<24){
-		tempStat+="1";
-	}
-	if (allPlayers[whoIsActive].speed>=24){
-		tempStat+="2";
-	}
-	
-	if (allPlayers[whoIsActive].speed<12){
-		tempStat+="0";
-	}
-	
-	$('#playerTurnAct').html(tempStat);
-	
-	
-	//update profs
-	
-	if (allPlayers[whoIsActive].playerProfs.daggerLev==0) {
+	if (allPlayers[whoIsActive].playerExists==true) {
 		
-		$( "#daggerProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.daggerProf + " / 20)" );
-		$( "#daggerProfBar" ).progressbar({value:0 , max:20});
-		$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
+		tempStat="Level: " + allPlayers[whoIsActive].playerLevel;
+		$('#levelLab').html(tempStat);
+			
+		tempStat="HP: " + allPlayers[whoIsActive].hpCurr;
+		tempStat+=" / " + allPlayers[whoIsActive].hpMax;
+		$('#playerHP').html(tempStat);
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.daggerLev==1) {
-	
-		$( "#daggerProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.daggerProf + " / 50)" );
-		$( "#daggerProfBar" ).progressbar({value:0 , max:30});
-		$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.daggerLev==2) {
-	
-		$( "#daggerProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.daggerProf + " / 90)" );
-		$( "#daggerProfBar" ).progressbar({value:0 , max:40});
-		$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.daggerLev==3) {
-	
-		$( "#daggerProfLevLab" ).html( "Master" );
-		$( "#daggerProfBar" ).progressbar({value:1 , max:1});
-		$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.axeLev==0) {
+		tempStat="Energy: " + allPlayers[whoIsActive].energyCurr;
+		tempStat+=" / " + allPlayers[whoIsActive].energyMax;
+		$('#playerEnergy').html(tempStat);
 		
-		$( "#axeProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.axeProf + " / 20)" );
-		$( "#axeProfBar" ).progressbar({value:0 , max:20});
-		$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.axeLev==1) {
-	
-		$( "#axeProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.axeProf + " / 50)" );
-		$( "#axeProfBar" ).progressbar({value:0 , max:30});
-		$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.axeLev==2) {
-	
-		$( "#axeProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.axeProf + " / 90)" );
-		$( "#axeProfBar" ).progressbar({value:0 , max:40});
-		$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.axeLev==3) {
-	
-		$( "#axeProfLevLab" ).html( "Master" );
-		$( "#axeProfBar" ).progressbar({value:1 , max:1});
-		$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.swordLev==0) {
 		
-		$( "#swordProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.swordProf + " / 20)" );
-		$( "#swordProfBar" ).progressbar({value:0 , max:20});
-		$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordProf );
+		tempStat="Encumbrance: " + allPlayers[whoIsActive].weightCurr;
+		tempStat+=" / " + allPlayers[whoIsActive].weightMax;
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.swordLev==1) {
-	
-		$( "#swordProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.swordProf + " / 50)" );
-		$( "#swordProfBar" ).progressbar({value:0 , max:30});
-		$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.swordLev==2) {
-	
-		$( "#swordProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.swordProf + " / 90)" );
-		$( "#swordProfBar" ).progressbar({value:0 , max:40});
-		$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.swordLev==3) {
-	
-		$( "#swordProfLevLab" ).html( "Master" );
-		$( "#swordProfBar" ).progressbar({value:1 , max:1});
-		$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bludgeonLev==0) {
+		if (allPlayers[whoIsActive].weightCurr>allPlayers[whoIsActive].weightMax) {
 		
-		$( "#bludgeonProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.bludgeonProf + " / 20)" );
-		$( "#bludgeonProfBar" ).progressbar({value:0 , max:20});
-		$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonProf );
+			if (allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*burdenedMod)) {
+			
+				tempStat+="<br>Burdened";
+			}
+			
+			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*burdenedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*stressedMod)) {
+			
+				tempStat+="<br>Stressed";
+			}
+			
+			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*stressedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*strainedMod)) {
+			
+				tempStat+="<br>Strained";
+			}
+			
+			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*strainedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*overtaxedMod)) {
+			
+				tempStat+="<br>Overtaxed";
+			}
+			
+			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*overtaxedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*overloadedMod)) {
+			
+				tempStat+="<br>Overloaded";
+			}
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bludgeonLev==1) {
-	
-		$( "#bludgeonProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.bludgeonProf + " / 50)" );
-		$( "#bludgeonProfBar" ).progressbar({value:0 , max:30});
-		$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bludgeonLev==2) {
-	
-		$( "#bludgeonProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.bludgeonProf + " / 90)" );
-		$( "#bludgeonProfBar" ).progressbar({value:0 , max:40});
-		$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bludgeonLev==3) {
-	
-		$( "#bludgeonProfLevLab" ).html( "Master" );
-		$( "#bludgeonProfBar" ).progressbar({value:1 , max:1});
-		$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.staffLev==0) {
+		}//encumbered
 		
-		$( "#staffProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.staffProf + " / 20)" );
-		$( "#staffProfBar" ).progressbar({value:0 , max:20});
-		$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffProf );
+		$('#playerEncumb').html(tempStat);
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.staffLev==1) {
-	
-		$( "#staffProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.staffProf + " / 50)" );
-		$( "#staffProfBar" ).progressbar({value:0 , max:30});
-		$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.staffLev==2) {
-	
-		$( "#staffProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.staffProf + " / 90)" );
-		$( "#staffProfBar" ).progressbar({value:0 , max:40});
-		$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.staffLev==3) {
-	
-		$( "#staffProfLevLab" ).html( "Master" );
-		$( "#staffProfBar" ).progressbar({value:1 , max:1});
-		$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.spearLev==0) {
 		
-		$( "#spearProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.spearProf + " / 20)" );
-		$( "#spearProfBar" ).progressbar({value:0 , max:20});
-		$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.spearLev==1) {
-	
-		$( "#spearProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.spearProf + " / 50)" );
-		$( "#spearProfBar" ).progressbar({value:0 , max:30});
-		$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.spearLev==2) {
-	
-		$( "#spearProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.spearProf + " / 90)" );
-		$( "#spearProfBar" ).progressbar({value:0 , max:40});
-		$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.spearLev==3) {
-	
-		$( "#spearProfLevLab" ).html( "Master" );
-		$( "#spearProfBar" ).progressbar({value:1 , max:1});
-		$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.polearmLev==0) {
+		tempStat="Strength: " + allPlayers[whoIsActive].strength;
+		$('#playerStr').html(tempStat);
 		
-		$( "#polearmProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.polearmProf + " / 20)" );
-		$( "#polearmProfBar" ).progressbar({value:0 , max:20});
-		$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmProf );
+		tempStat="Dexterity: " + allPlayers[whoIsActive].dexterity;
+		$('#playerDex').html(tempStat);
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.polearmLev==1) {
-	
-		$( "#polearmProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.polearmProf + " / 50)" );
-		$( "#polearmProfBar" ).progressbar({value:0 , max:30});
-		$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.polearmLev==2) {
-	
-		$( "#polearmProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.polearmProf + " / 90)" );
-		$( "#polearmProfBar" ).progressbar({value:0 , max:40});
-		$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.polearmLev==3) {
-	
-		$( "#polearmProfLevLab" ).html( "Master" );
-		$( "#polearmProfBar" ).progressbar({value:1 , max:1});
-		$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bowLev==0) {
+		tempStat="Intelligence: " + allPlayers[whoIsActive].intelligence;
+		$('#playerInt').html(tempStat);
 		
-		$( "#bowProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.bowProf + " / 20)" );
-		$( "#bowProfBar" ).progressbar({value:0 , max:20});
-		$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowProf );
+		tempStat="Wisdom: " + allPlayers[whoIsActive].wisdom;
+		$('#playerWis').html(tempStat);
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bowLev==1) {
-	
-		$( "#bowProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.bowProf + " / 50)" );
-		$( "#bowProfBar" ).progressbar({value:0 , max:30});
-		$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bowLev==2) {
-	
-		$( "#bowProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.bowProf + " / 90)" );
-		$( "#bowProfBar" ).progressbar({value:0 , max:40});
-		$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.bowLev==3) {
-	
-		$( "#bowProfLevLab" ).html( "Master" );
-		$( "#bowProfBar" ).progressbar({value:1 , max:1});
-		$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.martialLev==0) {
+		tempStat="Constitution: " + allPlayers[whoIsActive].constitution;
+		$('#playerCon').html(tempStat);
 		
-		$( "#martialProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.martialProf + " / 20)" );
-		$( "#martialProfBar" ).progressbar({value:0 , max:20});
-		$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.martialLev==1) {
-	
-		$( "#martialProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.martialProf + " / 50)" );
-		$( "#martialProfBar" ).progressbar({value:0 , max:30});
-		$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.martialLev==2) {
-	
-		$( "#martialProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.martialProf + " / 90)" );
-		$( "#martialProfBar" ).progressbar({value:0 , max:40});
-		$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.martialLev==3) {
-	
-		$( "#martialProfLevLab" ).html( "Master" );
-		$( "#martialProfBar" ).progressbar({value:1 , max:1});
-		$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.barehandLev==0) {
 		
-		$( "#barehandProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.barehandProf + " / 20)" );
-		$( "#barehandProfBar" ).progressbar({value:0 , max:20});
-		$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.barehandLev==1) {
-	
-		$( "#barehandProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.barehandProf + " / 50)" );
-		$( "#barehandProfBar" ).progressbar({value:0 , max:30});
-		$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.barehandLev==2) {
-	
-		$( "#barehandProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.barehandProf + " / 90)" );
-		$( "#barehandProfBar" ).progressbar({value:0 , max:40});
-		$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.barehandLev==3) {
-	
-		$( "#barehandProfLevLab" ).html( "Master" );
-		$( "#barehandProfBar" ).progressbar({value:1 , max:1});
-		$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.augmentLev==0) {
 		
-		$( "#augmentProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.augmentProf + " / 20)" );
-		$( "#augmentProfBar" ).progressbar({value:0 , max:20});
-		$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.augmentLev==1) {
-	
-		$( "#augmentProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.augmentProf + " / 50)" );
-		$( "#augmentProfBar" ).progressbar({value:0 , max:30});
-		$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.augmentLev==2) {
-	
-		$( "#augmentProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.augmentProf + " / 90)" );
-		$( "#augmentProfBar" ).progressbar({value:0 , max:40});
-		$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.augmentLev==3) {
-	
-		$( "#augmentProfLevLab" ).html( "Master" );
-		$( "#augmentProfBar" ).progressbar({value:1 , max:1});
-		$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.mobilityLev==0) {
+		tempStat="Hunger: " + allPlayers[whoIsActive].hunger;
+		if (allPlayers[whoIsActive].hunger>satiatedHigh) {
+			
+			tempStat+="<br>Oversatiated";
+		}
+		else if (allPlayers[whoIsActive].hunger>=satiatedLow && allPlayers[whoIsActive].hunger<satiatedHigh) {
+			
+			tempStat+="<br>Satiated";
+		}
+		else if (allPlayers[whoIsActive].hunger>=hungryLow && allPlayers[whoIsActive].hunger<=hungryHigh) {
+			
+			tempStat+="<br>Hungry";
+		}
+		else if (allPlayers[whoIsActive].hunger>=weakLow && allPlayers[whoIsActive].hunger<=weakHigh) {
+			
+			tempStat+="<br>Weak";
+		}
+		else if (allPlayers[whoIsActive].hunger<=0) {
+			
+			tempStat+="<br>Starved";
+		}
+		$('#playerHunger').html(tempStat);
 		
-		$( "#mobilityProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.mobilityProf + " / 20)" );
-		$( "#mobilityProfBar" ).progressbar({value:0 , max:20});
-		$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.mobilityLev==1) {
-	
-		$( "#mobilityProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.mobilityProf + " / 50)" );
-		$( "#mobilityProfBar" ).progressbar({value:0 , max:30});
-		$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.mobilityLev==2) {
-	
-		$( "#mobilityProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.mobilityProf + " / 90)" );
-		$( "#mobilityProfBar" ).progressbar({value:0 , max:40});
-		$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.mobilityLev==3) {
-	
-		$( "#mobilityProfLevLab" ).html( "Master" );
-		$( "#mobilityProfBar" ).progressbar({value:1 , max:1});
-		$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.attackSpellLev==0) {
 		
-		$( "#attackSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.attackSpellProf + " / 20)" );
-		$( "#attackSpellProfBar" ).progressbar({value:0 , max:20});
-		$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellProf );
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.attackSpellLev==1) {
-	
-		$( "#attackSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.attackSpellProf + " / 50)" );
-		$( "#attackSpellProfBar" ).progressbar({value:0 , max:30});
-		$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.attackSpellLev==2) {
-	
-		$( "#attackSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.attackSpellProf + " / 90)" );
-		$( "#attackSpellProfBar" ).progressbar({value:0 , max:40});
-		$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.attackSpellLev==3) {
-	
-		$( "#attackSpellProfLevLab" ).html( "Master" );
-		$( "#attackSpellProfBar" ).progressbar({value:1 , max:1});
-		$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.matterSpellLev==0) {
+		tempStat="AC: " + allPlayers[whoIsActive].totalAC;
+		armorACInt=allPlayers[whoIsActive].armorAC;
+		tempStat+=" (+" + allPlayers[whoIsActive].armorAC +" from armor, +" + allPlayers[whoIsActive].otherAC + " other)";
+		$('#playerAC').html(tempStat);
 		
-		$( "#matterSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.matterSpellProf + " / 20)" );
-		$( "#matterSpellProfBar" ).progressbar({value:0 , max:20});
-		$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellProf );
+		//actions
+		tempStat="Actions this turn: "; 
+		if (allPlayers[whoIsActive].speed>=12 && allPlayers[whoIsActive].speed<24){
+			tempStat+="1";
+			allPlayers[whoIsActive].actions=1;
+		}
+		if (allPlayers[whoIsActive].speed>=24){
+			tempStat+="2";
+			allPlayers[whoIsActive].actions=2;
+		}
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.matterSpellLev==1) {
-	
-		$( "#matterSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.matterSpellProf + " / 50)" );
-		$( "#matterSpellProfBar" ).progressbar({value:0 , max:30});
-		$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.matterSpellLev==2) {
-	
-		$( "#matterSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.matterSpellProf + " / 90)" );
-		$( "#matterSpellProfBar" ).progressbar({value:0 , max:40});
-		$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.matterSpellLev==3) {
-	
-		$( "#matterSpellProfLevLab" ).html( "Master" );
-		$( "#matterSpellProfBar" ).progressbar({value:1 , max:1});
-		$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==0) {
+		if (allPlayers[whoIsActive].speed<12){
+			tempStat+="0";
+			allPlayers[whoIsActive].actions=0;
+		}
 		
-		$( "#divinationSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.divinationSpellProf + " / 20)" );
-		$( "#divinationSpellProfBar" ).progressbar({value:0 , max:20});
-		$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellProf );
+		$('#playerTurnAct').html(tempStat);
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==1) {
-	
-		$( "#divinationSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.divinationSpellProf + " / 50)" );
-		$( "#divinationSpellProfBar" ).progressbar({value:0 , max:30});
-		$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==2) {
-	
-		$( "#divinationSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.divinationSpellProf + " / 90)" );
-		$( "#divinationSpellProfBar" ).progressbar({value:0 , max:40});
-		$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==3) {
-	
-		$( "#divinationSpellProfLevLab" ).html( "Master" );
-		$( "#divinationSpellProfBar" ).progressbar({value:1 , max:1});
-		$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==0) {
+		tempStat="Luck: " + allPlayers[whoIsActive].luck;
+		$("#playerLuck").html(tempStat);
 		
-		$( "#clericalSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.clericalSpellProf + " / 20)" );
-		$( "#clericalSpellProfBar" ).progressbar({value:0 , max:20});
-		$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellProf );
+		tempStat="Prayer: ";
+		if (allPlayers[whoIsActive].prayTime>0) {
+			tempStat+=allPlayers[whoIsActive].prayTime;
+		}
+		$("#prayTime").html(tempStat);
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==1) {
-	
-		$( "#clericalSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.clericalSpellProf + " / 50)" );
-		$( "#clericalSpellProfBar" ).progressbar({value:0 , max:30});
-		$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==2) {
-	
-		$( "#clericalSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.clericalSpellProf + " / 90)" );
-		$( "#clericalSpellProfBar" ).progressbar({value:0 , max:40});
-		$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==3) {
-	
-		$( "#clericalSpellProfLevLab" ).html( "Master" );
-		$( "#clericalSpellProfBar" ).progressbar({value:1 , max:1});
-		$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==0) {
 		
-		$( "#enchantmentSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.enchantmentSpellProf + " / 20)" );
-		$( "#enchantmentSpellProfBar" ).progressbar({value:0 , max:20});
-		$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellProf );
+		//update profs
 		
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==1) {
-	
-		$( "#enchantmentSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.enchantmentSpellProf + " / 50)" );
-		$( "#enchantmentSpellProfBar" ).progressbar({value:0 , max:30});
-		$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==2) {
-	
-		$( "#enchantmentSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.enchantmentSpellProf + " / 90)" );
-		$( "#enchantmentSpellProfBar" ).progressbar({value:0 , max:40});
-		$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==3) {
-	
-		$( "#enchantmentSpellProfLevLab" ).html( "Master" );
-		$( "#enchantmentSpellProfBar" ).progressbar({value:1 , max:1});
-		$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.healingSpellLev==0) {
+		if (allPlayers[whoIsActive].playerProfs.daggerLev==0) {
+			
+			$( "#daggerProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.daggerProf + " / 20)" );
+			$( "#daggerProfBar" ).progressbar({value:0 , max:20});
+			$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
+			
+		}
 		
-		$( "#healingSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.healingSpellProf + " / 20)" );
-		$( "#healingSpellProfBar" ).progressbar({value:0 , max:20});
-		$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellProf );
+		if (allPlayers[whoIsActive].playerProfs.daggerLev==1) {
 		
-	}
+			$( "#daggerProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.daggerProf + " / 50)" );
+			$( "#daggerProfBar" ).progressbar({value:0 , max:30});
+			$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.daggerLev==2) {
+		
+			$( "#daggerProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.daggerProf + " / 90)" );
+			$( "#daggerProfBar" ).progressbar({value:0 , max:40});
+			$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.daggerLev==3) {
+		
+			$( "#daggerProfLevLab" ).html( "Master" );
+			$( "#daggerProfBar" ).progressbar({value:1 , max:1});
+			$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.axeLev==0) {
+			
+			$( "#axeProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.axeProf + " / 20)" );
+			$( "#axeProfBar" ).progressbar({value:0 , max:20});
+			$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.axeLev==1) {
+		
+			$( "#axeProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.axeProf + " / 50)" );
+			$( "#axeProfBar" ).progressbar({value:0 , max:30});
+			$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.axeLev==2) {
+		
+			$( "#axeProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.axeProf + " / 90)" );
+			$( "#axeProfBar" ).progressbar({value:0 , max:40});
+			$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.axeLev==3) {
+		
+			$( "#axeProfLevLab" ).html( "Master" );
+			$( "#axeProfBar" ).progressbar({value:1 , max:1});
+			$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.swordLev==0) {
+			
+			$( "#swordProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.swordProf + " / 20)" );
+			$( "#swordProfBar" ).progressbar({value:0 , max:20});
+			$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.swordLev==1) {
+		
+			$( "#swordProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.swordProf + " / 50)" );
+			$( "#swordProfBar" ).progressbar({value:0 , max:30});
+			$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.swordLev==2) {
+		
+			$( "#swordProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.swordProf + " / 90)" );
+			$( "#swordProfBar" ).progressbar({value:0 , max:40});
+			$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.swordLev==3) {
+		
+			$( "#swordProfLevLab" ).html( "Master" );
+			$( "#swordProfBar" ).progressbar({value:1 , max:1});
+			$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bludgeonLev==0) {
+			
+			$( "#bludgeonProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.bludgeonProf + " / 20)" );
+			$( "#bludgeonProfBar" ).progressbar({value:0 , max:20});
+			$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bludgeonLev==1) {
+		
+			$( "#bludgeonProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.bludgeonProf + " / 50)" );
+			$( "#bludgeonProfBar" ).progressbar({value:0 , max:30});
+			$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bludgeonLev==2) {
+		
+			$( "#bludgeonProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.bludgeonProf + " / 90)" );
+			$( "#bludgeonProfBar" ).progressbar({value:0 , max:40});
+			$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bludgeonLev==3) {
+		
+			$( "#bludgeonProfLevLab" ).html( "Master" );
+			$( "#bludgeonProfBar" ).progressbar({value:1 , max:1});
+			$( "#bludgeonProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bludgeonBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.staffLev==0) {
+			
+			$( "#staffProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.staffProf + " / 20)" );
+			$( "#staffProfBar" ).progressbar({value:0 , max:20});
+			$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.staffLev==1) {
+		
+			$( "#staffProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.staffProf + " / 50)" );
+			$( "#staffProfBar" ).progressbar({value:0 , max:30});
+			$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.staffLev==2) {
+		
+			$( "#staffProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.staffProf + " / 90)" );
+			$( "#staffProfBar" ).progressbar({value:0 , max:40});
+			$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.staffLev==3) {
+		
+			$( "#staffProfLevLab" ).html( "Master" );
+			$( "#staffProfBar" ).progressbar({value:1 , max:1});
+			$( "#staffProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.staffBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.spearLev==0) {
+			
+			$( "#spearProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.spearProf + " / 20)" );
+			$( "#spearProfBar" ).progressbar({value:0 , max:20});
+			$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.spearLev==1) {
+		
+			$( "#spearProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.spearProf + " / 50)" );
+			$( "#spearProfBar" ).progressbar({value:0 , max:30});
+			$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.spearLev==2) {
+		
+			$( "#spearProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.spearProf + " / 90)" );
+			$( "#spearProfBar" ).progressbar({value:0 , max:40});
+			$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.spearLev==3) {
+		
+			$( "#spearProfLevLab" ).html( "Master" );
+			$( "#spearProfBar" ).progressbar({value:1 , max:1});
+			$( "#spearProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.spearBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.polearmLev==0) {
+			
+			$( "#polearmProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.polearmProf + " / 20)" );
+			$( "#polearmProfBar" ).progressbar({value:0 , max:20});
+			$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.polearmLev==1) {
+		
+			$( "#polearmProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.polearmProf + " / 50)" );
+			$( "#polearmProfBar" ).progressbar({value:0 , max:30});
+			$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.polearmLev==2) {
+		
+			$( "#polearmProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.polearmProf + " / 90)" );
+			$( "#polearmProfBar" ).progressbar({value:0 , max:40});
+			$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.polearmLev==3) {
+		
+			$( "#polearmProfLevLab" ).html( "Master" );
+			$( "#polearmProfBar" ).progressbar({value:1 , max:1});
+			$( "#polearmProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.polearmBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bowLev==0) {
+			
+			$( "#bowProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.bowProf + " / 20)" );
+			$( "#bowProfBar" ).progressbar({value:0 , max:20});
+			$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bowLev==1) {
+		
+			$( "#bowProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.bowProf + " / 50)" );
+			$( "#bowProfBar" ).progressbar({value:0 , max:30});
+			$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bowLev==2) {
+		
+			$( "#bowProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.bowProf + " / 90)" );
+			$( "#bowProfBar" ).progressbar({value:0 , max:40});
+			$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.bowLev==3) {
+		
+			$( "#bowProfLevLab" ).html( "Master" );
+			$( "#bowProfBar" ).progressbar({value:1 , max:1});
+			$( "#bowProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.bowBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.martialLev==0) {
+			
+			$( "#martialProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.martialProf + " / 20)" );
+			$( "#martialProfBar" ).progressbar({value:0 , max:20});
+			$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.martialLev==1) {
+		
+			$( "#martialProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.martialProf + " / 50)" );
+			$( "#martialProfBar" ).progressbar({value:0 , max:30});
+			$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.martialLev==2) {
+		
+			$( "#martialProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.martialProf + " / 90)" );
+			$( "#martialProfBar" ).progressbar({value:0 , max:40});
+			$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.martialLev==3) {
+		
+			$( "#martialProfLevLab" ).html( "Master" );
+			$( "#martialProfBar" ).progressbar({value:1 , max:1});
+			$( "#martialProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.martialBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.barehandLev==0) {
+			
+			$( "#barehandProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.barehandProf + " / 20)" );
+			$( "#barehandProfBar" ).progressbar({value:0 , max:20});
+			$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.barehandLev==1) {
+		
+			$( "#barehandProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.barehandProf + " / 50)" );
+			$( "#barehandProfBar" ).progressbar({value:0 , max:30});
+			$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.barehandLev==2) {
+		
+			$( "#barehandProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.barehandProf + " / 90)" );
+			$( "#barehandProfBar" ).progressbar({value:0 , max:40});
+			$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.barehandLev==3) {
+		
+			$( "#barehandProfLevLab" ).html( "Master" );
+			$( "#barehandProfBar" ).progressbar({value:1 , max:1});
+			$( "#barehandProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.barehandBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.augmentLev==0) {
+			
+			$( "#augmentProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.augmentProf + " / 20)" );
+			$( "#augmentProfBar" ).progressbar({value:0 , max:20});
+			$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.augmentLev==1) {
+		
+			$( "#augmentProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.augmentProf + " / 50)" );
+			$( "#augmentProfBar" ).progressbar({value:0 , max:30});
+			$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.augmentLev==2) {
+		
+			$( "#augmentProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.augmentProf + " / 90)" );
+			$( "#augmentProfBar" ).progressbar({value:0 , max:40});
+			$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.augmentLev==3) {
+		
+			$( "#augmentProfLevLab" ).html( "Master" );
+			$( "#augmentProfBar" ).progressbar({value:1 , max:1});
+			$( "#augmentProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.augmentBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.mobilityLev==0) {
+			
+			$( "#mobilityProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.mobilityProf + " / 20)" );
+			$( "#mobilityProfBar" ).progressbar({value:0 , max:20});
+			$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.mobilityLev==1) {
+		
+			$( "#mobilityProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.mobilityProf + " / 50)" );
+			$( "#mobilityProfBar" ).progressbar({value:0 , max:30});
+			$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.mobilityLev==2) {
+		
+			$( "#mobilityProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.mobilityProf + " / 90)" );
+			$( "#mobilityProfBar" ).progressbar({value:0 , max:40});
+			$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.mobilityLev==3) {
+		
+			$( "#mobilityProfLevLab" ).html( "Master" );
+			$( "#mobilityProfBar" ).progressbar({value:1 , max:1});
+			$( "#mobilityProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.mobilityBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.attackSpellLev==0) {
+			
+			$( "#attackSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.attackSpellProf + " / 20)" );
+			$( "#attackSpellProfBar" ).progressbar({value:0 , max:20});
+			$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.attackSpellLev==1) {
+		
+			$( "#attackSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.attackSpellProf + " / 50)" );
+			$( "#attackSpellProfBar" ).progressbar({value:0 , max:30});
+			$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.attackSpellLev==2) {
+		
+			$( "#attackSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.attackSpellProf + " / 90)" );
+			$( "#attackSpellProfBar" ).progressbar({value:0 , max:40});
+			$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.attackSpellLev==3) {
+		
+			$( "#attackSpellProfLevLab" ).html( "Master" );
+			$( "#attackSpellProfBar" ).progressbar({value:1 , max:1});
+			$( "#attackSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.attackSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.matterSpellLev==0) {
+			
+			$( "#matterSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.matterSpellProf + " / 20)" );
+			$( "#matterSpellProfBar" ).progressbar({value:0 , max:20});
+			$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.matterSpellLev==1) {
+		
+			$( "#matterSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.matterSpellProf + " / 50)" );
+			$( "#matterSpellProfBar" ).progressbar({value:0 , max:30});
+			$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.matterSpellLev==2) {
+		
+			$( "#matterSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.matterSpellProf + " / 90)" );
+			$( "#matterSpellProfBar" ).progressbar({value:0 , max:40});
+			$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.matterSpellLev==3) {
+		
+			$( "#matterSpellProfLevLab" ).html( "Master" );
+			$( "#matterSpellProfBar" ).progressbar({value:1 , max:1});
+			$( "#matterSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.matterSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==0) {
+			
+			$( "#divinationSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.divinationSpellProf + " / 20)" );
+			$( "#divinationSpellProfBar" ).progressbar({value:0 , max:20});
+			$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==1) {
+		
+			$( "#divinationSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.divinationSpellProf + " / 50)" );
+			$( "#divinationSpellProfBar" ).progressbar({value:0 , max:30});
+			$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==2) {
+		
+			$( "#divinationSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.divinationSpellProf + " / 90)" );
+			$( "#divinationSpellProfBar" ).progressbar({value:0 , max:40});
+			$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.divinationSpellLev==3) {
+		
+			$( "#divinationSpellProfLevLab" ).html( "Master" );
+			$( "#divinationSpellProfBar" ).progressbar({value:1 , max:1});
+			$( "#divinationSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.divinationSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==0) {
+			
+			$( "#clericalSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.clericalSpellProf + " / 20)" );
+			$( "#clericalSpellProfBar" ).progressbar({value:0 , max:20});
+			$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==1) {
+		
+			$( "#clericalSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.clericalSpellProf + " / 50)" );
+			$( "#clericalSpellProfBar" ).progressbar({value:0 , max:30});
+			$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==2) {
+		
+			$( "#clericalSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.clericalSpellProf + " / 90)" );
+			$( "#clericalSpellProfBar" ).progressbar({value:0 , max:40});
+			$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.clericalSpellLev==3) {
+		
+			$( "#clericalSpellProfLevLab" ).html( "Master" );
+			$( "#clericalSpellProfBar" ).progressbar({value:1 , max:1});
+			$( "#clericalSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.clericalSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==0) {
+			
+			$( "#enchantmentSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.enchantmentSpellProf + " / 20)" );
+			$( "#enchantmentSpellProfBar" ).progressbar({value:0 , max:20});
+			$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==1) {
+		
+			$( "#enchantmentSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.enchantmentSpellProf + " / 50)" );
+			$( "#enchantmentSpellProfBar" ).progressbar({value:0 , max:30});
+			$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==2) {
+		
+			$( "#enchantmentSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.enchantmentSpellProf + " / 90)" );
+			$( "#enchantmentSpellProfBar" ).progressbar({value:0 , max:40});
+			$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.enchantmentSpellLev==3) {
+		
+			$( "#enchantmentSpellProfLevLab" ).html( "Master" );
+			$( "#enchantmentSpellProfBar" ).progressbar({value:1 , max:1});
+			$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.healingSpellLev==0) {
+			
+			$( "#healingSpellProfLevLab" ).html( "Novice (" + allPlayers[whoIsActive].playerProfs.healingSpellProf + " / 20)" );
+			$( "#healingSpellProfBar" ).progressbar({value:0 , max:20});
+			$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellProf );
+			
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.healingSpellLev==1) {
+		
+			$( "#healingSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.healingSpellProf + " / 50)" );
+			$( "#healingSpellProfBar" ).progressbar({value:0 , max:30});
+			$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.healingSpellLev==2) {
+		
+			$( "#healingSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.healingSpellProf + " / 90)" );
+			$( "#healingSpellProfBar" ).progressbar({value:0 , max:40});
+			$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellBar );
+		
+		}
+		
+		if (allPlayers[whoIsActive].playerProfs.healingSpellLev==3) {
+		
+			$( "#healingSpellProfLevLab" ).html( "Master" );
+			$( "#healingSpellProfBar" ).progressbar({value:1 , max:1});
+			$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellBar );
+		
+		}
 	
-	if (allPlayers[whoIsActive].playerProfs.healingSpellLev==1) {
-	
-		$( "#healingSpellProfLevLab" ).html( "Apprentice<br>(" + allPlayers[whoIsActive].playerProfs.healingSpellProf + " / 50)" );
-		$( "#healingSpellProfBar" ).progressbar({value:0 , max:30});
-		$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.healingSpellLev==2) {
-	
-		$( "#healingSpellProfLevLab" ).html( "Adept (" + allPlayers[whoIsActive].playerProfs.healingSpellProf + " / 90)" );
-		$( "#healingSpellProfBar" ).progressbar({value:0 , max:40});
-		$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellBar );
-	
-	}
-	
-	if (allPlayers[whoIsActive].playerProfs.healingSpellLev==3) {
-	
-		$( "#healingSpellProfLevLab" ).html( "Master" );
-		$( "#healingSpellProfBar" ).progressbar({value:1 , max:1});
-		$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellBar );
-	
-	}
+	} //if exists
 	
 	/*$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
 	$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeProf );
@@ -3199,7 +3960,7 @@ $("#player1NameEntry").keyup(function(event) {
 	
 		
 	
-		var nameStyle ="<h2>";
+		//var nameStyle ="<h2>";
 	
 		//var nameEnter = document.getElementById("player1NameEntry").value;
 	
@@ -3210,11 +3971,11 @@ $("#player1NameEntry").keyup(function(event) {
     
         $('#playerTabs ul:first li:eq('+whoIsActive+') a').text(nameEnter);
 		
-		nameStyle += nameEnter;
+		//nameStyle += nameEnter;
 		
 		//nameStyle += ", the asdf asdf</h2>";
 		
-		allPlayers[whoIsActive].playerName=nameStyle;
+		allPlayers[whoIsActive].playerName=nameEnter;
 		
 		allPlayers[whoIsActive].hasName=true;
 		
@@ -3684,11 +4445,25 @@ $( "#dungeonTabs" ).tabs({
 		
 			//load selected room if it exists
 			
+			if (allRooms[currRoomIndex].roomExists==true) {
+			
+				for (i=0;i<roomSize;i++) {
+				
+					$("#roomTile" + i).html(allRooms[currRoomIndex].roomTile[i].symbol);
+				}
+			
+			}
+			
 			
 			//if doesnt exist, make one
 			if (allRooms[currRoomIndex].roomExists==false) {
 			
 				roomGen();
+				allRooms[currRoomIndex].roomExists=true;
+				for (i=0;i<roomSize;i++) {
+				
+					allRooms[currRoomIndex].roomTile[i].symbol=$("#roomTile" + i).html();
+				}
 			
 				
 			
@@ -3706,19 +4481,161 @@ function roomGen() {
 	var isRoom=currFloorSym.includes("■");
 	var isDes=currFloorSym.includes("b");
 	var isArr=currFloorSym.includes("a");
+	
+	var northEx=currFloorSym.includes("↑");
+	var eastEx=currFloorSym.includes("→");
+	var southEx=currFloorSym.includes("↓");
+	var westEx=currFloorSym.includes("←");
+	
+	var isHall1=currFloorSym.includes("║");
+	var isHall2=currFloorSym.includes("═");
+	var isHall3=currFloorSym.includes("╗");
+	var isHall4=currFloorSym.includes("╔");
+	var isHall5=currFloorSym.includes("╚");
+	var isHall6=currFloorSym.includes("╝");
+	var isHall7=currFloorSym.includes("╦");
+	var isHall8=currFloorSym.includes("╩");
+	var isHall9=currFloorSym.includes("╠");
+	var isHall10=currFloorSym.includes("╣");
+	var isHall11=currFloorSym.includes("╬");
+	
+	
+	var aCoor; //horizontal
+	var bCoor; //vertical
+	var exirCoor;
+	var saveCoor; //for saving index
+	
+	var tempInd; //for iterating over room buttons
+	var tempRange; //finding door
+	
 
 	//if room
 	if (isRoom==true || isDes==true || isArr==true) {
 	
-		for (i=0;i<10;i++) {
+		aCoor=rollDie(4,1,9);
+		bCoor=rollDie(4,1,9);
+		tempRange=aCoor-4;
+		exitCoor=rollDie(tempRange, 1,2);
+		
+		//check exits
+		
+		$("#roomTile0").html("┌");
+	
+		//north wall
+		for (i=1;i<aCoor;i++) {
 			
 			
-			$("#roomTile" + i).html("-");
+			$("#roomTile" + i).html("─");
+			
+			if (i==exitCoor && northEx==true) {
+			
+				$("#roomTile" + i).html("+");
+			}
+			
+			saveCoor=i;
+		}
+		
+		$("#roomTile" + saveCoor).html("┐");
+		
+		tempRange=bCoor-4;
+		exitCoor=rollDie(tempRange, 1,2);
+		tempInd=saveCoor;
+		
+		
+		//east wall
+		for (i=1;i<bCoor;i++) {
+			
+			tempInd=saveCoor+(16*i);
+			
+			//console.log(vert);
+			
+			$("#roomTile" + tempInd).html("│");
+			
+			if (i==exitCoor && eastEx==true) {
+			
+				$("#roomTile" + tempInd).html("+");
+			}
+			
+			if (i==(bCoor-1)) {
+			
+				$("#roomTile" + tempInd).html("┘");
+				saveCoor=i;
+			}
+		}
+		
+		tempRange=bCoor-4;
+		exitCoor=rollDie(tempRange, 1,2);
+		
+		
+		//west wall
+		for (i=1;i<bCoor;i++) {
+		
+			tempInd=(16*i);
+			
+			$("#roomTile" + tempInd).html("│");
+			
+			if (i==exitCoor && westEx==true) {
+			
+				$("#roomTile" + tempInd).html("+");
+			}
+			
+			if (i==(bCoor-1)) {
+			
+				$("#roomTile" + tempInd).html("└");
+				saveCoor=tempInd;
+			}
+		}
+		tempRange=bCoor-6;
+		exitCoor=rollDie(tempRange, 1,4);
+		tempInd=saveCoor;
+		tempInd++; //dont overwrite bottom left corner
+		
+		
+		//south wall
+		for (i=2;i<aCoor;i++) {
+			
+			
+			$("#roomTile" + tempInd).html("─");
+			
+			if (i==exitCoor && southEx==true) {
+			
+				$("#roomTile" + tempInd).html("+");
+			}
+			
+			tempInd++;
+			
+			
+			
 		}
 		
 		
+		//console.log(saveCoor);
+		
 		//$("div.roomContainer").find("button").html("M");
-	}
+		
+	} //room
+	
+	//straight up 6 oclock ║
+	else if (isHall1==true) {
+	
+		aCoor=rollDie(3,1,3);
+		bCoor=rollDie(4,1,9);
+		tempRange=aCoor-4;
+		exitCoor=rollDie(tempRange, 1,2);
+		
+		$("#roomTile0").html("┌");
+		
+		for (i=1;i<bCoor;i++) {
+		
+			tempInd=(16*i);
+		
+			$("#roomTile" + tempInd).html("│");
+			saveCoor=tempInd;
+		}
+	
+		
+	
+	} //║
 	
 
 }
@@ -7262,13 +8179,18 @@ function demoVisibility() {
 <!--<script src="external/jquery/jquery.js"></script>
 <script src="jquery-ui.js"></script>-->
 <script>
-function rollDie(sides, amount) {
+function rollDie(sides, amount, floor) {
+	
+	if (floor==undefined) {
+	
+		floor=1;
+	}
 	
 	let num=0;
 	
 	for (i=0; i<amount; i++){
 
-		num+=Math.floor((Math.random() * sides) + 1);
+		num+=Math.floor((Math.random() * sides) + floor);
 	}
 
 	return num;
@@ -7361,6 +8283,27 @@ var monMax=12; //max mons per room?
 var itemMax=7; //max items per room?
 
 var offset=0; //offset for rooms on higher floors, access allRooms array indicies
+
+//hunger ranges
+var satiatedHigh=500;
+var satiatedLow=300;
+var nonHungryHigh=299;
+var nonHungryLow=100;
+var hungryHigh=99;
+var hungryLow=25;
+var weakHigh=24;
+var weakLow=1;
+
+
+//weight ranges
+var burdenedMod=1.25;
+var stressedMod=1.5;
+var strainedMod=1.75;
+var overtaxedMod=2.25;
+var overloadedMod=2.5;
+
+
+
 
 
 //format = (a,b) / (horizontal, vertical)
@@ -7471,6 +8414,7 @@ function initMonster() {
 						woundedLegRight:0 //int
 				},
 				speed:0,
+				actions:0,
 
 				energyClock:0,
 				hpClock:0,
@@ -7487,7 +8431,9 @@ function initMonster() {
 				armorAC:0,
 				otherAC:0,
 				totalAC:0,
-				toHit:0
+				toHit:0,
+				
+				index: -1, //index in current room
 		});
 
 	
@@ -7503,13 +8449,18 @@ function initAllRooms() {
 
 	//var tempSymArray=[];
 	
-	var	tempTile={
+	var	tempTile=[];
+	
+	for (i=0;i<roomSize;i++) {
+		
+		tempTile.push({
 		
 			hasItem:false,
 			hasMonster:false,
 			symbol:"",
 		
-		};
+		});
+	}
 	
 	
 	var tempMonArray=[];
@@ -7540,17 +8491,33 @@ function initAllRooms() {
 			//monsters and items go here too (and players?)
 			
 			roomExists: false,
+			
+			floorSymbol: "",
+			
+			roomWidth:0,
+			roomHeight:0,
+			
+			hallWidth:0,
+			hallLength1:0, //vertical 1
+			hallLength2:0, //horizontal 1
+			hallLength3:0, //vertical 2
+			hallLength4:0, //horizontal 2
 		
 		});
 		
 		
-		tempTile={
-		
+		var	tempTile=[];
+	
+		for (j=0;j<roomSize;j++) {
+			
+			tempTile.push({
+			
 				hasItem:false,
 				hasMonster:false,
 				symbol:"",
-		
-			};
+			
+			});
+		}
 	
 		
 		var tempMonArray=[];
@@ -8141,7 +9108,7 @@ $(document).on('click','.ui-dialog-titlebar-close',function(){
 	
 	if (allPlayers[lockActive].playerExists==false) {
 	
-		initStats();
+		//initStats();
 	
 	}
 });
@@ -8160,7 +9127,7 @@ $( "#raceDialog" ).dialog({
 				
 				if (allPlayers[lockActive].playerExists==false) {
 				
-					initStats();
+					//initStats();
 				
 				}
 			}
@@ -8179,7 +9146,7 @@ $( "#raceDialog" ).dialog({
 				
 				if (allPlayers[lockActive].playerExists==false) {
 				
-					initStats();
+					//initStats();
 				
 				}
 			}
@@ -8200,6 +9167,8 @@ $( "#initClass" ).click(function( event ) {
 	event.preventDefault();
 });
 
+var classChoice;
+
 // Link to open the dialog
 $( "#chooseHighBut" ).click(function( event ) {
 	$("#classDialog").dialog("close");
@@ -8216,8 +9185,11 @@ $( "#chooseHighBut" ).click(function( event ) {
 	
 	//initStats();
 	
-	allPlayers[lockActive].playClass=0;
-	allPlayers[lockActive].hasClass=true;
+
+	
+	classChoice=0;
+	
+	/*allPlayers[lockActive].hasClass=true;
 
 	allPlayers[lockActive].totalAC=12;
 	allPlayers[lockActive].armorAC=0;
@@ -8233,6 +9205,7 @@ $( "#chooseHighBut" ).click(function( event ) {
 	allPlayers[lockActive].intelligence=0;
 	allPlayers[lockActive].wisdom=0;
 	allPlayers[lockActive].constitution=0;	//initialize
+	*/
 	
 });
 
@@ -8252,8 +9225,9 @@ $( "#chooseWizBut" ).click(function( event ) {
 	//initStats();
 
 	
-	allPlayers[lockActive].playClass=1;
-	allPlayers[lockActive].hasClass=true;
+	classChoice=1;
+		
+	/*allPlayers[lockActive].hasClass=true;
 
 	allPlayers[lockActive].totalAC=12;
 	allPlayers[lockActive].armorAC=0;
@@ -8268,7 +9242,7 @@ $( "#chooseWizBut" ).click(function( event ) {
 	allPlayers[lockActive].dexterity=0;
 	allPlayers[lockActive].intelligence=0;
 	allPlayers[lockActive].wisdom=0;
-	allPlayers[lockActive].constitution=0;	//initialize
+	allPlayers[lockActive].constitution=0;	//initialize*/
 	
 	
 		
@@ -8289,8 +9263,8 @@ $( "#chooseHealBut" ).click(function( event ) {
 	//initStats();
 	
 	
-		allPlayers[lockActive].playClass=2;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=2;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].armorAC=0;
@@ -8305,7 +9279,7 @@ $( "#chooseHealBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 		
@@ -8326,8 +9300,8 @@ $( "#chooseRapBut" ).click(function( event ) {
 	//initStats();
 	
 	
-		allPlayers[lockActive].playClass=3;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=3;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].armorAC=0;
@@ -8342,7 +9316,7 @@ $( "#chooseRapBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 
@@ -8365,8 +9339,8 @@ $( "#chooseMonkBut" ).click(function( event ) {
 	
 	
 	
-		allPlayers[lockActive].playClass=4;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=4;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].armorAC=0;
@@ -8381,7 +9355,7 @@ $( "#chooseMonkBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 });
 
@@ -8399,8 +9373,8 @@ $( "#chooseSnipBut" ).click(function( event ) {
 	
 	
 	
-		allPlayers[lockActive].playClass=5;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=5;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8413,7 +9387,7 @@ $( "#chooseSnipBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 		
@@ -8432,8 +9406,8 @@ $( "#chooseMyrmBut" ).click(function( event ) {
 	//edit stats for class here
 	
 	
-		allPlayers[lockActive].playClass=6;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=6;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8446,7 +9420,7 @@ $( "#chooseMyrmBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 });
@@ -8464,8 +9438,8 @@ $( "#chooseSabBut" ).click(function( event ) {
 	//edit stats for class here
 	
 	
-		allPlayers[lockActive].playClass=7;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=7;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8478,7 +9452,7 @@ $( "#chooseSabBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 });
 
@@ -8495,8 +9469,8 @@ $( "#chooseOccBut" ).click(function( event ) {
 	//edit stats for class here
 	
 	
-		allPlayers[lockActive].playClass=8;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=8;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8509,7 +9483,7 @@ $( "#chooseOccBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 			
 		
@@ -8528,8 +9502,8 @@ $( "#chooseBasBut" ).click(function( event ) {
 	//edit stats for class here
 	
 	
-		allPlayers[lockActive].playClass=9;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=9;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8542,7 +9516,7 @@ $( "#chooseBasBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 });
@@ -8560,8 +9534,8 @@ $( "#chooseTriBut" ).click(function( event ) {
 	//edit stats for class here
 	
 	
-		allPlayers[lockActive].playClass=10;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=10;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8574,7 +9548,7 @@ $( "#chooseTriBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 		
@@ -8593,8 +9567,8 @@ $( "#chooseSymBut" ).click(function( event ) {
 	//edit stats for class here
 	
 	
-		allPlayers[lockActive].playClass=11;
-		allPlayers[lockActive].hasClass=true;
+		classChoice=11;
+		/*allPlayers[lockActive].hasClass=true;
 
 		allPlayers[lockActive].totalAC=12;
 		allPlayers[lockActive].speed=12;
@@ -8607,7 +9581,7 @@ $( "#chooseSymBut" ).click(function( event ) {
 		allPlayers[lockActive].dexterity=0;
 		allPlayers[lockActive].intelligence=0;
 		allPlayers[lockActive].wisdom=0;
-		allPlayers[lockActive].constitution=0;	//initialize
+		allPlayers[lockActive].constitution=0;	//initialize*/
 		
 		
 		
@@ -8618,6 +9592,7 @@ $( "#chooseHumanBut" ).click(function( event ) {
 	$("#raceDialog").dialog("close");
 	event.preventDefault();
 	
+	initStats();
 	
 	//edit stats for race here
 	
@@ -8641,16 +9616,18 @@ $( "#chooseHumanBut" ).click(function( event ) {
 $( "#chooseDwarfBut" ).click(function( event ) {
 
 	//can't be wizard, rogue, sab, myrm, occ, or sym
-	if (allPlayers[lockActive].playClass==0 
-	|| allPlayers[lockActive].playClass==2 
-	|| allPlayers[lockActive].playClass==4 
-	|| allPlayers[lockActive].playClass==5 
-	|| allPlayers[lockActive].playClass==9 
-	|| allPlayers[lockActive].playClass==10)
+	if (classChoice==0 
+	|| classChoice==2 
+	|| classChoice==4 
+	|| classChoice==5 
+	|| classChoice==9 
+	|| classChoice==10)
 	{
 
 		$("#raceDialog").dialog("close");
 		event.preventDefault();
+		
+		initStats();
 
 		//edit stats for race here
 
@@ -8681,18 +9658,20 @@ $( "#chooseDwarfBut" ).click(function( event ) {
 $( "#chooseOrcBut" ).click(function( event ) {
 
 	//can't be wiz, heal, bas, sym
-	if (allPlayers[lockActive].playClass==0 
-	|| allPlayers[lockActive].playClass==3 
-	|| allPlayers[lockActive].playClass==4 
-	|| allPlayers[lockActive].playClass==5 
-	|| allPlayers[lockActive].playClass==6 
-	|| allPlayers[lockActive].playClass==7 
-	|| allPlayers[lockActive].playClass==8 
-	|| allPlayers[lockActive].playClass==10)
+	if (classChoice==0 
+	|| classChoice==3 
+	|| classChoice==4 
+	|| classChoice==5 
+	|| classChoice==6 
+	|| classChoice==7 
+	|| classChoice==8 
+	|| classChoice==10)
 	{
 
 		$("#raceDialog").dialog("close");
 		event.preventDefault();
+		
+		initStats();
 
 		//edit stats for race here
 
@@ -8723,17 +9702,19 @@ $( "#chooseOrcBut" ).click(function( event ) {
 $( "#chooseElfBut" ).click(function( event ) {
 
 	//can't be high, monk, occ, bas, or tri
-	if (allPlayers[lockActive].playClass==1 
-	|| allPlayers[lockActive].playClass==2 
-	|| allPlayers[lockActive].playClass==3 
-	|| allPlayers[lockActive].playClass==5 
-	|| allPlayers[lockActive].playClass==6
-	|| allPlayers[lockActive].playClass==7	
-	|| allPlayers[lockActive].playClass==11)
+	if (classChoice==1 
+	|| classChoice==2 
+	|| classChoice==3 
+	|| classChoice==5 
+	|| classChoice==6
+	|| classChoice==7	
+	|| classChoice==11)
 	{
 
 		$("#raceDialog").dialog("close");
 		event.preventDefault();
+		
+		initStats();
 
 		//edit stats for race here
 
@@ -8809,17 +9790,51 @@ window.onkeyup = function(e) {
    var key = e.keyCode;
 
    if (key == 90) {
-	
-		var tempStyle="Turn: ";
-	
-		turn++;
+   
+		//dont increment unless there are players, assuming at least 1
+		if (allPlayers[0].playerExists==true) {
 		
-		turnInc();
+			var tempStyle="Turn: ";
+			var notifs="";
 		
-		tempStyle+=turn;
-		
-		$("#turnCount").html(tempStyle);
-		
+			turn++;
+			
+			turnInc();
+			
+			tempStyle+=turn;
+			
+			$("#turnCount").html(tempStyle);
+			
+			//calculate hunger, speed, ailments, passives, hp/energy gain here
+			
+			//set up notifications
+			for (i=0;i<playersMax;i++) {
+			
+				if (allPlayers[i].playerExists==true) {
+			
+				
+					//alert if more/less actions this turn
+					if (allPlayers[i].actions!=1) {
+					
+						notifs=allPlayers[i].playerName + " has " + allPlayers[i].actions + " actions this turn\n";
+					}
+				
+				}//if player exists
+			
+				
+			
+			} //for # of players
+			
+			if (notifs!="") {
+				
+				alert(notifs);
+				
+			}
+			
+			updatePlayer();
+			
+	   } //at least one player
+   
    }
 }
 
@@ -8865,7 +9880,8 @@ function initStats() {
 	allPlayers[lockActive].armorAC=0;
 	allPlayers[lockActive].otherAC=0;
 	
-	allPlayers[lockActive].speed=0;
+	//allPlayers[lockActive].speed=0;
+	allPlayers[lockActive].actions=0;
 	allPlayers[lockActive].weightCurr=0;
 	allPlayers[lockActive].weightMax=0;
 	allPlayers[lockActive].hunger=0;
@@ -8936,9 +9952,12 @@ function initStats() {
 
 function createCharacterStats () {
 
+	allPlayers[lockActive].playerLevel=1;
+
 	//highlander
-	if (allPlayers[lockActive].playClass==0) {
+	if (classChoice==0) {
 	
+		allPlayers[lockActive].playClass=0;
 		allPlayers[lockActive].playerNameClass="Highlander";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -8967,8 +9986,9 @@ function createCharacterStats () {
 	}
 	
 	//wizard
-	else if (allPlayers[lockActive].playClass==1) {
+	else if (classChoice==1) {
 	
+		allPlayers[lockActive].playClass=1;
 		allPlayers[lockActive].playerNameClass="Istari";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9001,8 +10021,9 @@ function createCharacterStats () {
 	}
 	
 	//healer
-	else if (allPlayers[lockActive].playClass==2) {
+	else if (classChoice==2) {
 	
+		allPlayers[lockActive].playClass=2;
 		allPlayers[lockActive].playerNameClass="Asclepian";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9031,8 +10052,9 @@ function createCharacterStats () {
 	}
 	
 	//rogue
-	else if (allPlayers[lockActive].playClass==3) {
+	else if (classChoice==3) {
 	
+		allPlayers[lockActive].playClass=3;
 		allPlayers[lockActive].playerNameClass="Rapscallion";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9060,12 +10082,13 @@ function createCharacterStats () {
 	}
 	
 	//monk
-	else if (allPlayers[lockActive].playClass==4) {
+	else if (classChoice==4) {
 	
+		allPlayers[lockActive].playClass=4;
 		allPlayers[lockActive].playerNameClass="Yogi";
 	
 		allPlayers[lockActive].hunger=200;	
-		allPlayers[lockActive].armorAC=4;
+		allPlayers[lockActive].armorAC=3;
 		allPlayers[lockActive].playerPassives.protection=0;
 		
 		allPlayers[whoIsActive].totalAC=12-allPlayers[whoIsActive].armorAC - allPlayers[whoIsActive].otherAC;
@@ -9089,8 +10112,9 @@ function createCharacterStats () {
 	}
 	
 	//snip
-	else if (allPlayers[lockActive].playClass==5) {
+	else if (classChoice==5) {
 	
+		allPlayers[lockActive].playClass=5;
 		allPlayers[lockActive].playerNameClass="Sniper";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9117,11 +10141,12 @@ function createCharacterStats () {
 	}
 	
 	//myrm
-	else if (allPlayers[lockActive].playClass==6) {
+	else if (classChoice==6) {
 	
+		allPlayers[lockActive].playClass=6;
 		allPlayers[lockActive].playerNameClass="Myrmidon";
 	
-		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].hunger=150;	
 		allPlayers[lockActive].armorAC=3;
 		allPlayers[lockActive].playerPassives.protection=0;
 		
@@ -9143,8 +10168,9 @@ function createCharacterStats () {
 	}
 	
 	//sab
-	else if (allPlayers[lockActive].playClass==7) {
+	else if (classChoice==7) {
 	
+		allPlayers[lockActive].playClass=7;
 		allPlayers[lockActive].playerNameClass="Saboteur";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9171,8 +10197,9 @@ function createCharacterStats () {
 	}
 	
 	//occ
-	else if (allPlayers[lockActive].playClass==8) {
+	else if (classChoice==8) {
 	
+		allPlayers[lockActive].playClass=8;
 		allPlayers[lockActive].playerNameClass="Occultist";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9197,8 +10224,9 @@ function createCharacterStats () {
 	}
 	
 	//bas
-	else if (allPlayers[lockActive].playClass==9) {
+	else if (classChoice==9) {
 	
+		allPlayers[lockActive].playClass=9;
 		allPlayers[lockActive].playerNameClass="Basilica";
 		
 		allPlayers[lockActive].hunger=200;	
@@ -9226,8 +10254,9 @@ function createCharacterStats () {
 	}
 	
 	//tri
-	else if (allPlayers[lockActive].playClass==10) {
+	else if (classChoice==10) {
 	
+		allPlayers[lockActive].playClass=10;
 		allPlayers[lockActive].playerNameClass="Tririus";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9252,8 +10281,9 @@ function createCharacterStats () {
 	}
 	
 	//sym
-	else if (allPlayers[lockActive].playClass==11) {
+	else if (classChoice==11) {
 	
+		allPlayers[lockActive].playClass=11;
 		allPlayers[lockActive].playerNameClass="Symposiarch";
 	
 		allPlayers[lockActive].hunger=200;	
@@ -9292,8 +10322,8 @@ function createCharacterStats () {
 
 		allPlayers[lockActive].hpMax+=2;
 		allPlayers[lockActive].hpCurr+=2;
-		allPlayers[lockActive].energyMax+=2;
-		allPlayers[lockActive].energyCurr+=2;
+		allPlayers[lockActive].energyMax+=3;
+		allPlayers[lockActive].energyCurr+=3;
 		allPlayers[lockActive].playerPassives.protection+=1; // divine protection 1
 		
 		allPlayers[whoIsActive].otherAC=allPlayers[lockActive].playerPassives.protection;
@@ -9367,8 +10397,8 @@ function createCharacterStats () {
 		allPlayers[lockActive].energyCurr+=5; //minimum
 	
 		//elf bonus
-		allPlayers[lockActive].energyMax+=3;
-		allPlayers[lockActive].energyCurr+=3;
+		allPlayers[lockActive].energyMax+=5;
+		allPlayers[lockActive].energyCurr+=5;
 		allPlayers[lockActive].dexterity+=1;
 		allPlayers[lockActive].toHit+=1;
 		
@@ -9702,7 +10732,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 			
 				let tempRoll=rollDie(2,1);
 			
-				if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand!=true) {
+				if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].northMand!=true && (buildRoom[0].southMand==true || buildRoom[0].southPossible==true)) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╦");
@@ -9776,7 +10806,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 			
 				let tempRoll=rollDie(2,1);
 			
-				if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].southMand!=true) {
+				if (tempRoll==1 && buildRoom[0].eastMand==true && buildRoom[0].westMand==true && buildRoom[0].southMand!=true && (buildRoom[0].northMand==true || buildRoom[0].northPossible==true)) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╩");
@@ -10849,6 +11879,8 @@ $("div.floorEdit").find("button").click(function( event ) {
 		var tempStr=$("#" + this.id).html();
 
 		$("#floor" + floorTileIndex).html(tempStr);
+		
+		floorGridArr[floorTileIndex].symbol=tempStr;
 
 		currFloorSym=tempStr;
 		
@@ -10861,10 +11893,14 @@ $("div.floorEdit").find("button").click(function( event ) {
 
 $("#saveFloorBut").click(function() {
 
+	var tempRoomIndex=currFloor*20;
+	
 	
 	for (i=0;i<floorSize;i++) {
 
 		allFloors[currFloor].gridSymbols[i]=floorGridArr[i].symbol;
+		allRooms[tempRoomIndex].floorSymbol=floorGridArr[i].symbol;
+		tempRoomIndex++;
 		
 	}
 	
