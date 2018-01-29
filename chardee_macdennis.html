@@ -4503,6 +4503,15 @@ function roomGen() {
 	var southEx=currFloorSym.includes("↓");
 	var westEx=currFloorSym.includes("←");
 	
+	//quick fix
+	if (isDes==true) {
+	
+		northEx=true;
+		eastEx=true;
+		southEx=true;
+		westEx=true;
+	}
+	
 	var isHall1=currFloorSym.includes("║");
 	var isHall2=currFloorSym.includes("═");
 	var isHall3=currFloorSym.includes("╗");
@@ -4536,14 +4545,14 @@ function roomGen() {
 		aCoor=rollDie(3,1,10);
 		bCoor=rollDie(3,1,10);
 		tempRange=aCoor-4;
-		exitCoor=rollDie(tempRange, 1,2);
+		exitCoor=rollDie(tempRange, 1,3);
 		
 		//check exits
 		
 		$("#roomTile0").html("┌");
 	
 		//north wall
-		for (i=1;i<aCoor;i++) {
+		for (i=1;i<=aCoor;i++) {
 			
 			
 			$("#roomTile" + i).html("─");
@@ -4616,7 +4625,7 @@ function roomGen() {
 		
 		
 		//south wall
-		for (i=2;i<aCoor;i++) {
+		for (i=2;i<=aCoor;i++) {
 			
 			
 			$("#roomTile" + tempInd).html("─");
@@ -5152,6 +5161,8 @@ function roomGen() {
 		//bCoor2-=2;
 		bCoor3=bCoor2-bCoor; //short horizontal
 		
+		
+		
 		tempInd=roomMaxLength;
 		tempInd--;
 	
@@ -5195,7 +5206,7 @@ function roomGen() {
 		
 		
 		doorIndex=makeHallDoor(bCoor);
-		//wall wall
+		//west wall
 		for (i=1;i<=bCoor;i++) {
 		
 			tempInd+=roomMaxLength;
@@ -5239,12 +5250,246 @@ function roomGen() {
 	//╦
 	if (isHall7==true) {
 	
+		aCoor=rollDie(2,1,14); //long vertical
+		bCoor=rollDie(2,1,3); //width
+		aCoor2= rollDie(2,1,4); //short vertical
+		bCoor2=rollDie(3,1,8); //long horizontal
+		//bCoor2-=2;
+		bCoor3=bCoor2-bCoor; //short horizontal
+		
+		aCoor3=aCoor-bCoor-aCoor2;
+		aCoor3-=2;
+		
+		//north wall
+		$("#roomTile0").html("┌");
+		
+		for (i=1;i<aCoor;i++) {
+		
+			tempInd=i;
+			$("#roomTile" + tempInd).html("─");
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┐");
+		//tempInd+=roomMaxLength;
+		
+		doorIndex=makeHallDoor(bCoor);
+		//east wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].eastExit=tempInd;
+			}
+
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("┘");
+	
+		
+		for (i=0;i<aCoor2;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+		
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("┌");
+		
+		for(i=0;i<aCoor2;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+		
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("┘");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//south wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].southExit=tempInd;
+			}
+
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("└");
+		
+		for (i=0;i<aCoor2;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+		
+		}
+		
+		tempInd-=roomMaxLength;
+		$("#roomTile" + tempInd).html("┐");
+		
+		//console.log(aCoor3);
+		
+		for (i=0;i<aCoor3;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+		
+		}
+		
+		$("#roomTile" + tempInd).html("└");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//west wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].westExit=tempInd;
+			}
+
+		}
+		
+	
 	} //╦
 	
 	
 	
 	//╩
 	if (isHall8==true) {
+	
+		aCoor=rollDie(2,1,14); //long vertical
+		bCoor=rollDie(2,1,3); //width
+		aCoor2= rollDie(2,1,4); //short vertical
+		bCoor2=rollDie(3,1,8); //long horizontal
+		//bCoor2-=2;
+		bCoor3=bCoor2-bCoor; //short horizontal
+		
+		aCoor3=aCoor-bCoor-aCoor2;
+		aCoor3-=2; //other short horizontal
+		
+		//start in bottom left corner
+		
+		tempInd=aCoor3;
+		
+		$("#roomTile" + tempInd).html("┌");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//north wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].southExit=tempInd;
+			}
+
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┐");
+		
+		for (i=0;i<aCoor2;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("└");
+		
+		for (i=0;i<bCoor3;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		$("#roomTile" + tempInd).html("┐");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//east wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].eastExit=tempInd;
+			}
+
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("┘");
+		
+		//north wall
+		
+		for (i=1;i<aCoor;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+		}
+		
+		$("#roomTile" + tempInd).html("└");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//west wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].westExit=tempInd;
+			}
+
+		}
+		
+		tempInd-=roomMaxLength;
+		$("#roomTile" + tempInd).html("┌");
+		
+		for (i=1;i<aCoor3;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");
+		
+		}
+		
+		$("#roomTile" + tempInd).html("┘");
+		
+		for (i=0;i<aCoor2;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
 	
 	} //╩
 	
@@ -5305,14 +5550,14 @@ function setSpawnPoints() {
 		prevSym=$("#roomTile"+prevInd).html();
 		butSym=$("#roomTile"+i).html();
 		
-		if ((prevSym=="│" || (prevSym=="+" && ((i%16)<7))) && hasOther!=true && (i%16!=0)) {
+		if ((prevSym=="│" || (prevSym=="+"  && ((i%16)<9))) && hasOther!=true && (i%16!=0)) {
 		
 			inRoom=true;
 			inRow=true;
 
 		}
 		
-		if (prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") {
+		if ((prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && (1%16!=15)) {
 		
 			inRoom=false;
 			inRow=false;
@@ -5331,6 +5576,13 @@ function setSpawnPoints() {
 			inRoom=false;
 		}
 		
+		if (i%16==0) {
+		
+			inRoom=false;
+			inRow=false;
+			rowCount=0;
+			hasOther=false;
+		}
 		
 		
 		if (i%16==15) {
@@ -5708,7 +5960,8 @@ $("#createFloorBut").click(function() {
 	{
 		$("div.floorContainer").find("button").css("background", butDefColor);
 		
-		allRooms[currRoomIndex].roomExists=false;
+		allRooms[tempRoomIndex].roomExists=false;
+		tempRoomIndex++;
 	}
 	floorTileIndex=-1;
 	
@@ -5766,23 +6019,26 @@ $("#createFloorBut").click(function() {
 	buildRoom[0].southPossible=false;
 	buildRoom[0].westPossible=false;
 	
-	/*//set obstacles
+	//set obstacles
 	//test
-		floorLabel=floorGridArr[5].label;
-		$("#" + floorLabel).html(".");
+	
+	let obstAm=rollDie(2,1);
+	let obstProb=rollDie(3,1);
+	let obstInd=rollDie0(19,1);
+	
+	for (i=0;i<obstAm;i++) {
 		
-		floorLabel=floorGridArr[6].label;
-		$("#" + floorLabel).html("╚");
+		if (obstProb==1) {
 		
-		floorLabel=floorGridArr[7].label;
-		$("#" + floorLabel).html(".");
+			floorLabel=floorGridArr[obstInd].label;
+			$("#" + floorLabel).html(".");
+		}
 		
-		floorLabel=floorGridArr[8].label;
-		$("#" + floorLabel).html(".");
-		
-		floorLabel=floorGridArr[9].label;
-		$("#" + floorLabel).html(".");
-		//test*/
+		obstProb=rollDie(3,1);
+		obstInd=rollDie0(19,1);
+	}
+	
+	//test
 	
 	floorArrIndex=rollDie0(20, 1);
 	
