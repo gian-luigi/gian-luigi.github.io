@@ -52,18 +52,6 @@
 	select {
 		width: 200px;
 	}
-
-	
-	.monster1 >button{
-			grid-area: 11/1/span1/span1;
-			width: 21px;
-			float: left;
-			background: lightgray;   
-			margin: 4px;
-			padding-top: 2px;
-			padding-bottom: 2px;
-			text-align: center;
-	}
 	
 	.floorContainer {
 	
@@ -259,6 +247,18 @@
 		grid-column-gap: 20px;
 	
 	}
+	
+	.monstStatsGrid {
+	
+		display: grid;
+		grid-template-columns: 150px 150px;
+		
+		width:400px;
+		grid-row-gap: 20px;
+		grid-column-gap: 20px;
+	
+	}
+	
 	
 	.levelGrid {
 		display: grid;
@@ -561,6 +561,7 @@ $( "#clearForm" ).click(function( event ) {
 			<p id="playerLuck">Luck:</p><input type="spinner" id="luck" style="width: 50px">
 			<p id="playerTurnAct">Actions this turn:</p><br>
 			<p>To Hit:</p><br>
+			<p id="playerIndex">Index:</p><br>
 			<button id="prayTime" style="height: 40px">Prayer:</button>
 		</div>
 		</fieldset>
@@ -681,13 +682,20 @@ $( "#clearForm" ).click(function( event ) {
 					<input type="checkbox" name="passivesCheck13" id="telepathy">
 					<label class="passivesBut" for="displacement">Displacement</label>
 					<input type="checkbox" name="passivesCheck13" id="displacement">
+					<label class="passivesBut" for="noHungCast">Hungerless Casting</label>
+					<input type="checkbox" name="passivesCheck13" id="noHungCast">
+					<label class="passivesBut" for="regen">Regeneration</label>
+					<input type="checkbox" name="passivesCheck13" id="regen">
+					<label class="passivesBut" for="confluence">Confluence</label>
+					<input type="checkbox" name="passivesCheck13" id="confluence">
 				
 				
 				</div>
 			</fieldset>
-			
-			
-			
+			<fieldset>
+			<legend>Negative</legend>
+				<div class="passivesGrid">
+				</div>
 		  </div>
 		  
 		  <!-- Proficiencies -->
@@ -1246,13 +1254,13 @@ $("div.passivesGrid").find( "input[type=\"checkbox\"]").click(function( event ) 
 	
 	if ($('#'+ this.id).prop('checked')==true) {
     
-		allPlayers[whoIsActive].playerPassives[passId]=1;
+		allPlayers[whoIsActive].playerPassives[passId]=true;
 		
 	}
 	
 	if ($('#'+ this.id).prop('checked')!=true) {
     
-		allPlayers[whoIsActive].playerPassives[passId]=0;
+		allPlayers[whoIsActive].playerPassives[passId]=false;
 	}
 	
 });
@@ -1261,7 +1269,8 @@ var currMax=-1; //0 for curr, 1 for max
 
 $("#prayTime").click(function() {
 
-	if (allPlayers[whoIsActive].playerExists==true && allPlayers[whoIsActive].prayTime==0) {
+	if (allPlayers[whoIsActive].playerExists==true) {
+		
 		
 		var pTime=100;
 		
@@ -1278,8 +1287,9 @@ $("#prayTime").click(function() {
 			pTime-=rollDie(10,1);
 		}
 		
-		$("#prayTime").html("Prayer: "+ pTime);
-		allPlayers[whoIsActive].prayTime=pTime;
+		allPlayers[whoIsActive].prayTime+=pTime;
+		$("#prayTime").html("Prayer: "+ allPlayers[whoIsActive].prayTime);
+		
 	}
 });
 
@@ -3383,6 +3393,15 @@ function updatePlayer(){
 		
 		$('#playerTurnAct').html(tempStat);
 		
+		
+		//player index
+		if (allPlayers[whoIsActive].index>0) {
+		
+			tempStat="Index: " + allPlayers[whoIsActive].index;
+			$("#playerIndex").html(tempStat);
+		
+		}
+		
 		tempStat="Luck: " + allPlayers[whoIsActive].luck;
 		$("#playerLuck").html(tempStat);
 		
@@ -4503,6 +4522,74 @@ $(document).ready(function changePlayerButtonText() {
 						<li><a href="#roomStuffTabs-3">Traps</a></li>
 					  </ul>
 					  <div id="roomStuffTabs-1">
+					  <!-- Monsters -->
+						<div id="monsterTabs">
+						  <ul>
+							<li><a href="#monsterTabs-1">Monster 1</a></li>
+							<li><a href="#monsterTabs-2">Monster 2</a></li>
+							<li><a href="#monsterTabs-3">Monster 3</a></li>
+							<li><a href="#monsterTabs-4">Monster 4</a></li>
+							<li><a href="#monsterTabs-5">Monster 5</a></li>
+							<li><a href="#monsterTabs-6">Monster 6</a></li>
+							<li><a href="#monsterTabs-7">Monster 7</a></li>
+							<li><a href="#monsterTabs-8">Monster 8</a></li>
+							<li><a href="#monsterTabs-9">Monster 9</a></li>
+							<li><a href="#monsterTabs-10">Monster 10</a></li>
+						  </ul>
+						  <br>
+						  <button>Clear</button>
+						  <button>Defeat</button>
+						  <br><br>
+						  <fieldset>
+							<div class="monstStatsGrid">
+								<label for="monstStatEditRadio1">Current</label>
+								<input type="radio" name="monstStatEditRadio" id="monstStatEditRadio1">
+								<label for="monstStatEditRadio2">Max</label>
+								<input type="radio" name="monstStatEditRadio" id="monstStatEditRadio2">
+								<p id="monstHP">HP:</p><input type="spinner" id="hp" style="width: 50px">
+								<p id="monstEnergy">Energy:</p><input type="spinner" id="energy" style="width: 50px">
+								<p id="monstAC">AC:</p><input type="spinner" id="AC" style="width: 50px">
+								<p id="monstTurnAct">Actions this turn:</p><br>
+								<p>To Hit:</p><br>
+								<p id="monstIndex">Index:</p><br>
+								<p id="monstAil">Ailments:</p><br>
+							</div>
+						</fieldset>
+						  <div id="monsterTabs-1">
+							
+						  </div>
+						  <div id="monsterTabs-2">
+							
+						  </div>
+						  <div id="monsterTabs-3">
+							
+							
+						  </div>
+						  <div id="monsterTabs-4">
+							
+						  </div>
+						  <div id="monsterTabs-5">
+							
+						  </div>
+						  <div id="monsterTabs-6">
+							
+							
+						  </div>
+						  <div id="monsterTabs-7">
+							
+						  </div>
+						  <div id="monsterTabs-8">
+							
+						  </div>
+						  <div id="monsterTabs-9">
+							
+							
+						  </div>
+						  <div id="monsterTabs-10">
+							
+							
+						  </div>
+						</div>
 						
 					  </div>
 					  
@@ -4571,6 +4658,242 @@ $(document).ready(function changePlayerButtonText() {
 </div>
 
 <script>
+$("div.roomContainer").find( "button").click(function( event ) {
+
+	var tileStr;
+	var tempInd;
+
+	//get index
+	tileStr=this.id;
+	tileStr=tileStr.replace("roomTile","");
+	
+	tileStr=parseInt(tileStr);
+	roomTileIndex=tileStr;
+	
+	//check if click tile is player
+	for (i=0; i<playersMax;i++) {
+	
+		if (allPlayers[i].index==roomTileIndex && allPlayers[i].playerExists==true) {
+		
+		
+			tempInd=i;
+			tempInd++;
+			$('#playerTabs a[href="#playerTabs-' + tempInd + '"]').trigger('click');
+		}
+	}
+	
+	/*//check if click tile is monster
+	for (i=0; i<monstMax;i++) {
+	
+		if (currMonsters[i].index==roomTileIndex && currMonsters[i].playerExists==true) {
+		
+		
+			tempInd=i;
+			tempInd++;
+			$('#playerTabs a[href="#playerTabs-' + tempInd + '"]').trigger('click');
+		}
+	}*/
+});
+
+$("#monsterTabs").tabs({collapsible: true});
+
+$( "#monsterTabs" ).tabs({
+  beforeActivate: function( event, ui ) {
+  
+	
+	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
+	
+	//alert(ui.newPanel.attr('id'));
+	
+	if (tabCmp=="monsterTabs-1")
+	{
+		monstActive=0;
+
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-2")
+	{
+		monstActive=1;
+		
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-3")
+	{
+		monstActive=2;
+		
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-4")
+	{
+		monstActive=3;
+
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-5")
+	{
+		monstActive=4;
+		
+		updateMonst();
+	}	
+	
+	if (tabCmp=="monsterTabs-6")
+	{
+		monstActive=5;
+		
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-7")
+	{
+		monstActive=6;
+		
+		updateMonst();
+		
+	}
+	
+	if (tabCmp=="monsterTabs-8")
+	{
+		monstActive=7;
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-9")
+	{
+		monstActive=8;
+		updateMonst();
+	}
+	
+	if (tabCmp=="monsterTabs-10")
+	{
+		monstActive=9;
+		updateMonst();
+	}
+	
+	
+	//clears spinner entries
+	$("div.monstStatsGrid").find("input[type=\"spinner\"]").spinner("value", '');
+	
+	
+  }
+});
+
+function updateMonst() {
+
+	var tempStat="";
+
+	for (i=0; i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+		
+
+		$('#monsterTabs ul:first li:eq(' + i + ') a').text(allRooms[currRoomIndex].roomMonsters[i].monstName);
+	
+	}
+	
+	tempStat="HP: " + allRooms[currRoomIndex].roomMonsters[monstActive].hpCurr;
+	tempStat+=" / "+ allRooms[currRoomIndex].roomMonsters[monstActive].hpMax;
+	$("#monstHP").html(tempStat);
+	
+
+}
+
+$( "#monstStatEditRadio1" ).click(function( event ) {
+
+	currMax=0;
+});
+
+$( "#monstStatEditRadio2" ).click(function( event ) {
+
+	currMax=1;
+});
+
+
+/*$( function() {
+	$( "input[type=\"radio\"]" ).checkboxradio();
+} );*/
+
+$("div.monstStatsGrid").find("input[type=\"spinner\"]").spinner();
+
+$("div.monstStatsGrid").find("input").keyup(function(event) {
+
+
+	var enterVal = this.value;
+	var tempStr;
+	var tempStr2;
+	enterVal=parseInt(enterVal);
+	//alert(typeof(enterVal));
+	
+    if (event.keyCode === 13) {
+	
+		if (isNaN(enterVal)==false && allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+	
+			tempStr=this.id;
+			tempStr=tempStr.replace("Spinner","");
+			tempStr2=tempStr.toLowerCase();
+			
+			//var element_id = this.data()[element_type + 'id'];
+			
+			
+			//allPlayers[whoIsActive][tempStr2]+=enterVal;
+			
+			//current
+			if (tempStr2=="hp" && currMax==0) {
+
+				
+				
+				allRooms[currRoomIndex].roomMonsters[monstActive].hpCurr+=enterVal;
+				
+			}
+			
+			//max
+			if (tempStr2=="hp" && currMax==1) {
+			
+				
+				
+				allRooms[currRoomIndex].roomMonsters[monstActive].hpMax+=enterVal;
+				
+			}
+			
+			//current
+			if (tempStr2=="energy" && currMax==0) {
+
+				
+				
+				allRooms[currRoomIndex].roomMonsters[monstActive].energyCurr+=enterVal;
+				
+			}
+			
+			//max
+			if (tempStr2=="energy" && currMax==1) {
+			
+				
+				
+				allRooms[currRoomIndex].roomMonsters[monstActive].energyMax+=enterVal;
+				
+			}
+			
+		
+			
+			else {
+			
+				allRooms[currRoomIndex].roomMonsters[monstActive]+=enterVal;
+			}
+			
+			//alert(allPlayers[whoIsActive].hpCurr);
+			
+			updatePlayer();
+			
+	
+		}
+    }
+	
+	
+	
+});
+
+
 $("#itemTabs").tabs({collapsible: true});
 
 
@@ -4582,32 +4905,32 @@ initItems();
 function initItems() {
 	
 	
-	var wandsID=["aluminum", "curved", "iridium", "marble", "short", "uranium", "balsa", "oak", "forked", "jeweled", "pine", "glass", "long", "platinum", "crystal", "maple", "mahogany", "tin",];
+	var wandsID=["aluminum", "curved", "iridium", "marble", "ash", "uranium", "balsa", "oak", "forked", "jeweled", "pine", "glass", "walnut", "platinum", "crystal", "maple", "mahogany", "tin",];
 	var wands=["light", "enlightenment", "unlocking", "tick", "lance", "invisibility", "scrutiny", "slow", "brisk", "haste", "force bolt", "ice spike", "fireball", "lightning", "sleep", "cancellation", "create monster", "death"];
 	var wandsUsed=[];
-	var potions=[];
-	var potionsID=[];
+	var potions=["healing", "panacea", "full healing", "juice", "see invisible", "silence", "confusion", "restore energy", "hallucination", "invisibility", "blindness", "ESP", "object detection", "enlightenment", "levitation", "brisk", "haste", "acid", "oil", "paralysis", "gain level", "gain ability", "poison"];
+	var potionsID=["fuschia", "lavender", "yellow", "emerald", "vermillion", "cyan", "tangerine", "cerulean", "magenta", "sparkling", "puce", "milky", "swirly", "bubbly", "smoky", "cloudy", "viscous", "black", "golden", "brown", "fizzy", "ruby", "white", "murky"];
 	var potionsUsed=[];
-	var scrolls=[];
-	var scrollsID=[];
+	var scrolls=["identify", "light", "displacement", "enhance armor", "remove curse", "mapping", "food detection", "paralysis", "amnesia", "charging", "punishment", "poison mist", "teleportation"];
+	var scrollsID=["SEGINUS", "FOMALHAUT", "GLAUSAR", "HADAR", "HAMAL", "ALCYONE", "HASSALEH", "JISHUI", "TARAZED", "LESATH", "MAHASIM", "MARKAB", "SYRMA", "MINTAKA"];
 	var scrollsUsed=[];
-	var spellbooks=[];
-	var spellbooksID=[];
+	var spellbooks=["force bolt", "nosferatu", "lance", "ice spike", "fireball", "discharge", "unlock", "tick", "reflect", "cancellation", "create monster", "light", "sonar", "detect food", "identify", "protection", "remove curse", "slow", "blind", "taunt", "sleep", "paralyze", "healing", "regeneration", "restore ability", "mend", "convalesce", "amplify", "surge"];
+	var spellbooksID=["stained", "dusty", "glittering", "vellum", "cloth-bound", "shining", "ragged", "leather-bound", "dull", "dog-eared", "velvet", "thin", "thick", "mottled", "wrinkled", "hardcover", "canvas", "violet", "red", "golden", "silver", "copper", "white", "blue", "green", "indigo", "tan", "softcover", "torn"];
 	var spellbooksUsed=[];
-	var robes=[];
-	var robesID=[];
+	var robes=["magic resistance", "protection", "invisibility", "channeling", "cold immunity", "fire immunity", "shock immunity", "drain immunity", "acid immunity", "brisk"];
+	var robesID=["tattered", "ornamental", "opera", "velour", "taffeta", "satin", "cashmere", "silk", "cotton", "velvet"];
 	var robesUsed=[];
-	var gloves=[];
-	var glovesID=[];
+	var gloves=["fumbling", "power", "dexterity", "throwing"];
+	var glovesID=["padded gloves", "fencing gloves", "shining gloves", "spiked gloves"];
 	var glovesUsed=[];
-	var shoes=[];
-	var shoesID=[];
+	var shoes=["dash", "fumbling", "hover", "slow", "speed", "water walking"];
+	var shoesID=["mud boots", "hiking boots", "snow boots", "buckled boots", "combat boots", "bowling shoes"];
 	var shoesUsed=[];
-	var rings=[];
-	var ringsID=[];
-	var ringsUSed=[];
-	var amulets=[];
-	var amuletsID=[];
+	var rings=["hunger", "protection", "provocation", "stealth", "sustain ability", "warning", "cold resistance", "fire resistance", "shock resistance", "poison resistance", "sleep resistance", "confusion","paralysis resistantce", "strength", "dexterity", "intelligence", "wisdom", "constitution", "increase damage", "increase accuracy", "invisibility", "levitation", "searching", "slow digestion", "vulnerability", "enfeeblement"];
+	var ringsID=["pearl", "engagement", "clay", "jade", "diamond", "wire", "shiny", "coral", "agate", "ivory", "twisted", "bronze", "wooden", "onyx", "topaz", "aquamarine", "steel", "golden", "silver", "brass", "granite", "sapphire", "opal", "garnet", "amethyst"];
+	var ringsUsed=[];
+	var amulets=["change gender", "esp", "life saving", "reflection", "restful sleep", "strangulation", "water walking", "silence", "vigor", "moxie"];
+	var amuletsID=["hexagonal", "octagonal", "spherical", "oval", "concave", "circular", "triangular", "pyramidal", "dodecahedronal", "toroid"];
 	var amuletsUsed=[];
 	
 	var amount=0;
@@ -4638,7 +4961,171 @@ function initItems() {
 	}
 	
 	
+	// ---potions---
+	amount=potions.length;
 	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (potionsUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(potionsUsed.length);
+		}
+		
+		potionsUsed.push(itemRoll);
+		
+		$("#potions").append(potions[i] + " = ");
+		$("#potions").append(potionsID[itemRoll] + "<br>");
+
+	}
+	
+	
+	// ---scrolls---
+	amount=scrolls.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (scrollsUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(scrollsUsed.length);
+		}
+		
+		scrollsUsed.push(itemRoll);
+		
+		$("#scrolls").append(scrolls[i] + " = ");
+		$("#scrolls").append(scrollsID[itemRoll] + "<br>");
+
+	}
+	
+	
+	// ---spellbooks---
+	amount=spellbooks.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (spellbooksUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(spellbooksUsed.length);
+		}
+		
+		spellbooksUsed.push(itemRoll);
+		
+		$("#spellbooks").append(spellbooks[i] + " = ");
+		$("#spellbooks").append(spellbooksID[itemRoll] + "<br>");
+
+	}
+	
+	
+	// ---robes---
+	amount=robes.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (robesUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(robesUsed.length);
+		}
+		
+		robesUsed.push(itemRoll);
+		
+		$("#robes").append(robes[i] + " = ");
+		$("#robes").append(robesID[itemRoll] + "<br>");
+
+	}
+	
+	// ---gloves---
+	amount=gloves.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (glovesUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(glovesUsed.length);
+		}
+		
+		glovesUsed.push(itemRoll);
+		
+		$("#gloves").append(gloves[i] + " = ");
+		$("#gloves").append(glovesID[itemRoll] + "<br>");
+
+	}
+	
+	
+	// ---shoes---
+	amount=shoes.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (shoesUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(shoesUsed.length);
+		}
+		
+		shoesUsed.push(itemRoll);
+		
+		$("#shoes").append(shoes[i] + " = ");
+		$("#shoes").append(shoesID[itemRoll] + "<br>");
+
+	}
+	
+	
+	// ---rings---
+	amount=rings.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (ringsUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(ringsUsed.length);
+		}
+		
+		ringsUsed.push(itemRoll);
+		
+		$("#rings").append(rings[i] + " = ");
+		$("#rings").append(ringsID[itemRoll] + "<br>");
+
+	}
+	
+	
+	// ---amulets---
+	amount=amulets.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (amuletsUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(amuletsUsed.length);
+		}
+		
+		amuletsUsed.push(itemRoll);
+		
+		$("#amulets").append(amulets[i] + " = ");
+		$("#amulets").append(amuletsID[itemRoll] + "<br>");
+
+	}
 	
 }
 
@@ -4656,6 +5143,9 @@ function clearRoom () {
 			$("#roomTile" + i).html("");
 		}
 	}	
+	
+	//clear monsters
+	allRooms[currRoomIndex].roomMonsters.length=0;
 		
 }
 
@@ -4666,6 +5156,7 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 		clearRoom();
 	
 		var tempId=this.id;
+		var playerInd=0;
 		
 		if (tempId!="") {
 		
@@ -4673,7 +5164,7 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			var enterCheck=-1; //1 for north, 2 for west, 3 for east, 4 for south
 			var tempEx=0; //index for exit
 
-			
+		
 			if (tempId=="enterA") {
 			
 				
@@ -4756,31 +5247,44 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 					
 					
 					for (i=0;i<playersMax;i++) {
+						
+						//console.log(tempInd);
+						//allRooms[currRoomIndex]
+						
+						$("#roomTile" + tempInd).html(formArr[i]);
+						
+						if (formArr[i]!="") {
+						
+							playerInd=formArr[i];
+							console.log(playerInd);
+							playerInd=playerInd.replace("P","");
+							playerInd=parseInt(playerInd);
+							playerInd--;
+							console.log(playerInd);
+							allPlayers[playerInd].index=tempInd;
+						
+						}
+						
+						tempInd--;
+						
+						if (tempInd==(tempEx+46)) {
+						
+							tempInd=tempEx+33;
+						
+						}
+						
+						if (tempInd==(tempEx+30)) {
+						
+							tempInd=tempEx+17;
+						
+						}
+							
+						
+						
+					}	//players
 					
-						
-						
-							//console.log(tempInd);
-							//allRooms[currRoomIndex]
-							
-							$("#roomTile" + tempInd).html(formArr[i]);
-							
-							tempInd--;
-							
-							if (tempInd==(tempEx+46)) {
-							
-								tempInd=tempEx+33;
-							
-							}
-							
-							if (tempInd==(tempEx+30)) {
-							
-								tempInd=tempEx+17;
-							
-							}
-							
-						
-						
-					}	
+					//create monsters after entering
+					monstSpawn();
 				
 				} //has north exit
 			
@@ -4821,28 +5325,43 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 					
 						
 						
-							//console.log(tempInd);
-							//allRooms[currRoomIndex]
-							
-							$("#roomTile" + tempInd).html(formArr[i]);
-							
-							tempInd+=roomMaxLength;
-							
-							if (tempInd==(tempEx+35)) {
-							
-								tempInd=tempEx-14;
-							
-							}
-							
-							if (tempInd==(tempEx+34)) {
-							
-								tempInd=tempEx-15;
-							
-							}
+						//console.log(tempInd);
+						//allRooms[currRoomIndex]
+						
+						$("#roomTile" + tempInd).html(formArr[i]);
+						
+						if (formArr[i]!="") {
+						
+							playerInd=formArr[i];
+							console.log(playerInd);
+							playerInd=playerInd.replace("P","");
+							playerInd=parseInt(playerInd);
+							playerInd--;
+							console.log(playerInd);
+							allPlayers[playerInd].index=tempInd;
+						
+						}
+						
+						tempInd+=roomMaxLength;
+						
+						if (tempInd==(tempEx+35)) {
+						
+							tempInd=tempEx-14;
+						
+						}
+						
+						if (tempInd==(tempEx+34)) {
+						
+							tempInd=tempEx-15;
+						
+						}
 							
 						
 						
-					}	
+					}	//players
+					
+					//create monsters after entering
+					monstSpawn();
 				
 				} //has west exit
 				
@@ -4890,6 +5409,18 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 							
 							$("#roomTile" + tempInd).html(formArr[i]);
 							
+							if (formArr[i]!="") {
+							
+								playerInd=formArr[i];
+								console.log(playerInd);
+								playerInd=playerInd.replace("P","");
+								playerInd=parseInt(playerInd);
+								playerInd--;
+								console.log(playerInd);
+								allPlayers[playerInd].index=tempInd;
+							
+							}
+							
 							tempInd-=roomMaxLength;
 							
 							if (tempInd==(tempEx-35)) {
@@ -4906,7 +5437,10 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 							
 						
 						
-					}	
+					}	//players
+					
+					//create monsters after entering
+					monstSpawn();
 				
 				} //has east exit
 				
@@ -4954,6 +5488,18 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 							
 							$("#roomTile" + tempInd).html(formArr[i]);
 							
+							if (formArr[i]!="") {
+							
+								playerInd=formArr[i];
+								console.log(playerInd);
+								playerInd=playerInd.replace("P","");
+								playerInd=parseInt(playerInd);
+								playerInd--;
+								console.log(playerInd);
+								allPlayers[playerInd].index=tempInd;
+							
+							}
+							
 							tempInd++;
 							
 							if (tempInd==(tempEx-46)) {
@@ -4970,19 +5516,88 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 							
 						
 						
-					}	
+					}	//players
+					
+					//create monsters after entering
+					monstSpawn();
 				
 				}
 			
 			} //south
 			
 			
-			
-			
-		}
+		} //if an actual button
 		
 	}
 });
+
+function monstSpawn() {
+
+	var monstAmount=0;
+	var monstProb=0;
+	var spawnTile=0;
+	var spawnArrLength=allRooms[currRoomIndex].spawnArray.length;
+	spawnArrLength--;
+	var spawnInd;
+	
+	
+	monstProb=rollDie(10,1);
+	
+	if (monstProb<9) {
+	
+		console.log("spawning");
+		monstAmount=rollDie(monstMax,1);
+		
+		for (i=0;i<monstAmount;i++) {
+		
+			//choose an open space
+			spawnInd=rollDie0(spawnArrLength,1);
+			spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
+			
+			//check if on unoccupied space
+			while ( $("#roomTile"+spawnTile).html()!="") {
+			
+				spawnInd=rollDie0(spawnArrLength,1);
+				spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
+				console.log($("#roomTile"+spawnTile).html());
+			}
+			
+			//create monster on chosen tile
+			monstGen(i, spawnTile);
+			$("#roomTile" + spawnTile).html(allRooms[currRoomIndex].roomMonsters[0].monstSymbol);
+			
+		} //monster amount
+	
+	} //monster probability
+	
+	updateMonst();
+}
+
+function monstGen (index, spawnTile) {
+
+	var whichMonst=rollDie(100,1);
+	
+	
+	if (whichMonst<=50) {
+	
+		genGoblin(spawnTile);
+	}
+	
+	else if (whichMonst<=100) {
+	
+		genJackal(spawnTile);
+	
+	}
+	
+	//currMonsters[index].monsterName="asdf";
+	/*currMonsters.push ({
+	
+		monsterName:"asdf",
+		
+	});*/
+}
+
+
 
 $( "#roomStuffTabs" ).tabs({
   collapsible: true
@@ -5010,6 +5625,14 @@ $( "#dungeonTabs" ).tabs({
 				for (i=0;i<roomSize;i++) {
 				
 					$("#roomTile" + i).html(allRooms[currRoomIndex].roomTile[i].symbol);
+				}
+				
+				for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+					
+					if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+						console.log("asdf");
+						$("#roomTile" + allRooms[currRoomIndex].roomMonsters[i].index).html(allRooms[currRoomIndex].roomMonsters[i].monstSymbol);
+					}
 				}
 			
 			}
@@ -6555,7 +7178,7 @@ function roomGen() {
 	setSpawnPoints();
 }
 
-var spawnArray=[];
+
 
 function setSpawnPoints() {
 
@@ -6568,6 +7191,8 @@ function setSpawnPoints() {
 	var inRow=false;
 	var rowCount=0;
 	var hasOther=false;
+	
+	var spawnArray=[];
 
 	
 	butSym=$("#roomTile"+tempInd).html();
@@ -10569,7 +11194,7 @@ var formIndex=0; //for setting array
 
 var monstAilSet=0;
 var monstAilTurn=1;
-var monstersMax=12;
+var monstMax=10;
 
 var playerAilSet=0;
 var playerAilTurn=0;
@@ -11335,7 +11960,9 @@ function initPlayers() {
 		armorAC:0,
 		otherAC:0,
 		totalAC:0,
-		toHit:0
+		toHit:0,
+		
+		index:-1,
 		});
 	}	
 		
@@ -12113,6 +12740,8 @@ window.onkeyup = function(e) {
    var key = e.keyCode;
 
    if (key == 90) {
+
+		
    
 		//dont increment unless there are players, assuming at least 1
 		if (allPlayers[0].playerExists==true) {
@@ -12157,8 +12786,10 @@ window.onkeyup = function(e) {
 			updatePlayer();
 			
 	   } //at least one player
+	   
+	   
    
-   }
+   } //key iz z
 }
 
 function turnInc() {
@@ -14236,6 +14867,257 @@ $("#saveFloorBut").click(function() {
 	
 
 });
+
+
+function genGoblin(spawnTile) {
+
+	var hpRoll=(10,1,10);
+	
+		
+	allRooms[currRoomIndex].roomMonsters.unshift ({
+		
+			monstName: "Goblin",
+			
+			monsterExists:true,
+			
+			size: 1, //0 for tiny, 1 for small, 2 for medium, 3 for large, 4 for huge, 5 for gigantic
+
+			tier: 1, //+1 per difficulty
+			
+			monstSymbol: "o", //placeholder symbol
+			
+			monRoomIndex:spawnTile, //where it is in a room
+		
+			monsterPassives: //passives
+			{
+					fireResist :false,//0,0
+					coldResist :false,//0,1
+					shockResist :false,//0,2
+					disinResist :false,//0,3
+					sleepResist :false,//0,4
+					poisonResist :false,//0,5
+					paralysisResist :false,//0,6
+					blindResist :false,//0,7
+					petrifyResist :false,//0,8
+					sicknessResist :false,//0,9
+					drainResist :false,//0,10
+					woundResist :false,//1,0
+					breathless :false,//1,1
+					searching :false,//1,2
+					seeInvis :false,//1,3
+					invis :false,//1,4
+					levitate :false,//1,5
+					flying :false,//1,6
+					adornment :false,//1,7
+					warning :false,//1,8
+					telepathy :false,//1,9
+					foodApp :false,//1,10
+					reflection :false,//2,0
+					magicResist :false,//2,1
+					waterWalking :false,//2,2
+					displacement :false,//2,3
+					sustainAbility :false,//2,4
+					slowDigest :false,//2,5
+					lifeSaving :false,//2,6
+					stealth :false,//2,7
+					confuseResist :false,//2,8
+
+
+					brisk :0,//2,9
+					haste :0,//2,10
+					dash :0,//3,0 //int
+					agileDash :0,//3,1 //int
+					infravision :false,//3,2 //int
+					regen :false,//3,3
+					protection:0, //int
+					energyRegen :false,//3,4
+					noHungCast :false,//3,5
+
+					permSlow:false,
+					permBrisk:false,
+					permHaste:false,
+
+
+					fumbling :false,
+					isHungry :false,
+					tempBrisk:0,//int
+					tempHaste:0, //int
+					tempRegen:0, //int
+					tempConfluence:0, //int
+					tempInvis:0, //int
+
+					slow:0, //int
+					blind:0, //int 
+					sleep:0, //int
+					poisoned:0, //int
+					confused:0, //int
+					taunted:0, //int
+					aggravated:0, //int
+					paralyzed:0, //int
+
+					hallucin:0, //int
+					enfeebled:0, //int
+					vulnerable:0, //int
+					slippery:0, //int
+					petrify:0, //int
+					vomit:0, //int
+					strangle:0, //int 
+					engulfed:0, //int
+
+					woundedArmLeft:0, //int
+					woundedArmRight:0, //int
+					woundedLegLeft:0, //int
+					woundedLegRight:0 //int
+			},
+			speed:12,
+			actions:0,
+
+			energyClock:0,
+			hpClock:0,
+			newEnergyClock:true, //bool
+			newHpClock:true, //bool
+
+			tempACVal:0,
+			tempACDur:0,
+			
+			hpCurr:hpRoll,
+			hpMax:hpRoll,
+			energyCurr:0,
+			energyMax:0,
+			armorAC:0,
+			otherAC:0,
+			totalAC:0,
+			toHit:0,
+			
+			index: spawnTile, //index in current room
+	});
+
+}
+
+function genJackal(spawnTile) {
+
+	var hpRoll=(10,1,5);
+	
+		
+	allRooms[currRoomIndex].roomMonsters.unshift ({
+		
+			monstName: "Jackal",
+			
+			monsterExists:true,
+			
+			size: 1, //0 for tiny, 1 for small, 2 for medium, 3 for large, 4 for huge, 5 for gigantic
+
+			tier: 1, //+1 per difficulty
+			
+			monstSymbol: "d", //placeholder symbol
+			
+			monRoomIndex:spawnTile, //where it is in a room
+		
+			monsterPassives: //passives
+			{
+					fireResist :false,//0,0
+					coldResist :false,//0,1
+					shockResist :false,//0,2
+					disinResist :false,//0,3
+					sleepResist :false,//0,4
+					poisonResist :false,//0,5
+					paralysisResist :false,//0,6
+					blindResist :false,//0,7
+					petrifyResist :false,//0,8
+					sicknessResist :false,//0,9
+					drainResist :false,//0,10
+					woundResist :false,//1,0
+					breathless :false,//1,1
+					searching :false,//1,2
+					seeInvis :false,//1,3
+					invis :false,//1,4
+					levitate :false,//1,5
+					flying :false,//1,6
+					adornment :false,//1,7
+					warning :false,//1,8
+					telepathy :false,//1,9
+					foodApp :false,//1,10
+					reflection :false,//2,0
+					magicResist :false,//2,1
+					waterWalking :false,//2,2
+					displacement :false,//2,3
+					sustainAbility :false,//2,4
+					slowDigest :false,//2,5
+					lifeSaving :false,//2,6
+					stealth :false,//2,7
+					confuseResist :false,//2,8
+
+
+					brisk :0,//2,9
+					haste :0,//2,10
+					dash :0,//3,0 //int
+					agileDash :0,//3,1 //int
+					infravision :false,//3,2 //int
+					regen :false,//3,3
+					protection:0, //int
+					energyRegen :false,//3,4
+					noHungCast :false,//3,5
+
+					permSlow:false,
+					permBrisk:false,
+					permHaste:false,
+
+
+					fumbling :false,
+					isHungry :false,
+					tempBrisk:0,//int
+					tempHaste:0, //int
+					tempRegen:0, //int
+					tempConfluence:0, //int
+					tempInvis:0, //int
+
+					slow:0, //int
+					blind:0, //int 
+					sleep:0, //int
+					poisoned:0, //int
+					confused:0, //int
+					taunted:0, //int
+					aggravated:0, //int
+					paralyzed:0, //int
+
+					hallucin:0, //int
+					enfeebled:0, //int
+					vulnerable:0, //int
+					slippery:0, //int
+					petrify:0, //int
+					vomit:0, //int
+					strangle:0, //int 
+					engulfed:0, //int
+
+					woundedArmLeft:0, //int
+					woundedArmRight:0, //int
+					woundedLegLeft:0, //int
+					woundedLegRight:0 //int
+			},
+			speed:15,
+			actions:0,
+
+			energyClock:0,
+			hpClock:0,
+			newEnergyClock:true, //bool
+			newHpClock:true, //bool
+
+			tempACVal:0,
+			tempACDur:0,
+			
+			hpCurr:hpRoll,
+			hpMax:hpRoll,
+			energyCurr:0,
+			energyMax:0,
+			armorAC:0,
+			otherAC:0,
+			totalAC:0,
+			toHit:0,
+			
+			index: spawnTile, //index in current room
+	});
+
+}
 
 </script>
 </body>
