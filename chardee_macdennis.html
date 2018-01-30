@@ -519,7 +519,7 @@ $( "#clearForm" ).click(function( event ) {
 			<button id="prayTime" style="height: 40px">Prayer:</button>
 		</div>
 		</fieldset>
-			
+		<br>
 		<div id="playerMiscTabs">
 		  <ul>
 			<li><a href="#playerMiscTabs-1">Inventory</a></li>
@@ -4174,7 +4174,6 @@ $(document).ready(function changePlayerButtonText() {
 	<div id="dungeonTabs-2">
 	
 		<div class="roomGridClass">
-			<legend>Room</legend>
 			<button id="createRoomBut">Create Room</button>
 			<div class="controlgroup">
 				<div class="menu-container">
@@ -4436,6 +4435,31 @@ $(document).ready(function changePlayerButtonText() {
 						<button id="roomTile254"> </button>
 						<button id="roomTile255"></button>
 					</div>
+					<br>
+					<div id="roomStuffTabs">
+					  <ul>
+						<li><a href="#roomStuffTabs-1">Monsters</a></li>
+						<li><a href="#roomStuffTabs-2">Items</a></li>
+						<li><a href="#roomStuffTabs-3">Traps</a></li>
+					  </ul>
+					  <div id="roomStuffTabs-1">
+						
+					  </div>
+					  
+					  <!-- Items -->
+					  <div id="roomStuffTabs-2">
+
+						
+					  </div>
+					  
+					  <!-- Traps -->
+					  <div id="roomStuffTabs-3">
+						
+						
+						
+						
+					  </div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -4444,6 +4468,10 @@ $(document).ready(function changePlayerButtonText() {
 </div>
 
 <script>
+$( "#roomStuffTabs" ).tabs({
+  collapsible: true
+});
+
 $( "#dungeonTabs" ).tabs({
   beforeActivate: function( event, ui ) {
         //var active = $('#tabs').tabs('option', 'active');
@@ -5749,6 +5777,179 @@ function roomGen() {
 	
 	//╬
 	if (isHall11==true) {
+	
+		vert1=rollDie(2,1,3); //upper vert
+		hWidth=rollDie(2,1,3); //width
+		vert2= rollDie(2,1,3); //lower vertical
+		hori1=rollDie(2,1,3); //left horizontal
+		hori2=rollDie(2,1,3); //right horizontal
+		
+		console.log(vert1);
+		console.log(vert2);
+		console.log(hori1);
+		console.log(hori2);
+		console.log(hWidth);
+		
+		tempInd=hori1;
+		tempInd++;
+		
+		$("#roomTile" + tempInd).html("┌");
+		
+		//north wall
+		doorIndex=makeHallDoor(hWidth);
+		for (i=1;i<=hWidth;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].northExit=tempInd;
+			}
+			
+
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┐");
+		
+		for (i=0;i<vert1;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("└");
+		
+		for (i=0;i<hori2;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┐");
+		
+		//east wall
+		doorIndex=makeHallDoor(hWidth);
+		for (i=1;i<=hWidth;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].eastExit=tempInd;
+			}
+			
+
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("┘");
+
+		for (i=0;i<hori2;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("┌");
+		
+		for (i=0;i<vert2;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("┘");
+		
+		//south wall
+		doorIndex=makeHallDoor(hWidth);
+		for (i=1;i<=hWidth;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].southExit=tempInd;
+			}
+			
+
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("└");
+		
+		for (i=0;i<vert2;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		tempInd-=roomMaxLength;
+		$("#roomTile" + tempInd).html("┐");
+		
+		for (i=0;i<hori1;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("└");
+		
+		//west wall
+		doorIndex=makeHallDoor(hWidth);
+		for (i=1;i<=hWidth;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].westExit=tempInd;
+			}
+			
+
+		}
+		
+		tempInd-=roomMaxLength;
+		$("#roomTile" + tempInd).html("┌");
+		
+		for (i=0;i<hori1;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┘");
+		
+		for (i=0;i<vert1;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		
+		
 	
 	} //╬
 	
@@ -13429,6 +13630,10 @@ $("div.floorEdit").find("button").click(function( event ) {
 		floorGridArr[floorTileIndex].symbol=tempStr;
 
 		currFloorSym=tempStr;
+		
+		
+		//allFloors[currFloor].gridSymbols[floorTileIndex]=floorGridArr[floorTileIndex].symbol;
+		//allRooms[tempRoomIndex].floorSymbol=floorGridArr[i].symbol;
 		
 		//alert(currFloorSym);
 		
