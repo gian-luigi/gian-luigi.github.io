@@ -280,6 +280,21 @@
 		padding: 2px 6px 6px 6px;
 		
 	}
+	
+	.enterFromGrid {
+		display: grid;
+		grid-template-columns: 40px 40px 40px;
+		
+		
+		grid-column-gap: 10px;
+		width:200px
+		
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
+
 
 	
 	</style>
@@ -416,7 +431,7 @@ $("div.formSetGrid").find("button").click(function( event ) {
 					
 						if (formArr[i]==tempText) {
 						
-							formArr[i]=0;
+							formArr[i]="";
 							tempIndex2=i;
 						}
 				}
@@ -4436,6 +4451,20 @@ $(document).ready(function changePlayerButtonText() {
 						<button id="roomTile255"></button>
 					</div>
 					<br>
+					Entering from:
+					<br>
+					<div class="enterFromGrid">
+						<button></button>
+						<button id="enterN">↓</button>
+						<button></button>
+						<button id="enterW">→</button>
+						<button id="enterA">+</button>
+						<button id="enterE">←</button>
+						<button></button>
+						<button id="enterS">↑</button>
+						<button></button>
+					</div>
+					<br>
 					<div id="roomStuffTabs">
 					  <ul>
 						<li><a href="#roomStuffTabs-1">Monsters</a></li>
@@ -4468,6 +4497,322 @@ $(document).ready(function changePlayerButtonText() {
 </div>
 
 <script>
+$("div.enterFromGrid").find("button").click(function( event ) {
+
+	if (allRooms[currRoomIndex].roomExists==true) {
+	
+		var tempId=this.id;
+		
+		if (tempId!="") {
+		
+			var tempInd;
+			var enterCheck=-1; //1 for north, 2 for west, 3 for east, 4 for south
+			var tempEx=0; //index for exit
+
+			
+			if (tempId=="enterA") {
+			
+				
+				if (allRooms[currRoomIndex].arrExit>1) {
+				
+					//check for which adjacent tile is in spawn zone
+				
+				
+					//north
+					tempInd=allRooms[currRoomIndex].arrExit+16;			
+					
+					if (allRooms[currRoomIndex].spawnArray.includes(tempInd)==true) {
+					
+						enterCheck=1;
+					}
+					
+					//west
+					tempInd=allRooms[currRoomIndex].arrExit+1;
+					
+					
+					if (allRooms[currRoomIndex].spawnArray.includes(tempInd)==true) {
+					
+						enterCheck=2;
+					}
+				
+					
+					//east
+					tempInd=allRooms[currRoomIndex].arrExit-1;
+					
+					
+					if (allRooms[currRoomIndex].spawnArray.includes(tempInd)==true) {
+					
+						enterCheck=3;
+					}
+					
+					
+					
+					//south
+					tempInd=allRooms[currRoomIndex].arrExit-16;
+					
+					
+					if (allRooms[currRoomIndex].spawnArray.includes(tempInd)==true) {
+					
+						enterCheck=4;
+					}
+					
+					//console.log(enterCheck);
+				
+				}
+			
+			}
+		
+			if (tempId=="enterN" || enterCheck==1) {
+			
+			
+				if (allRooms[currRoomIndex].northExit>1 || enterCheck==1) {
+				
+				
+					//start 3 down, 1 right
+					//populate leftwards
+					
+					//3 down, 1 right is +49
+					
+					if (enterCheck<0) {
+						tempInd=allRooms[currRoomIndex].northExit+49;
+						tempEx=allRooms[currRoomIndex].northExit;
+					}
+					
+					else if (enterCheck==1) {
+					
+						tempInd=allRooms[currRoomIndex].arrExit+49;
+						tempEx=allRooms[currRoomIndex].arrExit;
+					}
+					
+					else {
+					
+						alert("wrong enter");
+					}
+					
+					
+					for (i=0;i<playersMax;i++) {
+					
+						
+						
+							//console.log(tempInd);
+							//allRooms[currRoomIndex]
+							
+							$("#roomTile" + tempInd).html(formArr[i]);
+							
+							tempInd--;
+							
+							if (tempInd==(tempEx+46)) {
+							
+								tempInd=tempEx+33;
+							
+							}
+							
+							if (tempInd==(tempEx+30)) {
+							
+								tempInd=tempEx+17;
+							
+							}
+							
+						
+						
+					}	
+				
+				} //has north exit
+			
+			} //north
+			
+			
+			
+			if (tempId=="enterW" || enterCheck==2) {
+			
+				//start 3 right, 1 up
+				//populate downwards
+				
+				//3 right, 1 up is -13
+				
+				if (allRooms[currRoomIndex].westExit>1 || enterCheck==2) {
+				
+					if (enterCheck<0) {
+					
+						tempInd=allRooms[currRoomIndex].westExit-13;
+						tempEx=allRooms[currRoomIndex].westExit;
+					}
+					
+					else if (enterCheck==2) {
+					
+						tempInd=allRooms[currRoomIndex].arrExit-13;
+						tempEx=allRooms[currRoomIndex].arrExit;
+					}
+					
+					else {
+					
+						alert("wrong enter");
+					}
+					
+					
+					for (i=0;i<playersMax;i++) {
+					
+						
+						
+							//console.log(tempInd);
+							//allRooms[currRoomIndex]
+							
+							$("#roomTile" + tempInd).html(formArr[i]);
+							
+							tempInd+=roomMaxLength;
+							
+							if (tempInd==(tempEx+35)) {
+							
+								tempInd=tempEx-14;
+							
+							}
+							
+							if (tempInd==(tempEx+34)) {
+							
+								tempInd=tempEx-15;
+							
+							}
+							
+						
+						
+					}	
+				
+				} //has west exit
+				
+			
+			} //west
+			
+			
+			
+			
+			if (tempId=="enterE" || enterCheck==3) {
+			
+				//start 3 left, 1 down
+				//populate upwards
+				
+				//3 left, 1 down is +13
+				
+				if (allRooms[currRoomIndex].eastExit>1 || enterCheck==3) {
+				
+					if (enterCheck<0) {
+					
+						tempInd=allRooms[currRoomIndex].eastExit+13;
+						tempEx=allRooms[currRoomIndex].eastExit;
+					}
+					
+					else if (enterCheck==3) {
+					
+						tempInd=allRooms[currRoomIndex].arrExit+13;
+						tempEx=allRooms[currRoomIndex].arrExit;
+					}
+					
+					else {
+					
+						alert("wrong enter");
+					}
+					
+					
+					for (i=0;i<playersMax;i++) {
+					
+						
+						
+							//console.log(tempInd);
+							//allRooms[currRoomIndex]
+							
+							$("#roomTile" + tempInd).html(formArr[i]);
+							
+							tempInd-=roomMaxLength;
+							
+							if (tempInd==(tempEx-35)) {
+							
+								tempInd=tempEx+14;
+							
+							}
+							
+							if (tempInd==(tempEx-34)) {
+							
+								tempInd=tempEx+15;
+							
+							}
+							
+						
+						
+					}	
+				
+				} //has east exit
+				
+			
+			} //east
+			
+			
+			
+			if (tempId=="enterS" || enterCheck==4) {
+			
+				if (allRooms[currRoomIndex].southExit>1 || enterCheck==4) {
+					
+				
+					//start 3 up, 1 left
+					//populate rightwards
+					
+					//3 up, 1 left is -49
+					
+					
+					if (enterCheck<0) {
+						tempInd=allRooms[currRoomIndex].southExit-49;
+						tempEx=allRooms[currRoomIndex].southExit;
+					}
+					
+					else if (enterCheck==4) {
+					
+						tempInd=allRooms[currRoomIndex].arrExit-49;
+						tempEx=allRooms[currRoomIndex].arrExit;
+					}
+					
+					else {
+					
+						alert("wrong enter");
+					}
+					
+					
+					for (i=0;i<playersMax;i++) {
+					
+						
+						
+							//console.log(tempInd);
+							//allRooms[currRoomIndex]
+							
+							$("#roomTile" + tempInd).html(formArr[i]);
+							
+							tempInd++;
+							
+							if (tempInd==(tempEx-46)) {
+							
+								tempInd=tempEx-33;
+							
+							}
+							
+							if (tempInd==(tempEx-30)) {
+							
+								tempInd=tempEx-17;
+							
+							}
+							
+						
+						
+					}	
+				
+				}
+			
+			} //south
+			
+			
+			
+			
+		}
+		
+	}
+});
+
 $( "#roomStuffTabs" ).tabs({
   collapsible: true
 });
@@ -4489,7 +4834,7 @@ $( "#dungeonTabs" ).tabs({
 		
 			//load selected room if it exists
 			
-			if (allRooms[currRoomIndex].roomExists==true) {
+			if (allRooms[currRoomIndex].roomExists==true && allRooms[currRoomIndex].floorSymbol!="█") {
 			
 				for (i=0;i<roomSize;i++) {
 				
@@ -4500,7 +4845,7 @@ $( "#dungeonTabs" ).tabs({
 			
 			
 			//if doesnt exist, make one
-			if (allRooms[currRoomIndex].roomExists==false) {
+			if (allRooms[currRoomIndex].roomExists==false && allRooms[currRoomIndex].floorSymbol!="█") {
 			
 				roomGen();
 				allRooms[currRoomIndex].roomExists=true;
@@ -4569,6 +4914,8 @@ function roomGen() {
 
 	//if room
 	if (isRoom==true || isDes==true || isArr==true) {
+	
+		
 	
 		aCoor=rollDie(3,1,10);
 		bCoor=rollDie(3,1,10);
@@ -4670,6 +5017,81 @@ function roomGen() {
 			
 		}
 		
+		//if at arrival, one random wall becomes starting point
+		if (isArr==true) {
+			
+			let aHasEnt=false;
+			let tempButSym="";
+			tempInd=0;
+			let aRoll=0;
+			let prevButSym="";
+			let prevInd=0;
+			let nextButSym="";
+			let nextInd=0;
+			let upButSym="";
+			let upInd=0;
+			let downButSym="";
+			let downInd=0;
+		
+			while (aHasEnt==false) {
+			
+				if (tempInd>0){
+					
+					prevInd=tempInd;
+					prevInd--;
+				}
+				
+				if (tempInd<roomSize){
+					
+					nextInd=tempInd;
+					nextInd++;
+				}
+				
+				if (tempInd<(roomSize-roomMaxLength)){
+					
+					downInd=tempInd;
+					downInd+=roomMaxLength;
+				}
+				
+				if (tempInd>=roomMaxLength){
+					
+					upInd=tempInd;
+					upInd-=roomMaxLength;
+				}
+			
+				tempButSym=$("#roomTile" + tempInd).html();
+				prevButSym=$("#roomTile" + prevInd).html();
+				nextButSym=$("#roomTile" + nextInd).html();
+				downButSym=$("#roomTile" + downInd).html();
+				upButSym=$("#roomTile" + upInd).html();
+				if ((tempButSym!="" && tempButSym!="┐" && tempButSym!="└" && tempButSym!="┘" && tempButSym!="┌") && tempButSym!="+") {
+				
+					aRoll=rollDie(20,1);
+					
+					if (aRoll==1 && prevInd!="┐" && prevInd!="└" && prevInd!="┘" && prevInd!="┌" 
+						&& nextInd!="┐" && nextInd!="└" && nextInd!="┘" && nextInd!="┌" 
+						&& upInd!="┐" && upInd!="└" && upInd!="┘" && upInd!="┌" 
+						&& downInd!="┐" && downInd!="└" && downInd!="┘" && downInd!="┌") {
+					
+						$("#roomTile" + tempInd).html("@");
+						aHasEnt=true;
+						allRooms[currRoomIndex].arrExit=tempInd;
+					
+					}
+				
+				}
+				
+				tempInd++;
+
+				
+				if (tempInd>=roomSize) {
+				
+					tempInd=0;
+				}
+				
+			}
+		}
+		
 		
 		//make monsters/items/traps
 		//setSpawnPoints();
@@ -4764,7 +5186,7 @@ function roomGen() {
 		
 		
 		//make monsters/items/traps
-		setSpawnPoints();
+		//setSpawnPoints();
 		
 	
 	} //║
@@ -5403,15 +5825,15 @@ function roomGen() {
 	//╩
 	if (isHall8==true) {
 	
-		aCoor=rollDie(2,1,14); //long horizontal
+		aCoor=rollDie(2,1,12); //long horizontal
 		bCoor=rollDie(2,1,3); //width
 		aCoor2= rollDie(2,1,4); //short vertical
-		bCoor2=rollDie(3,1,8); //long ?
+		bCoor2=rollDie(2,1,5); //short horizontal right
 		//bCoor2-=2;
-		bCoor3=bCoor2-bCoor; //short horizontal
+		//bCoor3=bCoor2-bCoor; //short horizontal
 		
-		aCoor3=aCoor-bCoor-aCoor2;
-		aCoor3-=2; //other short horizontal
+		aCoor3=aCoor-bCoor-bCoor2;
+		//aCoor3-=2; //other short horizontal left
 		
 		//start in bottom left corner
 		
@@ -5429,7 +5851,7 @@ function roomGen() {
 			
 			if (i==doorIndex) {
 				$("#roomTile" + tempInd).html("+");
-				allRooms[currRoomIndex].norththExit=tempInd;
+				allRooms[currRoomIndex].northExit=tempInd;
 			}
 
 		}
@@ -5447,7 +5869,7 @@ function roomGen() {
 		tempInd+=roomMaxLength;
 		$("#roomTile" + tempInd).html("└");
 		
-		for (i=0;i<bCoor3;i++) {
+		for (i=0;i<bCoor2;i++) {
 		
 			tempInd++;
 			$("#roomTile" + tempInd).html("─");		
@@ -5474,13 +5896,14 @@ function roomGen() {
 		tempInd+=roomMaxLength;
 		$("#roomTile" + tempInd).html("┘");
 		
-		
-		for (i=1;i<aCoor;i++) {
+		//south wall
+		for (i=0;i<aCoor;i++) {
 		
 			tempInd--;
 			$("#roomTile" + tempInd).html("─");
 		}
 		
+		tempInd--;
 		$("#roomTile" + tempInd).html("└");
 		
 		doorIndex=makeHallDoor(bCoor);
@@ -5501,7 +5924,7 @@ function roomGen() {
 		tempInd-=roomMaxLength;
 		$("#roomTile" + tempInd).html("┌");
 		
-		for (i=1;i<aCoor3;i++) {
+		for (i=0;i<aCoor3;i++) {
 		
 			tempInd++;
 			$("#roomTile" + tempInd).html("─");
@@ -5991,19 +6414,26 @@ function setSpawnPoints() {
 		prevSym=$("#roomTile"+prevInd).html();
 		butSym=$("#roomTile"+i).html();
 		
-		if ((prevSym=="│" || (prevSym=="+"  && ((i%16)<9))) && hasOther!=true && (i%16!=0)) {
 		
+		
+		if ((prevSym=="│" || ((prevSym=="+" || prevSym=="@" || prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && ((i%16)<13))) && hasOther!=true && (i%16!=0)) {
+		//if ((prevSym=="│" || prevSym=="+" || prevSym=="@" || prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌")  && hasOther!=true) {
 			inRoom=true;
 			inRow=true;
 
 		}
 		
-		if ((prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && (1%16!=15)) {
+		if ((prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && (butSym=="─" || butSym=="│") &&  (1%16!=15)) {
 		
 			inRoom=false;
 			inRow=false;
 			hasOther=true;
 
+		}
+		
+		if (prevSym=="@" && (i%16>5)) {
+		
+			inRoom=false;
 		}
 		
 		if (prevSym=="│" && inRoom==true && inRow==false) {
@@ -9988,7 +10418,7 @@ var partyCount=0;
 
 var partyLevel=0;
 
-var formArr = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+var formArr = ["", "", "", "", "", "", "", "", ""];
 var currFormA=0;
 var currFormB=0; //grid coordinates
 var formIndex=0; //for setting array
@@ -10194,7 +10624,7 @@ function initAllRooms() {
 		
 			hasItem:false,
 			hasMonster:false,
-			symbol:"",
+			symbol:"█",
 		
 		});
 	}
@@ -10233,7 +10663,7 @@ function initAllRooms() {
 			
 			spawnArray:tempSpawnArray,
 			
-			floorSymbol: "",
+			floorSymbol: "█",
 			
 			roomWidth:0,
 			roomHeight:0,
@@ -10248,6 +10678,8 @@ function initAllRooms() {
 			eastExit:-1,
 			southExit:-1,
 			westExit:-1,
+			
+			arrExit:-1, //exit index of arrival
 		
 		});
 		
