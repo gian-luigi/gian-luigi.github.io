@@ -5375,10 +5375,10 @@ function roomGen() {
 	//╩
 	if (isHall8==true) {
 	
-		aCoor=rollDie(2,1,14); //long vertical
+		aCoor=rollDie(2,1,14); //long horizontal
 		bCoor=rollDie(2,1,3); //width
 		aCoor2= rollDie(2,1,4); //short vertical
-		bCoor2=rollDie(3,1,8); //long horizontal
+		bCoor2=rollDie(3,1,8); //long ?
 		//bCoor2-=2;
 		bCoor3=bCoor2-bCoor; //short horizontal
 		
@@ -5401,7 +5401,7 @@ function roomGen() {
 			
 			if (i==doorIndex) {
 				$("#roomTile" + tempInd).html("+");
-				allRooms[currRoomIndex].southExit=tempInd;
+				allRooms[currRoomIndex].norththExit=tempInd;
 			}
 
 		}
@@ -5446,7 +5446,6 @@ function roomGen() {
 		tempInd+=roomMaxLength;
 		$("#roomTile" + tempInd).html("┘");
 		
-		//north wall
 		
 		for (i=1;i<aCoor;i++) {
 		
@@ -5498,11 +5497,252 @@ function roomGen() {
 	//╠
 	if (isHall9==true) {
 	
+		aCoor=rollDie(2,1,14); //long vertical
+		bCoor=rollDie(2,1,3); //width
+		aCoor2= rollDie(2,1,4); //short vertical
+		bCoor2=rollDie(3,1,8); //long horizontal
+		//bCoor2-=2;
+		bCoor3=bCoor2-bCoor; //short horizontal
+		
+		aCoor3=aCoor-bCoor-aCoor2;
+		aCoor3-=2; //other short horizontal
+		
+		$("#roomTile0").html("┌");
+		tempInd=0;
+		
+		//west wall
+		for (i=1;i<aCoor;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("└");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//south wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].southExit=tempInd;
+			}
+
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┘");
+		
+		for (i=0;i<bCoor3;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		$("#roomTile" + tempInd).html("┌");
+		
+		
+		for (i=0;i<=aCoor2;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┘");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//east wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].eastExit=tempInd;
+			}
+
+		}
+		
+		tempInd-=roomMaxLength;
+		$("#roomTile" + tempInd).html("┐");
+		
+		for (i=0;i<=aCoor2;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("└");
+		
+		for (i=0;i<aCoor3;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		//north wall
+		doorIndex=makeHallDoor(bCoor);
+		for (i=1;i<=bCoor;i++) {
+		
+			$("#roomTile" + i).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + i).html("+");
+				allRooms[currRoomIndex].northExit=i;
+			}
+			
+			tempInd=i;
+
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┐");
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("│");	
+		
+		
+	
 	} //╠
 	
 	
 	//╣
 	if (isHall10==true) {
+	
+		aCoor=rollDie(2,1,14); //long vertical
+		bCoor=rollDie(2,1,3); //width
+		aCoor2= rollDie(2,1,4); //short vertical
+		bCoor2=rollDie(3,1,8); //long horizontal
+		//bCoor2-=2;
+		bCoor3=bCoor2-bCoor; //short horizontal
+		
+		aCoor3=aCoor-bCoor-aCoor2;
+		aCoor3-=2; //other short horizontal
+		
+		$("#roomTile15").html("┐");
+		tempInd=15;
+		
+		//west wall
+		for (i=1;i<aCoor;i++) {
+		
+			tempInd+=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+		}
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("┘");
+		
+		doorIndex=makeHallDoor(bCoor);
+		//south wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].southExit=tempInd;
+			}
+
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("└");
+		
+		for (i=0;i<bCoor3;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		$("#roomTile" + tempInd).html("┐");
+		
+		for (i=0;i<=aCoor2;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("└");
+		
+		doorIndex=makeHallDoor(bCoor);
+		
+		//west wall
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].westExit=tempInd;
+			}
+
+		}
+		
+		tempInd-=roomMaxLength;
+		$("#roomTile" + tempInd).html("┌");
+		
+		for (i=0;i<=aCoor2;i++) {
+		
+			tempInd++;
+			$("#roomTile" + tempInd).html("─");		
+		
+		}
+		
+		tempInd++;
+		$("#roomTile" + tempInd).html("┘");
+		
+		for (i=0;i<aCoor3;i++) {
+		
+			tempInd-=roomMaxLength;
+			$("#roomTile" + tempInd).html("│");		
+		
+		}
+		
+		tempInd=15;
+		
+		//north wall
+		doorIndex=makeHallDoor(bCoor);
+		for (i=1;i<=bCoor;i++) {
+		
+			tempInd--;
+			$("#roomTile" + tempInd).html("─");
+			
+			
+			if (i==doorIndex) {
+				$("#roomTile" + tempInd).html("+");
+				allRooms[currRoomIndex].northExit=tempInd;
+			}
+			
+
+		}
+		
+		tempInd--;
+		$("#roomTile" + tempInd).html("┌");
+		
+		tempInd+=roomMaxLength;
+		$("#roomTile" + tempInd).html("│");	
+		
 	
 	} //╣
 	
@@ -12048,7 +12288,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].northMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true) && floorArrIndex>4 && floorArrIndex<15) {
+				else if (buildRoom[0].northMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true) && (buildRoom[0].eastMand!=true) && floorArrIndex>4 && floorArrIndex<15) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╣");
@@ -12057,7 +12297,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].northMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && floorArrIndex>4 && floorArrIndex<15) {
+				else if (buildRoom[0].northMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && (buildRoom[0].westMand!=true) && floorArrIndex>4 && floorArrIndex<15) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╠");
@@ -12122,7 +12362,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].southMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true) && floorArrIndex>4  && floorArrIndex<15) {
+				else if (buildRoom[0].southMand==true && (buildRoom[0].westMand==true || buildRoom[0].westPossible==true) && (buildRoom[0].eastMand!=true) && floorArrIndex>4  && floorArrIndex<15) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╣");
@@ -12131,7 +12371,7 @@ function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
 					buildRoom[0].reroute=true;
 				}
 				
-				else if (buildRoom[0].southMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && floorArrIndex>4 && floorArrIndex<15) {
+				else if (buildRoom[0].southMand==true && (buildRoom[0].eastMand==true || buildRoom[0].eastPossible==true) && (buildRoom[0].westMand!=true) && floorArrIndex>4 && floorArrIndex<15) {
 				
 					floorLabel=floorGridArr[floorArrIndex].label;
 					$("#" + floorLabel).html("╠");
