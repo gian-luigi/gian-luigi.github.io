@@ -305,6 +305,7 @@
 <p><a href="https://docs.google.com/document/d/1-gGId2ghVJlkAES-ZdD8JQEqY_TpWLZn89FcLH-449A/edit?usp=sharing">Manual</a></p>
 
 <iframe src="https://docs.google.com/document/d/e/2PACX-1vR0xJ-v5zoks4Dh39WHsoJwqJeZ60bYLEOi_8S9tOiHnHuQ_4U27HqXK5JOhlwWbZaeJx-jyQUdAJPU/pub?embedded=true"></iframe>
+<br>
 <div id="formationTab">
 	<ul>
 		<li><a href="#formationTab-1">Formation</a></li>
@@ -3244,7 +3245,7 @@ function updatePlayer(){
 		$('#playerTitle').html("<h2>Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
 	}
 	
-	else if (allPlayers[whoIsActive].hasTitle==true && allPlayers[whoIsActive].hasName!=true){
+	else if (allPlayers[whoIsActive].hasTitle==true && allPlayers[whoIsActive].hasName==true){
 	
 		$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
 	}
