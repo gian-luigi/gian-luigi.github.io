@@ -152,7 +152,6 @@
 		
 		width: 100px;
 		height: 100px;
-		background: gray;
 
 	}
 	
@@ -354,6 +353,36 @@
 	</div>
 </div>
 <script>
+function rollDie(sides, amount, floor) {
+	
+	if (floor==undefined) {
+	
+		floor=1;
+	}
+	
+	let num=0;
+	
+	for (q=0; q<amount; q++){
+
+		num+=Math.floor((Math.random() * sides) + floor);
+	}
+
+	return num;
+}
+
+function rollDie0(sides, amount) {
+	
+	let num=0;
+	
+	for (r=0; r<amount; r++){
+
+		num+=Math.floor(Math.random() * sides);
+	}
+
+	return num;
+}
+
+
 var currFormIndex=-1;
 
 $("#formationTab").tabs({collapsible: true});
@@ -4116,6 +4145,7 @@ $(document).ready(function changePlayerButtonText() {
   <ul>
     <li><a href="#dungeonTabs-1">Floors</a></li>
     <li><a href="#dungeonTabs-2">Room</a></li>
+	<li><a href="#dungeonTabs-3">Item ID</a></li>
   </ul>
   <div id="dungeonTabs-1">
 	<div class="floorGrid">
@@ -4494,12 +4524,145 @@ $(document).ready(function changePlayerButtonText() {
 		</div>
   
 	</div>
+	
+	<div id="dungeonTabs-3">
+		<div id="itemTabs">
+			<ul>
+				<li><a href="#itemTabs-1">Wands</a></li>
+				<li><a href="#itemTabs-2">Scrolls</a></li>
+				<li><a href="#itemTabs-3">Spellbooks</a></li>
+				<li><a href="#itemTabs-4">Potions</a></li>
+				<li><a href="#itemTabs-5">Robes</a></li>
+				<li><a href="#itemTabs-6">Shoes</a></li>
+				<li><a href="#itemTabs-7">Gloves</a></li>
+				<li><a href="#itemTabs-8">Rings</a></li>
+				<li><a href="#itemTabs-9">Amulets</a></li>
+			 </ul>
+			 <div id="itemTabs-1">
+				<p id="wands"> </p>
+			 </div>
+			 <div id="itemTabs-2">
+				<p id="scrolls"> </p>
+			 </div>
+			 <div id="itemTabs-3">
+				<p id="spellbooks"> </p>
+			 </div>
+			 <div id="itemTabs-4">
+				<p id="potions"> </p>
+			 </div>
+			 <div id="itemTabs-5">
+				<p id="robes"> </p>
+			 </div>
+			 <div id="itemTabs-6">
+				<p id="shoes"> </p>
+			 </div>
+			 <div id="itemTabs-7">
+				<p id="gloves"> </p>
+			 </div>
+			 <div id="itemTabs-8">
+				<p id="rings"> </p>
+			 </div>
+			 <div id="itemTabs-9">
+				<p id="amulets"> </p>
+			 </div>
+		</div>
+	</div>
 </div>
 
 <script>
+$("#itemTabs").tabs({collapsible: true});
+
+
+
+
+initItems();
+
+
+function initItems() {
+	
+	
+	var wandsID=["aluminum", "curved", "iridium", "marble", "short", "uranium", "balsa", "oak", "forked", "jeweled", "pine", "glass", "long", "platinum", "crystal", "maple", "mahogany", "tin",];
+	var wands=["light", "enlightenment", "unlocking", "tick", "lance", "invisibility", "scrutiny", "slow", "brisk", "haste", "force bolt", "ice spike", "fireball", "lightning", "sleep", "cancellation", "create monster", "death"];
+	var wandsUsed=[];
+	var potions=[];
+	var potionsID=[];
+	var potionsUsed=[];
+	var scrolls=[];
+	var scrollsID=[];
+	var scrollsUsed=[];
+	var spellbooks=[];
+	var spellbooksID=[];
+	var spellbooksUsed=[];
+	var robes=[];
+	var robesID=[];
+	var robesUsed=[];
+	var gloves=[];
+	var glovesID=[];
+	var glovesUsed=[];
+	var shoes=[];
+	var shoesID=[];
+	var shoesUsed=[];
+	var rings=[];
+	var ringsID=[];
+	var ringsUSed=[];
+	var amulets=[];
+	var amuletsID=[];
+	var amuletsUsed=[];
+	
+	var amount=0;
+	var itemRoll=0;
+	
+
+
+
+	
+	// ---wands---
+	amount=wands.length;
+	
+	for (i=0;i<amount;i++) {
+	
+		itemRoll=rollDie0(amount,1);
+	
+		while (wandsUsed.includes(itemRoll)) {
+		
+			itemRoll=rollDie0(amount,1);
+			//console.log(wandsUsed.length);
+		}
+		
+		wandsUsed.push(itemRoll);
+		
+		$("#wands").append(wands[i] + " = ");
+		$("#wands").append(wandsID[itemRoll] + "<br>");
+
+	}
+	
+	
+	
+	
+}
+
+function clearRoom () {
+
+	var tempSym="";
+
+	//clear symbols
+	for (i=0;i<roomSize;i++) {
+	
+		tempSym=$("#roomTile" + i).html();
+		
+		if (tempSym!="─" && tempSym!="│" && tempSym!="┐" && tempSym!="└" && tempSym!="┘" && tempSym!="┌" && tempSym!="+" && tempSym!="@" ){
+		
+			$("#roomTile" + i).html("");
+		}
+	}	
+		
+}
+
 $("div.enterFromGrid").find("button").click(function( event ) {
 
 	if (allRooms[currRoomIndex].roomExists==true) {
+	
+		clearRoom();
 	
 		var tempId=this.id;
 		
@@ -4567,6 +4730,7 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			
 				if (allRooms[currRoomIndex].northExit>1 || enterCheck==1) {
 				
+					clearRoom();
 				
 					//start 3 down, 1 right
 					//populate leftwards
@@ -4624,6 +4788,8 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			
 			
 			if (tempId=="enterW" || enterCheck==2) {
+			
+				clearRoom();
 			
 				//start 3 right, 1 up
 				//populate downwards
@@ -4687,6 +4853,8 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			
 			if (tempId=="enterE" || enterCheck==3) {
 			
+				clearRoom();
+			
 				//start 3 left, 1 down
 				//populate upwards
 				
@@ -4749,6 +4917,8 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			if (tempId=="enterS" || enterCheck==4) {
 			
 				if (allRooms[currRoomIndex].southExit>1 || enterCheck==4) {
+				
+					clearRoom();
 					
 				
 					//start 3 up, 1 left
@@ -10344,34 +10514,7 @@ function demoVisibility() {
 <!--<script src="external/jquery/jquery.js"></script>
 <script src="jquery-ui.js"></script>-->
 <script>
-function rollDie(sides, amount, floor) {
-	
-	if (floor==undefined) {
-	
-		floor=1;
-	}
-	
-	let num=0;
-	
-	for (i=0; i<amount; i++){
 
-		num+=Math.floor((Math.random() * sides) + floor);
-	}
-
-	return num;
-}
-
-function rollDie0(sides, amount) {
-	
-	let num=0;
-	
-	for (i=0; i<amount; i++){
-
-		num+=Math.floor(Math.random() * sides);
-	}
-
-	return num;
-}
 
 var turn=0;
 var whoIsActive=0;
