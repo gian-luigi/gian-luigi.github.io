@@ -293,6 +293,32 @@
 		
 		/*grid-gap: 20px 5px;*/
 	}
+	
+	.movementGrid {
+		display: grid;
+		grid-template-columns: 40px 40px 40px;
+		
+		
+		grid-column-gap: 10px;
+		width:200px
+		
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
+	
+	.passivesNegGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto;
+		
+		
+		grid-row-gap: 10px;
+		
+
+		
+		/*grid-gap: 20px 5px;*/
+	}
 
 
 	
@@ -679,22 +705,23 @@ $( "#clearForm" ).click(function( event ) {
 					<label class="passivesBut" for="reflection">Reflection</label>
 					<input type="checkbox" name="passivesCheck13" id="reflection">
 					<label class="passivesBut" for="telepathy">Telepathy</label>
-					<input type="checkbox" name="passivesCheck13" id="telepathy">
+					<input type="checkbox" name="passivesCheck14" id="telepathy">
 					<label class="passivesBut" for="displacement">Displacement</label>
-					<input type="checkbox" name="passivesCheck13" id="displacement">
+					<input type="checkbox" name="passivesCheck15" id="displacement">
 					<label class="passivesBut" for="noHungCast">Hungerless Casting</label>
-					<input type="checkbox" name="passivesCheck13" id="noHungCast">
+					<input type="checkbox" name="passivesCheck16" id="noHungCast">
 					<label class="passivesBut" for="regen">Regeneration</label>
-					<input type="checkbox" name="passivesCheck13" id="regen">
+					<input type="checkbox" name="passivesCheck17" id="regen">
 					<label class="passivesBut" for="confluence">Confluence</label>
-					<input type="checkbox" name="passivesCheck13" id="confluence">
+					<input type="checkbox" name="passivesCheck18" id="confluence">
 				
 				
 				</div>
 			</fieldset>
+			<br>
 			<fieldset>
 			<legend>Negative</legend>
-				<div class="passivesGrid">
+				<div class="passivesNegGrid">
 				</div>
 		  </div>
 		  
@@ -1265,7 +1292,7 @@ $("div.passivesGrid").find( "input[type=\"checkbox\"]").click(function( event ) 
 	
 });
 
-var currMax=-1; //0 for curr, 1 for max
+
 
 $("#prayTime").click(function() {
 
@@ -3224,6 +3251,21 @@ $( "#playerTabs" ).tabs({
 	$("div.playerStatsGrid").find("input[type=\"spinner\"]").spinner("value", '');
 	
 	
+	//select room tile
+	if (allPlayers[whoIsActive].playerExists==true) {
+	
+		if (allPlayers[whoIsActive].index>0) {
+		
+			//reset previous current tile color
+			$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+			
+			
+			roomTileIndex=allPlayers[whoIsActive].index;
+			$("#roomTile"+roomTileIndex).css("background", butSelColor);
+			
+		}
+	}
+	
   }
 });
 
@@ -3296,26 +3338,31 @@ function updatePlayer(){
 			if (allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*burdenedMod)) {
 			
 				tempStat+="<br>Burdened";
+				allPlayers[whoIsActive].encumbrance=1;
 			}
 			
 			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*burdenedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*stressedMod)) {
 			
 				tempStat+="<br>Stressed";
+				allPlayers[whoIsActive].encumbrance=2;
 			}
 			
 			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*stressedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*strainedMod)) {
 			
 				tempStat+="<br>Strained";
+				allPlayers[whoIsActive].encumbrance=3;
 			}
 			
 			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*strainedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*overtaxedMod)) {
 			
 				tempStat+="<br>Overtaxed";
+				allPlayers[whoIsActive].encumbrance=4;
 			}
 			
 			else if (allPlayers[whoIsActive].weightCurr>(allPlayers[whoIsActive].weightMax*overtaxedMod) && allPlayers[whoIsActive].weightCurr<=(allPlayers[whoIsActive].weightMax*overloadedMod)) {
 			
 				tempStat+="<br>Overloaded";
+				allPlayers[whoIsActive].encumbrance=5;
 			}
 		
 		}//encumbered
@@ -4240,6 +4287,22 @@ $(document).ready(function changePlayerButtonText() {
 	
 		<div class="roomGridClass">
 			<button id="createRoomBut">Create Room</button>
+			<br><br>
+			Movement:
+			<br>
+			<div class="movementGrid">
+				<button id="moveNW">NW</button>
+				<button id="moveN">↑</button>
+				<button id="moveNE">NE</button>
+				<button id="moveW">←</button>
+				<button >+</button>
+				<button id="moveE">→</button>
+				<button id="moveSW">SW</button>
+				<button id="moveS">↓</button>
+				<button id="moveNSE">SE</button>
+		
+			</div>
+			<br>
 			<div class="controlgroup">
 				<div class="menu-container">
 					<div class="roomContainer">
@@ -4537,8 +4600,7 @@ $(document).ready(function changePlayerButtonText() {
 							<li><a href="#monsterTabs-10">Monster 10</a></li>
 						  </ul>
 						  <br>
-						  <button>Clear</button>
-						  <button>Defeat</button>
+						  <button id="clearMonstBut">Clear</button>
 						  <br><br>
 						  <fieldset>
 							<div class="monstStatsGrid">
@@ -4546,9 +4608,9 @@ $(document).ready(function changePlayerButtonText() {
 								<input type="radio" name="monstStatEditRadio" id="monstStatEditRadio1">
 								<label for="monstStatEditRadio2">Max</label>
 								<input type="radio" name="monstStatEditRadio" id="monstStatEditRadio2">
-								<p id="monstHP">HP:</p><input type="spinner" id="hp" style="width: 50px">
-								<p id="monstEnergy">Energy:</p><input type="spinner" id="energy" style="width: 50px">
-								<p id="monstAC">AC:</p><input type="spinner" id="AC" style="width: 50px">
+								<p id="monstHP">HP:</p><input type="spinner" id="monstSpinhp" style="width: 50px">
+								<p id="monstEnergy">Energy:</p><input type="spinner" id="monstSpinenergy" style="width: 50px">
+								<p id="monstAC">AC:</p><input type="spinner" id="monstSpinAC" style="width: 50px">
 								<p id="monstTurnAct">Actions this turn:</p><br>
 								<p>To Hit:</p><br>
 								<p id="monstIndex">Index:</p><br>
@@ -4616,7 +4678,7 @@ $(document).ready(function changePlayerButtonText() {
 	<div id="dungeonTabs-3">
 		<div id="itemTabs">
 			<ul>
-				<li><a href="#itemTabs-1">Wands</a></li>
+				<li><a href="#itemTabs-1">Identified</a></li>
 				<li><a href="#itemTabs-2">Scrolls</a></li>
 				<li><a href="#itemTabs-3">Spellbooks</a></li>
 				<li><a href="#itemTabs-4">Potions</a></li>
@@ -4625,9 +4687,10 @@ $(document).ready(function changePlayerButtonText() {
 				<li><a href="#itemTabs-7">Gloves</a></li>
 				<li><a href="#itemTabs-8">Rings</a></li>
 				<li><a href="#itemTabs-9">Amulets</a></li>
+				<li><a href="#itemTabs-10">Wands</a></li>
 			 </ul>
 			 <div id="itemTabs-1">
-				<p id="wands"> </p>
+				<p id="identified"> </p>
 			 </div>
 			 <div id="itemTabs-2">
 				<p id="scrolls"> </p>
@@ -4653,11 +4716,125 @@ $(document).ready(function changePlayerButtonText() {
 			 <div id="itemTabs-9">
 				<p id="amulets"> </p>
 			 </div>
+			 <div id="itemTabs-10">
+				<p id="wands"> </p>
+			 </div>
 		</div>
 	</div>
 </div>
 
 <script>
+$("div.movementGrid").find("button").click(function( event ) {
+
+	var butId=this.id;
+	var destTileInd; //for checking destination tile
+	var destTileTemp; //for comparison
+	var destTilePlayer;
+	var destTileMonst;
+	var destTileWall;
+	var tempPlayInd; //setting destination tile of player
+	
+	if (butId=="moveN") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd-=roomMaxLength;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					$("#roomTile"+allPlayers[whoIsActive].index).html("");
+				
+					allPlayers[whoIsActive].index-=roomMaxLength;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				}
+				
+				if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+					$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+				
+					allRooms[currRoomIndex].roomMonsters[monstActive].index-=roomMaxLength;
+					roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+				
+				}
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //north
+	
+	updatePlayer();
+	updateMonst();
+
+});
+
+$( "#createRoomBut" ).click(function( event ) {
+
+	//clear current room
+	$("div.roomContainer").find("button").html(""); //initialize
+	$("div.roomContainer").find("button").css("background", butDefColor);
+	 
+	/*for (i=0;i<roomSize;i++) {
+	
+		
+		$("#roomTile" + i).html("");
+		
+	}*/
+
+	roomGen();
+
+});
+
 $("div.roomContainer").find( "button").click(function( event ) {
 
 	var tileStr;
@@ -4668,31 +4845,50 @@ $("div.roomContainer").find( "button").click(function( event ) {
 	tileStr=tileStr.replace("roomTile","");
 	
 	tileStr=parseInt(tileStr);
+	
+	//reset previous current tile color
+	$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+	
 	roomTileIndex=tileStr;
+	
+	
+	//color selected tile
+	$("#roomTile"+roomTileIndex).css("background", butSelColor);
 	
 	//check if click tile is player
 	for (i=0; i<playersMax;i++) {
 	
-		if (allPlayers[i].index==roomTileIndex && allPlayers[i].playerExists==true) {
+		if (allPlayers[i].playerExists==true) {
 		
+			if (allPlayers[i].index==roomTileIndex) {
+			
+			
+				tempInd=i;
+				tempInd++;
+				$('#playerTabs a[href="#playerTabs-' + tempInd + '"]').trigger('click');
+			}
 		
-			tempInd=i;
-			tempInd++;
-			$('#playerTabs a[href="#playerTabs-' + tempInd + '"]').trigger('click');
-		}
+		} //if player exists
 	}
 	
-	/*//check if click tile is monster
-	for (i=0; i<monstMax;i++) {
+	//check if click tile is monster
+	for (i=0; i<allRooms[currRoomIndex].roomMonsters.length;i++) {
 	
-		if (currMonsters[i].index==roomTileIndex && currMonsters[i].playerExists==true) {
+	
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
 		
+				if (allRooms[currRoomIndex].roomMonsters[i].index==roomTileIndex) {
+				
+				
+					tempInd=i;
+					tempInd++;
+					$('#monsterTabs a[href="#monsterTabs-' + tempInd + '"]').trigger('click');
+				}
+			
+			} //if monster exists
 		
-			tempInd=i;
-			tempInd++;
-			$('#playerTabs a[href="#playerTabs-' + tempInd + '"]').trigger('click');
-		}
-	}*/
+
+	}
 });
 
 $("#monsterTabs").tabs({collapsible: true});
@@ -4778,35 +4974,146 @@ $( "#monsterTabs" ).tabs({
 	$("div.monstStatsGrid").find("input[type=\"spinner\"]").spinner("value", '');
 	
 	
+	//select room tile
+	if (allRooms[currRoomIndex].roomMonsters.length>monstActive) {
+	
+		if (allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+		
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].index>0) {
+			
+				//reset previous current tile color
+				$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+				
+				
+				roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+				$("#roomTile"+roomTileIndex).css("background", butSelColor);
+				
+			}
+		}
+	
+	}
+	
+	
   }
 });
 
 function updateMonst() {
 
 	var tempStat="";
-
-	for (i=0; i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+	var tempNum=0;
+	
+	//tab titles
+	//for (i=0; i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+	for (i=0;i<monstMax;i++) {
+	
+	
+		if (allRooms[currRoomIndex].roomMonsters.length>i) {
+	
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+				$('#monsterTabs ul:first li:eq(' + i + ') a').text(allRooms[currRoomIndex].roomMonsters[i].monstName);
+			}
 		
-
-		$('#monsterTabs ul:first li:eq(' + i + ') a').text(allRooms[currRoomIndex].roomMonsters[i].monstName);
+		}
+		
+		
+		if (allRooms[currRoomIndex].roomMonsters.length<=i) {
+		
+			tempNum=i;
+			tempNum++;
+			$('#monsterTabs ul:first li:eq(' + i + ') a').text("Monster " + tempNum);
+		}
 	
 	}
 	
-	tempStat="HP: " + allRooms[currRoomIndex].roomMonsters[monstActive].hpCurr;
-	tempStat+=" / "+ allRooms[currRoomIndex].roomMonsters[monstActive].hpMax;
-	$("#monstHP").html(tempStat);
+	if (allRooms[currRoomIndex].roomMonsters.length>monstActive) {
 	
+		if (allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+		
+			tempStat="HP: " + allRooms[currRoomIndex].roomMonsters[monstActive].hpCurr;
+			tempStat+=" / "+ allRooms[currRoomIndex].roomMonsters[monstActive].hpMax;
+			$("#monstHP").html(tempStat);
+
+			tempStat="Energy: " + allRooms[currRoomIndex].roomMonsters[monstActive].energyCurr;
+			tempStat+=" / "+ allRooms[currRoomIndex].roomMonsters[monstActive].energyMax;
+			$("#monstEnergy").html(tempStat);
+
+			tempStat="AC: " + allRooms[currRoomIndex].roomMonsters[monstActive].totalAC;
+			$("#monstAC").html(tempStat);
+			
+			tempStat="Index: " + allRooms[currRoomIndex].roomMonsters[monstActive].index;
+			$("#monstIndex").html(tempStat);
+			
+			tempStat="Actions this turn: "; 
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].speed>=12 && allRooms[currRoomIndex].roomMonsters[monstActive].speed<24){
+				tempStat+="1";
+				allRooms[currRoomIndex].roomMonsters[monstActive].actions=1;
+			}
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].speed>=24){
+				tempStat+="2";
+				allRooms[currRoomIndex].roomMonsters[monstActive].actions=2;
+			}
+			
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].speed<12){
+				tempStat+="0";
+				allRooms[currRoomIndex].roomMonsters[monstActive].actions=0;
+			}
+			
+			$('#monstTurnAct').html(tempStat);
+		
+		} //if monst exists
+	
+	}
+	
+	else if (allRooms[currRoomIndex].roomMonsters.length<=monstActive) {
+	
+		tempStat="HP: ";
+		$("#monstHP").html(tempStat);
+
+		tempStat="Energy: ";
+		$("#monstEnergy").html(tempStat);
+
+		tempStat="AC: ";
+		$("#monstAC").html(tempStat);
+		
+		tempStat="Index: ";
+		$("#monstIndex").html(tempStat);
+		
+		tempStat="Actions this turn: "; 
+		$('#monstTurnAct').html(tempStat);
+	}
 
 }
 
+$( "#clearMonstBut" ).click(function( event ) {
+
+	var corpseDrop=rollDie(2,1);
+
+	$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+	
+	//dont clear if standing on item?
+	$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+	
+	//chance to drop corpse
+	if (corpseDrop==1) {
+	
+		console.log("drop corpse");
+	}
+
+	//console.log(allRooms[currRoomIndex].roomMonsters.length);
+	allRooms[currRoomIndex].roomMonsters.splice(monstActive,1);
+	//console.log(allRooms[currRoomIndex].roomMonsters.length);
+	
+	updateMonst();
+})
+
 $( "#monstStatEditRadio1" ).click(function( event ) {
 
-	currMax=0;
+	monstCurrMax=0;
 });
 
 $( "#monstStatEditRadio2" ).click(function( event ) {
 
-	currMax=1;
+	monstCurrMax=1;
 });
 
 
@@ -4821,17 +5128,18 @@ $("div.monstStatsGrid").find("input").keyup(function(event) {
 
 	var enterVal = this.value;
 	var tempStr;
-	var tempStr2;
+	//var tempStr2;
 	enterVal=parseInt(enterVal);
 	//alert(typeof(enterVal));
 	
     if (event.keyCode === 13) {
 	
+	
 		if (isNaN(enterVal)==false && allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
 	
 			tempStr=this.id;
-			tempStr=tempStr.replace("Spinner","");
-			tempStr2=tempStr.toLowerCase();
+			tempStr=tempStr.replace("monstSpin","");
+			//tempStr=tempStr.toLowerCase();
 			
 			//var element_id = this.data()[element_type + 'id'];
 			
@@ -4839,16 +5147,16 @@ $("div.monstStatsGrid").find("input").keyup(function(event) {
 			//allPlayers[whoIsActive][tempStr2]+=enterVal;
 			
 			//current
-			if (tempStr2=="hp" && currMax==0) {
+			if (tempStr=="hp" && monstCurrMax==0) {
 
 				
-				
 				allRooms[currRoomIndex].roomMonsters[monstActive].hpCurr+=enterVal;
+				//console.log(allRooms[currRoomIndex].roomMonsters[monstActive].hpCurr);
 				
 			}
 			
 			//max
-			if (tempStr2=="hp" && currMax==1) {
+			if (tempStr=="hp" && monstCurrMax==1) {
 			
 				
 				
@@ -4857,16 +5165,17 @@ $("div.monstStatsGrid").find("input").keyup(function(event) {
 			}
 			
 			//current
-			if (tempStr2=="energy" && currMax==0) {
+			if (tempStr=="energy" && monstCurrMax==0) {
 
 				
 				
 				allRooms[currRoomIndex].roomMonsters[monstActive].energyCurr+=enterVal;
+				console.log(allRooms[currRoomIndex].roomMonsters[monstActive].energyCurr);
 				
 			}
 			
 			//max
-			if (tempStr2=="energy" && currMax==1) {
+			if (tempStr=="energy" && monstCurrMax==1) {
 			
 				
 				
@@ -4876,14 +5185,14 @@ $("div.monstStatsGrid").find("input").keyup(function(event) {
 			
 		
 			
-			else {
+			/*else {
 			
-				allRooms[currRoomIndex].roomMonsters[monstActive]+=enterVal;
-			}
+				allRooms[currRoomIndex].roomMonsters[monstActive][tempStr]+=enterVal;
+			}*/
 			
 			//alert(allPlayers[whoIsActive].hpCurr);
 			
-			updatePlayer();
+			updateMonst();
 			
 	
 		}
@@ -5163,6 +5472,14 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			var tempInd;
 			var enterCheck=-1; //1 for north, 2 for west, 3 for east, 4 for south
 			var tempEx=0; //index for exit
+			
+			//color room tiles
+			
+			for (i=0;i<allRooms[currRoomIndex].spawnArray.length;i++) {
+			
+				$("#roomTile"+allRooms[currRoomIndex].spawnArray[i]).css("background", tileDefColor);
+				
+			}
 
 		
 			if (tempId=="enterA") {
@@ -5525,6 +5842,7 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 			
 			} //south
 			
+			updatePlayer();
 			
 		} //if an actual button
 		
@@ -5559,7 +5877,7 @@ function monstSpawn() {
 			
 				spawnInd=rollDie0(spawnArrLength,1);
 				spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
-				console.log($("#roomTile"+spawnTile).html());
+				//console.log($("#roomTile"+spawnTile).html());
 			}
 			
 			//create monster on chosen tile
@@ -5630,9 +5948,17 @@ $( "#dungeonTabs" ).tabs({
 				for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
 					
 					if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
-						console.log("asdf");
+						//console.log("asdf");
 						$("#roomTile" + allRooms[currRoomIndex].roomMonsters[i].index).html(allRooms[currRoomIndex].roomMonsters[i].monstSymbol);
 					}
+				}
+				
+				
+				//color all room tiles
+				for (i=0;i<allRooms[currRoomIndex].spawnArray.length;i++) {
+				
+					$("#roomTile"+allRooms[currRoomIndex].spawnArray[i]).css("background", tileDefColor);
+					
 				}
 			
 			}
@@ -5862,10 +6188,10 @@ function roomGen() {
 				
 					aRoll=rollDie(20,1);
 					
-					if (aRoll==1 && prevInd!="┐" && prevInd!="└" && prevInd!="┘" && prevInd!="┌" 
-						&& nextInd!="┐" && nextInd!="└" && nextInd!="┘" && nextInd!="┌" 
-						&& upInd!="┐" && upInd!="└" && upInd!="┘" && upInd!="┌" 
-						&& downInd!="┐" && downInd!="└" && downInd!="┘" && downInd!="┌") {
+					if (aRoll==1 && prevButSym!="┐" && prevButSym!="└" && prevButSym!="┘" && prevButSym!="┌" 
+						&& nextButSym!="┐" && nextButSym!="└" && nextButSym!="┘" && nextButSym!="┌" 
+						&& upButSym!="┐" && upButSym!="└" && upButSym!="┘" && upButSym!="┌" 
+						&& downButSym!="┐" && downButSym!="└" && downButSym!="┘" && downButSym!="┌") {
 					
 						$("#roomTile" + tempInd).html("@");
 						aHasEnt=true;
@@ -7212,7 +7538,7 @@ function setSpawnPoints() {
 		
 		
 		
-		if ((prevSym=="│" || ((prevSym=="+" || prevSym=="@" || prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && ((i%16)<13))) && hasOther!=true && (i%16!=0)) {
+		if (i>roomMaxLength && (prevSym=="│" || ((prevSym=="+" || prevSym=="@" || prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && ((i%16)<13))) && hasOther!=true && (i%16!=0)) {
 		//if ((prevSym=="│" || prevSym=="+" || prevSym=="@" || prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌")  && hasOther!=true) {
 			inRoom=true;
 			inRow=true;
@@ -7263,7 +7589,7 @@ function setSpawnPoints() {
 		
 		if (inRoom==true && butSym=="") {
 		
-			$("#roomTile"+i).css("background", butSelColor);
+			$("#roomTile"+i).css("background", tileDefColor);
 			spawnArray.push(i);
 			rowCount++;
 			
@@ -11153,7 +11479,7 @@ var passiveCount=40;
 var currMonPassives=0;
 var radioCurrMax=0; //0 if curr, 1 if max; edit player hp/energy
 var currFloor=0;
-var currRoomIndex=0; //for accessing roomStuff array
+var currRoomIndex=0; //for accessing allRooms array
 var floorSize=20; //1-20, amount of squares in floors
 var floorMax=10; //total amount of floors, also edit floorExistsArr
 //var visited=0;
@@ -11194,7 +11520,7 @@ var formIndex=0; //for setting array
 
 var monstAilSet=0;
 var monstAilTurn=1;
-var monstMax=10;
+var monstMax=7;
 
 var playerAilSet=0;
 var playerAilTurn=0;
@@ -11214,11 +11540,15 @@ var hitDes=false;
 var currFloorSym="█";
 var butDefColor="lightgray";
 var butSelColor='#6ad18c';
+var tileDefColor="#8ac8ff";
 
 var monMax=12; //max mons per room?
 var itemMax=7; //max items per room?
 
 var offset=0; //offset for rooms on higher floors, access allRooms array indicies
+
+var currMax=-1; //0 for curr, 1 for max
+var monstCurrMax=-1;
 
 //hunger ranges
 var satiatedHigh=500;
@@ -11267,6 +11597,8 @@ function initMonster() {
 				monsterSymbol: "M!", //placeholder symbol
 				
 				monRoomIndex:-1, //where it is in a room
+				
+				moved: false, //for determining if monster has already moved (implied to have taken all actions)
 			
 				monsterPassives: //passives
 				{
@@ -11906,6 +12238,7 @@ function initPlayers() {
 			woundedLegRight:0 //int
 		},
 		hunger:0,
+		prevHunger:0, //for hunger state change alert
 		nutrition:3, //1 for oversatiated, 2 for satiated, 3 for normal, 4 for hungry, 5 for weak, 6 for faing, 7 for starved
 		luck:0,
 		prayTime:0,
@@ -12768,8 +13101,32 @@ window.onkeyup = function(e) {
 					//alert if more/less actions this turn
 					if (allPlayers[i].actions!=1) {
 					
-						notifs=allPlayers[i].playerName + " has " + allPlayers[i].actions + " actions this turn\n";
+						notifs+=allPlayers[i].playerName + " has " + allPlayers[i].actions + " actions this turn\n";
 					}
+					
+					//alert if hunger changes this turn
+					if (allPlayers[i].hunger<=99 && allPlayers[i].prevHunger>99) {
+					
+						notifs+=allPlayers[i].playerName + " is Hungry\n";
+					}
+					
+					if (allPlayers[i].hunger<=24 && allPlayers[i].prevHunger>24) {
+					
+						notifs+=allPlayers[i].playerName + " is Weak from hunger\n";
+					}
+					
+					if (allPlayers[i].hunger<=0 && allPlayers[i].playClass==0 && allPlayers[i].prevHunger>0) {
+					
+						notifs+=allPlayers[i].playerName + " is below minimum hunger\n";
+						//make enfeebled here
+						//allPlayers[i].playerPassives
+					}
+					
+					if (allPlayers[i].hunger<=0 && allPlayers[i].playClass!=0 && allPlayers[i].prevHunger>0) {
+					
+						notifs+=allPlayers[i].playerName + " has died from starvation\n";
+					}
+					
 				
 				}//if player exists
 			
@@ -12777,9 +13134,14 @@ window.onkeyup = function(e) {
 			
 			} //for # of players
 			
+			//test
+			//notifs="asdf\nasdf\nasdf";
+			
 			if (notifs!="") {
 				
+				
 				alert(notifs);
+				notifs="";
 				
 			}
 			
@@ -12800,18 +13162,182 @@ function turnInc() {
 	
 		if (allPlayers[i].playerExists==true) {
 		
+			allPlayers[i].prevHunger=allPlayers[i].hunger;
+		
 			//conditionals here
 		
+			//allPlayers[i].hunger--;
+				
+			if (allPlayers[i].wearRing==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].wearAmul==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playerPassives.isHungry==true && (turn%2)==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playerPassives.regen==true && (turn%2)==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playClass==0)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playClass==11 && (turn%2)==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playerPassives.energyRegen==true && (turn%2)==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].encumbrance>1 && (turn%2)==1)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playerPassives.slowDigest==false)
+			allPlayers[i].hunger--;
+
+			if (allPlayers[i].playerPassives.slowDigest==true && (turn%3)==0)
 			allPlayers[i].hunger--;
 			
 			tempStyle = "Hunger: " + allPlayers[whoIsActive].hunger;
 			$('#playerHunger').html(tempStyle);
 			
 			
+			//prayer
+			
+			if (allPlayers[i].prayTime>0) {
+			
+				allPlayers[i].prayTime--;
+				
+			}
+			
+			
+			//speed
+			
+			var temp=i;
+			temp++;
+			//console.log("Player " + temp + " speed = " + allPlayers[i].speed);
 
+			
+			let tempRoll=0;
+			let tempChance=0;
+			
+			if (allPlayers[i].speed>=24) {
+				allPlayers[i].speed-=24;
+			}
+			
+			else if (allPlayers[i].speed>=12) {
+				allPlayers[i].speed-=12;
+			}
+			
+			
+
+			//else
+			
 		
-		}
-	}
+			if (allPlayers[i].playerPassives.tempBrisk<1 && allPlayers[i].playerPassives.tempHaste<1) //no temp buffs
+			{	
+		
+					if (allPlayers[i].playerPassives.brisk==true && allPlayers[i].playerPassives.haste==false)
+					{
+						allPlayers[i].speed+=14;
+
+						tempRoll=rollDie(3,1);
+
+						if(tempRoll==1)
+						allPlayers[i].speed+=4;
+
+					
+					}
+
+
+					if (allPlayers[i].playerPassives.haste==true)
+					{
+						allPlayers[i].speed+=18;
+
+						tempRoll=rollDie(3,1);
+
+						if(tempRoll==1)
+						allPlayers[i].speed+=6;
+
+					
+					}
+
+			} //no temp
+
+			if (allPlayers[i].playerPassives.tempBrisk>0 || allPlayers[i].playerPassives.tempHaste>0) //has temp buffs
+			{
+				if (allPlayers[i].playerPassives.tempBrisk>0 && allPlayers[i].playerPassives.tempHaste<1)
+				{
+					allPlayers[i].speed+=14;
+
+					tempRoll=rollDie(3,1);
+
+					if(tempRoll==1)
+					allPlayers[i].speed+=4;
+
+				
+				}
+
+
+				if (allPlayers[i].playerPassives.tempHaste>0)
+				{
+					allPlayers[i].speed+=18;
+
+					tempRoll=rollDie(3,1);
+
+					if(tempRoll==1)
+					allPlayers[i].speed+=6;
+
+				
+				}
+				
+			} //temp buffs
+
+			
+			//slow
+			if (allPlayers[i].playerPassives.slow>0 || allPlayers[i].playerPassives.permSlow==true)
+			{
+				allPlayers[i].speed+=9;
+				tempChance=rollDie(3,1);
+				tempRoll=rollDie(2,1);				
+				
+				if (tempChance==1)
+				allPlayers[i].speed+=tempRoll;
+
+				if (tempChance==2)
+				allPlayers[i].speed-=tempRoll;
+			}
+
+
+
+			if (allPlayers[i].playerPassives.slow==0 && allPlayers[i].playerPassives.permSlow==false && allPlayers[i].playerPassives.haste!=true && allPlayers[i].playerPassives.brisk!=true && allPlayers[i].playerPassives.tempBrisk==0 && allPlayers[i].playerPassives.tempHaste==0) //not fast or slow
+			{
+				allPlayers[i].speed+=12;
+			}
+			
+			
+			//determine # of actions
+			if (allPlayers[i].speed>=12 && allPlayers[i].speed<24){
+				allPlayers[i].actions=1;
+			}
+			if (allPlayers[i].speed>=24){
+				allPlayers[i].actions=2;
+			}
+			
+			if (allPlayers[i].speed<12){
+			
+				allPlayers[i].actions=0;
+			}
+
+			
+		} //exists
+	
+	//console.log("Player " + temp + " speed = " + allPlayers[i].speed);
+	
+	} //for
+	
+	
+	updatePlayer();
 }
 
 function initStats() {
@@ -13032,6 +13558,7 @@ function createCharacterStats () {
 		allPlayers[lockActive].playerPassives.stealth=true;
 		allPlayers[lockActive].playerPassives.searching=true;
 		allPlayers[lockActive].playerPassives.seeInvis=true;
+		allPlayers[lockActive].playerPassives.brisk=true;
 	
 	}
 	
@@ -13172,6 +13699,7 @@ function createCharacterStats () {
 		allPlayers[lockActive].luck-=2; //unlucky
 
 
+		//passives
 		allPlayers[lockActive].playerPassives.drainResist=true;
 		allPlayers[lockActive].playerPassives.warning=true;	
 	
@@ -13203,7 +13731,8 @@ function createCharacterStats () {
 		
 		//passives
 		
-		allPlayers[i].playerPassives.slowDigest=true;
+		allPlayers[lockActive].playerPassives.slowDigest=true;
+		allPlayers[lockActive].playerPassives.permSlow=true;
 	
 	}
 	
@@ -13472,7 +14001,8 @@ function createCharacterStats () {
 	allPlayers[lockActive].playerExists=true;
 	partyCount++;
 	
-
+	//clears spinner entries
+	$("div.playerStatsGrid").find("input[type=\"spinner\"]").spinner("value", '');
 	
 
 }
@@ -14871,7 +15401,7 @@ $("#saveFloorBut").click(function() {
 
 function genGoblin(spawnTile) {
 
-	var hpRoll=(10,1,10);
+	var hpRoll=rollDie(10,1,10);
 	
 		
 	allRooms[currRoomIndex].roomMonsters.unshift ({
@@ -14986,7 +15516,7 @@ function genGoblin(spawnTile) {
 			energyMax:0,
 			armorAC:0,
 			otherAC:0,
-			totalAC:0,
+			totalAC:8,
 			toHit:0,
 			
 			index: spawnTile, //index in current room
@@ -14996,7 +15526,7 @@ function genGoblin(spawnTile) {
 
 function genJackal(spawnTile) {
 
-	var hpRoll=(10,1,5);
+	var hpRoll=rollDie(10,1,5);
 	
 		
 	allRooms[currRoomIndex].roomMonsters.unshift ({
@@ -15111,13 +15641,17 @@ function genJackal(spawnTile) {
 			energyMax:0,
 			armorAC:0,
 			otherAC:0,
-			totalAC:0,
+			totalAC:7,
 			toHit:0,
 			
 			index: spawnTile, //index in current room
 	});
+	
 
 }
+
+
+
 
 </script>
 </body>
