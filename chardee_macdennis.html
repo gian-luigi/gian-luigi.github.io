@@ -549,14 +549,14 @@ $( "#clearForm" ).click(function( event ) {
 		<li><a href="#playerTabs-8">Player 8</a></li>
 		<li><a href="#playerTabs-9">Player 9</a></li>
 	</ul>
-	<div id="playerTitle"><h2>Player 1</h2></div>
+	<h3 id="playerTitle">Player 1</h3>
 	<div>
 		<p>
 			<button id="initClass" class="ui-button ui-corner-all ui-widget">
 			<span class="ui-icon ui-icon-newwin"></span>Initialize Class/Race
 			</button>
 		</p>
-	<p><button id="initPlayerBut">Test</button></p>
+	<p><button id="makeLeaderBut">Make Leader</button></p>
 <fieldset>
 	<legend>Attributes 'n stuff:</legend>
 	<div id="controlgroup">
@@ -3383,24 +3383,35 @@ function updatePlayer(){
 		//tempInt=toString(tempInt);
 	
 		//$('#playerTitle').html("asdf");
-		$('#playerTitle').html("<h2>Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
+		//$('#playerTitle').html("<h2>Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
+		
+		tempStyle="Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
 	}
 	
 	else if (allPlayers[whoIsActive].hasTitle==true && allPlayers[whoIsActive].hasName==true){
 	
-		$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
+		//$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
+		tempStyle=allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
 	}
 	
 	else if (allPlayers[whoIsActive].hasName==true && allPlayers[whoIsActive].hasTitle!=true) {
 	
-		$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + "</h2>");
+		//$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + "</h2>");
+		tempStyle=allPlayers[whoIsActive].playerName;
 	}
 	
 	else if (allPlayers[whoIsActive].hasName!=true && allPlayers[whoIsActive].hasTitle!=true){
 		tempInt=whoIsActive+1;
-		tempStyle="<h2>Player " + tempInt + "</h2>";
-		$('#playerTitle').html(tempStyle);
+		tempStyle="Player " + tempInt;
+		//$('#playerTitle').html(tempStyle);
 	}
+	
+	if (allPlayers[whoIsActive].isLeader==true) {
+	
+		tempStyle+=" (Leader)";
+	}
+	
+	$('#playerTitle').html(tempStyle);
 	
 	//to do: if player does not exist blank everything...
 		
@@ -4212,7 +4223,29 @@ $("#player1NameEntry").keyup(function(event) {
 	
 });
 
-$(document).ready(function changePlayerButtonText() {
+ $("#makeLeaderBut").button().click(function(){
+ 
+	//clear leader from all
+	for (i=0;i<playersMax;i++) {
+	
+		if (allPlayers[i].playerExists==true) {
+	
+			allPlayers[i].isLeader=false;
+		
+		}
+	}
+
+	if (allPlayers[whoIsActive].playerExists==true) {
+	
+		allPlayers[whoIsActive].isLeader=true;
+	}	
+	
+	updatePlayer();
+
+});
+
+
+/*$(document).ready(function changePlayerButtonText() {
 
 	//var asdf=playerTest.test1;
 	
@@ -4252,7 +4285,7 @@ $(document).ready(function changePlayerButtonText() {
 		tempStat="Constitution: " + allPlayers[whoIsActive].constitution;
 		$('#playerCon').html(tempStat);
     });
-});
+});*/
 
 /*function myFunction() {
     var x = document.getElementById("myText").value;
@@ -4372,7 +4405,7 @@ $(document).ready(function changePlayerButtonText() {
 	<div id="dungeonTabs-2">
 	
 		<div class="roomGridClass">
-			<button id="createRoomBut">Create Room</button>
+			<button id="createRoomBut">Recreate Room</button>
 			<br><br>
 			Movement:
 			<br>
@@ -6995,6 +7028,81 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallNorth=true;
 				
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallEast=true;
+				
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallWest=true;
+				
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallSouth=true;
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+			
+			} //non elf
+			
+			if (allPlayers[i].race==3) {
+			
+				tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallNorth=true;
+				
 				tempIndex=allPlayers[i].index-(roomMaxLength*2);
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7072,11 +7180,7 @@ function showVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
 			
-			} //non elf
-			
-			if (allPlayers[i].race==3) {
-			
-				tempIndex=allPlayers[i].index;
+				/*tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
@@ -7217,7 +7321,7 @@ function showVision() {
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
-				$("#roomTile"+tempIndex).css("background", visionColor);
+				$("#roomTile"+tempIndex).css("background", visionColor);*/
 				
 			
 			} //elf
@@ -7247,7 +7351,7 @@ function hideVision() {
 				tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 	
 				//one north
@@ -7257,14 +7361,11 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallNorth=true;
-				
-				tempIndex=allPlayers[i].index-(roomMaxLength*2);
-				tempTile=$("#roomTile"+tempIndex).html();
-			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				//one east
 				tempIndex=allPlayers[i].index+1;
@@ -7273,14 +7374,11 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallEast=true;
-				
-				tempIndex=allPlayers[i].index+2;
-				tempTile=$("#roomTile"+tempIndex).html();
-			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				//one west
 				tempIndex=allPlayers[i].index-1;
@@ -7292,11 +7390,8 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallWest=true;
 				
-				tempIndex=allPlayers[i].index-2;
-				tempTile=$("#roomTile"+tempIndex).html();
-			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7307,11 +7402,11 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallSouth=true;
 				
-				tempIndex=allPlayers[i].index+(roomMaxLength*2);
-				tempTile=$("#roomTile"+tempIndex).html();
-			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				
+				//extended vision
 				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7319,11 +7414,17 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7331,11 +7432,17 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
 			
 			} //non elf
 			
@@ -7344,7 +7451,138 @@ function hideVision() {
 				tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallNorth=true;
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallEast=true;
+				
+				tempIndex=allPlayers[i].index+2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallWest=true;
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index-2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallSouth=true;
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				//extended vision
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+			
+				if (tempTile=="+")
+				$("#roomTile"+tempIndex).css("background", butDefColor);
+			
+				/*tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 	
 				//one north
@@ -7482,7 +7720,7 @@ function hideVision() {
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				$("#roomTile"+tempIndex).css("background", tileDefColor);*/
 				
 			
 			} //elf
@@ -14291,6 +14529,7 @@ function initPlayers() {
 		hasName:false, //bool
 		hasClass:false, //bool
 		playerExists:false, //bool
+		isLeader:false,
 		playerProfs: //proficiency
 		{
 			daggerProf : 0,
