@@ -7786,6 +7786,7 @@ function itemGen(spawnTile) {
 	var enhanceRoll=0;
 	var tempRoll=0; //for whatever
 	var whichItem=0;
+	var amountRoll=rollDie(5,1);
 	
 	//weapons 10%
 	//armor 10%
@@ -7872,28 +7873,29 @@ function itemGen(spawnTile) {
 		
 		whichItem=rollDie(100,1);
 		
-		whichItem=15; //dagger test
+		//whichItem=15; //dagger test
 		
 		//daggers, 15%
 		if (whichItem<=15) {
 		
-			//crude dagger 35%
-			//throwing knife 15%
+			//crude dagger 30%
+			//dagger 10%
+			//throwing knife 10%
 			//stiletto 10%
 			//orcish dagger 7%
 			//elven dagger 7%
 			//dwarven dagger 7%
 			//silver dagger 6%
 			//mithril dagger 5%
-			//rondel 4%
+			//rondel 5%
 			//peshkabz 3%
 		
 			whichItem=rollDie(100,1);
 			
-			whichItem=35;
+			//whichItem=35;
 			
 			//crude
-			if (whichItem<=35) {
+			if (whichItem<=30) {
 			
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -7914,8 +7916,1502 @@ function itemGen(spawnTile) {
 				});*/
 			
 			} //crude
+			
+			//throwing, 10%
+			else if (whichItem<=40) {
+			
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "throwing knife",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "throwing knives",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+
+			} //throwing
+			
+			//dagger, 10%
+			else if (whichItem<=50) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //dagger
+			
+			//stiletto, 10%
+			else if (whichItem<=60) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "stiletto",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //stiletto
+			
+			//orcish, 7%
+			else if (whichItem<=67) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "orcish dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //orcish
+			
+			//elven, 7%
+			else if (whichItem<=74) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "elven dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //elven
+			
+			//dwarven, 7%
+			else if (whichItem<=81) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dwarven dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //dwarven
+			
+			//silver, 6%
+			else if (whichItem<=87) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "silver dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //silver
+			
+			//mithril, 5%
+			else if (whichItem<=92) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mithril dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //mithril
+			
+			//rondel, 5%
+			else if (whichItem<=97) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "rondel",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //rondel
+			
+			//peshkabz, 5%
+			else if (whichItem<=100) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "peshkabz",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			
+			} //peshkabz
 		
 		} //daggers
+		
+		//swords, 15%
+		else if (whichItem<=30) {
+		
+			//crude sword 35%
+			//shortsword 10%
+			//longsword 10%
+			//two-handed sword (zweihander) 10%
+			//claymore 10%
+			//orcish blade 5%
+			//elven blade 5%
+			//dwarven blade 5%
+			//scimitar 5%
+			//silver saber 3%
+			//mithril saber 2%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=5) //dwarven
+			{
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dwarven blade",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=40) //crude
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude sword",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=50) //shortsword
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "shortsword",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=60) //longsword
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "longsword",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=70) //two-handed
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "zweihander",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=80) //claymore
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "claymore",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=85) //orcish
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "orcish blade",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=90) //elven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "elven blade",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=95) //scimitar
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "scimitar",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=98) //silver saber
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "silver saber",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=100) //mithril saber
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mithril saber",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+		
+		}
+		
+		//axes, 15%
+		else if (whichItem<=45) {
+		
+			//crude axe 30%
+			//battle axe 15%
+			//tomohawk 10%
+			//francisca 10%
+			//double-bearded axe 7%
+			//tabar 5%
+			//dwarven axe 5%
+			//orcish axe 5%
+			//elven axe 5%
+			//silver axe 5%
+			//mithril axe 3%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=5) //dwarven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dwarven axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=35) //crude
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=40) //tabar
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "tabar",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=55) //battle axe
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "battle axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=65) //tomohawk
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "tomohawk",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=75) //francisca
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "francisca",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=82) //double-bearded axe
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "double-bearded axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=87) //orcish
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "orcish axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=92) //elven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "elven axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=97) //silver
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "silver axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=100) //mithril
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mithril axe",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+		
+		}
+		
+		//bludgeons, 15%
+		else if (whichItem<=60) {
+		
+			//crude hammer, 40%
+			//mace, 15%
+			//morningstar, 15%
+			//war hammer, 10%
+			//orcish hammer, 5%
+			//elven hammer, 5%
+			//dwarven hammer, 5%
+			//silver hammer, 3%
+			//mithril hammer, 2%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=40) //crude
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude hammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=55) //mace
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mace",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=70) //morningstar
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "morningstar",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=80) //war hammer
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "warhammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=85) //elven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "elven hammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=90) //orcish
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "orcish hammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=95) //dwarven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dwarven hammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=98) //silver
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "silver hammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=100) //mithril
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mithril hammer",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+		
+		}
+		
+		//spears, 10%
+		else if (whichItem<=70) {
+		
+			//crude spear 40%
+			//sarissa 15%
+			//javelin 15%
+			//pilum 10%
+			//elven spear 5%
+			//orcish spear 5%
+			//dwarven spear 5%
+			//silver spear 3%
+			//mithril spear 2%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=40) //crude
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude spear",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=55) //sarissa
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "sarissa",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=70) //javelin
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "javelin",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=80) //pilum
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "pilum",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=85) //elven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "elven spear",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=90) //orcish
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "orcish spear",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=95) //dwarven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dwarven spear",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=98) //silver
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "silver spear",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=100) //mithril
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mithril spear",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+		
+		}
+		
+		//polearms, 10%
+		else if (whichItem<=80) {
+		
+			//crude polearm 35%
+			//halberd 15%
+			//bec-de-corbin 15%
+			//ranseur 10%
+			//spetum 5%
+			//glaive 5%
+			//lucern 5%
+			//bill-guisarme 5%
+			//bardiche (silver) 3%
+			//voulge (mithril) 2%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=35) //crude
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude polearm",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=50) //halberd
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "halberd",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=65) //bec
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "bec-de-corbin",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=75) //ranseur
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "ranseur",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=80) //spetum
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "spetum",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=85) //glaive
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "glaive",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=90) //lucerne
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "lucerne",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=95) //bill guisarme
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "bill-guisarme",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=98) //bardiche
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "bardiche",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=100) //voulge
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "voulge",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+		
+		}
+		
+		//staff, 10%
+		else if (whichItem<=90) {
+		
+			//crude staff 60%
+			//sceptre 10%
+			//oak staff 10%
+			//quarterstaff 10%
+			//runed staff 6%
+			//puissant staff 4%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=60) //crude
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude staff",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=70) //sceptre
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "sceptre",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=80) //oak
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "oak staff",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=90) //quarterstaff
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "quarterstaff",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=96) //runed
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "runed staff",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=100) //puissant
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "puissant staff",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+				
+			}
+		
+		}
+		
+		//bows, 10%
+		else if (whichItem<=100) {
+		
+			//crude bow 20%
+			//bow 10%
+			//elven bow 5%
+			//orcish bow 5%
+			//crossbow 5%
+			//silver bow 3%
+			//mithril bow 2%
+			
+			//crude arrow 20%
+			//arrow 10%
+			//elven arrow 5%
+			//orcish arrow 5%
+			//crossbow bolt 5%
+			//silver arrow 3%
+			//mithril arrow 2%
+			
+			whichItem=rollDie(100,1);
+		
+			if (whichItem<=20) //crude bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=30) //bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=35) //elven bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "elven bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=40) //orcish bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "orcish bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=45) //dwarven bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "dwarven bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=48) //silver bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "silver bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=50) //mithril bow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "mithril bow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=70) //crude arrows
+			{
+				//whichItem=d5(1);
+			
+				//sprintf(tempAmount, "%d", whichItem);
+				//strcat(amount, tempAmount);
+				
+				if (tempAmount==1)
+				strcat(amount, "crude arrow");
+				
+				else
+				strcat(amount, "crude arrows");
+				
+				sprintf(allItems[itemIndex].itemLabel, amount);
+				sprintf(allItems[itemIndex].itemSymbol, "[");
+			}
+			
+			
+			else if (whichItem<=80) //arrows
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			}
+			
+			else if (whichItem<=85) //elven arrows
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "elven arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "elven arrows",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			}
+			
+			else if (whichItem<=90) //orcish arrows
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "orcish arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "orcish arrows",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			}
+			
+			else if (whichItem<=95) //crossbow bolts
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "crossbow bolt",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "crossbow bolts",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			}
+			
+			else if (whichItem<=98) //silver arrows
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "silver arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "silver arrows",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			}
+			
+			else if (whichItem<=100) //mithril arrows
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril arrows",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			
+			}
+		
+		}
 	
 	} //weapons
 	
@@ -7963,51 +9459,71 @@ function itemGen(spawnTile) {
 			//cursed, give negative enhance
 			enhanceRoll-=rollDie(3,1);
 		}
+		
+		whichItem=rollDie(100,1);
 	
 	}
 	
 	//gold 5%
 	else if (itemType<=25) {
 	
+		
+	
 	}
 	
 	//tools 5%
 	else if (itemType<=30) {
+	
+		whichItem=rollDie(100,1);
 	
 	}
 	
 	//food 15%
 	else if (itemType<=45) {
 	
+		whichItem=rollDie(100,1);
+	
 	}
 	
 	//scrolls 15%
 	else if (itemType<=60) {
+	
+		whichItem=rollDie(100,1);
 	
 	}
 	
 	//potions 20%
 	else if (itemType<=80) {
 	
+		whichItem=rollDie(100,1);
+	
 	}
 	
 	//spellbooks 4%
 	else if (itemType<=84) {
+	
+		whichItem=rollDie(100,1);
 	
 	}
 	
 	//amulets 3%
 	else if (itemType<=87) {
 	
+		whichItem=rollDie(100,1);
+	
 	}
 	
 	//rings 5%
 	else if (itemType<=92) {
 	
+		whichItem=rollDie(100,1);
+	
 	}
 	
 	//wands 8%
 	else if (itemType<=100) {
+	
+		whichItem=rollDie(100,1);
 	
 	}
 
@@ -8049,7 +9565,7 @@ function updateItem() {
 			
 			if (allRooms[currRoomIndex].roomItems[itemActive].amount>1) {
 			
-				tempStat=allRooms[currRoomIndex].roomItems[itemActive].amount;
+				tempStat=allRooms[currRoomIndex].roomItems[itemActive].amount + " ";
 			}
 		
 			//buc
@@ -9942,6 +11458,7 @@ function setSpawnPoints() {
 	var hasOther=false;
 	var oppPieceUp=false;
 	var oppPieceDown=false;
+	var oppPair=false;
 	
 	var spawnArray=[];
 
@@ -9979,7 +11496,8 @@ function setSpawnPoints() {
 
 		}
 		
-		if (prevSym=="┐" ||  prevSym=="┌") {
+		if ((prevSym=="┐" ||  prevSym=="┌") && (allRooms[currRoomIndex].floorSymbol!="╔" && allRooms[currRoomIndex].floorSymbol!="╠")) {
+		
 		
 			if(oppPieceDown==true) {
 			
@@ -9989,14 +11507,16 @@ function setSpawnPoints() {
 		
 			oppPieceDown=true;
 			
-			if (oppPieceUp==true) {
+			if (oppPieceUp==true && oppPair!=true) {
 			
 				inRoom=true;
 				inRow=true;
+				oppPair=true;
 			}
 		}
 		
-		if (prevSym=="└" || prevSym=="┘") {
+		if (prevSym=="└" || prevSym=="┘" && (allRooms[currRoomIndex].floorSymbol!="╔" && allRooms[currRoomIndex].floorSymbol!="╠")) {
+		
 		
 			if(oppPieceUp==true) {
 			
@@ -10006,10 +11526,11 @@ function setSpawnPoints() {
 		
 			oppPieceUp=true;
 			
-			if (oppPieceDown==true) {
+			if (oppPieceDown==true && oppPair!=true) {
 			
 				inRoom=true;
 				inRow=true;
+				oppPair=true;
 			}
 		}
 		
@@ -10037,6 +11558,7 @@ function setSpawnPoints() {
 			hasOther=false;
 			oppPieceUp=false;
 			oppPieceDown=false;
+			oppPair=false;
 		}
 		
 		
@@ -10048,6 +11570,7 @@ function setSpawnPoints() {
 			hasOther=false;
 			oppPieceUp=false;
 			oppPieceDown=false;
+			oppPair=false;
 		}
 		
 		
