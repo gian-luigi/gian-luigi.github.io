@@ -599,6 +599,72 @@ $( "#clearForm" ).click(function( event ) {
 			<li><a href="#playerMiscTabs-3">Proficiencies</a></li>
 		  </ul>
 		  <div id="playerMiscTabs-1">
+		  
+			<fieldset>
+			<legend>Equipment</legend>
+				<ul style="width:200px;" id="playerEquip">
+					<li><div>Weapon 1</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Weapon 2</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Offhand</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Head</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Body</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Shirt</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Hands</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Cloak</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+					<li><div>Feet</div>
+						<ul>
+							<li><div>Unequip</div></li>
+						</ul>
+					</li>
+				</ul>
+			</fieldset>
+			<br>
+			<fieldset>
+			<legend>Items</legend>
+				<ul style="width:200px;" class="playInven" id="playerInventory">
+					<li><div class="playItem">Item 1</div></li>
+					<li><div class="playItem">Item 2</div></li>
+					<li><div class="playItem">Item 3</div>
+						<ul>
+							<li><div class="removeItem" id="remove3">Remove</div></li>
+						</ul>
+					</li>
+					<li><div>Item 4</div></li>
+					<li><div>Item 5</div></li>
+				</ul>
+			</fieldset>
 			
 		  </div>
 		  
@@ -808,6 +874,29 @@ $( "#clearForm" ).click(function( event ) {
 	<div id="playerTabs-9"></div>
 </div>
 <script>
+/*$("#playerInventory").on('click', 'li', function (e) {
+
+	var itemInd;
+
+	//console.log(this.id);
+	//alert($(event.target).id);
+	//alert($(this).attr('id'));
+	itemInd=$(this).index();
+	console.log(itemInd);
+
+});*/
+
+$("div.removeItem").click(function( event ) {
+
+	var remId=this.id;
+
+	
+	
+	alert(remId);
+
+});
+
+
 $("#levelDec").click(function() {
 
 	if(allPlayers[whoIsActive].playerExists==true) {
@@ -4176,11 +4265,7 @@ $(document).ready(function changePlayerButtonText() {
     $("#tabsa-1").document.getElementById('player1But').innerHTML=status;
 
 });*/
-</script>
 
-
-<button id="player1But">asdf</button>
-<script>
 
 /*function tileTest() {
 
@@ -4203,12 +4288,13 @@ $(document).ready(function changePlayerButtonText() {
 
 </script>
 
-<div id="turnCount">Turn: </div>
 
 
 
+<br><br>
 <div id="dungeonTabs">
 	<h2>Dungeon</h2>
+	<h3><div id="turnCount">Turn: </div></h3>
   <ul>
     <li><a href="#dungeonTabs-1">Floors</a></li>
     <li><a href="#dungeonTabs-2">Room</a></li>
@@ -4299,7 +4385,7 @@ $(document).ready(function changePlayerButtonText() {
 				<button id="moveE">→</button>
 				<button id="moveSW">SW</button>
 				<button id="moveS">↓</button>
-				<button id="moveNSE">SE</button>
+				<button id="moveSE">SE</button>
 		
 			</div>
 			<br>
@@ -4600,6 +4686,8 @@ $(document).ready(function changePlayerButtonText() {
 							<li><a href="#monsterTabs-10">Monster 10</a></li>
 						  </ul>
 						  <br>
+						  <h3 id="monstHasMoved"></h3>
+						  <br>
 						  <button id="clearMonstBut">Clear</button>
 						  <br><br>
 						  <fieldset>
@@ -4657,8 +4745,55 @@ $(document).ready(function changePlayerButtonText() {
 					  
 					  <!-- Items -->
 					  <div id="roomStuffTabs-2">
-
-						
+					  		<div id="roomItemsTabs">
+								<ul>
+									<li><a href="#roomItemsTabs-1">Item 1</a></li>
+									<li><a href="#roomItemsTabs-2">Item 2</a></li>
+									<li><a href="#roomItemsTabs-3">Item 3</a></li>
+									<li><a href="#roomItemsTabs-4">Item 4</a></li>
+									<li><a href="#roomItemsTabs-5">Item 5</a></li>
+									<li><a href="#roomItemsTabs-6">Item 6</a></li>
+									<li><a href="#roomItemsTabs-7">Item 7</a></li>
+									<li><a href="#roomItemsTabs-8">Item 8</a></li>
+									<li><a href="#roomItemsTabs-9">Item 9</a></li>
+									<li><a href="#roomItemsTabs-10">Item 10</a></li>
+								 </ul>
+								 <br>
+								 <h2 id="roomItemName"></h2>
+								 <button id="clearItemBut">Clear Item</button>
+								 <br>
+								 <p id="roomItemIndex">Index: </p>
+								 <div id="roomItemsTabs-1">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-2">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-3">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-4">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-5">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-6">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-7">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-8">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-9">
+									<p> </p>
+								 </div>
+								 <div id="roomItemsTabs-10">
+									<p> </p>
+								 </div>
+							</div>
 					  </div>
 					  
 					  <!-- Traps -->
@@ -4734,6 +4869,8 @@ $("div.movementGrid").find("button").click(function( event ) {
 	var destTileWall;
 	var tempPlayInd; //setting destination tile of player
 	
+	hideVision();
+	
 	if (butId=="moveN") {
 	
 		destTileInd=roomTileIndex;
@@ -4768,7 +4905,7 @@ $("div.movementGrid").find("button").click(function( event ) {
 		
 		destTileTemp=$("#roomTile"+destTileInd).html();
 		
-		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌") {
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
 		
 			destTileWall=true;
 		}
@@ -4782,30 +4919,66 @@ $("div.movementGrid").find("button").click(function( event ) {
 				if (allPlayers[whoIsActive].index==roomTileIndex) {
 				
 					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
-					$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
 				
 					allPlayers[whoIsActive].index-=roomMaxLength;
 					roomTileIndex=allPlayers[whoIsActive].index;
 					
 					$("#roomTile"+roomTileIndex).css("background", butSelColor);
 					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
 					tempPlayInd=whoIsActive;
 					tempPlayInd++;
 					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
-				}
+				} //player
 				
-				if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
 				
-					$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
-					$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
-				
-					allRooms[currRoomIndex].roomMonsters[monstActive].index-=roomMaxLength;
-					roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
 					
-					$("#roomTile"+roomTileIndex).css("background", butSelColor);
-					$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index-=roomMaxLength;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
 				
-				}
+				} //room has monsters
 			
 			} //exists
 			
@@ -4813,6 +4986,812 @@ $("div.movementGrid").find("button").click(function( event ) {
 		
 	} //north
 	
+	if (butId=="moveW") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd--;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index--;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index--;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //west
+	
+	if (butId=="moveE") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd++;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index++;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index++;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //east
+	
+	if (butId=="moveS") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd+=roomMaxLength;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index+=roomMaxLength;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index+=roomMaxLength;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //south
+	
+	if (butId=="moveNW") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd-=roomMaxLength+1;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index-=roomMaxLength+1;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index-=roomMaxLength+1;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //northwest
+	
+	if (butId=="moveNE") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd-=roomMaxLength-1;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index-=roomMaxLength-1;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index-=roomMaxLength-1;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //northeast
+	
+	if (butId=="moveSW") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd+=roomMaxLength-1;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌"  || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index+=roomMaxLength-1;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index+=roomMaxLength-1;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //southwest
+	
+	if (butId=="moveSE") {
+	
+		destTileInd=roomTileIndex;
+		destTileInd+=roomMaxLength+1;
+		
+		//check if not occupied by another being or wall
+		for (i=0;i<playersMax;i++) {
+			
+			if (allPlayers[i].playerExists==true) {
+			
+				if (allPlayers[i].index==destTileInd) {
+				
+					destTilePlayer=true;
+				}
+				
+			}
+				
+		}
+		
+		for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+			if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].index==destTileInd) {
+				
+					destTileMonst=true;
+				}
+				
+			}
+				
+		}
+		
+		destTileTemp=$("#roomTile"+destTileInd).html();
+		
+		if (destTileTemp=="─" || destTileTemp=="│" || destTileTemp=="┐" || destTileTemp=="└" || destTileTemp=="┘" || destTileTemp=="┌" || destTileTemp=="+" || destTileTemp=="@") {
+		
+			destTileWall=true;
+		}
+		
+		if (destTilePlayer!=true && destTileMonst!=true && destTileWall!=true) {
+	
+			//check if active monster or player matches current room tile (or item?)
+			
+			if (allPlayers[whoIsActive].playerExists==true || allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+			
+				if (allPlayers[whoIsActive].index==roomTileIndex) {
+				
+					$("#roomTile"+allPlayers[whoIsActive].index).css("background", tileDefColor);
+					
+					//if not standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html("");
+					}
+					
+					//currently standing on item
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//previous tile no longer has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+				
+					allPlayers[whoIsActive].index+=roomMaxLength+1;
+					roomTileIndex=allPlayers[whoIsActive].index;
+					
+					$("#roomTile"+roomTileIndex).css("background", butSelColor);
+					
+					//current tile has a being on it
+					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+					tempPlayInd=whoIsActive;
+					tempPlayInd++;
+					$("#roomTile"+allPlayers[whoIsActive].index).html("P"+tempPlayInd);
+				} //player
+				
+				if (allRooms[currRoomIndex].roomMonsters.length>0) {
+				
+					if (allRooms[currRoomIndex].roomMonsters[monstActive].index==roomTileIndex) {
+					
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).css("background", tileDefColor);
+						
+						//if not standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==false) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
+						}
+						
+						//currently standing on item
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
+							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+					
+						//previous tile no longer has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].index+=roomMaxLength+1;
+						roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+						
+						$("#roomTile"+roomTileIndex).css("background", butSelColor);
+						$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomMonsters[monstActive].monstSymbol);
+						
+						//current tile has a being on it
+						allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=true;
+					
+						allRooms[currRoomIndex].roomMonsters[monstActive].moved=true;
+					
+					} //monster
+				
+				} //room has monsters
+			
+			} //exists
+			
+		} //not occupied/wall
+		
+	} //southeast
+	
+	showVision();
 	updatePlayer();
 	updateMonst();
 
@@ -4849,6 +5828,9 @@ $("div.roomContainer").find( "button").click(function( event ) {
 	//reset previous current tile color
 	$("#roomTile"+roomTileIndex).css("background", tileDefColor);
 	
+	
+	showVision();
+	
 	roomTileIndex=tileStr;
 	
 	
@@ -4869,7 +5851,7 @@ $("div.roomContainer").find( "button").click(function( event ) {
 			}
 		
 		} //if player exists
-	}
+	} //player
 	
 	//check if click tile is monster
 	for (i=0; i<allRooms[currRoomIndex].roomMonsters.length;i++) {
@@ -4888,7 +5870,28 @@ $("div.roomContainer").find( "button").click(function( event ) {
 			} //if monster exists
 		
 
-	}
+	} //monster
+	
+	
+	//check if click tile is item
+	for (i=0; i<allRooms[currRoomIndex].roomItems.length;i++) {
+	
+	
+			if (allRooms[currRoomIndex].roomItems[i].itemExists==true) {
+		
+				if (allRooms[currRoomIndex].roomItems[i].index==roomTileIndex) {
+				
+				
+					tempInd=i;
+					tempInd++;
+					$('#roomItemsTabs a[href="#roomItemsTabs-' + tempInd + '"]').trigger('click');
+				}
+			
+			} //if item exists
+		
+
+	} //items
+	
 });
 
 $("#monsterTabs").tabs({collapsible: true});
@@ -4993,8 +5996,16 @@ $( "#monsterTabs" ).tabs({
 	
 	}
 	
+	if (allRooms[currRoomIndex].roomMonsters.length<=monstActive) {
 	
-  }
+		$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+		
+		
+	
+	}
+	
+	
+  } //func
 });
 
 function updateMonst() {
@@ -5059,6 +6070,16 @@ function updateMonst() {
 			}
 			
 			$('#monstTurnAct').html(tempStat);
+			
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].moved==true) {
+				
+				$("#monstHasMoved").html("Moved");
+			}
+			
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].moved!=true) {
+				
+				$("#monstHasMoved").html("");
+			}
 		
 		} //if monst exists
 	
@@ -5204,7 +6225,46 @@ $("div.monstStatsGrid").find("input").keyup(function(event) {
 
 
 $("#itemTabs").tabs({collapsible: true});
+$("#roomItemsTabs").tabs({collapsible: true});
 
+$( "#roomItemsTabs" ).tabs({
+  beforeActivate: function( event, ui ) {
+  
+	
+	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
+	
+	
+	
+	/*//select room tile
+	if (allRooms[currRoomIndex].roomMonsters.length>monstActive) {
+	
+		if (allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+		
+			if (allRooms[currRoomIndex].roomMonsters[monstActive].index>0) {
+			
+				//reset previous current tile color
+				$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+				
+				
+				roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
+				$("#roomTile"+roomTileIndex).css("background", butSelColor);
+				
+			}
+		}
+	
+	}
+	
+	if (allRooms[currRoomIndex].roomMonsters.length<=monstActive) {
+	
+		$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+		
+		
+	
+	}*/
+	
+	
+  }
+});
 
 
 
@@ -5455,7 +6515,42 @@ function clearRoom () {
 	
 	//clear monsters
 	allRooms[currRoomIndex].roomMonsters.length=0;
-		
+	
+	//clear items
+	allRooms[currRoomIndex].roomItems.length=0;
+	for (i=0;i<roomSize;i++) {
+		allRooms[currRoomIndex].roomTile[i].itemSymbol="";
+		allRooms[currRoomIndex].roomTile[i].hasItem=false;
+	}
+}
+
+function wipeRoom () {
+
+	//console.log("wipe" +currRoomIndex);
+
+	var tempSym="";
+
+	//clear symbols/tiles
+	for (j=0;j<roomSize;j++) {
+		$("#roomTile" + j).html("");
+		allRooms[currRoomIndex].roomTile[j].symbol="";
+	}	
+	
+	allRooms[currRoomIndex].roomExists=false;
+	
+	//clear monsters
+	allRooms[currRoomIndex].roomMonsters.length=0;
+	
+	//clear items
+	allRooms[currRoomIndex].roomItems.length=0;
+	for (j=0;j<roomSize;j++) {
+		allRooms[currRoomIndex].roomTile[j].itemSymbol="";
+		allRooms[currRoomIndex].roomTile[j].hasItem=false;
+	}
+	
+	//clear spawn array
+	allRooms[currRoomIndex].spawnArray.length=0;
+
 }
 
 $("div.enterFromGrid").find("button").click(function( event ) {
@@ -5573,12 +6668,15 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						if (formArr[i]!="") {
 						
 							playerInd=formArr[i];
-							console.log(playerInd);
+							//console.log(playerInd);
 							playerInd=playerInd.replace("P","");
 							playerInd=parseInt(playerInd);
 							playerInd--;
-							console.log(playerInd);
+							//console.log(playerInd);
 							allPlayers[playerInd].index=tempInd;
+							
+							//current tile has being on it
+							allRooms[currRoomIndex].roomTile[tempInd].hasBeing=true;
 						
 						}
 						
@@ -5600,8 +6698,9 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						
 					}	//players
 					
-					//create monsters after entering
+					//create monsters/items after entering
 					monstSpawn();
+					itemSpawn();
 				
 				} //has north exit
 			
@@ -5650,12 +6749,15 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						if (formArr[i]!="") {
 						
 							playerInd=formArr[i];
-							console.log(playerInd);
+							//console.log(playerInd);
 							playerInd=playerInd.replace("P","");
 							playerInd=parseInt(playerInd);
 							playerInd--;
-							console.log(playerInd);
+							//console.log(playerInd);
 							allPlayers[playerInd].index=tempInd;
+							
+							//current tile has being on it
+							allRooms[currRoomIndex].roomTile[tempInd].hasBeing=true;
 						
 						}
 						
@@ -5677,8 +6779,9 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						
 					}	//players
 					
-					//create monsters after entering
+					//create monsters/items after entering
 					monstSpawn();
+					itemSpawn();
 				
 				} //has west exit
 				
@@ -5721,43 +6824,47 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 					
 						
 						
-							//console.log(tempInd);
-							//allRooms[currRoomIndex]
+						//console.log(tempInd);
+						//allRooms[currRoomIndex]
+						
+						$("#roomTile" + tempInd).html(formArr[i]);
+						
+						if (formArr[i]!="") {
+						
+							playerInd=formArr[i];
+							//console.log(playerInd);
+							playerInd=playerInd.replace("P","");
+							playerInd=parseInt(playerInd);
+							playerInd--;
+							//console.log(playerInd);
+							allPlayers[playerInd].index=tempInd;
 							
-							$("#roomTile" + tempInd).html(formArr[i]);
-							
-							if (formArr[i]!="") {
-							
-								playerInd=formArr[i];
-								console.log(playerInd);
-								playerInd=playerInd.replace("P","");
-								playerInd=parseInt(playerInd);
-								playerInd--;
-								console.log(playerInd);
-								allPlayers[playerInd].index=tempInd;
-							
-							}
-							
-							tempInd-=roomMaxLength;
-							
-							if (tempInd==(tempEx-35)) {
-							
-								tempInd=tempEx+14;
-							
-							}
-							
-							if (tempInd==(tempEx-34)) {
-							
-								tempInd=tempEx+15;
-							
-							}
+							//current tile has being on it
+							allRooms[currRoomIndex].roomTile[tempInd].hasBeing=true;
+						
+						}
+						
+						tempInd-=roomMaxLength;
+						
+						if (tempInd==(tempEx-35)) {
+						
+							tempInd=tempEx+14;
+						
+						}
+						
+						if (tempInd==(tempEx-34)) {
+						
+							tempInd=tempEx+15;
+						
+						}
 							
 						
 						
 					}	//players
 					
-					//create monsters after entering
+					//create monsters/items after entering
 					monstSpawn();
+					itemSpawn();
 				
 				} //has east exit
 				
@@ -5800,53 +6907,1103 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 					
 						
 						
-							//console.log(tempInd);
-							//allRooms[currRoomIndex]
+						//console.log(tempInd);
+						//allRooms[currRoomIndex]
+						
+						$("#roomTile" + tempInd).html(formArr[i]);
+						
+						if (formArr[i]!="") {
+						
+							playerInd=formArr[i];
+							//console.log(playerInd);
+							playerInd=playerInd.replace("P","");
+							playerInd=parseInt(playerInd);
+							playerInd--;
+							//console.log(playerInd);
+							allPlayers[playerInd].index=tempInd;
 							
-							$("#roomTile" + tempInd).html(formArr[i]);
-							
-							if (formArr[i]!="") {
-							
-								playerInd=formArr[i];
-								console.log(playerInd);
-								playerInd=playerInd.replace("P","");
-								playerInd=parseInt(playerInd);
-								playerInd--;
-								console.log(playerInd);
-								allPlayers[playerInd].index=tempInd;
-							
-							}
-							
-							tempInd++;
-							
-							if (tempInd==(tempEx-46)) {
-							
-								tempInd=tempEx-33;
-							
-							}
-							
-							if (tempInd==(tempEx-30)) {
-							
-								tempInd=tempEx-17;
-							
-							}
+							//current tile has being on it
+							allRooms[currRoomIndex].roomTile[tempInd].hasBeing=true;
+						
+						}
+						
+						tempInd++;
+						
+						if (tempInd==(tempEx-46)) {
+						
+							tempInd=tempEx-33;
+						
+						}
+						
+						if (tempInd==(tempEx-30)) {
+						
+							tempInd=tempEx-17;
+						
+						}
 							
 						
 						
 					}	//players
 					
-					//create monsters after entering
+					//create monsters/items after entering
 					monstSpawn();
+					itemSpawn();
+					
 				
 				}
 			
 			} //south
 			
+			
+			showVision();
 			updatePlayer();
 			
 		} //if an actual button
 		
 	}
+});
+
+function showVision() {
+
+	var tempIndex=0;
+	var tempTile=0;
+	
+	var wallNorth=false;
+	var wallEast=false;
+	var wallWest=false;
+	var wallSouth=false;
+	
+	for (i=0;i<playersMax;i++) {
+	
+		if (allPlayers[i].playerExists==true) {
+		
+			if (allPlayers[i].race!=3) {
+			
+				tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallNorth=true;
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallEast=true;
+				
+				tempIndex=allPlayers[i].index+2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallWest=true;
+				
+				tempIndex=allPlayers[i].index-2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallSouth=true;
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+			
+			} //non elf
+			
+			if (allPlayers[i].race==3) {
+			
+				tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallNorth=true;
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallEast=true;
+				
+				tempIndex=allPlayers[i].index+2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallWest=true;
+				
+				tempIndex=allPlayers[i].index-2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallSouth=true;
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				//extended range
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2)+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2)-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2)+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2)-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+2+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index+2-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-2+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				tempIndex=allPlayers[i].index-2-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+			
+			} //elf
+		
+		} //if player exists
+	
+	}
+
+}
+
+function hideVision() {
+
+	var tempIndex=0;
+	var tempTile=0;
+	
+	var wallNorth=false;
+	var wallEast=false;
+	var wallWest=false;
+	var wallSouth=false;
+	
+	for (i=0;i<playersMax;i++) {
+	
+		if (allPlayers[i].playerExists==true) {
+		
+			if (allPlayers[i].race!=3) {
+			
+				tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallNorth=true;
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallEast=true;
+				
+				tempIndex=allPlayers[i].index+2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallWest=true;
+				
+				tempIndex=allPlayers[i].index-2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallSouth=true;
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+			
+			} //non elf
+			
+			if (allPlayers[i].race==3) {
+			
+				tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallNorth=true;
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallEast=true;
+				
+				tempIndex=allPlayers[i].index+2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallWest=true;
+				
+				tempIndex=allPlayers[i].index-2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
+				wallSouth=true;
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				//extended vision
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2)+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+(roomMaxLength*2)-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2)+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-(roomMaxLength*2)-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+2+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index+2-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-2+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				tempIndex=allPlayers[i].index-2-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && wallEast!=true && wallWest!=true && wallSouth!=true)
+				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+			
+			} //elf
+		
+		} //if player exists
+	
+	}
+
+}
+
+
+function itemSpawn() {
+
+	var itemAmount=0;
+	var itemProb=0;
+	var spawnTile=0;
+	var spawnArrLength=allRooms[currRoomIndex].spawnArray.length;
+	spawnArrLength--;
+	var spawnInd;
+	
+	itemProb=rollDie(10,1);
+	
+	if (itemProb<7) {
+	
+		console.log("spawning items");
+		itemAmount=rollDie(5,1);
+		
+		for (i=0;i<itemAmount;i++) {
+		
+			//choose an open space
+			spawnInd=rollDie0(spawnArrLength,1);
+			spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
+			
+			//check if on unoccupied space
+			while ( $("#roomTile"+spawnTile).html()!="") {
+			
+				spawnInd=rollDie0(spawnArrLength,1);
+				spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
+				//console.log($("#roomTile"+spawnTile).html());
+			}
+			
+			//create item on chosen tile
+			itemGen(spawnTile);
+			$("#roomTile" + spawnTile).html(allRooms[currRoomIndex].roomItems[i].itemSymbol);
+			
+			allRooms[currRoomIndex].roomTile[spawnTile].hasItem=true;
+			allRooms[currRoomIndex].roomTile[spawnTile].itemSymbol=allRooms[currRoomIndex].roomItems[i].itemSymbol;
+			
+		} //item amount
+	
+	} //item probability
+	
+	updateItem();
+
+}
+
+function itemGen(spawnTile) {
+
+	var itemType=rollDie(100,1);
+	var bucRoll=rollDie(100,1);
+	var buc=0; //0 for uncursed, 1 for blessed, 2 for cursed
+	var enhance=0; // +/-
+	var enhanceRoll=0;
+	var tempRoll=0; //for whatever
+	var whichItem=0;
+	
+	//weapons 10%
+	//armor 10%
+	//gold 5%
+	//tools 5%
+	//food 15%
+	//scrolls 15%
+	//potions 20%
+	//spellbooks 4%
+	//amulets 3%
+	//rings 5%
+	//wands 8%
+	
+	if (bucRoll<=75) //uncursed, 75%
+	{
+		buc=0;
+	}
+	
+	else if (bucRoll<=85) //blessed, 10%
+	{
+		buc=1;
+	}
+	
+	else if (bucRoll<=100) //cursed, 15%
+	{
+		buc=2;
+	}
+	
+	itemType=5; //weapon test
+	
+	//weapons 10%
+	if (itemType<=10) {
+	
+		//enhancement
+		
+		if (buc==0)
+		{
+			//uncursed, +2 to -2
+			enhanceRoll=rollDie(3,1);
+			enhanceRoll--;
+			
+			tempRoll=rollDie(100,1);
+			
+			//70% chance of no enhance
+			if (tempRoll<=70)
+			{
+				enhanceRoll=0;
+			}
+			
+			//negative enhance, 15%
+			else if (tempRoll<=85)
+			{
+				if (enhanceRoll>0)
+				{
+					let negEnhance=enhanceRoll*2;
+					enhanceRoll-=negEnhance;
+				}
+			}
+		}
+		
+		if (buc==1)
+		{
+			
+			//blessed
+			enhanceRoll=rollDie(3,1);
+			enhanceRoll--;
+			
+		}
+		
+		if (buc==2)
+		{
+			//cursed, give negative enhance
+			enhanceRoll-=rollDie(3,1);
+		}
+		
+		//dagger 15%
+		//sword 15%
+		//axe 15%
+		//hammer 15%
+		//spear 10%
+		//staff 10%	
+		//polearm 10%
+		//bow 10%
+		
+		whichItem=rollDie(100,1);
+		
+		whichItem=15; //dagger test
+		
+		//daggers, 15%
+		if (whichItem<=15) {
+		
+			//crude dagger 35%
+			//throwing knife 15%
+			//stiletto 10%
+			//orcish dagger 7%
+			//elven dagger 7%
+			//dwarven dagger 7%
+			//silver dagger 6%
+			//mithril dagger 5%
+			//rondel 4%
+			//peshkabz 3%
+		
+			whichItem=rollDie(100,1);
+			
+			whichItem=35;
+			
+			//crude
+			if (whichItem<=35) {
+			
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "crude dagger",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+				
+				/*allRooms[currRoomIndex].roomTile[spawnTile].tileItemArr.push({
+				
+					itemSymbol:"[",
+				
+				});*/
+			
+			} //crude
+		
+		} //daggers
+	
+	} //weapons
+	
+	//armor 10%
+	else if (itemType<=20) {
+	
+		//enhancement
+		
+		if (buc==0)
+		{
+			//uncursed, +2 to -2
+			enhanceRoll=rollDie(3,1);
+			enhanceRoll--;
+			
+			tempRoll=rollDie(100,1);
+			
+			//70% chance of no enhance
+			if (tempRoll<=70)
+			{
+				enhanceRoll=0;
+			}
+			
+			//negative enhance, 10%
+			else if (tempRoll<=85)
+			{
+				if (enhanceRoll>0)
+				{
+					let negEnhance=enhanceRoll*2;
+					enhanceRoll-=negEnhance;
+				}
+			}
+		}
+		
+		if (buc==1)
+		{
+			
+			//blessed
+			enhanceRoll=rollDie(3,1);
+			enhanceRoll--;
+			
+		}
+		
+		if (buc==2)
+		{
+			//cursed, give negative enhance
+			enhanceRoll-=rollDie(3,1);
+		}
+	
+	}
+	
+	//gold 5%
+	else if (itemType<=25) {
+	
+	}
+	
+	//tools 5%
+	else if (itemType<=30) {
+	
+	}
+	
+	//food 15%
+	else if (itemType<=45) {
+	
+	}
+	
+	//scrolls 15%
+	else if (itemType<=60) {
+	
+	}
+	
+	//potions 20%
+	else if (itemType<=80) {
+	
+	}
+	
+	//spellbooks 4%
+	else if (itemType<=84) {
+	
+	}
+	
+	//amulets 3%
+	else if (itemType<=87) {
+	
+	}
+	
+	//rings 5%
+	else if (itemType<=92) {
+	
+	}
+	
+	//wands 8%
+	else if (itemType<=100) {
+	
+	}
+
+}
+
+function updateItem() {
+
+	var tempStat="";
+	var tempNum=0;
+	
+	//tab titles
+	//for (i=0; i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+	for (i=0;i<10;i++) {
+	
+	
+		if (allRooms[currRoomIndex].roomItems.length>i) {
+	
+			if (allRooms[currRoomIndex].roomItems[i].itemExists==true) {
+				$('#roomItemsTabs ul:first li:eq(' + i + ') a').text(allRooms[currRoomIndex].roomItems[i].itemName);
+			}
+		
+		}
+		
+		
+		if (allRooms[currRoomIndex].roomItems.length<=i) {
+		
+			tempNum=i;
+			tempNum++;
+			$('#roomItemsTabs ul:first li:eq(' + i + ') a').text("Item " + tempNum);
+		}
+	
+	}
+	
+	if (allRooms[currRoomIndex].roomItems.length>itemActive) {
+	
+		if (allRooms[currRoomIndex].roomItems[itemActive].itemExists==true) {
+		
+			//amount
+			
+			if (allRooms[currRoomIndex].roomItems[itemActive].amount>1) {
+			
+				tempStat=allRooms[currRoomIndex].roomItems[itemActive].amount;
+			}
+		
+			//buc
+			
+			if (allRooms[currRoomIndex].roomItems[itemActive].BUC==0) {
+			
+				tempStat+="";
+			
+			}
+		
+			if (allRooms[currRoomIndex].roomItems[itemActive].BUC==1) {
+			
+				tempStat+="blessed ";
+			
+			}
+			
+			if (allRooms[currRoomIndex].roomItems[itemActive].BUC==2) {
+			
+				tempStat+="cursed ";
+			
+			}
+			
+			//enhance
+			
+			if (allRooms[currRoomIndex].roomItems[itemActive].enhancement>0) {
+			
+				tempStat+="+" + allRooms[currRoomIndex].roomItems[itemActive].enhancement + " ";
+			
+			}
+			
+			if (allRooms[currRoomIndex].roomItems[itemActive].enhancement<0) {
+			
+				tempStat+=allRooms[currRoomIndex].roomItems[itemActive].enhancement + " ";
+			
+			}
+		
+			tempStat+=allRooms[currRoomIndex].roomItems[itemActive].itemName;
+			
+			$("#roomItemName").html(tempStat);
+			
+			tempStat="Index: ";
+			tempStat+=allRooms[currRoomIndex].roomItems[itemActive].index;
+			$("#roomItemIndex").html(tempStat);
+
+		
+		} //if item exists
+	
+	}
+	
+	else if (allRooms[currRoomIndex].roomItems.length<=itemActive) {
+	
+
+		$("#roomItemName").html("");
+		
+		tempStat="Index: ";
+		$("#roomItemIndex").html(tempStat);
+
+	}
+	
+	
+}
+
+$( "#clearItemBut" ).click(function( event ) {
+
+	
+	
+	//dont clear if standing on item?
+	if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing!=true) {
+		$("#roomTile"+allRooms[currRoomIndex].roomItems[itemActive].index).html("");
+		$("#roomTile"+allRooms[currRoomIndex].roomItems[itemActive].index).css("background", tileDefColor);
+	}
+
+	//console.log(allRooms[currRoomIndex].roomItems.length);
+	allRooms[currRoomIndex].roomItems.splice(itemActive,1);
+	//console.log(allRooms[currRoomIndex].roomItems.length);
+	
+
+	allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol="";
+	allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem=false;
+
+	
+	updateItem();
+})
+
+$( "#roomItemsTabs" ).tabs({
+  beforeActivate: function( event, ui ) {
+  
+	
+	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
+	
+	//alert(ui.newPanel.attr('id'));
+	
+	if (tabCmp=="roomItemsTabs-1")
+	{
+		itemActive=0;
+
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-2")
+	{
+		itemActive=1;
+		
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-3")
+	{
+		itemActive=2;
+		
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-4")
+	{
+		itemActive=3;
+
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-5")
+	{
+		itemActive=4;
+		
+		updateItem();
+	}	
+	
+	if (tabCmp=="roomItemsTabs-6")
+	{
+		itemActive=5;
+		
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-7")
+	{
+		itemActive=6;
+		
+		updateItem();
+		
+	}
+	
+	if (tabCmp=="roomItemsTabs-8")
+	{
+		itemActive=7;
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-9")
+	{
+		itemActive=8;
+		updateItem();
+	}
+	
+	if (tabCmp=="roomItemsTabs-10")
+	{
+		itemActive=9;
+		updateItem();
+	}
+	
+	
+	
+	
+	//select room tile
+	if (allRooms[currRoomIndex].roomItems.length>itemActive) {
+	
+		if (allRooms[currRoomIndex].roomItems[itemActive].itemExists==true) {
+		
+			if (allRooms[currRoomIndex].roomItems[itemActive].index>0) {
+			
+				//reset previous current tile color
+				$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+				
+				
+				roomTileIndex=allRooms[currRoomIndex].roomItems[itemActive].index;
+				$("#roomTile"+roomTileIndex).css("background", butSelColor);
+				
+			}
+		}
+	
+	}
+	
+	if (allRooms[currRoomIndex].roomItems.length<=itemActive) {
+	
+		$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+		
+		
+	
+	}
+	
+	
+  }
 });
 
 function monstSpawn() {
@@ -5883,6 +8040,7 @@ function monstSpawn() {
 			//create monster on chosen tile
 			monstGen(i, spawnTile);
 			$("#roomTile" + spawnTile).html(allRooms[currRoomIndex].roomMonsters[0].monstSymbol);
+			allRooms[currRoomIndex].roomTile[spawnTile].hasBeing=true;
 			
 		} //monster amount
 	
@@ -5896,9 +8054,14 @@ function monstGen (index, spawnTile) {
 	var whichMonst=rollDie(100,1);
 	
 	
-	if (whichMonst<=50) {
+	if (whichMonst<=30) {
 	
 		genGoblin(spawnTile);
+	}
+	
+	else if (whichMonst<=50) {
+	
+		genImp(spawnTile);
 	}
 	
 	else if (whichMonst<=100) {
@@ -5953,6 +8116,28 @@ $( "#dungeonTabs" ).tabs({
 					}
 				}
 				
+				for (i=0;i<allRooms[currRoomIndex].roomItems.length;i++) {
+					
+					//console.log(allRooms[currRoomIndex].roomItems[i].index);
+					$("#roomTile" + allRooms[currRoomIndex].roomItems[i].index).html(allRooms[currRoomIndex].roomItems[i].itemSymbol);
+					
+				}
+				
+				let tempPlayIndex=0;
+				
+				for (i=0;i<playersMax;i++) {
+				
+					tempPlayIndex=i;
+					tempPlayIndex++;
+				
+					if (allPlayers[i].playerExists==true) {
+						//console.log("asdf");
+						$("#roomTile" + allPlayers[i].index).html("P" + tempPlayIndex);
+					}
+					
+				}
+				
+				showVision();
 				
 				//color all room tiles
 				for (i=0;i<allRooms[currRoomIndex].spawnArray.length;i++) {
@@ -7517,6 +9702,8 @@ function setSpawnPoints() {
 	var inRow=false;
 	var rowCount=0;
 	var hasOther=false;
+	var oppPieceUp=false;
+	var oppPieceDown=false;
 	
 	var spawnArray=[];
 
@@ -7544,13 +9731,48 @@ function setSpawnPoints() {
 			inRow=true;
 
 		}
+	
 		
-		if ((prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && (butSym=="─" || butSym=="│") &&  (1%16!=15)) {
+		if ((prevSym=="┐" || prevSym=="└" || prevSym=="┘" || prevSym=="┌") && (butSym=="─" || butSym=="│") &&  (i%16!=15)) {
 		
 			inRoom=false;
 			inRow=false;
 			hasOther=true;
 
+		}
+		
+		if (prevSym=="┐" ||  prevSym=="┌") {
+		
+			if(oppPieceDown==true) {
+			
+				inRoom=false;
+				inRow=false;
+			}
+		
+			oppPieceDown=true;
+			
+			if (oppPieceUp==true) {
+			
+				inRoom=true;
+				inRow=true;
+			}
+		}
+		
+		if (prevSym=="└" || prevSym=="┘") {
+		
+			if(oppPieceUp==true) {
+			
+				inRoom=false;
+				inRow=false;
+			}
+		
+			oppPieceUp=true;
+			
+			if (oppPieceDown==true) {
+			
+				inRoom=true;
+				inRow=true;
+			}
 		}
 		
 		if (prevSym=="@" && (i%16>5)) {
@@ -7575,6 +9797,8 @@ function setSpawnPoints() {
 			inRow=false;
 			rowCount=0;
 			hasOther=false;
+			oppPieceUp=false;
+			oppPieceDown=false;
 		}
 		
 		
@@ -7584,6 +9808,8 @@ function setSpawnPoints() {
 			inRow=false;
 			rowCount=0;
 			hasOther=false;
+			oppPieceUp=false;
+			oppPieceDown=false;
 		}
 		
 		
@@ -7954,6 +10180,8 @@ $("#createFloorBut").click(function() {
 		$("div.floorContainer").find("button").css("background", butDefColor);
 		
 		allRooms[tempRoomIndex].roomExists=false;
+		currRoomIndex=tempRoomIndex;
+		wipeRoom();
 		tempRoomIndex++;
 	}
 	floorTileIndex=-1;
@@ -10959,7 +13187,7 @@ function buildFloorToDes(floorArrIndex, prevRoomIndex, floorLabel,roomRoll, bDes
 
 //there's gotta be a better way to do this
 
-$("#roomTile0").click(function() {
+/*$("#roomTile0").click(function() {
 
 
 	roomTileA=0;
@@ -10976,7 +13204,7 @@ $("#roomTile0").click(function() {
 	//}
 
 
-})
+});*/
 
 /*function getRoomTile () {
 
@@ -11187,24 +13415,6 @@ function demoVisibility() {
 
 </style>
 
-
-<!-- Menu -->
-<h2 class="demoHeaders">Menu</h2>
-<ul style="width:100px;" id="menu">
-	<li><div>Player 1</div></li>
-	<li><div>Player 2</div></li>
-	<li><div>Player 3</div>
-		<ul>
-			<li><div>Item 3-1</div></li>
-			<li><div>Item 3-2</div></li>
-			<li><div>Item 3-3</div></li>
-			<li><div>Item 3-4</div></li>
-			<li><div>Item 3-5</div></li>
-		</ul>
-	</li>
-	<li><div>Item 4</div></li>
-	<li><div>Item 5</div></li>
-</ul>
 
 <!-- ui-dialog -->
 <div id="raceDialog" title="Choose Race">
@@ -11472,6 +13682,7 @@ var turn=0;
 var whoIsActive=0;
 var lockActive=0;
 var monstActive=0;
+var itemActive=0;
 var playersMax=9;
 var profCount=17; //18
 var currProf=-1; //0-17
@@ -11492,7 +13703,7 @@ var floorTileIndex=-1;
 var roomTileIndex=-1;
 var roomTileMove=1; //amount to move tiles, 1 by default
 var roomTilePrev; //string; save char if moving being onto tile with items or something
-var roomSize=224; //14x16
+var roomSize=256; //16x16
 var roomMaxLength=16; // _total_ number of buttons going across
 var roomMaxHeight=16; //number of buttons vertically
 var roomMax=200; //10 floors, 20 rooms each
@@ -11541,6 +13752,7 @@ var currFloorSym="█";
 var butDefColor="lightgray";
 var butSelColor='#6ad18c';
 var tileDefColor="#8ac8ff";
+var visionColor="#fcf95f";
 
 var monMax=12; //max mons per room?
 var itemMax=7; //max items per room?
@@ -11719,6 +13931,8 @@ function initAllRooms() {
 	
 	var	tempTile=[];
 	
+	var tempTileItemArr=[];
+	
 	for (i=0;i<roomSize;i++) {
 		
 		tempTile.push({
@@ -11726,6 +13940,9 @@ function initAllRooms() {
 			hasItem:false,
 			hasMonster:false,
 			symbol:"█",
+			//tileItemArr:tempTileItemArr,
+			itemSymbol:"",
+			hasBeing:false,
 		
 		});
 	}
@@ -11785,7 +14002,8 @@ function initAllRooms() {
 		});
 		
 		
-		var	tempTile=[];
+		tempTile=[];
+		tempTileItemArr=[];
 	
 		for (j=0;j<roomSize;j++) {
 			
@@ -11794,15 +14012,18 @@ function initAllRooms() {
 				hasItem:false,
 				hasMonster:false,
 				symbol:"",
+				//tileItemArr:tempTileItemArr,
+				itemSymbol:"",
+				hasBeing:false,
 			
 			});
 		}
 	
 		tempSpawnArray=[];
 		
-		var tempMonArray=[];
+		tempMonArray=[];
 		
-		var tempItemArray=[];
+		tempItemArray=[];
 		
 		/*for (j=0;j<monMax;j++) {
 		
@@ -13047,8 +15268,8 @@ $( "#progressbar" ).progressbar({
 $( "#spinner" ).spinner();
 
 
-
-$( "#menu" ).menu();
+$( "#playerEquip" ).menu();
+$( "#playerInventory" ).menu();
 
 
 
@@ -13146,8 +15367,9 @@ window.onkeyup = function(e) {
 			}
 			
 			updatePlayer();
+			updateMonst();
 			
-	   } //at least one player
+	   } //at least one player (aka playing game)
 	   
 	   
    
@@ -13334,10 +15556,18 @@ function turnInc() {
 	
 	//console.log("Player " + temp + " speed = " + allPlayers[i].speed);
 	
-	} //for
+	} //for players
 	
 	
 	updatePlayer();
+	
+	for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+	
+		allRooms[currRoomIndex].roomMonsters[i].moved=false;
+	
+	} //monsters
+	
+	updateMonst;
 }
 
 function initStats() {
@@ -15331,10 +17561,13 @@ $("div.floorContainer").find("button").click(function( event ) {
 	var butId=this.id;
 	//var tempStr="";
 	
+	//clear all tiles but selected
 	for (i=0;i<floorSize;i++)
 	{
 		$("div.floorContainer").find("button").css("background", butDefColor);
 	}
+	
+	
 	
 	this.style.background=butSelColor;
 	
@@ -15650,6 +17883,130 @@ function genJackal(spawnTile) {
 
 }
 
+function genImp(spawnTile) {
+
+	var hpRoll=rollDie(5,1,3);
+	
+		
+	allRooms[currRoomIndex].roomMonsters.unshift ({
+		
+			monstName: "Imp",
+			
+			monsterExists:true,
+			
+			size: 1, //0 for tiny, 1 for small, 2 for medium, 3 for large, 4 for huge, 5 for gigantic
+
+			tier: 1, //+1 per difficulty
+			
+			monstSymbol: "i", //placeholder symbol
+			
+			monRoomIndex:spawnTile, //where it is in a room
+		
+			monsterPassives: //passives
+			{
+					fireResist :false,//0,0
+					coldResist :false,//0,1
+					shockResist :false,//0,2
+					disinResist :false,//0,3
+					sleepResist :false,//0,4
+					poisonResist :false,//0,5
+					paralysisResist :false,//0,6
+					blindResist :false,//0,7
+					petrifyResist :false,//0,8
+					sicknessResist :false,//0,9
+					drainResist :false,//0,10
+					woundResist :false,//1,0
+					breathless :false,//1,1
+					searching :false,//1,2
+					seeInvis :false,//1,3
+					invis :false,//1,4
+					levitate :false,//1,5
+					flying :false,//1,6
+					adornment :false,//1,7
+					warning :false,//1,8
+					telepathy :false,//1,9
+					foodApp :false,//1,10
+					reflection :false,//2,0
+					magicResist :false,//2,1
+					waterWalking :false,//2,2
+					displacement :false,//2,3
+					sustainAbility :false,//2,4
+					slowDigest :false,//2,5
+					lifeSaving :false,//2,6
+					stealth :false,//2,7
+					confuseResist :false,//2,8
+
+
+					brisk :0,//2,9
+					haste :0,//2,10
+					dash :0,//3,0 //int
+					agileDash :0,//3,1 //int
+					infravision :false,//3,2 //int
+					regen :false,//3,3
+					protection:0, //int
+					energyRegen :false,//3,4
+					noHungCast :false,//3,5
+
+					permSlow:false,
+					permBrisk:false,
+					permHaste:false,
+
+
+					fumbling :false,
+					isHungry :false,
+					tempBrisk:0,//int
+					tempHaste:0, //int
+					tempRegen:0, //int
+					tempConfluence:0, //int
+					tempInvis:0, //int
+
+					slow:0, //int
+					blind:0, //int 
+					sleep:0, //int
+					poisoned:0, //int
+					confused:0, //int
+					taunted:0, //int
+					aggravated:0, //int
+					paralyzed:0, //int
+
+					hallucin:0, //int
+					enfeebled:0, //int
+					vulnerable:0, //int
+					slippery:0, //int
+					petrify:0, //int
+					vomit:0, //int
+					strangle:0, //int 
+					engulfed:0, //int
+
+					woundedArmLeft:0, //int
+					woundedArmRight:0, //int
+					woundedLegLeft:0, //int
+					woundedLegRight:0 //int
+			},
+			speed:12,
+			actions:0,
+
+			energyClock:0,
+			hpClock:0,
+			newEnergyClock:true, //bool
+			newHpClock:true, //bool
+
+			tempACVal:0,
+			tempACDur:0,
+			
+			hpCurr:hpRoll,
+			hpMax:hpRoll,
+			energyCurr:0,
+			energyMax:0,
+			armorAC:0,
+			otherAC:0,
+			totalAC:2,
+			toHit:0,
+			
+			index: spawnTile, //index in current room
+	});
+
+}
 
 
 
