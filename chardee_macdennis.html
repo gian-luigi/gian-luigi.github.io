@@ -1501,6 +1501,11 @@ $("div.playerStatsGrid").find("input").keyup(function(event) {
 				allPlayers[whoIsActive].weightMax+=enterVal;
 				
 			}
+			
+			if (tempStr2=="ac") {
+			
+				allPlayers[whoIsActive].totalAC-=enterVal;
+			}
 		
 			
 			else {
@@ -3348,6 +3353,15 @@ $( "#playerTabs" ).tabs({
 			//reset previous current tile color
 			$("#roomTile"+roomTileIndex).css("background", tileDefColor);
 			
+			//color if trap
+			if (roomTileIndex>0) {
+	
+				if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+					$("#roomTile"+roomTileIndex).css("background", trapDefColor);
+				}
+			
+			}
+			
 			
 			roomTileIndex=allPlayers[whoIsActive].index;
 			$("#roomTile"+roomTileIndex).css("background", butSelColor);
@@ -4832,7 +4846,54 @@ $("#player1NameEntry").keyup(function(event) {
 					  <!-- Traps -->
 					  <div id="roomStuffTabs-3">
 						
-						
+						<div id="trapsTabs">
+								<ul>
+									<li><a href="#trapsTabs-1">Trap 1</a></li>
+									<li><a href="#trapsTabs-2">Trap 2</a></li>
+									<li><a href="#trapsTabs-3">Trap 3</a></li>
+									<li><a href="#trapsTabs-4">Trap 4</a></li>
+									<li><a href="#trapsTabs-5">Trap 5</a></li>
+									<li><a href="#trapsTabs-6">Trap 6</a></li>
+									<li><a href="#trapsTabs-7">Trap 7</a></li>
+									<li><a href="#trapsTabs-8">Trap 8</a></li>
+									<li><a href="#trapsTabs-9">Trap 9</a></li>
+									<li><a href="#trapsTabs-10">Trap 10</a></li>
+								 </ul>
+								 <br>
+								 <button id="clearTrapBut">Clear Trap</button>
+								 <br>
+								 <p id="trapIndex">Index: </p>
+								 <div id="trapsTabs-1">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-2">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-3">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-4">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-5">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-6">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-7">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-8">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-9">
+									<p> </p>
+								 </div>
+								 <div id="trapsTabs-10">
+									<p> </p>
+								 </div>
+							</div>
 						
 						
 					  </div>
@@ -4902,6 +4963,7 @@ $("div.movementGrid").find("button").click(function( event ) {
 	var destTileWall;
 	var tempPlayInd; //setting destination tile of player
 	
+	
 	hideVision();
 	
 	if (butId=="moveN") {
@@ -4963,6 +5025,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
 					}
 					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
+					}
+					
 					//previous tile no longer has a being on it
 					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
 				
@@ -4993,6 +5061,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 						//currently standing on item
 						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
 							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+						
+						//currently standing on trap
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+							$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+							$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
 						}
 					
 						//previous tile no longer has a being on it
@@ -5076,6 +5150,13 @@ $("div.movementGrid").find("button").click(function( event ) {
 					//currently standing on item
 					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						
+					}
+					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
 					}
 					
 					//previous tile no longer has a being on it
@@ -5108,6 +5189,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 						//currently standing on item
 						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
 							$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+						}
+						
+						//currently standing on trap
+						if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+							$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+							$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
 						}
 					
 						//previous tile no longer has a being on it
@@ -5191,6 +5278,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 					//currently standing on item
 					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
 					}
 					
 					//previous tile no longer has a being on it
@@ -5308,6 +5401,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
 					}
 					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
+					}
+					
 					//previous tile no longer has a being on it
 					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
 				
@@ -5421,6 +5520,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 					//currently standing on item
 					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
 					}
 					
 					//previous tile no longer has a being on it
@@ -5538,6 +5643,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
 					}
 					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
+					}
+					
 					//previous tile no longer has a being on it
 					allRooms[currRoomIndex].roomTile[roomTileIndex].hasBeing=false;
 				
@@ -5651,6 +5762,12 @@ $("div.movementGrid").find("button").click(function( event ) {
 					//currently standing on item
 					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasItem==true) {
 						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].itemSymbol);
+					}
+					
+					//currently standing on trap
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+allPlayers[whoIsActive].index).html(allRooms[currRoomIndex].roomTile[roomTileIndex].trapSymbol);
+						$("#roomTile"+allPlayers[whoIsActive].index).css("background", visionColor);
 					}
 					
 					//previous tile no longer has a being on it
@@ -5835,6 +5952,8 @@ $( "#createRoomBut" ).click(function( event ) {
 	//clear current room
 	$("div.roomContainer").find("button").html(""); //initialize
 	$("div.roomContainer").find("button").css("background", butDefColor);
+	
+	clearRoom();
 	 
 	/*for (i=0;i<roomSize;i++) {
 	
@@ -5844,6 +5963,7 @@ $( "#createRoomBut" ).click(function( event ) {
 	}*/
 
 	roomGen();
+	allRooms[currRoomIndex].roomExists=true;
 
 });
 
@@ -5852,19 +5972,31 @@ $("div.roomContainer").find( "button").click(function( event ) {
 	var tileStr;
 	var tempInd;
 
+
 	//get index
 	tileStr=this.id;
 	tileStr=tileStr.replace("roomTile","");
+
 	
 	tileStr=parseInt(tileStr);
+	
 	
 	//reset previous current tile color
 	$("#roomTile"+roomTileIndex).css("background", tileDefColor);
 	
+	//tile is red if trap
+	if (roomTileIndex>0) {
 	
-	showVision();
+		if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+			$("#roomTile"+roomTileIndex).css("background", trapDefColor);
+		}
+	
+	}
 	
 	roomTileIndex=tileStr;
+	showVision();
+	
+
 	
 	
 	//color selected tile
@@ -5918,6 +6050,25 @@ $("div.roomContainer").find( "button").click(function( event ) {
 					tempInd=i;
 					tempInd++;
 					$('#roomItemsTabs a[href="#roomItemsTabs-' + tempInd + '"]').trigger('click');
+				}
+			
+			} //if item exists
+		
+
+	} //items
+	
+	//check if click tile is trap
+	for (i=0; i<allRooms[currRoomIndex].roomTraps.length;i++) {
+	
+	
+			if (allRooms[currRoomIndex].roomTraps[i].trapExists==true) {
+		
+				if (allRooms[currRoomIndex].roomTraps[i].index==roomTileIndex) {
+				
+				
+					tempInd=i;
+					tempInd++;
+					$('#trapsTabs a[href="#trapsTabs-' + tempInd + '"]').trigger('click');
 				}
 			
 			} //if item exists
@@ -6019,6 +6170,15 @@ $( "#monsterTabs" ).tabs({
 			
 				//reset previous current tile color
 				$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+				
+				//color if trap
+				if (roomTileIndex>0) {
+	
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+roomTileIndex).css("background", trapDefColor);
+					}
+				
+				}
 				
 				
 				roomTileIndex=allRooms[currRoomIndex].roomMonsters[monstActive].index;
@@ -6147,10 +6307,40 @@ $( "#clearMonstBut" ).click(function( event ) {
 	//dont clear if standing on item?
 	$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("");
 	
+	if (allRooms[currRoomIndex].roomTile.hasItem==true) {
+	
+		$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html(allRooms[currRoomIndex].roomTile.itemSymbol);
+	}
+	
 	//chance to drop corpse
 	if (corpseDrop==1) {
 	
-		console.log("drop corpse");
+		//console.log("drop corpse");
+		
+		let corpseOf=allRooms[currRoomIndex].roomMonsters[monstActive].monstName;
+		console.log(corpseOf);
+		
+		if (allRooms[currRoomIndex].roomItems.length<10) {
+		
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: corpseOf + " corpse",
+						itemSymbol: "%",
+						BUC: 0,
+						enhancement:0,
+						index: allRooms[currRoomIndex].roomMonsters[monstActive].index,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+						corpseTurns:0,
+					
+			});
+			
+			$("#roomTile"+allRooms[currRoomIndex].roomMonsters[monstActive].index).html("%");
+			
+			updateItem();
+		
+		}
 	}
 
 	//console.log(allRooms[currRoomIndex].roomMonsters.length);
@@ -6319,7 +6509,7 @@ function initItems() {
 	var spellbooks=["force bolt", "nosferatu", "lance", "ice spike", "fireball", "discharge", "unlock", "tick", "reflect", "cancellation", "create monster", "light", "sonar", "detect food", "identify", "protection", "remove curse", "slow", "blind", "taunt", "sleep", "paralyze", "healing", "regeneration", "restore ability", "mend", "convalesce", "amplify", "surge"];
 	var spellbooksID=["stained", "dusty", "glittering", "vellum", "cloth-bound", "shining", "ragged", "leather-bound", "dull", "dog-eared", "velvet", "thin", "thick", "mottled", "wrinkled", "hardcover", "canvas", "violet", "red", "golden", "silver", "copper", "white", "blue", "green", "indigo", "tan", "softcover", "torn"];
 	var spellbooksUsed=[];
-	var robes=["magic resistance", "protection", "invisibility", "channeling", "cold immunity", "fire immunity", "shock immunity", "drain immunity", "acid immunity", "brisk"];
+	var robes=["magic resistance", "protection", "invisibility", "channeling", "cold immunity", "fire immunity", "shock immunity", "drain immunity", "slow", "brisk"];
 	var robesID=["tattered", "ornamental", "opera", "velour", "taffeta", "satin", "cashmere", "silk", "cotton", "velvet"];
 	var robesUsed=[];
 	var gloves=["fumbling", "power", "dexterity", "throwing"];
@@ -6555,6 +6745,16 @@ function clearRoom () {
 		allRooms[currRoomIndex].roomTile[i].itemSymbol="";
 		allRooms[currRoomIndex].roomTile[i].hasItem=false;
 	}
+	
+	//clear traps
+	allRooms[currRoomIndex].roomTraps.length=0;
+	for (i=0;i<roomSize;i++) {
+		allRooms[currRoomIndex].roomTile[i].trapSymbol="";
+		allRooms[currRoomIndex].roomTile[i].hasTrap=false;
+	}
+	
+	//clear spawn array
+	//allRooms[currRoomIndex].spawnArray.length=0;
 }
 
 function wipeRoom () {
@@ -6579,6 +6779,13 @@ function wipeRoom () {
 	for (j=0;j<roomSize;j++) {
 		allRooms[currRoomIndex].roomTile[j].itemSymbol="";
 		allRooms[currRoomIndex].roomTile[j].hasItem=false;
+	}
+	
+	//clear traps
+	allRooms[currRoomIndex].roomTraps.length=0;
+	for (i=0;i<roomSize;i++) {
+		allRooms[currRoomIndex].roomTile[i].trapSymbol="";
+		allRooms[currRoomIndex].roomTile[i].hasTrap=false;
 	}
 	
 	//clear spawn array
@@ -6707,6 +6914,7 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 							playerInd--;
 							//console.log(playerInd);
 							allPlayers[playerInd].index=tempInd;
+						
 							
 							//current tile has being on it
 							allRooms[currRoomIndex].roomTile[tempInd].hasBeing=true;
@@ -6731,9 +6939,13 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						
 					}	//players
 					
-					//create monsters/items after entering
+					//focus on player 1 by default
+					roomTileIndex=allPlayers[0].index;
+					
+					//create monsters/items/traps after entering
 					monstSpawn();
 					itemSpawn();
+					trapSpawn();
 				
 				} //has north exit
 			
@@ -6812,9 +7024,13 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						
 					}	//players
 					
-					//create monsters/items after entering
+					//focus on player 1 by default
+					roomTileIndex=allPlayers[0].index;
+					
+					//create monsters/items/traps after entering
 					monstSpawn();
 					itemSpawn();
+					trapSpawn();
 				
 				} //has west exit
 				
@@ -6895,9 +7111,13 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						
 					}	//players
 					
-					//create monsters/items after entering
+					//focus on player 1 by default
+					roomTileIndex=allPlayers[0].index;
+					
+					//create monsters/items/traps after entering
 					monstSpawn();
 					itemSpawn();
+					trapSpawn();
 				
 				} //has east exit
 				
@@ -6955,6 +7175,8 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 							//console.log(playerInd);
 							allPlayers[playerInd].index=tempInd;
 							
+							
+							
 							//current tile has being on it
 							allRooms[currRoomIndex].roomTile[tempInd].hasBeing=true;
 						
@@ -6978,16 +7200,20 @@ $("div.enterFromGrid").find("button").click(function( event ) {
 						
 					}	//players
 					
-					//create monsters/items after entering
+					//focus on player 1 by default
+					roomTileIndex=allPlayers[0].index;
+					
+					
+					//create monsters/items/traps after entering
 					monstSpawn();
 					itemSpawn();
-					
+					trapSpawn();
 				
 				}
 			
 			} //south
 			
-			
+			hideVision();
 			showVision();
 			updatePlayer();
 			
@@ -7005,18 +7231,365 @@ function showVision() {
 	var wallEast=false;
 	var wallWest=false;
 	var wallSouth=false;
+	var trapRoll=rollDie(10,1);
+	var isTrap=false;
 	
 	for (i=0;i<playersMax;i++) {
 	
 		if (allPlayers[i].playerExists==true) {
 		
-			if (allPlayers[i].race!=3) {
+			wallNorth=false;
+			wallEast=false;
+			wallWest=false;
+			wallSouth=false;
+		
+			if (allPlayers[i].race!=3 && allPlayers[i].race!=1) {
+			
+				tempIndex=allPlayers[i].index;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+	
+				//one north
+				tempIndex=allPlayers[i].index-roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallNorth=true;
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				
+				//one east
+				tempIndex=allPlayers[i].index+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallEast=true;
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName); 
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				
+				//one west
+				tempIndex=allPlayers[i].index-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallWest=true;
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				//one south
+				tempIndex=allPlayers[i].index+roomMaxLength;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
+				wallSouth=true;
+				
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				
+				tempIndex=allPlayers[i].index-roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				tempIndex=allPlayers[i].index-roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				tempIndex=allPlayers[i].index+roomMaxLength-1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName); 
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;							
+						}
+					
+					}
+				}
+				
+				tempIndex=allPlayers[i].index+roomMaxLength+1;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName); 
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName); 
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+			
+			} //non elf
+			
+			//dwarf
+			if (allPlayers[i].race==1) {
 			
 				tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 	
 				//one north
 				tempIndex=allPlayers[i].index-roomMaxLength;
@@ -7027,6 +7600,44 @@ function showVision() {
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallNorth=true;
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				//two north
+				tempIndex=allPlayers[i].index-(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempIndex>0) {
+					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true && allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true)
+					$("#roomTile"+tempIndex).css("background", infraColor);
+				}
 				
 				
 				//one east
@@ -7039,6 +7650,43 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallEast=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				
+				//two east
+				tempIndex=allPlayers[i].index+2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true && allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true)
+				$("#roomTile"+tempIndex).css("background", infraColor);
+				
 				
 				//one west
 				tempIndex=allPlayers[i].index-1;
@@ -7050,6 +7698,43 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallWest=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				//two west
+				tempIndex=allPlayers[i].index-2;
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true && allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true)
+				$("#roomTile"+tempIndex).css("background", infraColor);
+				
+				//one south
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7059,11 +7744,78 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallSouth=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				//two south
+				tempIndex=allPlayers[i].index+(roomMaxLength*2);
+				tempTile=$("#roomTile"+tempIndex).html();
+			
+				if (tempIndex<roomMaxLength*roomMaxLength) {
+					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true && allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true)
+					$("#roomTile"+tempIndex).css("background", infraColor);
+				}
+				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 				
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7071,20 +7823,109 @@ function showVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+			} //dwarf
 			
-			} //non elf
-			
+			//elf
 			if (allPlayers[i].race==3) {
 			
 				tempIndex=allPlayers[i].index;
@@ -7092,6 +7933,35 @@ function showVision() {
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 	
 				//one north
 				tempIndex=allPlayers[i].index-roomMaxLength;
@@ -7103,11 +7973,76 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallNorth=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				//2 north
 				tempIndex=allPlayers[i].index-(roomMaxLength*2);
 				tempTile=$("#roomTile"+tempIndex).html();
+				
+				if (tempIndex>0) {
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
-				$("#roomTile"+tempIndex).css("background", visionColor);
+					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+					$("#roomTile"+tempIndex).css("background", visionColor);
+					
+				
+				
+					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+					
+						if (allPlayers[i].playerPassives.searching!=true) {
+						
+							trapRoll=rollDie(10,1);
+							
+							if (trapRoll==1) {
+							
+								$("#roomTile"+tempIndex).css("background", visionColor);
+								alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+								allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+							}
+						
+						}
+						
+						if (allPlayers[i].playerPassives.searching==true) {
+						
+							trapRoll=rollDie(2,1);
+							
+							if (trapRoll==1) {
+							
+								$("#roomTile"+tempIndex).css("background", visionColor);
+								alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+								allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+							}
+						
+						}
+					}
+				
+				} //in bounds
 				
 				//one east
 				tempIndex=allPlayers[i].index+1;
@@ -7119,11 +8054,69 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallEast=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
 				tempIndex=allPlayers[i].index+2;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 				
 				//one west
 				tempIndex=allPlayers[i].index-1;
@@ -7135,11 +8128,69 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallWest=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
 				tempIndex=allPlayers[i].index-2;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 				
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7150,11 +8201,76 @@ function showVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallSouth=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
+				
+				//two south
 				tempIndex=allPlayers[i].index+(roomMaxLength*2);
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
-				$("#roomTile"+tempIndex).css("background", visionColor);
+				if (tempIndex<roomMaxLength*roomMaxLength) {
+				
+					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+					$("#roomTile"+tempIndex).css("background", visionColor);
+					
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+					
+						if (allPlayers[i].playerPassives.searching!=true) {
+						
+							trapRoll=rollDie(10,1);
+							
+							if (trapRoll==1) {
+							
+								$("#roomTile"+tempIndex).css("background", visionColor);
+								alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+								allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+							}
+						
+						}
+						
+						if (allPlayers[i].playerPassives.searching==true) {
+						
+							trapRoll=rollDie(2,1);
+							
+							if (trapRoll==1) {
+							
+								$("#roomTile"+tempIndex).css("background", visionColor);
+								alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+								allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+							}
+						
+						}
+					}
+				
+				} //in bounds
 				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7162,11 +8278,69 @@ function showVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 				
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7174,11 +8348,69 @@ function showVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
+				
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", visionColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+				
+					if (allPlayers[i].playerPassives.searching!=true) {
+					
+						trapRoll=rollDie(10,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+					
+					if (allPlayers[i].playerPassives.searching==true) {
+					
+						trapRoll=rollDie(2,1);
+						
+						if (trapRoll==1) {
+						
+							$("#roomTile"+tempIndex).css("background", visionColor);
+							alert(allPlayers[i].playerName + "has identified a " + allRooms[currRoomIndex].roomTile[tempIndex].trapName);
+							allRooms[currRoomIndex].roomTile[tempIndex].trapSeen=true;
+						}
+					
+					}
+				}
 			
 				/*tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7346,19 +8578,19 @@ function hideVision() {
 	
 		if (allPlayers[i].playerExists==true) {
 		
-			if (allPlayers[i].race!=3) {
+			if (allPlayers[i].race!=3 && allPlayers[i].race!=1) {
 			
 				tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && whoIsActive!=i && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 	
 				//one north
 				tempIndex=allPlayers[i].index-roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@"  && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="+")
@@ -7367,11 +8599,23 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallNorth=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
 				//one east
 				tempIndex=allPlayers[i].index+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="+")
@@ -7380,11 +8624,23 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallEast=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
 				//one west
 				tempIndex=allPlayers[i].index-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
@@ -7393,10 +8649,24 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+				
+				//one south
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
@@ -7405,54 +8675,116 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
 				
 				//extended vision
 				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
 				
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
 				
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
 				
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
 			
 			} //non elf
 			
-			if (allPlayers[i].race==3) {
+			if (allPlayers[i].race==3 || allPlayers[i].race==1) {
 			
 				tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				
+				
 	
 				//one north
 				tempIndex=allPlayers[i].index-roomMaxLength;
@@ -7467,14 +8799,43 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+				//two north
 				tempIndex=allPlayers[i].index-(roomMaxLength*2);
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
+				if (tempIndex>0) {
 				
-				if (tempTile=="+")
-				$("#roomTile"+tempIndex).css("background", butDefColor);
+					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+					$("#roomTile"+tempIndex).css("background", tileDefColor);
+					
+					if (tempTile=="+")
+					$("#roomTile"+tempIndex).css("background", butDefColor);
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+						if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+							$("#roomTile"+tempIndex).css("background", trapDefColor);
+						}
+						
+						if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+							$("#roomTile"+tempIndex).css("background", visionColor);
+						}
+				
+					}
+					
+				}	
 				
 				//one east
 				tempIndex=allPlayers[i].index+1;
@@ -7489,6 +8850,19 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallEast=true;
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+				//two east
 				tempIndex=allPlayers[i].index+2;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7498,6 +8872,18 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
 				//one west
 				tempIndex=allPlayers[i].index-1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7511,6 +8897,20 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+				
+				//two west
 				tempIndex=allPlayers[i].index-2;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7520,6 +8920,20 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+				
+				//one south
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7532,14 +8946,46 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+				
+				//two south
 				tempIndex=allPlayers[i].index+(roomMaxLength*2);
 				tempTile=$("#roomTile"+tempIndex).html();
-			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
-				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
-				$("#roomTile"+tempIndex).css("background", butDefColor);
+				if (tempIndex<roomMaxLength*roomMaxLength) {
+			
+					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+					$("#roomTile"+tempIndex).css("background", tileDefColor);
+					
+					if (tempTile=="+")
+					$("#roomTile"+tempIndex).css("background", butDefColor);
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+						if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+							$("#roomTile"+tempIndex).css("background", trapDefColor);
+						}
+						
+						if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+							$("#roomTile"+tempIndex).css("background", visionColor);
+						}
+				
+					}
+				
+				}
+				
+				//extended vision
 				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7550,7 +8996,19 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
-				//extended vision
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
+			
 				
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7561,6 +9019,18 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7570,6 +9040,18 @@ function hideVision() {
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
+				
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
@@ -7578,6 +9060,18 @@ function hideVision() {
 			
 				if (tempTile=="+")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
+				
+				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
+
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
+						$("#roomTile"+tempIndex).css("background", trapDefColor);
+					}
+					
+					if (allRooms[currRoomIndex].roomTile[tempIndex].trapSeen==true) {
+						$("#roomTile"+tempIndex).css("background", visionColor);
+					}
+			
+				}
 			
 				/*tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
@@ -7731,6 +9225,575 @@ function hideVision() {
 
 }
 
+function trapSpawn() {
+
+	var trapAmount=0;
+	var trapProb=0;
+	var spawnTile=0;
+	var spawnArrLength=allRooms[currRoomIndex].spawnArray.length;
+	spawnArrLength--;
+	var spawnInd;
+	
+	trapProb=rollDie(10,1);
+	
+	if (trapProb<8) {
+	
+		console.log("spawning traps");
+		trapAmount=rollDie(5,1);
+		
+		for (i=0;i<trapAmount;i++) {
+		
+			//choose an open space
+			spawnInd=rollDie0(spawnArrLength,1);
+			spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
+			
+			//check if on unoccupied space
+			while ( $("#roomTile"+spawnTile).html()!="") {
+			
+				spawnInd=rollDie0(spawnArrLength,1);
+				spawnTile=allRooms[currRoomIndex].spawnArray[spawnInd];
+				//console.log($("#roomTile"+spawnTile).html());
+			}
+			
+			//create item on chosen tile
+			trapGen(spawnTile);
+			$("#roomTile" + spawnTile).html(allRooms[currRoomIndex].roomTraps[i].trapSymbol);
+			
+			//make tile red
+			$("#roomTile" + spawnTile).css("background", trapDefColor);
+			
+			allRooms[currRoomIndex].roomTile[spawnTile].hasTrap=true;
+			allRooms[currRoomIndex].roomTile[spawnTile].trapSymbol=allRooms[currRoomIndex].roomTraps[i].trapSymbol;
+			allRooms[currRoomIndex].roomTile[spawnTile].trapName=allRooms[currRoomIndex].roomTraps[i].trapName;
+			
+		} //trap amount
+	
+	} //trap probability
+	
+	updateTraps();
+
+}
+
+function trapGen(spawnTile) {
+
+	whichTrap=rollDie(22,1);
+
+	//quicksand
+	if (whichTrap<=1) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "quicksand trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//curse item
+	else if (whichTrap==2) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "curse item trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//drain energy
+	else if (whichTrap==3) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "drain energy trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//bear trap
+	else if (whichTrap==4) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "bear trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce str
+	else if (whichTrap==5) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce str trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce dex
+	else if (whichTrap==6) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce dex trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce int
+	else if (whichTrap==7) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce int trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce wis
+	else if (whichTrap==8) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce wis trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce con
+	else if (whichTrap==9) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce con trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//arrow
+	else if (whichTrap==10) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "arrow trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//chest explode
+	else if (whichTrap==11) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "chest explode trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//landmine
+	else if (whichTrap==12) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "landmine",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//poison gas
+	else if (whichTrap==13) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "poison gas trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//sleeping gas
+	else if (whichTrap==14) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "sleeping gas trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//confusion gas
+	else if (whichTrap==15) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "confusion gas trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce max hp
+	else if (whichTrap==16) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce max hp trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//hole
+	else if (whichTrap==17) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "hole",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//teleport
+	else if (whichTrap==18) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "teleport trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//web
+	else if (whichTrap==19) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "web trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//erode
+	else if (whichTrap==20) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "erosion trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//silence
+	else if (whichTrap==21) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "silence trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+	
+	//reduce max energy
+	else if (whichTrap==22) {
+	
+		allRooms[currRoomIndex].roomTraps.push({
+				
+			trapName: "reduce max energy trap",
+			trapSymbol: "^",
+			index: spawnTile,
+			trapExists:true,
+			trapColor:trapDefColor,
+			seen:false,
+		});
+	
+	}
+}
+
+function updateTraps() {
+
+	var tempStat="";
+	var tempNum=0;
+	
+	//tab titles
+	for (i=0;i<10;i++) {
+	
+	
+		if (allRooms[currRoomIndex].roomTraps.length>i) {
+	
+			if (allRooms[currRoomIndex].roomTraps[i].trapExists==true) {
+			
+				tempStat+=allRooms[currRoomIndex].roomTraps[i].trapName;
+			
+				
+				//tempStat=tempStat.replace(" trap", "");
+			
+				$('#trapsTabs ul:first li:eq(' + i + ') a').text(tempStat);
+				
+				tempStat="";
+			
+			}
+			
+		
+		}	
+		
+		
+		if (allRooms[currRoomIndex].roomTraps.length<=i) {
+		
+			tempNum=i;
+			tempNum++;
+			$('#trapsTabs ul:first li:eq(' + i + ') a').text("Trap " + tempNum);
+		}
+	
+	}
+	
+	if (allRooms[currRoomIndex].roomTraps.length>trapActive) {
+	
+		if (allRooms[currRoomIndex].roomTraps[trapActive].trapExists==true) {
+		
+		
+			
+			
+			tempStat="Index: ";
+			tempStat+=allRooms[currRoomIndex].roomTraps[trapActive].index;
+			$("#trapIndex").html(tempStat);
+
+		
+		} //if trap exists
+	
+	}
+	
+	else if (allRooms[currRoomIndex].roomTraps.length<=trapActive) {
+	
+
+		$("#trapName").html("");
+		
+		tempStat="Index: ";
+		$("#trapIndex").html(tempStat);
+
+	}
+	
+	
+}
+
+$( "#trapsTabs" ).tabs({
+  beforeActivate: function( event, ui ) {
+  
+	
+	var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
+	
+	//alert(ui.newPanel.attr('id'));
+	
+	if (tabCmp=="trapsTabs-1")
+	{
+		trapActive=0;
+
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-2")
+	{
+		trapActive=1;
+		
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-3")
+	{
+		trapActive=2;
+		
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-4")
+	{
+		trapActive=3;
+
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-5")
+	{
+		trapActive=4;
+		
+		updateTraps();
+	}	
+	
+	if (tabCmp=="trapsTabs-6")
+	{
+		trapActive=5;
+		
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-7")
+	{
+		trapActive=6;
+		
+		updateTraps();
+		
+	}
+	
+	if (tabCmp=="trapsTabs-8")
+	{
+		trapActive=7;
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-9")
+	{
+		trapActive=8;
+		updateTraps();
+	}
+	
+	if (tabCmp=="trapsTabs-10")
+	{
+		trapActive=9;
+		updateTraps();
+	}
+	
+	
+	
+	
+	//select room tile
+	if (allRooms[currRoomIndex].roomTraps.length>trapActive) {
+	
+		if (allRooms[currRoomIndex].roomTraps[trapActive].trapExists==true) {
+		
+			if (allRooms[currRoomIndex].roomTraps[trapActive].index>0) {
+			
+				//reset previous current tile color
+				$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+				
+				//color if trap
+				if (roomTileIndex>0) {
+	
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+roomTileIndex).css("background", trapDefColor);
+					}
+				
+				}
+				
+				
+				roomTileIndex=allRooms[currRoomIndex].roomTraps[trapActive].index;
+				$("#roomTile"+roomTileIndex).css("background", butSelColor);
+				
+			}
+		}
+	
+	}
+	
+	if (allRooms[currRoomIndex].roomTraps.length<=trapActive) {
+	
+		$("#roomTile"+roomTileIndex).css("background", tileDefColor);
+		
+		
+	
+	}
+	
+	
+  }
+});
+
 
 function itemSpawn() {
 
@@ -7788,8 +9851,9 @@ function itemGen(spawnTile) {
 	var whichItem=0;
 	var amountRoll=rollDie(5,1);
 	
-	//weapons 10%
-	//armor 10%
+	//weapons 8%
+	//armor 8%
+	//arrows 4%
 	//gold 5%
 	//tools 5%
 	//food 15%
@@ -7815,10 +9879,11 @@ function itemGen(spawnTile) {
 		buc=2;
 	}
 	
-	itemType=5; //weapon test
+	//itemType=5; //weapon test
+	//itemType=rollDie(20,1); //weapon/armor test
 	
 	//weapons 10%
-	if (itemType<=10) {
+	if (itemType<=8) {
 	
 		//enhancement
 		
@@ -8636,8 +10701,9 @@ function itemGen(spawnTile) {
 		
 			//crude spear 40%
 			//sarissa 15%
-			//javelin 15%
+			//javelin 10%
 			//pilum 10%
+			//falarica 5%
 			//elven spear 5%
 			//orcish spear 5%
 			//dwarven spear 5%
@@ -8666,6 +10732,21 @@ function itemGen(spawnTile) {
 				allRooms[currRoomIndex].roomItems.push({
 				
 					itemName: "sarissa",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=60) //falarica
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "falarica",
 					itemSymbol: "[",
 					BUC: buc,
 					enhancement:enhanceRoll ,
@@ -8955,10 +11036,10 @@ function itemGen(spawnTile) {
 		else if (whichItem<=90) {
 		
 			//crude staff 60%
-			//sceptre 10%
-			//oak staff 10%
+			//acolyte's staff 10%
+			//runed staff 10%
 			//quarterstaff 10%
-			//runed staff 6%
+			//magister's staff 6%
 			//puissant staff 4%
 			
 			whichItem=rollDie(100,1);
@@ -8978,11 +11059,11 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=70) //sceptre
+			else if (whichItem<=70) //acolyte
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
-					itemName: "sceptre",
+					itemName: "acolyte",
 					itemSymbol: "[",
 					BUC: buc,
 					enhancement:enhanceRoll ,
@@ -8993,11 +11074,11 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=80) //oak
+			else if (whichItem<=80) //runed
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
-					itemName: "oak staff",
+					itemName: "runed staff",
 					itemSymbol: "[",
 					BUC: buc,
 					enhancement:enhanceRoll ,
@@ -9023,11 +11104,11 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=96) //runed
+			else if (whichItem<=96) //magister
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
-					itemName: "runed staff",
+					itemName: "magister's staff",
 					itemSymbol: "[",
 					BUC: buc,
 					enhancement:enhanceRoll ,
@@ -9059,25 +11140,19 @@ function itemGen(spawnTile) {
 		//bows, 10%
 		else if (whichItem<=100) {
 		
-			//crude bow 20%
-			//bow 10%
-			//elven bow 5%
-			//orcish bow 5%
-			//crossbow 5%
+			//crude bow 35%
+			//bow 15%
+			//elven bow 10%
+			//orcish bow 10%
+			//crossbow 10%
+			//sniper crossbow 10%
+			//avelyn 4%
 			//silver bow 3%
-			//mithril bow 2%
-			
-			//crude arrow 20%
-			//arrow 10%
-			//elven arrow 5%
-			//orcish arrow 5%
-			//crossbow bolt 5%
-			//silver arrow 3%
-			//mithril arrow 2%
+			//mithril bow 3%
 			
 			whichItem=rollDie(100,1);
 		
-			if (whichItem<=20) //crude bow
+			if (whichItem<=35) //crude bow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -9092,7 +11167,7 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=30) //bow
+			else if (whichItem<=50) //bow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -9107,7 +11182,7 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=35) //elven bow
+			else if (whichItem<=60) //elven bow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -9122,7 +11197,7 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=40) //orcish bow
+			else if (whichItem<=70) //orcish bow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -9137,11 +11212,11 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=45) //dwarven bow
+			else if (whichItem<=80) //crossbow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
-					itemName: "dwarven bow",
+					itemName: "crossbow",
 					itemSymbol: "[",
 					BUC: buc,
 					enhancement:enhanceRoll ,
@@ -9152,7 +11227,37 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=48) //silver bow
+			else if (whichItem<=90) //sniper crossbow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "sniper crossbow",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=94) //avelyn
+			{
+				allRooms[currRoomIndex].roomItems.push({
+				
+					itemName: "avelyn",
+					itemSymbol: "[",
+					BUC: buc,
+					enhancement:enhanceRoll ,
+					index: spawnTile,
+					itemExists:true,
+					amount:1,
+				
+				});
+			}
+			
+			else if (whichItem<=97) //silver bow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -9167,7 +11272,7 @@ function itemGen(spawnTile) {
 				});
 			}
 			
-			else if (whichItem<=50) //mithril bow
+			else if (whichItem<=100) //mithril bow
 			{
 				allRooms[currRoomIndex].roomItems.push({
 				
@@ -9181,8 +11286,1167 @@ function itemGen(spawnTile) {
 				
 				});
 			}
+		
+		}
+	
+	} //weapons
+	
+	//armor 8%
+	else if (itemType<=16) {
+	
+		//enhancement
+		
+		if (buc==0)
+		{
+			//uncursed, +2 to -2
+			enhanceRoll=rollDie(3,1);
+			enhanceRoll--;
 			
-			else if (whichItem<=70) //crude arrows
+			tempRoll=rollDie(100,1);
+			
+			//70% chance of no enhance
+			if (tempRoll<=70)
+			{
+				enhanceRoll=0;
+			}
+			
+			//negative enhance, 10%
+			else if (tempRoll<=85)
+			{
+				if (enhanceRoll>0)
+				{
+					let negEnhance=enhanceRoll*2;
+					enhanceRoll-=negEnhance;
+				}
+			}
+		}
+		
+		if (buc==1)
+		{
+			
+			//blessed
+			enhanceRoll=rollDie(3,1);
+			enhanceRoll--;
+			
+		}
+		
+		if (buc==2)
+		{
+			//cursed, give negative enhance
+			enhanceRoll-=rollDie(3,1);
+		}
+		
+		//shirt 5%
+		//body 15%
+		//helm 20%
+		//boots 20%
+		//gloves 20%
+		//shield 15%	
+		//cloak 5%
+		
+		whichItem=rollDie(100,1);
+		
+		//helms
+		if (whichItem<=20) {
+		
+			//leather helm 30%
+			//studded leather helm 15%
+			//pointy hat 15%
+			//elven helm  10%
+			//orcish helm 10%
+			//dwarven helm 10%
+			//great helm 5%
+			//mithril helm 3%
+			//piquant hat 2%
+			
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=30) //leather
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "leather helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=45) //studded leather
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "studded leather helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=60) //pointy hat
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "pointy hat",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=70) //elven helm
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "elven helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=80) //orcish helm
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "orcish helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=90) //dwarven helm
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "dwarven helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=95) //great helm
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "great helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=98) //mithril helm
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril helm",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=100) //piquant hat
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "piquant hat",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+		
+		}
+		
+		//boots
+		else if (whichItem<=40) {	
+		
+			//boots 30%
+			//plate greaves 15%
+			//dash shoes 5%
+			//fumble shoes 15% always cursed
+			//water walking 5%
+			//hover shoes 5%
+			//shoes of speed 5%
+			//shoes of slow 15% always cursed
+			//mithril shoes 5%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=30) //boots
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "boots",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=45) //plate greaves
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "plate greaves",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=60) //fumble
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "fumble shoes",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=65) //water walking
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "water walking shoes",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=80) //slow
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "shoes of slow",
+						itemSymbol: "&",
+						BUC: 2,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=85) //dash
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "dash shoes",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=90) //hover
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "hover shoes",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=95) //speed
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "shoes of speed",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=100) //mithril
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril shoes",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+		
+		}
+		
+		//gloves
+		else if (whichItem<=60) {
+		
+			//leather gloves 30%
+			//studded leather gloves 15%
+			//cestus 10%
+			//gauntlet 10%
+			//mittens 5%
+			//gloves of throwing 5%
+			//gloves of power 5%
+			//gloves of dexterity 5%
+			//gloves of fumbling 15% always cursed
+		
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=30) //leather gloves
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "leather gloves",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=45) //studded leather gloves
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "studded leather gloves",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=55) //cestus
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cestus",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=65) //gauntlet
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "gauntlet",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=70) //mittens
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mittens",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=75) //gloves of throwing
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "gloves of throwing",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=80) //gloves of power
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "gloves of power",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=85) //gloves of dexterity
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "gloves of dexterity",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=100) //fumbling
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "gloves of fumbling",
+						itemSymbol: "&",
+						BUC: 2,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+		
+		}
+		
+		//body
+		else if (whichItem<=75) {
+		
+			//leather armor 30%
+			//studded leather armor 15%
+			//scale armor 10%
+			//chain mail 10%
+			//splint mail 10%
+			//plate armor 5%
+			//elven mail 5%
+			//orcish mail 5%
+			//dwarven mail 5%
+			//mithril coat 3%
+			//crystal plate mail 2%
+		
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=30) //leather
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "leather armor",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=45) //studded leather
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "studded leather armor",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=55) //scale armor
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "scale armor",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=65) //chain mail
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "chain mail",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=75) //splint mail
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "splint mail",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=80) //plate armor
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "plate armor",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=85) //elven mail
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "elven coat",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=90) //orcish mail
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "orcish armor",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=95) //dwarven mail
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "dwarven mail",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=98) //mithril coat
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril coat",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=100) //crystal plate mail
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "crystal plate mail",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			
+			}
+		
+		}
+		
+		//shield
+		else if (whichItem<=90) {
+		
+			//leather shield 30%
+			//round shield 15%
+			//kite shield 10%
+			//great shield 10%
+			//elven shield 10%
+			//orcish shield 10%
+			//dwarven shield 10%
+			//mithril shield 5%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=30) //leather
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "leather shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});	
+			
+			}
+			
+			else if (whichItem<=45) //round
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "round shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});		
+			}
+			
+			else if (whichItem<=55) //kite
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "kite shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});		
+			}
+			
+			else if (whichItem<=65) //great
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "great shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});	
+			}
+			
+			else if (whichItem<=75) //elven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "elven shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});	
+			}
+			
+			else if (whichItem<=85) //orcish
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "orcish shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});		
+			}
+			
+			else if (whichItem<=95) //dwarven
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "dwarven shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});		
+			}
+			
+			else if (whichItem<=100) //mithril
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril shield",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});		
+			}
+		
+		}
+		
+		//shirt
+		else if (whichItem<=95) {
+		
+			//tunic 47%
+			//hawaiian shirt 47%
+			//mithril shirt 3%
+		
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=47) //tunic
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "tunic",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=94) //hawaiian shirt
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "hawaiian shirt",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=100) //mithril shirt
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "mithril shirt",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			
+			}
+		
+		}
+		
+		//cloak
+		else if (whichItem<=100) {
+		
+			//leather cloak 30%
+			//magic resistance 5%
+			//faded 5%
+			//channeling 5%
+			//invisibility 5%
+			//smock 5%
+			//protection 5%
+			//cold immunity 5%
+			//fire immunity 5%
+			//shock immunity 5%
+			//scented 10%
+			//drain immunity 5%
+			//reflection 2%
+			//disintegration resistance 3%
+			//brisk 5%
+			
+			whichItem=rollDie(100,1);
+			
+			if (whichItem<=30) //leather
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "leather cloak",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=35) //drain immunity
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of drain immunity",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=37) //reflection
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of reflection",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=40) //disintegration resistance
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of disintegration resistance",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=45) //brisk
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of brisk",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=55) //scented
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "scented cloak",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=60) //smock
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "smock",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=65) //invisibility
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "invisibility cloak",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=70) //magic resistance
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of magic resistance",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=75) //faded
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "faded cloak",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=80) //channeling
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "channeling robe",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=85) //protection
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of protection",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=90) //fire immunity
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of fire immunity",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=95) //cold immunity
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of cold immunity",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+			
+			else if (whichItem<=100) //shock immunity
+			{
+				allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cloak of shock immunity",
+						itemSymbol: "&",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+					
+				});
+			}
+		
+		}
+	
+	}
+	
+	//arrows 4%
+	else if (itemType<=20) {
+	
+		//crude arrow 30%
+		//arrow 20%
+		//elven arrow 10%
+		//orcish arrow 10%
+		//crossbow bolt 10%
+		//poisoned arrow 10%
+		//silver arrow 6%
+		//mithril arrow 4%
+	
+		whichItem=rollDie(100,1);
+	
+		if (whichItem<=30) //crude arrows
 			{
 				//whichItem=d5(1);
 			
@@ -9200,7 +12464,7 @@ function itemGen(spawnTile) {
 			}
 			
 			
-			else if (whichItem<=80) //arrows
+			else if (whichItem<=50) //arrows
 			{
 				if (amountRoll==1) {
 			
@@ -9235,7 +12499,7 @@ function itemGen(spawnTile) {
 				}
 			}
 			
-			else if (whichItem<=85) //elven arrows
+			else if (whichItem<=60) //elven arrows
 			{
 				if (amountRoll==1) {
 			
@@ -9270,7 +12534,7 @@ function itemGen(spawnTile) {
 				}
 			}
 			
-			else if (whichItem<=90) //orcish arrows
+			else if (whichItem<=70) //orcish arrows
 			{
 				if (amountRoll==1) {
 			
@@ -9305,7 +12569,7 @@ function itemGen(spawnTile) {
 				}
 			}
 			
-			else if (whichItem<=95) //crossbow bolts
+			else if (whichItem<=80) //crossbow bolts
 			{
 				if (amountRoll==1) {
 			
@@ -9340,7 +12604,42 @@ function itemGen(spawnTile) {
 				}
 			}
 			
-			else if (whichItem<=98) //silver arrows
+			else if (whichItem<=90) //poisoned arrows
+			{
+				if (amountRoll==1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "poisoned arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+				
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "poisoned arrows",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
+				
+				}
+			}
+			
+			else if (whichItem<=96) //silver arrows
 			{
 				if (amountRoll==1) {
 			
@@ -9410,120 +12709,2830 @@ function itemGen(spawnTile) {
 				}
 			
 			}
-		
-		}
-	
-	} //weapons
-	
-	//armor 10%
-	else if (itemType<=20) {
-	
-		//enhancement
-		
-		if (buc==0)
-		{
-			//uncursed, +2 to -2
-			enhanceRoll=rollDie(3,1);
-			enhanceRoll--;
-			
-			tempRoll=rollDie(100,1);
-			
-			//70% chance of no enhance
-			if (tempRoll<=70)
-			{
-				enhanceRoll=0;
-			}
-			
-			//negative enhance, 10%
-			else if (tempRoll<=85)
-			{
-				if (enhanceRoll>0)
-				{
-					let negEnhance=enhanceRoll*2;
-					enhanceRoll-=negEnhance;
-				}
-			}
-		}
-		
-		if (buc==1)
-		{
-			
-			//blessed
-			enhanceRoll=rollDie(3,1);
-			enhanceRoll--;
-			
-		}
-		
-		if (buc==2)
-		{
-			//cursed, give negative enhance
-			enhanceRoll-=rollDie(3,1);
-		}
-		
-		whichItem=rollDie(100,1);
 	
 	}
 	
 	//gold 5%
 	else if (itemType<=25) {
 	
+	
+		//to do
+		//fix gold
 		
+		let goldAmount=rollDie(100,1);
+		
+		allRooms[currRoomIndex].roomItems.push({
+					
+			itemName: goldAmount + " gold",
+			itemSymbol: "$",
+			BUC: 0,
+			enhancement:0 ,
+			index: spawnTile,
+			itemExists:true,
+			amount:1,
+			isGold:true,
+					
+		});
 	
 	}
 	
 	//tools 5%
 	else if (itemType<=30) {
 	
+		//chest 25%
+	
+		//bag of tricks 13%
+		//bugle 5%
+		//harp 5%
+		//stehoscope 5%
+		//oil lamp 5%
+		//lock pick 5%
+		//pan 3%
+		//skeleton key 2%
+		//bag 5%
+		//blindfold 5%
+		//bag of holding 2%
+		//crystal ball 5%
+		//tinning kit 5%
+		//tin opener 5%
+		//magic marker 5%
+
+		
 		whichItem=rollDie(100,1);
+		
+		if (whichItem<=25) //chest
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "chest",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=38) //tricks
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "bag of tricks",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=43) //bugle
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "bugle",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=45) //bag of holding
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "bag of holding",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=50) //harp
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "harp",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=55) //stethoscope
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "stethoscope",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=60) //lamp
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "oil lamp",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=65) //lockpick
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "lockpick",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=68) //pan
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "pan",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=70) //skeleton key
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "skeleton",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=75) //bag
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "bag",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=80) //blindfold
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "blindfold",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=85) //palantir
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "crystal ball",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=90) //tinning kit
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "tinning kit",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=95) //tin opener
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "tin opener",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
+		
+		else if (whichItem<=100) //magic marker
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "magic marker",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+					
+			});
+		}
 	
 	}
 	
 	//food 15%
 	else if (itemType<=45) {
 	
+		/*
+		apple  5%
+		orange  5%
+		banana  5%
+		pear  5%
+		candy bar  5%
+		fortune cookie 5% 
+		food ration 5% 
+		pancake  5%
+		melon  5%
+		meatball 5% 
+		egg  5%
+		clove of garlic 5% 
+		lembas wafer  5%
+		pickle  3%
+		piece of texas toast 3%  
+		tin of spinach  3%
+		tin of pickled fish lips 3%  
+		cookie  3%
+		onion  2%
+		chicken finger 2%
+		box combo 2%
+		spicy meatball sub  2%
+		chicken soft taco  2%
+		breakfast burrito 2%  
+		turkey leg  2%
+		pizza slice 2%
+		cheeseburger  2%
+		slab of roast beef 2%
+		*/
+	
+		
 		whichItem=rollDie(100,1);
+		
+		if (whichItem<=5) //apple
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "apple",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=10) //orange
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "orange",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=15) //banana
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "banana",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=20) //pear
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "pear",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=25) //candy bar
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "candy bar",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=30) //fortune cookie
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "fortune cookie",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=35) //food ration
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "food ration",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=40) //pancake
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "pancake",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=45) //melon
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "melon",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=50) //meatball
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "meatball",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=55) //egg
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "deviled egg",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=60) //garlic
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "clove of garlic",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=65) //lembas wafer
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "lembas wafer",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=68) //pickle
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "pickle",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=71) //toast
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "texas toast",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=74) //spinach
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "tin of spinach",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=77) //fish lips
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "tin of pickled fish lips",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=80) //cookie
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cookie",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=82) //onion
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "onion",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=84) //chicken finger
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "chicken finger",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=86) //box combo
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "box combo",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=88) //meatball sub
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "meatball sub",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=90) //taco
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "chicken soft taco",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=92) //burrito
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "breakfast burrito",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=94) //turkey
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "turkey leg",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=96) //pizza
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "pizza slice",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=98) //burger
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "cheeseburger",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
+		
+		else if (whichItem<=100) //beef
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "slab of roast beef",
+						itemSymbol: "%",
+						BUC: buc,
+						enhancement:0 ,
+						index: spawnTile,
+						itemExists:true,
+						amount:1,
+						isFood:true,
+					
+			});
+		}
 	
 	}
 	
 	//scrolls 15%
 	else if (itemType<=60) {
 	
+		/*
+		Blank 10%
+		Identify 10%
+		Light 10%
+		Amnesia 10%
+		Punishment 10%
+		Displacement 5%
+		Enhance Weapon 5%
+		Enhance Armor 5%
+		Remove Curse 5%
+		Mapping 5%
+		Food Detection 5%
+		Paralysis 5%
+		Charging 5%
+		Poison Mist 5%
+		Teleportation 5%
+		*/
+	
 		whichItem=rollDie(100,1);
+	
+		let scrollOf="scroll of ";
+		
+		if (whichItem<=10) //blank
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "blank scroll",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=20) //identify
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "identify",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=30) //light
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "light",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=40) //amnesia
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "amnesia",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=50) //punishment
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "punishment",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=55) //displacement
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "displacement",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=60) //enhance weapon
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "enhance weapon",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=65) //enhance armor
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "enhance armor",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=70) //remove curse
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "remove curse",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=75) //mapping
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "mapping",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=80) //food detection
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "food detection",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=85) //paralysis
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "paralysis",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=90) //charging
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "charging",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=95) //poison mist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "poison mist",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=100) //teleport
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: scrollOf + "teleport",
+				itemSymbol: "?",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
 	
 	}
 	
 	//potions 20%
 	else if (itemType<=80) {
 	
+		/*
+		Panacea 4%
+		Healing 4%
+	 	Full healing 4%
+		Water 4%
+		Old English 4%
+		Cranberry juice 4%
+		See invisible 4%
+		Silence 4%
+		Confusion 4%
+		Restore energy 4%
+		Hallucination 4%
+		Invisibility 4%
+		Blindness 4%
+		ESP 4%
+		Object detection 4%
+		Enlightenment 4%
+		Levitation 4%
+		Brisk 4%
+		Haste 4%
+		Acid 4%
+		Oil 4%
+		Paralysis 4%
+		Gain level 4%
+		Gain ability 4%
+		Poison	4%
+		*/
+		
 		whichItem=rollDie(100,1);
+		
+		let potionOf="potion of ";
+		
+		if (whichItem<=4) //panacea
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "panacea",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=8) //healing
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "healing",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=12) //full healing
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "full healing",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=16) //water
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "water",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=20) //olde english
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "olde english",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=24) //cranberry juice
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "juice",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=28) //see invisible
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "see invisible",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=32) //silence
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "silence",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=36) //confusion
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "confusion",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=40) //restore energy
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "restore energy",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=44) //hallucination
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "hallucination",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=48) //invisibility
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "invisibility",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=52) //blindness
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "blindness",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=56) //esp
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "ESP",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=60) //object
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "object detection",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=64) //enlightenment
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "enlightenment",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=68) //levitation
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "levitation",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=72) //brisk
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "brisk",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=76) //haste
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "haste",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=80) //acid
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "acid",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=84) //oil
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "oil",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=88) //paralysis
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "paralysis",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=92) //gain level
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "gain level",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=96) //gain ability
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "increase attribute",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=100) //poison
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: potionOf + "poison",
+				itemSymbol: "!",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
 	
 	}
 	
 	//spellbooks 4%
 	else if (itemType<=84) {
 	
+		/*
+		Force Bolt 5%
+		Nosferatu 5%
+		Unlock 5%
+		Tick 5%
+		Light 5%
+		Slow 5%
+		Blind 5%
+		Taunt 5%
+		Protection 5%
+		Healing 5%
+		Regeneration 5%
+		Lance 3%
+		Ice Spike 3%
+		Fireball 3%
+		Discharge 3%
+		Sonar 3%
+		Detect Food 3%
+		Identify 3%
+		Sleep 3%
+		Paralyze 3%
+		Restore Ability 3%
+		Amplify 2%
+		Surge 2%
+		Reflect 2%
+		Cancellation 2%
+		Create Monster 2%
+		Mend 2%
+		Remove Curse 2%
+		Convalesce 1%
+		*/
+		
 		whichItem=rollDie(100,1);
+	
+		let spellbookOf="spellbook of ";
+		
+		if (whichItem<=5) //magic missile
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "magic missile",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=10) //nosferatu
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "nosferatu",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=15) //unlock
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "unlock",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=20) //tick
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "tick",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=25) //light
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "light",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=30) //slow
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "slow",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=35) //blind
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "blind",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=40) //taunt
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "taunt",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=45) //protection
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "protection",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=50) //healing
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "healing",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=55) //regen
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "regeneration",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=58) //lance
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "lance",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=61) //ice spike
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "ice spike",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=64) //fireball
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "fireball",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=67) //discharge
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "discharge",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=70) //sonar
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "sonar",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=73) //detect food
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "detect food",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=76) //identify
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "identify",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=79) //sleep
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "sleep",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=82) //paralyze
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "paralyze",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=85) //restore ability
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "restore ability",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=87) //amplify
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "amplify",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=89) //surge
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "surge",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=91) //reflect
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "reflection",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=93) //cancellation
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "cancellation",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=95) //create monster
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "create monster",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=97) //mend
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "mend",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=99) //remove curse
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "remove curse",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=100) //convalesce
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "convalesce",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
 	
 	}
 	
 	//amulets 3%
 	else if (itemType<=87) {
 	
+		/*
+		Change gender 10%
+		ESP	 10%
+		Life saving 10%
+		Reflection 10%
+		Restful sleep 10%
+		Strangulation 10%
+		Water walking 10%
+		Silence 10%
+		Vigor 10%
+		Moxie 10%
+		*/
+
 		whichItem=rollDie(100,1);
+	
+		let amuletOf="amulet of ";
+		
+		if (whichItem<=10) //vigor
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "vigor",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=20) //moxie
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "moxie",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=30) //sleep
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "sleep",
+				itemSymbol: "\"",
+				BUC: 2,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=40) //strangulation
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "strangulation",
+				itemSymbol: "\"",
+				BUC: 2,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=50) //change gender
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "change gender",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=60) //esp
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "ESP",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=70) //life saving
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "life saving",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=80) //reflection
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "reflection",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=90) //water walking
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "water walking",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=100) //silence
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: amuletOf + "silence",
+				itemSymbol: "\"",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
 	
 	}
 	
 	//rings 5%
 	else if (itemType<=92) {
 	
+		/*
+		Hunger 8% always cursed
+		Vulnerability 8% always cursed
+		Enfeeblement 8% always cursed
+		Provocation 8% always cursed
+		Stealth 4%
+		Sustain ability 4%
+		Warning 3%
+		Resistance:
+			Cold 3%
+			Fire 3%
+			Shock 3%
+			Poison 3%
+			Sleep 3%
+			Confusion 3%
+			Paralysis 3%
+		Gain stat:
+			Strength 3%
+			Dexterity 3%
+			Intelligence 3%
+			Wisdom 3%
+			Constitution 3%
+			Protection 3%
+		Increase damage 3%
+		Increase accuracy 3%
+		Invisibility 3%
+		Levitation 3%
+		Searching 3%
+		Slow digestion 3%
+		*/
+	
+		
 		whichItem=rollDie(100,1);
+		
+		let ringOf="ring of ";
+
+		
+		if (whichItem<=8) //hunger
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "hunger",
+				itemSymbol: "=",
+				BUC: 2,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=16) //enfeeblement
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "enfeeblement",
+				itemSymbol: "=",
+				BUC: 2,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=24) //vulnerability
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "vulnerability",
+				itemSymbol: "=",
+				BUC: 2,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=28) //sustain ability
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "sustain ability",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=32) //stealth
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "stealth",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		
+		else if (whichItem<=40) //provocation
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "provocation",
+				itemSymbol: "=",
+				BUC: 2,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=43) //warning
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "warning",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=46) //cold resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "cold resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=49) //fire resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "fire resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=52) //shock resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "shock resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=55) //poison resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "poison resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=58) //sleep resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "sleep resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=61) //confusion resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "confusion resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=64) //Paralysis resist
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "paralysis resist",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=67) //strength
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "strength",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=70) //dexterity
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "dexterity",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=73) //intelligence
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "intelligence",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=76) //wisdom
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "wisdom",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=79) //constitution
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "constitution",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=82) //protection
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "protection",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=85) //damage
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "increase damage",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		
+		
+		else if (whichItem<=88) //increase accuracy
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "accuracy",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=91) //invisibility
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "invisibility",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=94) //levitation
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "levitation",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=97) //searching
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "searching",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=100) //slow digestion
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: ringOf + "slow digestion",
+				itemSymbol: "=",
+				BUC: buc,
+				enhancement:enhanceRoll ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
 	
 	}
 	
 	//wands 8%
 	else if (itemType<=100) {
 	
+		/*
+		Light 10%
+		Unlocking 10%
+		Enlightenment 5%
+		Tick 5%
+		Magic Missile 5%
+		Invisibility 5%
+		Scrutiny 5%
+		Slow 5%
+		Brisk 5%
+		Haste 5%
+		Force Bolt 5%
+		Ice Spike 5%
+		Fireball 5%
+		Lightning 5%
+		Sleep 5%
+		Cancellation 5%
+		Create Monster 5%
+		Death 5%
+		*/	
+		
 		whichItem=rollDie(100,1);
+		
+		let wandOf="wand of ";
+		
+		if (whichItem<=10) //light
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "light",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=20) //unlocking
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "unlocking",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=25) //enlightenment
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "enlightenment",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=30) //tick
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "tick",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=35) //lance
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "lance",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=40) //invisible
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "invisible",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=45) //scrutiny
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "scrutiny",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=50) //slow
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "slow",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=55) //brisk
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "brisk",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=60) //haste
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "haste",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=65) //magic missile
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "magic missile",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=70) //ice spike
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "ice spike",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=75) //fireball
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "fireball",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=80) //discharge
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "discharge",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=85) //sleep
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "sleep",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=90) //cancellation
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "cancellation",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=95) //create monster
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "create monster",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=100) //death
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: wandOf + "death",
+				itemSymbol: "/",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
 	
 	}
 
@@ -9543,7 +15552,14 @@ function updateItem() {
 	
 			if (allRooms[currRoomIndex].roomItems[i].itemExists==true) {
 				$('#roomItemsTabs ul:first li:eq(' + i + ') a').text(allRooms[currRoomIndex].roomItems[i].itemName);
+				
+				//if (allRooms[currRoomIndex].roomItems[i].amount>1) {
+				
+					//$('#roomItemsTabs ul:first li:eq(' + i + ') a').text(allRooms[currRoomIndex].roomItems[i].itemName + "s");
+					
+				//}
 			}
+			
 		
 		}
 		
@@ -9739,6 +15755,15 @@ $( "#roomItemsTabs" ).tabs({
 				//reset previous current tile color
 				$("#roomTile"+roomTileIndex).css("background", tileDefColor);
 				
+				//color if trap
+				if (roomTileIndex>0) {
+	
+					if (allRooms[currRoomIndex].roomTile[roomTileIndex].hasTrap==true) {
+						$("#roomTile"+roomTileIndex).css("background", trapDefColor);
+					}
+				
+				}
+				
 				
 				roomTileIndex=allRooms[currRoomIndex].roomItems[itemActive].index;
 				$("#roomTile"+roomTileIndex).css("background", butSelColor);
@@ -9838,6 +15863,11 @@ $( "#roomStuffTabs" ).tabs({
   collapsible: true
 });
 
+$( "#trapsTabs" ).tabs({
+  collapsible: true
+});
+
+
 $( "#dungeonTabs" ).tabs({
   beforeActivate: function( event, ui ) {
         //var active = $('#tabs').tabs('option', 'active');
@@ -9845,6 +15875,7 @@ $( "#dungeonTabs" ).tabs({
 
 		var tabCmp=ui.newPanel.attr('id'); //for comparing tab id
 
+		//hideVision();
 		
 		if (tabCmp=="dungeonTabs-2") {
 		
@@ -9877,6 +15908,13 @@ $( "#dungeonTabs" ).tabs({
 					
 				}
 				
+				for (i=0;i<allRooms[currRoomIndex].roomTraps.length;i++) {
+					
+					//console.log(allRooms[currRoomIndex].roomItems[i].index);
+					$("#roomTile" + allRooms[currRoomIndex].roomTraps[i].index).html(allRooms[currRoomIndex].roomTraps[i].trapSymbol);
+					
+				}
+				
 				let tempPlayIndex=0;
 				
 				for (i=0;i<playersMax;i++) {
@@ -9891,14 +15929,15 @@ $( "#dungeonTabs" ).tabs({
 					
 				}
 				
-				showVision();
-				
 				//color all room tiles
 				for (i=0;i<allRooms[currRoomIndex].spawnArray.length;i++) {
 				
 					$("#roomTile"+allRooms[currRoomIndex].spawnArray[i]).css("background", tileDefColor);
 					
 				}
+				
+				hideVision();
+				showVision();
 			
 			}
 			
@@ -9935,7 +15974,7 @@ function roomGen() {
 	var southEx=currFloorSym.includes("↓");
 	var westEx=currFloorSym.includes("←");
 	
-	//quick fix
+	//quick fix for des room...
 	if (isDes==true) {
 	
 		northEx=true;
@@ -9976,8 +16015,8 @@ function roomGen() {
 	
 		
 	
-		aCoor=rollDie(3,1,10);
-		bCoor=rollDie(3,1,10);
+		aCoor=rollDie(5,1,10);
+		bCoor=rollDie(5,1,10);
 		tempRange=aCoor-4;
 		exitCoor=rollDie(tempRange, 1,3);
 		
@@ -15444,6 +21483,7 @@ var whoIsActive=0;
 var lockActive=0;
 var monstActive=0;
 var itemActive=0;
+var trapActive=0;
 var playersMax=9;
 var profCount=17; //18
 var currProf=-1; //0-17
@@ -15514,6 +21554,8 @@ var butDefColor="lightgray";
 var butSelColor='#6ad18c';
 var tileDefColor="#8ac8ff";
 var visionColor="#fcf95f";
+var infraColor="orange";
+var trapDefColor="red";
 
 var monMax=12; //max mons per room?
 var itemMax=7; //max items per room?
@@ -15559,7 +21601,7 @@ function initMonster() {
 
 	currMonsters.push ({
 			
-				monsterName: "",
+				monstName: "",
 				
 				monsterExists:false,
 				
@@ -15700,9 +21742,13 @@ function initAllRooms() {
 		
 			hasItem:false,
 			hasMonster:false,
+			hasTrap:false,
 			symbol:"█",
 			//tileItemArr:tempTileItemArr,
 			itemSymbol:"",
+			trapSymbol:"",
+			trapName:"",
+			trapSeen:false,
 			hasBeing:false,
 		
 		});
@@ -15715,6 +21761,8 @@ function initAllRooms() {
 	var tempItemArray=[];
 	
 	var tempSpawnArray=[];
+	
+	var tempTrapArray=[];
 	
 	/*for (j=0;j<monMax;j++) {
 	
@@ -15744,6 +21792,8 @@ function initAllRooms() {
 			
 			floorSymbol: "█",
 			
+			roomTraps:tempTrapArray,
+			
 			roomWidth:0,
 			roomHeight:0,
 			
@@ -15772,9 +21822,12 @@ function initAllRooms() {
 			
 				hasItem:false,
 				hasMonster:false,
+				hasTrap:false,
 				symbol:"",
 				//tileItemArr:tempTileItemArr,
 				itemSymbol:"",
+				trapSymbol:"",
+				trapSeen:false,
 				hasBeing:false,
 			
 			});
@@ -15785,6 +21838,8 @@ function initAllRooms() {
 		tempMonArray=[];
 		
 		tempItemArray=[];
+		
+		tempTrapArray=[];
 		
 		/*for (j=0;j<monMax;j++) {
 		
@@ -17330,6 +23385,17 @@ function turnInc() {
 	} //monsters
 	
 	updateMonst;
+	
+	
+	for (i=0;i<allRooms[currRoomIndex].roomItems.length;i++) {
+	
+		if (allRooms[currRoomIndex].roomItems[i].corpseTurns>=0) {
+		
+			allRooms[currRoomIndex].roomItems[i].corpseTurns++;
+		}
+	}
+	
+	updateItem();
 }
 
 function initStats() {
@@ -17828,6 +23894,7 @@ function createCharacterStats () {
 		allPlayers[lockActive].intelligence-=1;
 		allPlayers[lockActive].dexterity-=1;
 		allPlayers[lockActive].playerPassives.petrifyResist==true; //petrify resist
+		allPlayers[lockActive].playerPassives.infravision==true; //infravision
 		allPlayers[lockActive].luck=2;
 		allPlayers[lockActive].vision=1;
 	
