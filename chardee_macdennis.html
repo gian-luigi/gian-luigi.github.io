@@ -550,13 +550,14 @@ $( "#clearForm" ).click(function( event ) {
 		<li><a href="#playerTabs-9">Player 9</a></li>
 	</ul>
 	<h3 id="playerTitle">Player 1</h3>
-	<div>
 		<p>
 			<button id="initClass" class="ui-button ui-corner-all ui-widget">
 			<span class="ui-icon ui-icon-newwin"></span>Initialize Class/Race
 			</button>
 		</p>
-	<p><button id="makeLeaderBut">Make Leader</button></p>
+		<p><button id="makeLeaderBut">Make Leader</button></p>
+		<p><button id="copyPlayerBut">Copy Stats</button></p>
+	
 <fieldset>
 	<legend>Attributes 'n stuff:</legend>
 	<div id="controlgroup">
@@ -597,6 +598,7 @@ $( "#clearForm" ).click(function( event ) {
 			<li><a href="#playerMiscTabs-1">Inventory</a></li>
 			<li><a href="#playerMiscTabs-2">Passives</a></li>
 			<li><a href="#playerMiscTabs-3">Proficiencies</a></li>
+			<li><a href="#playerMiscTabs-4">Objectives</a></li>
 		  </ul>
 		  <div id="playerMiscTabs-1">
 		  
@@ -860,6 +862,18 @@ $( "#clearForm" ).click(function( event ) {
 			
 			
 		  </div>
+		  
+		  <div id="playerMiscTabs-4">
+				
+			1.<div id="obj1"></div><br>
+			2.<div id="obj2"></div><br>
+			3.<div id="obj3"></div><br>
+			4.<div id="obj4"></div><br>
+			4.<div id="obj4"></div><br>
+			
+		  </div>
+		  
+		  
 		</div>
 	</div>
 </fieldset></div>
@@ -3380,6 +3394,7 @@ function updatePlayer(){
 	var armorACInt;
 	var otherACInt;
 	var tempStat;
+	var tempAlign;
 	
 	//if (allPlayers[whoIsActive].hasTitle==false) {
 		//let tempName=buildPlayerName();
@@ -3387,7 +3402,17 @@ function updatePlayer(){
 	//}
 	
 	
+	if (allPlayers[whoIsActive].alignment==1) {
+		
+		tempAlign=" Lawful ";
 	
+	}
+		
+	if (allPlayers[whoIsActive].alignment==2) {
+	
+		tempAlign=" Chaotic ";
+	
+	}
 		
 	
 	if (allPlayers[whoIsActive].hasName!=true && allPlayers[whoIsActive].hasTitle==true) {
@@ -3399,13 +3424,15 @@ function updatePlayer(){
 		//$('#playerTitle').html("asdf");
 		//$('#playerTitle').html("<h2>Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
 		
-		tempStyle="Player " + tempInt + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
+		
+		
+		tempStyle="Player " + tempInt + ", the " + tempAlign + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
 	}
 	
 	else if (allPlayers[whoIsActive].hasTitle==true && allPlayers[whoIsActive].hasName==true){
 	
 		//$('#playerTitle').html("<h2>" + allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass + "</h2>");
-		tempStyle=allPlayers[whoIsActive].playerName + ", the " + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
+		tempStyle=allPlayers[whoIsActive].playerName + ", the " + tempAlign + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
 	}
 	
 	else if (allPlayers[whoIsActive].hasName==true && allPlayers[whoIsActive].hasTitle!=true) {
@@ -21148,7 +21175,7 @@ function demoVisibility() {
 }
 </script>
 
-<!-- ui-dialog -->
+<!-- choose class dialog -->
 <div id="classDialog" title="Choose Class">
 	<p>
 	<button id="chooseHighBut" class="ui-button ui-corner-all ui-widget">
@@ -21211,6 +21238,8 @@ function demoVisibility() {
 	</button>
 	</p>
 </div>
+
+
 <style>
 
 </style>
@@ -21239,6 +21268,14 @@ function demoVisibility() {
 			<span class="ui-icon ui-icon-newwin"></span>Teleri
 	</button>
 	</p>
+</div>
+
+<!-- copy stats dialog -->
+<div id="copyDialog">
+
+	<p id="copyStuff">
+	</p>
+
 </div>
 
 <h2 class="demoHeaders">Framework Icons (content color preview)</h2>
@@ -22103,6 +22140,7 @@ function initPlayers() {
 		playerName:" ",
 		playerNameRace:" ",
 		playerNameClass:" ",
+		alignment:0, //1 for lawful, 2 for chaotic
 		hasTitle: false,
 		hasName:false, //bool
 		hasClass:false, //bool
@@ -22418,6 +22456,25 @@ $( "#classDialog" ).dialog({
 	]
 });
 
+$( "#copyDialog" ).dialog({
+	autoOpen: false,
+	width: 400,
+	buttons: [
+		/*{
+			text: "asdf",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		},*/
+		{
+			text: "Cancel",
+			click: function() {
+				$( this ).dialog( "close" );
+			}
+		}
+	]
+});
+
 $(document).on('click','.ui-dialog-titlebar-close',function(){
 
     //reinitialize stats when dialog x button clicked
@@ -22473,6 +22530,70 @@ $( "#raceDialog" ).dialog({
 			}
 		}
 	]
+});
+
+$( "#copyPlayerBut" ).click(function( event ) {
+
+	var tempCopy;
+	var tempAlign;
+	
+	if (allPlayers[whoIsActive].playerExists==true) {
+	
+		if (allPlayers[whoIsActive].alignment==1) {
+			
+			tempAlign=" Lawful ";
+		
+		}
+			
+		if (allPlayers[whoIsActive].alignment==2) {
+		
+			tempAlign=" Chaotic ";
+		
+		}
+		
+		tempCopy=allPlayers[whoIsActive].playerName + ", the " + tempAlign + allPlayers[whoIsActive].playerNameRace + " " + allPlayers[whoIsActive].playerNameClass;
+
+		tempCopy+="<br><br>";
+		
+		tempCopy+="Level: " + allPlayers[whoIsActive].playerLevel;
+		tempCopy+="<br><br>";
+		
+		tempCopy+="HP: " + allPlayers[whoIsActive].hpCurr + " / " + allPlayers[whoIsActive].hpMax;
+		tempCopy+="<br>";
+		tempCopy+="Energy: " + allPlayers[whoIsActive].energyCurr + " / " + allPlayers[whoIsActive].energyMax;
+		
+		tempCopy+="<br><br>";
+		
+		tempCopy+="Strength: " + allPlayers[whoIsActive].strength;
+		
+		tempCopy+="<br>";
+		
+		tempCopy+="Dexterity: " + allPlayers[whoIsActive].dexterity;
+		
+		tempCopy+="<br>";
+		
+		tempCopy+="Intelligence: " + allPlayers[whoIsActive].intelligence;
+		
+		tempCopy+="<br>";
+		
+		tempCopy+="Wisdom: " + allPlayers[whoIsActive].wisdom;
+		
+		tempCopy+="<br>";
+		
+		tempCopy+="Constitution: " + allPlayers[whoIsActive].constitution;
+		
+		tempCopy+="<br><br>";
+		
+		tempCopy+="AC: " + allPlayers[whoIsActive].totalAC;
+		//armorACInt=allPlayers[whoIsActive].armorAC;
+		tempCopy+=" (+" + allPlayers[whoIsActive].armorAC +" from armor, +" + allPlayers[whoIsActive].otherAC + " other)";
+		
+		$("#copyStuff").html(tempCopy);
+
+		$( "#copyDialog" ).dialog( "open" );
+		event.preventDefault();
+	
+	} //player exists
 });
 
 // Link to open the dialog
@@ -24063,7 +24184,27 @@ function createCharacterStats () {
 	//clears spinner entries
 	$("div.playerStatsGrid").find("input[type=\"spinner\"]").spinner("value", '');
 	
+	
+	//set alignment
+	
+	let alignRoll=0;
+	
+	alignRoll=rollDie(2,1);
+	
+	if (alignRoll==1) {
+	
+		allPlayers[lockActive].alignment = 1;
+	}
+	
+	if (alignRoll==2) {
+	
+		allPlayers[lockActive].alignment = 2;
+	}
+	
 
+	//set objectives
+	
+	
 }
 
 function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
