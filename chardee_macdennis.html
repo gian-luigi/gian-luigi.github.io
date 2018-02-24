@@ -557,7 +557,7 @@ $( "#clearForm" ).click(function( event ) {
 		</p>
 		<p><button id="makeLeaderBut">Make Leader</button></p>
 		<p><button id="copyPlayerBut">Copy Stats</button></p>
-	
+<div>
 <fieldset>
 	<legend>Attributes 'n stuff:</legend>
 	<div id="controlgroup">
@@ -865,11 +865,10 @@ $( "#clearForm" ).click(function( event ) {
 		  
 		  <div id="playerMiscTabs-4">
 				
-			1.<div id="obj1"></div><br>
-			2.<div id="obj2"></div><br>
-			3.<div id="obj3"></div><br>
-			4.<div id="obj4"></div><br>
-			4.<div id="obj4"></div><br>
+			<div id="obj1">1.</div><br>
+			<div id="obj2">2.</div><br>
+			<div id="obj3">3.</div><br>
+			<div id="obj4">4.</div><br>
 			
 		  </div>
 		  
@@ -3615,6 +3614,37 @@ function updatePlayer(){
 		}
 		
 		
+		//update objectives
+		
+		let tempObj1="1. " + allPlayers[whoIsActive].obj1.goal;
+		let tempObj2="2. " + allPlayers[whoIsActive].obj2.goal;
+		let tempObj3="3. " + allPlayers[whoIsActive].obj3.goal;
+		let tempObj4="4. " + allPlayers[whoIsActive].obj4.goal;
+		
+		if (allPlayers[whoIsActive].obj1!="") {
+		
+			$( "#obj1" ).html(tempObj1);
+			
+		}
+		
+		if (allPlayers[whoIsActive].obj2!="") {
+		
+			$( "#obj2" ).html(tempObj2);
+			
+		}
+		
+		if (allPlayers[whoIsActive].obj3!="") {
+		
+			$( "#obj3" ).html(tempObj3);
+			
+		}
+		
+		if (allPlayers[whoIsActive].obj4!="") {
+		
+			$( "#obj4" ).html(tempObj4);
+			
+		}
+		
 		//update profs
 		
 		if (allPlayers[whoIsActive].playerProfs.daggerLev==0) {
@@ -4272,18 +4302,57 @@ $("#player1NameEntry").keyup(function(event) {
 		if (allPlayers[i].playerExists==true) {
 	
 			allPlayers[i].isLeader=false;
+			allPlayers[i].obj4="";
 		
 		}
 	}
 
-	if (allPlayers[whoIsActive].playerExists==true) {
+	if (allPlayers[lockActive].playerExists==true) {
 	
-		allPlayers[whoIsActive].isLeader=true;
+		var objLength;
+		var objRoll;
+
+		allPlayers[lockActive].isLeader=true;
+		
+		objLength=leaderObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		allPlayers[lockActive].obj4=Object.assign({}, leaderObjectives[objRoll]);
 	}	
+	
+	makeLeaderObjective();
 	
 	updatePlayer();
 
 });
+
+function makeLeaderObjective() {
+
+	var floorLevel;
+	var goalRoll=0; //for floor/level
+	var goalRollAm=0; //amount
+	var goalFloorLevel=rollDie(2,1,2);
+	
+	
+	goalRoll=rollDie(2,1);
+	
+	if (goalRoll==1) {
+	
+		floorLevel=" the party reaches floor " + goalFloorLevel;
+	}
+	
+	if (goalRoll==2) {
+	
+		floorLevel=" your character is level " + goalFloorLevel;
+	}
+	
+	
+	
+	allPlayers[lockActive].obj4.goal+=floorLevel;
+
+}
 
 
 /*$(document).ready(function changePlayerButtonText() {
@@ -22132,6 +22201,8 @@ var allPlayers = [];
 initPlayers();
 
 function initPlayers() {
+
+	var tempInv=[];
 		
 	for (i=0;i<playersMax;i++){
 			
@@ -22141,6 +22212,11 @@ function initPlayers() {
 		playerNameRace:" ",
 		playerNameClass:" ",
 		alignment:0, //1 for lawful, 2 for chaotic
+		inventory:tempInv,
+		obj1:"",
+		obj2:"",
+		obj3:"",
+		obj4:"",
 		hasTitle: false,
 		hasName:false, //bool
 		hasClass:false, //bool
@@ -22373,10 +22449,801 @@ function initPlayers() {
 		
 		index:-1,
 		});
-	}	
+	} //for	
+	
+	tempInv=[];
 		
 }
 
+var lawfulObjectives = [];
+initLawObj();
+
+function initLawObj() {
+	
+	lawfulObjectives.push ({
+	
+		goal:"Do not kill an enemy before",
+		id:1,
+		progress:0,
+	
+	});
+	
+	
+	lawfulObjectives.push ({
+	
+		goal:"Remove a curse from an item before",
+		id:2,
+		progress:0,
+	});
+	
+	lawfulObjectives.push ({
+	
+		goal:"Bless an item before",
+		id:3,
+		progress:0,
+	});
+	
+	lawfulObjectives.push ({
+	
+		goal:"Do not eat a corpse before",
+		id:4,
+		progress:0,
+	});
+	
+	lawfulObjectives.push ({
+	
+		goal:"Rescue a player stuck in a trap before",
+		id:5,
+		progress:0,
+	});
+	
+	lawfulObjectives.push ({
+	
+		goal:"Disarm a trap before",
+		id:6,
+		progress:0,
+	});
+	
+	lawfulObjectives.push ({
+	
+		goal:"Give food to a hungry player before",
+		id:7,
+		progress:0,
+	});
+	
+	
+	lawfulObjectives.push ({
+	
+		goal:"Have a problem on yourself cured by prayer before",
+		id:9,
+		progress:0,
+	});
+	
+	lawfulObjectives.push ({
+	
+		goal:"Do not equip a cursed item before",
+		id:27,
+		progress:0,
+	});
+	
+
+}
+
+var chaoticObjectives = [];
+initChaosObj();
+
+function initChaosObj() {
+
+	chaoticObjectives.push ({
+	
+		goal:"Shove every other party member at least once before",
+		id:10,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Party successfully kills a shopkeeper before",
+		id:11,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"No vote must be unanimous until",
+		id:12,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Successfully vote to leave room/hall while another player is less than 1/2 HP (rounded down) before",
+		id:13,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Successfully vote to leave room/hall while you have less than 1/2 HP (rounded down) before",
+		id:14,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Successfully guess another's objective/alignment before",
+		id:15,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Do not pray before",
+		id:16,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Eat only corpses until",
+		id:17,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Do not share food with another player until",
+		id:18,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Do not become burdened (or worse) before",
+		id:19,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Do not become burdened (or worse) before",
+		id:20,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Be burdened for a total of 21_AMOUNT turns (cumulative) before",
+		id:21,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Do not remove a curse from an item before",
+		id:22,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Have a cursed piece of equipment equipped for a total of 23_AMOUNT turns (cumulative) before",
+		id:23,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Have another player guess your alignment incorrectly before",
+		id:24,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Defeat an enemy with your bare hands before",
+		id:25,
+		progress:0,
+	});
+	
+	chaoticObjectives.push ({
+	
+		goal:"Equip a cursed item before",
+		id:26,
+		progress:0,
+	});
+
+}
+
+var neutralObjectives = [];
+initNeutObj();
+
+function initNeutObj() {
+
+	neutralObjectives.push ({
+	
+		goal:"Your alignment is successfully guessed before",
+		id:8,
+		progress:0,
+	});
+
+	neutralObjectives.push ({
+	
+		goal:"Do not quaff a potion until",
+		id:28,
+		progress:0,
+	});
+
+	neutralObjectives.push ({
+	
+		goal:"Quaff 29_AMOUNT potions before",
+		id:29,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Do not read a scroll before",
+		id:30,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Read 31_AMOUNT scrolls before",
+		id:31,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Do not use any tools before",
+		id:32,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Do not equip any jewelry before",
+		id:33,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"No swearing (real life) until",
+		id:34,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"For a total of 35_AMOUNT turns (cumulative), other players must not be within radius 1 of self until",
+		id:35,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"For a total of 36_AMOUNT turns (cumulative), you must be within radius 1 of at least one other player until",
+		id:36,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Do not kill more than 37_AMOUNT enemies until",
+		id:37,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Shove 38_AMOUNT enemies before",
+		id:38,
+		progress:0,
+	});
+	
+}
+
+var leaderObjectives = [];
+initLeadObj();
+
+function initLeadObj() {
+
+	leaderObjectives.push ({
+	
+		goal:"Don't use tiebreak vote until",
+		id:39,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Use tiebreak vote before",
+		id:40,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Don’t use veto power until",
+		id:41,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Use veto power before",
+		id:42,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Be the only one to pick up gold before",
+		id:43,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Do not pick up any gold before",
+		id:44,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Do not eat before",
+		id:45,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Do not equip any piece of equipment other than those from your starting inventory until",
+		id:46,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"If descending stairs are seen, they must be taken immediately (cannot explore/revisit any room/hall) until",
+		id:47,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"The first door seen in all rooms (other than the entrance door) must be the one taken until",
+		id:48,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Do not spend gold at a shop until",
+		id:49,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"Do not be on the losing side of any vote before",
+		id:50,
+		progress:0,
+	});
+	
+	leaderObjectives.push ({
+	
+		goal:"No vote must last more than 10 seconds until",
+		id:51,
+		progress:0,
+	});
+
+}
+
+var highObjectives = [];
+initHighObj();
+
+function initHighObj() {
+
+	highObjectives.push ({
+	
+		goal:"Take 52_AMOUNT damage before",
+		//25 per level
+		id:52,
+		progress:0,
+	});
+	
+	highObjectives.push ({
+	
+		goal:"Become Apprentice with Axes before",
+		id:53,
+		progress:0,
+	});
+	
+	highObjectives.push ({
+	
+		goal:"Become Apprentice with Swords before",
+		id:54,
+		progress:0,
+	});
+	
+	highObjectives.push ({
+	
+		goal:"Become Apprentice with Bludgeons before",
+		id:55,
+		progress:0,
+	});
+	
+	highObjectives.push ({
+	
+		goal:"Kill 56_AMOUNT of monsters with 56_SKILL before",
+		id:56,
+		progress:0,
+	});
+	
+	highObjectives.push ({
+	
+		goal:"Don't use Transpose to cast a skill/spell before",
+		//3 per level
+		id:57,
+		progress:0,
+	});
+	
+	
+}
+
+var wizObjectives = [];
+initWizObj();
+
+function initWizObj() {
+
+	wizObjectives.push ({
+	
+		goal:"Deal 58_AMOUNT damage with spells before",
+		//25 per level
+		id:58,
+		progress:0,
+	});
+	
+	wizObjectives.push ({
+	
+		goal:"Do not zap a wand until",
+		id:59,
+		progress:0,
+	});
+	
+	wizObjectives.push ({
+	
+		goal:"Become Apprentice in Attack before",
+		id:60,
+		progress:0,
+	});
+	
+	wizObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:61,
+		progress:0,
+	});
+	
+	wizObjectives.push ({
+	
+		goal:"Retain more than half of max MP until",
+		id:62,
+		progress:0,
+	});
+	
+}
+
+var rapObjectives = [];
+initRapObj();
+
+function initRapObj() {
+
+	rapObjectives.push ({
+	
+		goal:"Reveal 63_AMOUNT hidden objects/beings before",
+		//2 per level
+		id:63,
+		progress:0,
+	});
+	
+	rapObjectives.push ({
+	
+		goal:"Pick up 64_AMOUNT items before",
+		//5 per level
+		id:64,
+		progress:0,
+	});
+	
+	rapObjectives.push ({
+	
+		goal:"Become Apprentice in Enchantment before",
+		id:65,
+		progress:0,
+	});
+	
+	rapObjectives.push ({
+	
+		goal:"Become Apprentice with Daggers before",
+		id:66,
+		progress:0,
+	});
+	
+	rapObjectives.push ({
+	
+		goal:"Become Apprentice in Mobility before",
+		id:67,
+		progress:0,
+	});
+
+	rapObjectives.push ({
+	
+		goal:"Throw 68_AMOUNT projectiles before",
+		id:68,
+		progress:0,
+	});
+	
+	rapObjectives.push ({
+	
+		goal:"Do not throw a projectile until",
+		id:69,
+		progress:0,
+	});
+	
+	rapObjectives.push ({
+	
+		goal:"Nullify damage with Nimble before",
+		id:70,
+		progress:0,
+	});
+	
+}
+
+var healObjectives = [];
+initHealObj();
+
+function initHealObj() {
+
+	healObjectives.push ({
+	
+		goal:"Heal a player with 1 HP before",
+		id:71,
+		progress:0,
+	});
+	
+	healObjectives.push ({
+	
+		goal:"Heal 72_AMOUNT total HP before",
+		//20 per level
+		id:72,
+		progress:0,
+	});
+	
+	healObjectives.push ({
+	
+		goal:"Do not get hit with magic (including friendly spells, but can still cast spells on self) until",
+		id:73,
+		progress:0,
+	});
+	
+	healObjectives.push ({
+	
+		goal:"Do not take damage until",
+		id:74,
+		progress:0,
+	});
+	
+	healObjectives.push ({
+	
+		goal:"Do not kill an enemy until",
+		id:75,
+		progress:0,
+	});
+	
+	healObjectives.push ({
+	
+		goal:"Kill a monster before",
+		id:76,
+		progress:0,
+	});
+	
+	healObjectives.push ({
+	
+		goal:"Prevent any player from falling below 1/4 HP (rounded down) before",
+		id:77,
+		progress:0,
+	});
+	
+}
+
+var monkObjectives = [];
+initMonkObj();
+
+function initMonkObj() {
+
+	monkObjectives.push ({
+	
+		goal:"Do not become Hungry before",
+		id:78,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Do not become Satiated before",
+		id:79,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Become Apprentice in Clerical before",
+		id:80,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:81,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Become Apprentice in Martial Arts before",
+		id:82,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Remove an ailment from self with Moksha Delve before",
+		id:83,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Paralyze 84_AMOUNT enemies with melee attacks before",
+		//2 per level
+		id:84,
+		progress:0,
+	});
+	
+	monkObjectives.push ({
+	
+		goal:"Nullify 85_AMOUNT attacks from enemies before",
+		//2 per level
+		id:85,
+		progress:0,
+	});
+	
+
+}
+
+
+var snipObjectives = [];
+initSnipObj();
+
+function initSnipObj() {
+
+	snipObjectives.push ({
+	
+		goal:"Reveal 86_AMOUNT hidden objects/beings before",
+		//2 per level
+		id:86,
+		progress:0,
+	});
+	
+	snipObjectives.push ({
+	
+		goal:"Inflict Blind on 87_AMOUNT enemies before",
+		//2 per level
+		id:87,
+		progress:0,
+	});
+	
+	snipObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:88,
+		progress:0,
+	});
+	
+	snipObjectives.push ({
+	
+		goal:"Become Apprentice in Enchantment before",
+		id:89,
+		progress:0,
+	});
+	
+	snipObjectives.push ({
+	
+		goal:"Become Apprentice in Augments before",
+		id:90,
+		progress:0,
+	});
+	
+	snipObjectives.push ({
+	
+		goal:"Become Apprentice with Bows before",
+		id:91,
+		progress:0,
+	});
+	
+	snipObjectives.push ({
+	
+		goal:"Identify 92_AMOUNT rotten food items before",
+		//2 per level
+		id:92,
+		progress:0,
+	});
+	
+}
+
+var myrmObjectives = [];
+initMyrmObj();
+
+function initMyrmObj() {
+
+	myrmObjectives.push ({
+	
+		goal:"Avoid 93_AMOUNT attacks before",
+		//4 per level
+		id:93,
+		progress:0,
+	});
+
+	myrmObjectives.push ({
+	
+		goal:"Deal 94_AMOUNT damage before",
+		//25 per level
+		id:94,
+		progress:0,
+	});
+	
+	myrmObjectives.push ({
+	
+		goal:"Identify a cursed weapon before",
+		id:95,
+		progress:0,
+	});
+	
+	myrmObjectives.push ({
+	
+		goal:"Get hit with an arrow before",
+		id:96,
+		progress:0,
+	});
+	
+	myrmObjectives.push ({
+	
+		goal:"Become Apprentice with Swords before",
+		id:97,
+		progress:0,
+	});
+	
+	myrmObjectives.push ({
+	
+		goal:"Become Apprentice with Spears before",
+		id:98,
+		progress:0,
+	});
+	
+	myrmObjectives.push ({
+	
+		goal:"Become Apprentice in Augments before",
+		id:99,
+		progress:0,
+	});
+	
+}
 
 $( "#accordion" ).accordion();
 
@@ -23640,7 +24507,7 @@ function createCharacterStats () {
 		//passives
 		
 		allPlayers[lockActive].playerPassives.poisonResist=true;	
-		allPlayers[lockActive].playerPassives.breathless=true;	
+		allPlayers[lockActive].playerPassives.breathless=true;
 	
 	}
 	
@@ -23716,7 +24583,7 @@ function createCharacterStats () {
 		allPlayers[lockActive].playClass=3;
 		allPlayers[lockActive].playerNameClass="Rapscallion";
 	
-		allPlayers[lockActive].hunger=200;	
+		allPlayers[lockActive].hunger=150;	
 		allPlayers[lockActive].armorAC=3;
 		allPlayers[lockActive].playerPassives.protection=0;
 		
@@ -24191,11 +25058,13 @@ function createCharacterStats () {
 	
 	alignRoll=rollDie(2,1);
 	
+	//lawful
 	if (alignRoll==1) {
 	
 		allPlayers[lockActive].alignment = 1;
 	}
 	
+	//chaotic
 	if (alignRoll==2) {
 	
 		allPlayers[lockActive].alignment = 2;
@@ -24204,7 +25073,230 @@ function createCharacterStats () {
 
 	//set objectives
 	
+	var usedObj=[];
+	var objLength;
+	var objRoll;
 	
+	//Objective #1: alignment objective; strictly lawful/chaotic
+	
+	if (allPlayers[lockActive].alignment==1) {
+		
+		objLength=lawfulObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		allPlayers[lockActive].obj1=Object.assign({}, lawfulObjectives[objRoll]);
+		//allPlayers[lockActive].obj1=lawfulObjectives[objRoll];
+		
+		
+		usedObj.push(allPlayers[lockActive].obj1.id);
+	
+	}
+	
+	if (allPlayers[lockActive].alignment==2) {
+		
+		objLength=chaoticObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		
+		allPlayers[lockActive].obj1=Object.assign({}, chaoticObjectives[objRoll]);
+		//allPlayers[lockActive].obj1=chaoticObjectives[objRoll];
+		
+		
+		usedObj.push(allPlayers[lockActive].obj1.id);
+	
+	}
+	
+	//Objective #2: class-based or neutral alignment objectives
+	
+	let obj2Roll=rollDie(2,1);
+	
+	//class
+	if (obj2Roll==1) {
+	
+		//highlander
+		if (allPlayers[lockActive].playClass==0) {
+		
+			objLength=highObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, highObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=highObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+		
+		//wizard
+		if (allPlayers[lockActive].playClass==1) {
+		
+			objLength=wizObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, wizObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=wizObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+		
+		//healer
+		if (allPlayers[lockActive].playClass==2) {
+		
+			objLength=healObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, healObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=healObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+		
+		//rapscallion
+		if (allPlayers[lockActive].playClass==3) {
+		
+			objLength=rapObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, rapObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=rapObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+		
+		//monk
+		if (allPlayers[lockActive].playClass==4) {
+		
+			objLength=monkObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, monkObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=monkObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+		
+		//sniper
+		if (allPlayers[lockActive].playClass==5) {
+		
+			objLength=snipObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, snipObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=snipObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+		
+		//myrmidon
+		if (allPlayers[lockActive].playClass==6) {
+		
+			objLength=myrmObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, myrmObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=myrmObjectives[objRoll];
+			
+			
+			usedObj.push(allPlayers[lockActive].obj2.id);
+		
+		}
+	
+	}
+	
+	//neutral
+	if (obj2Roll==2) {
+	
+		objLength=neutralObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		allPlayers[lockActive].obj2=Object.assign({}, neutralObjectives[objRoll]);
+		//allPlayers[lockActive].obj2=neutralObjectives[objRoll];
+		
+		
+		usedObj.push(allPlayers[lockActive].obj2.id);
+	
+	}
+	
+	//Objective #3: any non-leader objective 
+	
+	
+	makeObjective();
+	
+}
+
+function makeObjective() {
+
+	
+	var floorLevel;
+	var goalRoll=0; //for floor/level
+	var goalRollAm=0; //amount
+	var goalFloorLevel=rollDie(2,1,2);
+	
+	
+	//objective 1
+	
+	goalRoll=rollDie(2,1);
+
+	
+	if (goalRoll==1) {
+	
+		floorLevel=" the party reaches floor " + goalFloorLevel;
+	}
+	
+	if (goalRoll==2) {
+	
+		floorLevel=" your character is level " + goalFloorLevel;
+	}
+	
+	allPlayers[lockActive].obj1.goal+=floorLevel;
+	
+	//objective 2
+	
+	goalRoll=rollDie(2,1);
+	
+	
+	if (goalRoll==1) {
+	
+		floorLevel=" the party reaches floor " + goalFloorLevel;
+	}
+	
+	if (goalRoll==2) {
+	
+		floorLevel=" your character is level " + goalFloorLevel;
+	}
+	
+	allPlayers[lockActive].obj2.goal+=floorLevel;
+
 }
 
 function bumpFloor (floorArrIndex, directionFrom, aArrLoc, bDesLoc) {
