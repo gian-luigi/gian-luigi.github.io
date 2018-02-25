@@ -864,7 +864,8 @@ $( "#clearForm" ).click(function( event ) {
 		  </div>
 		  
 		  <div id="playerMiscTabs-4">
-				
+			<button id="rerollObj">Reroll Objectives</button><br><br>
+			
 			<div id="obj1">1.</div><br>
 			<div id="obj2">2.</div><br>
 			<div id="obj3">3.</div><br>
@@ -898,6 +899,7 @@ $( "#clearForm" ).click(function( event ) {
 	console.log(itemInd);
 
 });*/
+
 
 $("div.removeItem").click(function( event ) {
 
@@ -1468,6 +1470,24 @@ $("div.playerStatsGrid").find("input").keyup(function(event) {
 				
 				allPlayers[whoIsActive].hpCurr+=enterVal;
 				
+				//when over max
+				if (allPlayers[whoIsActive].hpCurr>=allPlayers[whoIsActive].hpMax) {
+				
+					allPlayers[whoIsActive].hpCurr=allPlayers[whoIsActive].hpMax;
+					allPlayers[whoIsActive].newHpClock=true;
+					
+				}
+				
+				if (allPlayers[whoIsActive].newHpClock==true) {
+				
+					if (allPlayers[whoIsActive].hpCurr<allPlayers[whoIsActive].hpMax) {
+					
+						allPlayers[whoIsActive].hpClock=turn;
+						allPlayers[whoIsActive].newHpClock=false;	
+						
+					}
+				}
+				
 			}
 			
 			//max
@@ -1477,14 +1497,36 @@ $("div.playerStatsGrid").find("input").keyup(function(event) {
 				
 				allPlayers[whoIsActive].hpMax+=enterVal;
 				
+				if (allPlayers[whoIsActive].hpCurr>allPlayers[whoIsActive].hpMax) //when maxed
+				{
+					allPlayers[whoIsActive].hpCurr=allPlayers[whoIsActive].hpMax;
+					allPlayers[whoIsActive].newHpClock=true;
+				}
+				
 			}
 			
 			//current
 			if (tempStr2=="energy" && currMax==0) {
 
 				
-				
 				allPlayers[whoIsActive].energyCurr+=enterVal;
+				
+				//when over max
+				if (allPlayers[whoIsActive].energyCurr>=allPlayers[whoIsActive].energyMax) {
+				
+					allPlayers[whoIsActive].energyCurr=allPlayers[whoIsActive].energyMax;
+					allPlayers[whoIsActive].newEnergyClock=true;
+					
+				}
+				
+				if (allPlayers[whoIsActive].newEnergyClock==true) {
+				
+					if (allPlayers[whoIsActive].energyCurr<allPlayers[whoIsActive].energyMax) {
+							allPlayers[whoIsActive].energyClock=turn;
+							allPlayers[whoIsActive].newEnergyClock=false;	
+							
+						}
+				}
 				
 			}
 			
@@ -1494,6 +1536,12 @@ $("div.playerStatsGrid").find("input").keyup(function(event) {
 				
 				
 				allPlayers[whoIsActive].energyMax+=enterVal;
+				
+				if (allPlayers[whoIsActive].energyCurr>allPlayers[whoIsActive].energyMax) //when maxed
+				{
+					allPlayers[whoIsActive].energyCurr=allPlayers[whoIsActive].energyMax;
+					allPlayers[whoIsActive].newEnergyClock=true;
+				}
 				
 			}
 			
@@ -7351,7 +7399,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7391,7 +7440,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7431,7 +7481,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7470,7 +7521,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7506,11 +7558,13 @@ function showVision() {
 					}
 				}
 				
+				//corners
 				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7545,7 +7599,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7580,7 +7635,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7615,7 +7671,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7647,7 +7704,7 @@ function showVision() {
 					}
 				}
 			
-			} //non elf
+			} //non elf/dwarf
 			
 			//dwarf
 			if (allPlayers[i].race==1) {
@@ -7655,7 +7712,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && whoIsActive!=i)
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7691,7 +7749,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7740,7 +7799,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7788,7 +7848,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7834,7 +7895,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -7878,10 +7940,14 @@ function showVision() {
 					$("#roomTile"+tempIndex).css("background", infraColor);
 				}
 				
+				
+				//corners
+				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7916,7 +7982,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -7951,7 +8018,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				
@@ -7987,7 +8055,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8063,7 +8132,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -8104,10 +8174,9 @@ function showVision() {
 				
 				if (tempIndex>0) {
 			
-					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+					//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
+					if (tempTile!="@" && wallNorth!=true)
 					$("#roomTile"+tempIndex).css("background", visionColor);
-					
-				
 				
 					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
 					
@@ -8144,7 +8213,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -8179,10 +8249,11 @@ function showVision() {
 					}
 				}
 				
+				//2 east
 				tempIndex=allPlayers[i].index+2;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
+				if (tempTile!="@" && wallEast!=true)
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8218,7 +8289,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -8253,10 +8325,11 @@ function showVision() {
 					}
 				}
 				
+				//two west
 				tempIndex=allPlayers[i].index-2;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
+				if (tempTile!="@" && wallWest!=true)
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8288,10 +8361,12 @@ function showVision() {
 					}
 				}
 				
+				//one south
 				tempIndex=allPlayers[i].index+roomMaxLength;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -8333,7 +8408,7 @@ function showVision() {
 			
 				if (tempIndex<roomMaxLength*roomMaxLength) {
 				
-					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
+					if (tempTile!="@" && wallSouth!=true)
 					$("#roomTile"+tempIndex).css("background", visionColor);
 					
 					
@@ -8368,10 +8443,13 @@ function showVision() {
 				
 				} //in bounds
 				
+				//corners
+				
 				tempIndex=allPlayers[i].index-roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8406,7 +8484,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index-roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8441,7 +8520,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength-1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8476,7 +8556,8 @@ function showVision() {
 				tempIndex=allPlayers[i].index+roomMaxLength+1;
 				tempTile=$("#roomTile"+tempIndex).html();
 			
-				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				//if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
+				if (tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", visionColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true && allRooms[currRoomIndex].roomTile[tempIndex].trapSeen!=true) {
@@ -8689,7 +8770,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@"  && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
@@ -8714,7 +8795,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
@@ -8742,7 +8823,7 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallWest=true;
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8768,7 +8849,7 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@")
 				wallSouth=true;
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8792,7 +8873,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="+" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8813,7 +8894,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8834,7 +8915,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8855,7 +8936,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap!=true))
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8892,7 +8973,7 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallNorth=true;
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8916,7 +8997,7 @@ function hideVision() {
 					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallNorth!=true)
 					$("#roomTile"+tempIndex).css("background", tileDefColor);
 					
-					if (tempTile=="+")
+					if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 					$("#roomTile"+tempIndex).css("background", butDefColor);
 					
 					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8940,7 +9021,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
@@ -8965,7 +9046,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallEast!=true)
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -8990,7 +9071,7 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallWest=true;
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9013,7 +9094,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallWest!=true)
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9039,7 +9120,7 @@ function hideVision() {
 				if (tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│" || tempTile=="+" || tempTile=="@" || (tempIndex%roomMaxLength==0 || tempIndex%roomMaxLength==15))
 				wallSouth=true;
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9064,7 +9145,7 @@ function hideVision() {
 					if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@" && wallSouth!=true)
 					$("#roomTile"+tempIndex).css("background", tileDefColor);
 					
-					if (tempTile=="+")
+					if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 					$("#roomTile"+tempIndex).css("background", butDefColor);
 					
 					if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9089,7 +9170,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9112,7 +9193,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9133,7 +9214,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 				
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9154,7 +9235,7 @@ function hideVision() {
 				if (tempTile!="┐" && tempTile!="└" && tempTile!="┘" && tempTile!="┌" && tempTile!="─" && tempTile!="│" && tempTile!="@")
 				$("#roomTile"+tempIndex).css("background", tileDefColor);
 			
-				if (tempTile=="+")
+				if (tempTile=="+" || tempTile=="┐" || tempTile=="└" || tempTile=="┘" || tempTile=="┌" || tempTile=="─" || tempTile=="│")
 				$("#roomTile"+tempIndex).css("background", butDefColor);
 				
 				if (allRooms[currRoomIndex].roomTile[tempIndex].hasTrap==true ) {
@@ -9335,7 +9416,7 @@ function trapSpawn() {
 	if (trapProb<8) {
 	
 		console.log("spawning traps");
-		trapAmount=rollDie(5,1);
+		trapAmount=rollDie(4,1,3);
 		
 		for (i=0;i<trapAmount;i++) {
 		
@@ -12542,21 +12623,39 @@ function itemGen(spawnTile) {
 	
 		whichItem=rollDie(100,1);
 	
-		if (whichItem<=30) //crude arrows
+			if (whichItem<=30) //crude arrows
 			{
-				//whichItem=d5(1);
+				if (amountRoll==1) {
 			
-				//sprintf(tempAmount, "%d", whichItem);
-				//strcat(amount, tempAmount);
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "crude arrow",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
 				
-				if (tempAmount==1)
-				strcat(amount, "crude arrow");
+				}
 				
-				else
-				strcat(amount, "crude arrows");
+				else if (amountRoll>1) {
+			
+					allRooms[currRoomIndex].roomItems.push({
+					
+						itemName: "crude arrows",
+						itemSymbol: "[",
+						BUC: buc,
+						enhancement:enhanceRoll ,
+						index: spawnTile,
+						itemExists:true,
+						amount:amountRoll,
+					
+					});
 				
-				sprintf(allItems[itemIndex].itemLabel, amount);
-				sprintf(allItems[itemIndex].itemSymbol, "[");
+				}
 			}
 			
 			
@@ -12582,7 +12681,7 @@ function itemGen(spawnTile) {
 			
 					allRooms[currRoomIndex].roomItems.push({
 					
-						itemName: "arrow",
+						itemName: "arrows",
 						itemSymbol: "[",
 						BUC: buc,
 						enhancement:enhanceRoll ,
@@ -22205,10 +22304,13 @@ function initPlayers() {
 	var tempInv=[];
 		
 	for (i=0;i<playersMax;i++){
+		
+		let tempPlayInd=i;
+		tempPlayInd++;
 			
 		allPlayers.push({
 		
-		playerName:" ",
+		playerName:"Player "+tempPlayInd,
 		playerNameRace:" ",
 		playerNameClass:" ",
 		alignment:0, //1 for lawful, 2 for chaotic
@@ -22632,16 +22734,10 @@ function initChaosObj() {
 		progress:0,
 	});
 	
-	chaoticObjectives.push ({
-	
-		goal:"Have another player guess your alignment incorrectly before",
-		id:24,
-		progress:0,
-	});
 	
 	chaoticObjectives.push ({
 	
-		goal:"Defeat an enemy with your bare hands before",
+		goal:"Kill an enemy with your bare hands before",
 		id:25,
 		progress:0,
 	});
@@ -22662,8 +22758,15 @@ function initNeutObj() {
 
 	neutralObjectives.push ({
 	
-		goal:"Your alignment is successfully guessed before",
+		goal:"Have another player correctly guess your alignment before",
 		id:8,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Have another player incorrectly guess your alignment before",
+		id:24,
 		progress:0,
 	});
 
@@ -22733,6 +22836,7 @@ function initNeutObj() {
 	neutralObjectives.push ({
 	
 		goal:"Do not kill more than 37_AMOUNT enemies until",
+		//5 per level
 		id:37,
 		progress:0,
 	});
@@ -22740,6 +22844,7 @@ function initNeutObj() {
 	neutralObjectives.push ({
 	
 		goal:"Shove 38_AMOUNT enemies before",
+		//7 per level
 		id:38,
 		progress:0,
 	});
@@ -22880,7 +22985,8 @@ function initHighObj() {
 	
 	highObjectives.push ({
 	
-		goal:"Kill 56_AMOUNT of monsters with 56_SKILL before",
+		goal:"Kill 56_AMOUNT monsters with 56_SKILL before",
+		//4 per level
 		id:56,
 		progress:0,
 	});
@@ -22888,7 +22994,6 @@ function initHighObj() {
 	highObjectives.push ({
 	
 		goal:"Don't use Transpose to cast a skill/spell before",
-		//3 per level
 		id:57,
 		progress:0,
 	});
@@ -22918,7 +23023,7 @@ function initWizObj() {
 	
 	wizObjectives.push ({
 	
-		goal:"Become Apprentice in Attack before",
+		goal:"Become Apprentice with Attack Spells before",
 		id:60,
 		progress:0,
 	});
@@ -23040,14 +23145,14 @@ function initHealObj() {
 	
 	healObjectives.push ({
 	
-		goal:"Do not kill an enemy until",
+		goal:"Do not deal damage until",
 		id:75,
 		progress:0,
 	});
 	
 	healObjectives.push ({
 	
-		goal:"Kill a monster before",
+		goal:"Kill an enemy before",
 		id:76,
 		progress:0,
 	});
@@ -23111,7 +23216,7 @@ function initMonkObj() {
 	monkObjectives.push ({
 	
 		goal:"Paralyze 84_AMOUNT enemies with melee attacks before",
-		//2 per level
+		//3 per level
 		id:84,
 		progress:0,
 	});
@@ -23119,7 +23224,7 @@ function initMonkObj() {
 	monkObjectives.push ({
 	
 		goal:"Nullify 85_AMOUNT attacks from enemies before",
-		//2 per level
+		//3 per level
 		id:85,
 		progress:0,
 	});
@@ -23144,7 +23249,7 @@ function initSnipObj() {
 	snipObjectives.push ({
 	
 		goal:"Inflict Blind on 87_AMOUNT enemies before",
-		//2 per level
+		//5 per level
 		id:87,
 		progress:0,
 	});
@@ -23195,7 +23300,7 @@ function initMyrmObj() {
 	myrmObjectives.push ({
 	
 		goal:"Avoid 93_AMOUNT attacks before",
-		//4 per level
+		//5 per level
 		id:93,
 		progress:0,
 	});
@@ -23243,6 +23348,856 @@ function initMyrmObj() {
 		progress:0,
 	});
 	
+}
+
+var sabObjectives = [];
+initSabObj();
+
+function initSabObj() {
+
+	sabObjectives.push ({
+	
+		goal:"Inflict ailments on 100_AMOUNT enemies before",
+		//5 per level
+		id:100,
+		progress:0,
+	});
+	
+	sabObjectives.push ({
+	
+		goal:"Kill 101_AMOUNT enemies inflicted with ailments before",
+		//4 per level
+		id:101,
+		progress:0,
+	});
+	
+	
+	sabObjectives.push ({
+	
+		goal:"Become Apprentice in Enchantment before",
+		id:102,
+		progress:0,
+	});
+	
+	sabObjectives.push ({
+	
+		goal:"Become Apprentice in Divination before",
+		id:103,
+		progress:0,
+	});
+	
+	sabObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:104,
+		progress:0,
+	});
+	
+	sabObjectives.push ({
+	
+		goal:"Become Apprentice with Polearms before",
+		id:105,
+		progress:0,
+	});
+
+}
+
+var occObjectives = [];
+initOccObj();
+
+function initOccObj() {
+
+	occObjectives.push ({
+	
+		goal:"Reanimate 106_AMOUNT beings before",
+		//4 per level
+		id:106,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Drain 107_AMOUNT HP from beings before",
+		//20 per level
+		id:107,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Kill 108_AMOUNT enemies while morphed before",
+		//5 per level
+		id:108,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Eat 109_AMOUNT corpses while morphed before",
+		//3 per level
+		id:109,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Retain more than 1/4 max energy until",
+		id:110,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Don't use Transpose to cast a skill/spell before",
+		id:111,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Become Apprentice with Attack spells before",
+		id:125,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:126,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Become Apprentice in Augments before",
+		id:127,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Kill 128_AMOUNT enemies with Nosferatu before",
+		//4 per level
+		id:128,
+		progress:0,
+	});
+	
+	occObjectives.push ({
+	
+		goal:"Kill 129_AMOUNT enemies with a reanimated corpse before",
+		//4 per level
+		id:129,
+		progress:0,
+	});
+
+}
+
+var basObjectives = [];
+initBasObj();
+
+function initBasObj() {
+
+	basObjectives.push ({
+	
+		goal:"Heal 112_AMOUNT HP before",
+		//25 per level
+		id:112,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Recover 113_AMOUNT energy on other players before",
+		//25 per level
+		id:113,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Paralyze 114_AMOUNT beings before",
+		//5 per level
+		id:114,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Deal 115_AMOUNT damage before",
+		//20 per level
+		id:115,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Do not attack a being before",
+		id:116,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Kill an enemy before",
+		id:117,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Become Apprentice in Healing before",
+		id:121,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Become Apprentice in Clerical before",
+		id:122,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:123,
+		progress:0,
+	});
+	
+	basObjectives.push ({
+	
+		goal:"Take 124_AMOUNT damage before",
+		id:124,
+		progress:0,
+	});
+
+}
+
+var triObjectives = [];
+initTriObj();
+
+function initTriObj() {
+
+	triObjectives.push ({
+	
+		goal:"Kill an enemy at least 5 tiles away before",
+		id:118,
+		progress:0,
+	});
+	
+	triObjectives.push ({
+	
+		goal:"Kill an enemy with Palisade before",
+		id:118,
+		progress:0,
+	});
+	
+	triObjectives.push ({
+	
+		goal:"Take 119_AMOUNT damage before",
+		//25 per level
+		id:119,
+		progress:0,
+	});
+	
+	triObjectives.push ({
+	
+		goal:"Have +13 total AC (even temporarily) before",
+		id:120,
+		progress:0,
+	});
+	
+	triObjectives.push ({
+	
+		goal:"Become Apprentice with Spears before",
+		id:130,
+		progress:0,
+	});
+	
+	triObjectives.push ({
+	
+		goal:"Become Apprentice with Matter before",
+		id:131,
+		progress:0,
+	});
+	
+	triObjectives.push ({
+	
+		goal:"Become Apprentice with Augments before",
+		id:132,
+		progress:0,
+	});
+
+}
+
+var symObjectives = [];
+initSymObj();
+
+function initSymObj() {
+
+	symObjectives.push ({
+	
+		goal:"Recover 133_AMOUNT energy on self before",
+		//30 per level
+		id:133,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Identify 134_AMOUNT rotten food items before",
+		//2 per level
+		id:134,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Recover 135_AMOUNT energy on other players before",
+		//2 per level
+		id:135,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Kill an enemy at least 5 tiles away before",
+		id:135,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Become Apprentice in Augments before",
+		id:136,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Become Apprentice in Matter before",
+		id:137,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Become Apprentice in Divination before",
+		id:138,
+		progress:0,
+	});
+	
+	symObjectives.push ({
+	
+		goal:"Become Apprentice in Mobility before",
+		id:139,
+		progress:0,
+	});
+}
+
+$("#rerollObj").click(function( event ) {
+
+	rerollObj();
+
+	
+	objConflicts();
+	
+	makeObjective();
+	
+	updatePlayer();
+});
+
+function rerollObj() {
+
+	allPlayers[whoIsActive].obj1="";
+	allPlayers[whoIsActive].obj2="";
+	allPlayers[whoIsActive].obj3="";
+	allPlayers[whoIsActive].obj4="";
+	
+	var objLength;
+	var objRoll;
+	
+	//Objective #1: alignment objective; strictly lawful/chaotic
+	
+	if (allPlayers[lockActive].alignment==1) {
+		
+		objLength=lawfulObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		allPlayers[lockActive].obj1=Object.assign({}, lawfulObjectives[objRoll]);
+		//allPlayers[lockActive].obj1=lawfulObjectives[objRoll];
+
+	
+	}
+	
+	if (allPlayers[lockActive].alignment==2) {
+		
+		objLength=chaoticObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		
+		allPlayers[lockActive].obj1=Object.assign({}, chaoticObjectives[objRoll]);
+		
+		//test
+		//allPlayers[lockActive].obj1=Object.assign({}, chaoticObjectives[11]);
+		
+	
+	}
+	
+	//Objective #2: class-based or neutral alignment objectives
+	
+	let obj2Roll=rollDie(2,1);
+	
+	//class
+	if (obj2Roll==1) {
+	
+		//highlander
+		if (allPlayers[lockActive].playClass==0) {
+		
+			objLength=highObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, highObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=highObjectives[objRoll];
+			
+		
+		}
+		
+		//wizard
+		if (allPlayers[lockActive].playClass==1) {
+		
+			objLength=wizObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, wizObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=wizObjectives[objRoll];
+			
+		
+		}
+		
+		//healer
+		if (allPlayers[lockActive].playClass==2) {
+		
+			objLength=healObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, healObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=healObjectives[objRoll];
+
+		
+		}
+		
+		//rapscallion
+		if (allPlayers[lockActive].playClass==3) {
+		
+			objLength=rapObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, rapObjectives[objRoll]);
+		}
+		
+		//monk
+		if (allPlayers[lockActive].playClass==4) {
+		
+			objLength=monkObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, monkObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=monkObjectives[objRoll];
+		
+		}
+		
+		//sniper
+		if (allPlayers[lockActive].playClass==5) {
+		
+			objLength=snipObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, snipObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=snipObjectives[objRoll];
+		
+		}
+		
+		//myrmidon
+		if (allPlayers[lockActive].playClass==6) {
+		
+			objLength=myrmObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, myrmObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=myrmObjectives[objRoll];
+		
+		}
+		
+		//saboteur
+		if (allPlayers[lockActive].playClass==7) {
+		
+			objLength=sabObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, sabObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=sabObjectives[objRoll];
+		
+		}
+		
+		//occultist
+		if (allPlayers[lockActive].playClass==8) {
+		
+			objLength=occObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, occObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=occObjectives[objRoll];
+		
+		}
+		
+		//basilica
+		if (allPlayers[lockActive].playClass==9) {
+		
+			objLength=basObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, basObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=basObjectives[objRoll];
+		
+		}
+		
+		//triarius
+		if (allPlayers[lockActive].playClass==10) {
+		
+			objLength=triObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, triObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=triObjectives[objRoll];
+		
+		}
+		
+		//symposiarch
+		if (allPlayers[lockActive].playClass==11) {
+		
+			objLength=symObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj2=Object.assign({}, symObjectives[objRoll]);
+			//allPlayers[lockActive].obj2=symObjectives[objRoll];
+		
+		}
+	
+	}
+	
+	//neutral
+	if (obj2Roll==2) {
+	
+		objLength=neutralObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		allPlayers[lockActive].obj2=Object.assign({}, neutralObjectives[objRoll]);
+		//allPlayers[lockActive].obj2=neutralObjectives[objRoll];
+	
+	}
+	
+	//Objective #3: any non-leader objective 
+	
+	let obj3Roll=rollDie(3,1);
+	
+	//alignment
+	if (obj3Roll==1) {
+	
+		if (allPlayers[lockActive].alignment==1) {
+			
+			objLength=lawfulObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, lawfulObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=lawfulObjectives[objRoll];
+		
+		}
+		
+		if (allPlayers[lockActive].alignment==2) {
+			
+			objLength=chaoticObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			
+			allPlayers[lockActive].obj3=Object.assign({}, chaoticObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=chaoticObjectives[objRoll];
+		
+		}
+	
+	}
+	
+	//neutral
+	if (obj3Roll==2) {
+	
+		objLength=neutralObjectives.length;
+		objLength--;
+		
+		objRoll=rollDie0(objLength, 1);
+		
+		allPlayers[lockActive].obj3=Object.assign({}, neutralObjectives[objRoll]);
+		//allPlayers[lockActive].obj3=neutralObjectives[objRoll];
+	
+	}
+	
+	//class
+	if (obj3Roll==3) {
+	
+		//highlander
+		if (allPlayers[lockActive].playClass==0) {
+		
+			objLength=highObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, highObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=highObjectives[objRoll];
+		
+		}
+		
+		//wizard
+		if (allPlayers[lockActive].playClass==1) {
+		
+			objLength=wizObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, wizObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=wizObjectives[objRoll];
+		
+		}
+		
+		//healer
+		if (allPlayers[lockActive].playClass==2) {
+		
+			objLength=healObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, healObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=healObjectives[objRoll];
+		
+		}
+		
+		//rapscallion
+		if (allPlayers[lockActive].playClass==3) {
+		
+			objLength=rapObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, rapObjectives[objRoll]);
+		}
+		
+		//monk
+		if (allPlayers[lockActive].playClass==4) {
+		
+			objLength=monkObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, monkObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=monkObjectives[objRoll];
+		
+		}
+		
+		//sniper
+		if (allPlayers[lockActive].playClass==5) {
+		
+			objLength=snipObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, snipObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=snipObjectives[objRoll];
+		
+		}
+		
+		//myrmidon
+		if (allPlayers[lockActive].playClass==6) {
+		
+			objLength=myrmObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, myrmObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=myrmObjectives[objRoll];
+		
+		}
+		
+		//saboteur
+		if (allPlayers[lockActive].playClass==7) {
+		
+			objLength=sabObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, sabObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=sabObjectives[objRoll];
+		
+		}
+		
+		//occultist
+		if (allPlayers[lockActive].playClass==8) {
+		
+			objLength=occObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, occObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=occObjectives[objRoll];
+		
+		}
+		
+		//basilica
+		if (allPlayers[lockActive].playClass==9) {
+		
+			objLength=basObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, basObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=basObjectives[objRoll];
+		
+		}
+		
+		//triarius
+		if (allPlayers[lockActive].playClass==10) {
+		
+			objLength=triObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, triObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=triObjectives[objRoll];
+		
+		}
+		
+		//symposiarch
+		if (allPlayers[lockActive].playClass==11) {
+		
+			objLength=symObjectives.length;
+			objLength--;
+			
+			objRoll=rollDie0(objLength, 1);
+			
+			allPlayers[lockActive].obj3=Object.assign({}, symObjectives[objRoll]);
+			//allPlayers[lockActive].obj3=symObjectives[objRoll];
+		
+		}
+	
+	}
+}
+
+function objConflicts(usedObj) {
+
+	var usedObj=[];
+	
+	usedObj.push(allPlayers[lockActive].obj1.id);
+	usedObj.push(allPlayers[lockActive].obj2.id);
+	usedObj.push(allPlayers[lockActive].obj3.id);
+	
+	if(((new Set(usedObj)).size !== usedObj.length)==true) {
+	
+		console.log("dupe");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(68) && usedObj.includes(69)) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(75) && usedObj.includes(76)) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(1) && ((usedObj.includes(56)) ||(usedObj.includes(76)) || (usedObj.includes(117)))) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(28) && usedObj.includes(29)) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(30) && usedObj.includes(31)) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(35) && usedObj.includes(36)) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+	
+	if(usedObj.includes(8) && usedObj.includes(24)) {
+	
+		console.log("conflict");
+	
+		rerollObj();
+	}
+
 }
 
 $( "#accordion" ).accordion();
@@ -24110,7 +25065,7 @@ window.onkeyup = function(e) {
 		
 			turn++;
 			
-			turnInc();
+			notifs=turnInc(notifs);
 			
 			tempStyle+=turn;
 			
@@ -24181,7 +25136,7 @@ window.onkeyup = function(e) {
    } //key iz z
 }
 
-function turnInc() {
+function turnInc(notifs) {
 
 	var tempStyle;
 
@@ -24355,7 +25310,267 @@ function turnInc() {
 			
 				allPlayers[i].actions=0;
 			}
+			
+			
+			//hp regen
+			
+			//console.log(i);
+	
+				if (allPlayers[i].hpCurr<allPlayers[i].hpMax)
+				{
+					if (allPlayers[i].playClass>0)
+					{
+						if (turn==(allPlayers[i].hpClock+10)){
+						allPlayers[i].hpCurr+=2;
+						notifs+=allPlayers[i].playerName+" has healed 2 HP\n";
+						//console.log(notifs);
+						if (allPlayers[i].hpCurr>allPlayers[i].hpMax) //if maxed
+						{
+							allPlayers[i].hpCurr=allPlayers[i].hpMax;
+							allPlayers[i].newHpClock=true;
+						}
+						allPlayers[i].hpClock=turn;
+						}
+					}
 
+					if (allPlayers[i].playClass==0)
+					{
+						let gainHpRoll=rollDie(2,1,3);
+					
+						if (turn==(allPlayers[i].hpClock+10)){
+						allPlayers[i].hpCurr+=gainHpRoll;
+						notifs+=allPlayers[i].playerName+" has healed " + gainHpRoll + " HP\n";
+						//console.log(notifs);
+							if (allPlayers[i].hpCurr>allPlayers[i].hpMax) //if maxed
+							{
+								allPlayers[i].hpCurr=allPlayers[i].hpMax;
+								allPlayers[i].newHpClock=true;
+							}
+						allPlayers[i].hpClock=turn;
+						}
+					}
+					
+					if (allPlayers[i].playerPassives.regen==true)
+					{
+						allPlayers[i].hpCurr++;
+						notifs+=allPlayers[i].playerName+" has healed 1 HP from Regeneration\n";
+						if (allPlayers[i].hpCurr>allPlayers[i].hpMax) //if maxed
+						{
+							allPlayers[i].hpCurr=allPlayers[i].hpMax;
+							allPlayers[i].newHpClock=true;
+						}
+					}
+					
+				}
+
+
+			
+			
+			//energy regen
+
+
+				let energyGain=0;
+	
+				if (allPlayers[i].energyCurr<allPlayers[i].energyMax)
+				{
+					if (allPlayers[i].playerPassives.energyRegen==true) //confluence
+					{
+						allPlayers[i].energyCurr++;
+						notifs+=allPlayers[i].playerName+" has recovered 1 Energy from Confluence\n";
+						if (allPlayers[i].energyCurr>=allPlayers[i].energyMax) //when maxed
+						{
+							allPlayers[i].energyCurr=allPlayers[i].energyMax;
+							allPlayers[i].newEnergyClock=true;
+						}
+					}
+					
+					if (allPlayers[i].playClass!=1 && allPlayers[i].playClass!=10) //non wizard, non triarius, non healer
+					{
+						if (turn==(allPlayers[i].energyClock+5))
+						{
+							if (allPlayers[i].wisdom>11 && allPlayers[i].wisdom<16) //12-15
+							{
+								energyGain+=1;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+			
+							if (allPlayers[i].wisdom>15 && allPlayers[i].wisdom<19) //16-18
+							{
+								energyGain+=2;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+			
+							if (allPlayers[i].wisdom>18 && allPlayers[i].wisdom<21) //19-20
+							{
+								energyGain+=3;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+
+							if (allPlayers[i].wisdom>20) //21+
+							{
+								energyGain+=4;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+							
+							energyGain+=2;
+
+							if (allPlayers[i].playClass==2) //healer
+							energyGain+=2
+							
+							allPlayers[i].energyCurr+=energyGain;
+							
+							notifs+=allPlayers[i].playerName+" has recovered " + energyGain + " energy\n";
+							if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+							{
+								allPlayers[i].energyCurr=allPlayers[i].energyMax;
+								allPlayers[i].newEnergyClock=true;
+							}
+							allPlayers[i].energyClock=turn;
+						}
+					}
+
+					if (allPlayers[i].playClass==1) //wizard
+					{
+						if (turn==(allPlayers[i].energyClock+3))
+						{
+							if (allPlayers[i].wisdom>11 && allPlayers[i].wisdom<16) //12-15
+							{
+								energyGain+=1;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+			
+							if (allPlayers[i].wisdom>15 && allPlayers[i].wisdom<19) //16-18
+							{
+								energyGain+=2;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+			
+							if (allPlayers[i].wisdom>18 && allPlayers[i].wisdom<21) //19-20
+							{
+								energyGain+=3;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+
+							if (allPlayers[i].wisdom>20) //21+
+							{
+								energyGain+=4;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+
+							energyGain+=2;
+							allPlayers[i].energyCurr+=energyGain;
+							notifs+=allPlayers[i].playerName+" has recovered " + energyGain + " energy\n";
+							if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+							{
+								allPlayers[i].energyCurr=allPlayers[i].energyMax;
+								allPlayers[i].newEnergyClock=true;
+							}
+							allPlayers[i].energyClock=turn;
+						}
+					}
+
+					if (allPlayers[i].playClass==10) //triarus
+					{
+						if (turn==(allPlayers[i].energyClock+7))
+						{
+							if (allPlayers[i].wisdom>11 && allPlayers[i].wisdom<16) //12-15
+							{
+								energyGain+=1;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+			
+							if (allPlayers[i].wisdom>15 && allPlayers[i].wisdom<19) //16-18
+							{
+								energyGain+=2;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+			
+							if (allPlayers[i].wisdom>18 && allPlayers[i].wisdom<21) //19-20
+							{
+								energyGain+=3;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+
+							if (allPlayers[i].wisdom>20) //21+
+							{
+								energyGain+=4;
+								if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+								{
+									allPlayers[i].energyCurr=allPlayers[i].energyMax;
+									allPlayers[i].newEnergyClock=true;
+								}
+								allPlayers[i].energyClock=turn;
+							}
+
+							energyGain+=2;
+							allPlayers[i].energyCurr+=energyGain;
+							notifs+=allPlayers[i].playerName+" has recovered " + energyGain + " energy\n";
+							if (allPlayers[i].energyCurr>allPlayers[i].energyMax) //when maxed
+							{
+								allPlayers[i].energyCurr=allPlayers[i].energyMax;
+								allPlayers[i].newEnergyClock=true;
+							}
+							allPlayers[i].energyClock=turn;
+						}
+					}
+									
+				}
+			
 			
 		} //exists
 	
@@ -24381,9 +25596,16 @@ function turnInc() {
 		
 			allRooms[currRoomIndex].roomItems[i].corpseTurns++;
 		}
+		
+		if (allRooms[currRoomIndex].roomItems[i].corpseTurns>=12) {
+		
+			notifs+=allRooms[currRoomIndex].roomItems[i].itemName +" has gone rotten";
+		}
 	}
 	
 	updateItem();
+	
+	return notifs;
 }
 
 function initStats() {
@@ -24748,6 +25970,11 @@ function createCharacterStats () {
 		//passives
 		allPlayers[lockActive].playerPassives.drainResist=true;
 		allPlayers[lockActive].playerPassives.warning=true;	
+		
+		//bonus starting energy
+		
+		allPlayers[lockActive].energyCurr+=7;
+		allPlayers[lockActive].energyMax+=7;
 	
 	}
 	
@@ -24786,7 +26013,7 @@ function createCharacterStats () {
 	else if (classChoice==10) {
 	
 		allPlayers[lockActive].playClass=10;
-		allPlayers[lockActive].playerNameClass="Tririus";
+		allPlayers[lockActive].playerNameClass="Triarius";
 	
 		allPlayers[lockActive].hunger=200;	
 		allPlayers[lockActive].armorAC=7;
@@ -25058,6 +26285,9 @@ function createCharacterStats () {
 	
 	alignRoll=rollDie(2,1);
 	
+	//test
+	//alignRoll=2;
+	
 	//lawful
 	if (alignRoll==1) {
 	
@@ -25073,182 +26303,9 @@ function createCharacterStats () {
 
 	//set objectives
 	
-	var usedObj=[];
-	var objLength;
-	var objRoll;
+	rerollObj();
 	
-	//Objective #1: alignment objective; strictly lawful/chaotic
-	
-	if (allPlayers[lockActive].alignment==1) {
-		
-		objLength=lawfulObjectives.length;
-		objLength--;
-		
-		objRoll=rollDie0(objLength, 1);
-		
-		allPlayers[lockActive].obj1=Object.assign({}, lawfulObjectives[objRoll]);
-		//allPlayers[lockActive].obj1=lawfulObjectives[objRoll];
-		
-		
-		usedObj.push(allPlayers[lockActive].obj1.id);
-	
-	}
-	
-	if (allPlayers[lockActive].alignment==2) {
-		
-		objLength=chaoticObjectives.length;
-		objLength--;
-		
-		objRoll=rollDie0(objLength, 1);
-		
-		
-		allPlayers[lockActive].obj1=Object.assign({}, chaoticObjectives[objRoll]);
-		//allPlayers[lockActive].obj1=chaoticObjectives[objRoll];
-		
-		
-		usedObj.push(allPlayers[lockActive].obj1.id);
-	
-	}
-	
-	//Objective #2: class-based or neutral alignment objectives
-	
-	let obj2Roll=rollDie(2,1);
-	
-	//class
-	if (obj2Roll==1) {
-	
-		//highlander
-		if (allPlayers[lockActive].playClass==0) {
-		
-			objLength=highObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, highObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=highObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-		
-		//wizard
-		if (allPlayers[lockActive].playClass==1) {
-		
-			objLength=wizObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, wizObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=wizObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-		
-		//healer
-		if (allPlayers[lockActive].playClass==2) {
-		
-			objLength=healObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, healObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=healObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-		
-		//rapscallion
-		if (allPlayers[lockActive].playClass==3) {
-		
-			objLength=rapObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, rapObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=rapObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-		
-		//monk
-		if (allPlayers[lockActive].playClass==4) {
-		
-			objLength=monkObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, monkObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=monkObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-		
-		//sniper
-		if (allPlayers[lockActive].playClass==5) {
-		
-			objLength=snipObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, snipObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=snipObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-		
-		//myrmidon
-		if (allPlayers[lockActive].playClass==6) {
-		
-			objLength=myrmObjectives.length;
-			objLength--;
-			
-			objRoll=rollDie0(objLength, 1);
-			
-			allPlayers[lockActive].obj2=Object.assign({}, myrmObjectives[objRoll]);
-			//allPlayers[lockActive].obj2=myrmObjectives[objRoll];
-			
-			
-			usedObj.push(allPlayers[lockActive].obj2.id);
-		
-		}
-	
-	}
-	
-	//neutral
-	if (obj2Roll==2) {
-	
-		objLength=neutralObjectives.length;
-		objLength--;
-		
-		objRoll=rollDie0(objLength, 1);
-		
-		allPlayers[lockActive].obj2=Object.assign({}, neutralObjectives[objRoll]);
-		//allPlayers[lockActive].obj2=neutralObjectives[objRoll];
-		
-		
-		usedObj.push(allPlayers[lockActive].obj2.id);
-	
-	}
-	
-	//Objective #3: any non-leader objective 
-	
+	objConflicts();
 	
 	makeObjective();
 	
@@ -25261,6 +26318,9 @@ function makeObjective() {
 	var goalRoll=0; //for floor/level
 	var goalRollAm=0; //amount
 	var goalFloorLevel=rollDie(2,1,2);
+	var goalMult=goalFloorLevel;
+	goalMult--;
+	var whichObj=0;
 	
 	
 	//objective 1
@@ -25296,6 +26356,1409 @@ function makeObjective() {
 	}
 	
 	allPlayers[lockActive].obj2.goal+=floorLevel;
+	
+	//objective 3
+	
+	goalRoll=rollDie(2,1);
+	
+	
+	if (goalRoll==1) {
+	
+		floorLevel=" the party reaches floor " + goalFloorLevel;
+	}
+	
+	if (goalRoll==2) {
+	
+		floorLevel=" your character is level " + goalFloorLevel;
+	}
+	
+	allPlayers[lockActive].obj3.goal+=floorLevel;
+	
+	
+	//determine goal amounts
+	
+	
+	
+	//chaotic, be burdened for x turns
+	if (allPlayers[lockActive].obj1.id==21 || allPlayers[lockActive].obj2.id==21 || allPlayers[lockActive].obj3.id==21) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==21) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==21) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==21) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,15);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("21_AMOUNT", goalRollAm);
+
+	}
+	
+
+	//Have a cursed piece of equipment equipped for a total of 23_AMOUNT turns (cumulative) before
+	if (allPlayers[lockActive].obj1.id==23 || allPlayers[lockActive].obj2.id==23 || allPlayers[lockActive].obj3.id==23) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==23) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==23) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==23) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,15);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("23_AMOUNT", goalRollAm);
+
+	}
+	
+
+
+	//Quaff 29_AMOUNT potions before
+	if (allPlayers[lockActive].obj1.id==29 || allPlayers[lockActive].obj2.id==29 || allPlayers[lockActive].obj3.id==29) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==29) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==29) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==29) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("29_AMOUNT", goalRollAm);
+		
+	}
+
+	
+	//Read 31_AMOUNT scrolls before
+	if (allPlayers[lockActive].obj1.id==31 || allPlayers[lockActive].obj2.id==31 || allPlayers[lockActive].obj3.id==31) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==31) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==31) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==31) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,3);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("31_AMOUNT", goalRollAm);
+
+	}
+	
+
+	//For a total of 35_AMOUNT turns (cumulative), other players must not be within radius 1 of self until
+	if (allPlayers[lockActive].obj1.id==35 || allPlayers[lockActive].obj2.id==35 || allPlayers[lockActive].obj3.id==35) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==35) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==35) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==35) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,15);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("35_AMOUNT", goalRollAm);
+
+	}
+
+
+	//For a total of 36_AMOUNT turns (cumulative), you must be within radius 1 of at least one other player until
+	if (allPlayers[lockActive].obj1.id==36 || allPlayers[lockActive].obj2.id==36 || allPlayers[lockActive].obj3.id==36) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==36) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==36) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==36) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,15);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("36_AMOUNT", goalRollAm);
+
+	}
+	
+
+
+	//Do not kill more than 37_AMOUNT enemies until
+	if (allPlayers[lockActive].obj1.id==37 || allPlayers[lockActive].obj2.id==37 || allPlayers[lockActive].obj3.id==37) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==37) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==37) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==37) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,4);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("37_AMOUNT", goalRollAm);
+
+	}
+
+	//Shove 38_AMOUNT enemies before
+	if (allPlayers[lockActive].obj1.id==38 || allPlayers[lockActive].obj2.id==38 || allPlayers[lockActive].obj3.id==38) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==38) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==38) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==38) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,4);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("38_AMOUNT", goalRollAm);
+
+	}
+
+
+	//highlander: Take 52_AMOUNT damage before
+	if (allPlayers[lockActive].obj1.id==52 || allPlayers[lockActive].obj2.id==52 || allPlayers[lockActive].obj3.id==52) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==52) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==52) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==52) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,22);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("52_AMOUNT", goalRollAm);
+
+	}
+	
+	//Kill 56_AMOUNT of monsters with 56_SKILL before
+	if (allPlayers[lockActive].obj1.id==56 || allPlayers[lockActive].obj2.id==56 || allPlayers[lockActive].obj3.id==56) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==56) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==56) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==56) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,5);
+			
+		}
+		
+		let tempSkill=rollDie(2,1);
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("56_AMOUNT", goalRollAm);
+		
+		if (tempSkill==1) {
+		
+			allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("56_SKILL", "Quickening");
+		
+		}
+		
+		if (tempSkill==2) {
+		
+			allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("56_SKILL", "Rescind");
+		
+		}
+
+	}
+
+	
+
+	//Wiz: Deal 58_AMOUNT damage with spells before
+	if (allPlayers[lockActive].obj1.id==58 || allPlayers[lockActive].obj2.id==58 || allPlayers[lockActive].obj3.id==58) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==58) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==58) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==58) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,25);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("58_AMOUNT", goalRollAm);
+
+	}
+
+	
+
+	//Rap: Reveal 63_AMOUNT hidden objects/beings before
+	if (allPlayers[lockActive].obj1.id==63 || allPlayers[lockActive].obj2.id==63 || allPlayers[lockActive].obj3.id==63) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==63) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==63) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==63) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("63_AMOUNT", goalRollAm);
+
+	}
+	
+	
+	
+	//Rap: Pick up 64_AMOUNT items before
+	if (allPlayers[lockActive].obj1.id==64 || allPlayers[lockActive].obj2.id==64 || allPlayers[lockActive].obj3.id==64) {
+	
+		goalRollAm=0;
+	
+
+		if (allPlayers[lockActive].obj1.id==64) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==64) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==64) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,7);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("64_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Rap: Throw 68_AMOUNT projectiles before
+	if (allPlayers[lockActive].obj1.id==68 || allPlayers[lockActive].obj2.id==68 || allPlayers[lockActive].obj3.id==68) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==68) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==68) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==68) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,10);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("68_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Healer: Heal 72_AMOUNT total HP before
+	if (allPlayers[lockActive].obj1.id==72 || allPlayers[lockActive].obj2.id==72 || allPlayers[lockActive].obj3.id==72) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==72) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==72) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==72) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,25);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("72_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Monk: Paralyze 84_AMOUNT enemies with melee attacks before
+	if (allPlayers[lockActive].obj1.id==84 || allPlayers[lockActive].obj2.id==84 || allPlayers[lockActive].obj3.id==84) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==84) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==84) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==84) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("84_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Monk: Nullify 85_AMOUNT attacks from enemies before
+	if (allPlayers[lockActive].obj1.id==85 || allPlayers[lockActive].obj2.id==85 || allPlayers[lockActive].obj3.id==85) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==85) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==85) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==85) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("85_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Sniper: Reveal 86_AMOUNT hidden objects/beings before
+	if (allPlayers[lockActive].obj1.id==86 || allPlayers[lockActive].obj2.id==86 || allPlayers[lockActive].obj3.id==86) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==86) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==86) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==86) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("86_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Sniper: Inflict Blind on 87_AMOUNT enemies before
+	if (allPlayers[lockActive].obj1.id==87 || allPlayers[lockActive].obj2.id==87 || allPlayers[lockActive].obj3.id==87) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==87) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==87) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==87) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,7);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("87_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Sniper: Identify 92_AMOUNT rotten food items before
+	if (allPlayers[lockActive].obj1.id==92 || allPlayers[lockActive].obj2.id==92 || allPlayers[lockActive].obj3.id==92) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==92) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==92) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==92) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("92_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Myrmidon: Avoid 93_AMOUNT attacks before
+	if (allPlayers[lockActive].obj1.id==93 || allPlayers[lockActive].obj2.id==93 || allPlayers[lockActive].obj3.id==93) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==93) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==93) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==93) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("93_AMOUNT", goalRollAm);
+
+	}
+
+	
+	//Myrmidon: Deal 94_AMOUNT damage before
+	if (allPlayers[lockActive].obj1.id==94 || allPlayers[lockActive].obj2.id==94 || allPlayers[lockActive].obj3.id==94) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==94) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==94) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==94) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,25);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("94_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Saboteur: Inflict ailments on 100_AMOUNT enemies before
+	if (allPlayers[lockActive].obj1.id==100 || allPlayers[lockActive].obj2.id==100 || allPlayers[lockActive].obj3.id==100) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==100) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==100) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==100) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,9);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("100_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Saboteur: Kill 101_AMOUNT enemies inflicted with ailments before
+	if (allPlayers[lockActive].obj1.id==101 || allPlayers[lockActive].obj2.id==101 || allPlayers[lockActive].obj3.id==101) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==101) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==101) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==101) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,7);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("101_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Occultist: Reanimate 106_AMOUNT beings before
+	if (allPlayers[lockActive].obj1.id==106 || allPlayers[lockActive].obj2.id==106 || allPlayers[lockActive].obj3.id==106) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==106) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==106) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==106) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,3);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("106_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Occultist: Drain 107_AMOUNT HP from beings before
+	if (allPlayers[lockActive].obj1.id==107 || allPlayers[lockActive].obj2.id==107 || allPlayers[lockActive].obj3.id==107) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==107) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==107) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==107) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,15);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("107_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Occultist: Kill 108_AMOUNT enemies while morphed before
+	if (allPlayers[lockActive].obj1.id==108 || allPlayers[lockActive].obj2.id==108 || allPlayers[lockActive].obj3.id==108) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==108) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==108) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==108) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,6);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("108_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Occultist: Eat 109_AMOUNT corpses while morphed before
+	if (allPlayers[lockActive].obj1.id==109 || allPlayers[lockActive].obj2.id==109 || allPlayers[lockActive].obj3.id==109) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==109) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==109) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==109) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("109_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Basilica: Heal 112_AMOUNT HP before
+	if (allPlayers[lockActive].obj1.id==112 || allPlayers[lockActive].obj2.id==112 || allPlayers[lockActive].obj3.id==112) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==112) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==112) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==112) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,25);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("112_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Basilica: Recover 113_AMOUNT energy on other players before
+	if (allPlayers[lockActive].obj1.id==113 || allPlayers[lockActive].obj2.id==113 || allPlayers[lockActive].obj3.id==113) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==113) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==113) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==113) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,20);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("113_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Basilica: Paralyze 114_AMOUNT beings before
+	if (allPlayers[lockActive].obj1.id==114 || allPlayers[lockActive].obj2.id==114 || allPlayers[lockActive].obj3.id==114) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==114) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==114) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==114) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("114_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Basilica: Deal 115_AMOUNT damage before
+	if (allPlayers[lockActive].obj1.id==115 || allPlayers[lockActive].obj2.id==115 || allPlayers[lockActive].obj3.id==115) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==115) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==115) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==115) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,9);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("115_AMOUNT", goalRollAm);
+
+	}
+
+	//Triarius: Take 119_AMOUNT damage before
+	if (allPlayers[lockActive].obj1.id==119 || allPlayers[lockActive].obj2.id==119 || allPlayers[lockActive].obj3.id==119) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==119) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==119) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==119) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,22);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("119_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Basilica: Take 124_AMOUNT damage before
+	if (allPlayers[lockActive].obj1.id==124 || allPlayers[lockActive].obj2.id==124 || allPlayers[lockActive].obj3.id==124) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==124) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==124) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==124) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,22);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("124_AMOUNT", goalRollAm);
+
+	}
+
+	
+	//Occultist: Kill 128_AMOUNT enemies with Nosferatu before
+	if (allPlayers[lockActive].obj1.id==128 || allPlayers[lockActive].obj2.id==128 || allPlayers[lockActive].obj3.id==128) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==128) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==128) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==128) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,4);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("128_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Occultist: Kill 129_AMOUNT enemies with a reanimated corpse before
+	if (allPlayers[lockActive].obj1.id==129 || allPlayers[lockActive].obj2.id==129 || allPlayers[lockActive].obj3.id==129) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==129) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==129) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==129) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(3,1,3);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("129_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Symposiarch: Recover 133_AMOUNT energy on self before
+	if (allPlayers[lockActive].obj1.id==133 || allPlayers[lockActive].obj2.id==133 || allPlayers[lockActive].obj3.id==133) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==133) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==133) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==133) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,20);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("133_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Symposiarch: Identify 134_AMOUNT rotten food items before
+	if (allPlayers[lockActive].obj1.id==134 || allPlayers[lockActive].obj2.id==134 || allPlayers[lockActive].obj3.id==134) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==134) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==134) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==134) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("134_AMOUNT", goalRollAm);
+
+	}
+
+
+	//Symposiarch: Recover 135_AMOUNT energy on other players before
+	if (allPlayers[lockActive].obj1.id==135 || allPlayers[lockActive].obj2.id==135 || allPlayers[lockActive].obj3.id==135) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==135) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==135) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==135) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(5,1,20);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("129_AMOUNT", goalRollAm);
+
+	}
 
 }
 
