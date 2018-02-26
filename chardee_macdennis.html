@@ -6955,7 +6955,33 @@ $( "#roomItemsTabs" ).tabs({
   }
 });
 
-
+var wandsID=["aluminum", "curved", "iridium", "marble", "ash", "uranium", "balsa", "oak", "forked", "jeweled", "pine", "glass", "walnut", "platinum", "crystal", "maple", "mahogany", "tin",];
+var wands=["light", "enlightenment", "unlocking", "tick", "lance", "invisibility", "scrutiny", "slow", "brisk", "haste", "force bolt", "ice spike", "fireball", "lightning", "sleep", "cancellation", "create monster", "death"];
+var wandsUsed=[];
+var potions=["healing", "panacea", "full healing", "juice", "see invisible", "silence", "confusion", "restore energy", "hallucination", "invisibility", "blindness", "ESP", "object detection", "enlightenment", "levitation", "brisk", "haste", "acid", "oil", "paralysis", "gain level", "gain ability", "poison"];
+var potionsID=["fuschia", "lavender", "yellow", "emerald", "vermillion", "cyan", "tangerine", "cerulean", "magenta", "sparkling", "puce", "milky", "swirly", "bubbly", "smoky", "cloudy", "viscous", "black", "golden", "brown", "fizzy", "ruby", "white", "murky"];
+var potionsUsed=[];
+var scrolls=["identify", "light", "displacement", "enhance armor", "remove curse", "mapping", "food detection", "paralysis", "amnesia", "charging", "punishment", "poison mist", "teleportation"];
+var scrollsID=["SEGINUS", "FOMALHAUT", "GLAUSAR", "HADAR", "HAMAL", "ALCYONE", "HASSALEH", "JISHUI", "TARAZED", "LESATH", "MAHASIM", "MARKAB", "SYRMA", "MINTAKA"];
+var scrollsUsed=[];
+var spellbooks=["force bolt", "nosferatu", "lance", "ice spike", "fireball", "discharge", "unlock", "tick", "reflect", "cancellation", "create monster", "light", "sonar", "detect food", "identify", "protection", "remove curse", "slow", "blind", "taunt", "sleep", "paralyze", "healing", "regeneration", "restore ability", "mend", "convalesce", "amplify", "surge", "redoubt"];
+var spellbooksID=["stained", "dusty", "glittering", "vellum", "cloth-bound", "shining", "ragged", "leather-bound", "dull", "dog-eared", "velvet", "thin", "thick", "mottled", "wrinkled", "hardcover", "canvas", "violet", "red", "golden", "silver", "copper", "white", "blue", "green", "indigo", "tan", "softcover", "torn", "shabby"];
+var spellbooksUsed=[];
+var robes=["magic resistance", "protection", "invisibility", "channeling", "cold immunity", "fire immunity", "shock immunity", "drain immunity", "slow", "brisk"];
+var robesID=["tattered", "ornamental", "opera", "velour", "taffeta", "satin", "cashmere", "silk", "cotton", "velvet"];
+var robesUsed=[];
+var gloves=["fumbling", "power", "dexterity", "throwing"];
+var glovesID=["padded gloves", "fencing gloves", "shining gloves", "spiked gloves"];
+var glovesUsed=[];
+var shoes=["dash", "fumbling", "hover", "slow", "speed", "water walking"];
+var shoesID=["mud boots", "hiking boots", "snow boots", "buckled boots", "combat boots", "bowling shoes"];
+var shoesUsed=[];
+var rings=["hunger", "protection", "provocation", "stealth", "sustain ability", "warning", "cold resistance", "fire resistance", "shock resistance", "poison resistance", "sleep resistance", "confusion","paralysis resistantce", "strength", "dexterity", "intelligence", "wisdom", "constitution", "increase damage", "increase accuracy", "invisibility", "levitation", "searching", "slow digestion", "vulnerability", "enfeeblement"];
+var ringsID=["pearl", "engagement", "clay", "jade", "diamond", "wire", "shiny", "coral", "agate", "ivory", "twisted", "bronze", "wooden", "onyx", "topaz", "aquamarine", "steel", "golden", "silver", "brass", "granite", "sapphire", "opal", "garnet", "amethyst"];
+var ringsUsed=[];
+var amulets=["change gender", "esp", "life saving", "reflection", "restful sleep", "strangulation", "water walking", "silence", "vigor", "moxie"];
+var amuletsID=["hexagonal", "octagonal", "spherical", "oval", "concave", "circular", "triangular", "pyramidal", "dodecahedronal", "toroid"];
+var amuletsUsed=[];
 
 initItems();
 
@@ -6963,7 +6989,7 @@ initItems();
 function initItems() {
 	
 	
-	var wandsID=["aluminum", "curved", "iridium", "marble", "ash", "uranium", "balsa", "oak", "forked", "jeweled", "pine", "glass", "walnut", "platinum", "crystal", "maple", "mahogany", "tin",];
+	/*var wandsID=["aluminum", "curved", "iridium", "marble", "ash", "uranium", "balsa", "oak", "forked", "jeweled", "pine", "glass", "walnut", "platinum", "crystal", "maple", "mahogany", "tin",];
 	var wands=["light", "enlightenment", "unlocking", "tick", "lance", "invisibility", "scrutiny", "slow", "brisk", "haste", "force bolt", "ice spike", "fireball", "lightning", "sleep", "cancellation", "create monster", "death"];
 	var wandsUsed=[];
 	var potions=["healing", "panacea", "full healing", "juice", "see invisible", "silence", "confusion", "restore energy", "hallucination", "invisibility", "blindness", "ESP", "object detection", "enlightenment", "levitation", "brisk", "haste", "acid", "oil", "paralysis", "gain level", "gain ability", "poison"];
@@ -6972,8 +6998,8 @@ function initItems() {
 	var scrolls=["identify", "light", "displacement", "enhance armor", "remove curse", "mapping", "food detection", "paralysis", "amnesia", "charging", "punishment", "poison mist", "teleportation"];
 	var scrollsID=["SEGINUS", "FOMALHAUT", "GLAUSAR", "HADAR", "HAMAL", "ALCYONE", "HASSALEH", "JISHUI", "TARAZED", "LESATH", "MAHASIM", "MARKAB", "SYRMA", "MINTAKA"];
 	var scrollsUsed=[];
-	var spellbooks=["force bolt", "nosferatu", "lance", "ice spike", "fireball", "discharge", "unlock", "tick", "reflect", "cancellation", "create monster", "light", "sonar", "detect food", "identify", "protection", "remove curse", "slow", "blind", "taunt", "sleep", "paralyze", "healing", "regeneration", "restore ability", "mend", "convalesce", "amplify", "surge"];
-	var spellbooksID=["stained", "dusty", "glittering", "vellum", "cloth-bound", "shining", "ragged", "leather-bound", "dull", "dog-eared", "velvet", "thin", "thick", "mottled", "wrinkled", "hardcover", "canvas", "violet", "red", "golden", "silver", "copper", "white", "blue", "green", "indigo", "tan", "softcover", "torn"];
+	var spellbooks=["force bolt", "nosferatu", "lance", "ice spike", "fireball", "discharge", "unlock", "tick", "reflect", "cancellation", "create monster", "light", "sonar", "detect food", "identify", "protection", "remove curse", "slow", "blind", "taunt", "sleep", "paralyze", "healing", "regeneration", "restore ability", "mend", "convalesce", "amplify", "surge", "redoubt"];
+	var spellbooksID=["stained", "dusty", "glittering", "vellum", "cloth-bound", "shining", "ragged", "leather-bound", "dull", "dog-eared", "velvet", "thin", "thick", "mottled", "wrinkled", "hardcover", "canvas", "violet", "red", "golden", "silver", "copper", "white", "blue", "green", "indigo", "tan", "softcover", "torn", "shabby"];
 	var spellbooksUsed=[];
 	var robes=["magic resistance", "protection", "invisibility", "channeling", "cold immunity", "fire immunity", "shock immunity", "drain immunity", "slow", "brisk"];
 	var robesID=["tattered", "ornamental", "opera", "velour", "taffeta", "satin", "cashmere", "silk", "cotton", "velvet"];
@@ -6989,7 +7015,7 @@ function initItems() {
 	var ringsUsed=[];
 	var amulets=["change gender", "esp", "life saving", "reflection", "restful sleep", "strangulation", "water walking", "silence", "vigor", "moxie"];
 	var amuletsID=["hexagonal", "octagonal", "spherical", "oval", "concave", "circular", "triangular", "pyramidal", "dodecahedronal", "toroid"];
-	var amuletsUsed=[];
+	var amuletsUsed=[];*/
 	
 	var amount=0;
 	var itemRoll=0;
@@ -14700,7 +14726,7 @@ function itemGen(spawnTile) {
 		Taunt 5%
 		Protection 5%
 		Healing 5%
-		Regeneration 5%
+		Regeneration 3%
 		Lance 3%
 		Ice Spike 3%
 		Fireball 3%
@@ -14711,6 +14737,7 @@ function itemGen(spawnTile) {
 		Sleep 3%
 		Paralyze 3%
 		Restore Ability 3%
+		Redoubt 2%
 		Amplify 2%
 		Surge 2%
 		Reflect 2%
@@ -14875,11 +14902,26 @@ function itemGen(spawnTile) {
 			});
 		}
 		
-		else if (whichItem<=55) //regen
+		else if (whichItem<=53) //regen
 		{
 			allRooms[currRoomIndex].roomItems.push({
 					
 				itemName: spellbookOf + "regeneration",
+				itemSymbol: "~",
+				BUC: buc,
+				enhancement:0 ,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+			
+			});
+		}
+		
+		else if (whichItem<=55) //regen
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: spellbookOf + "redoubt",
 				itemSymbol: "~",
 				BUC: buc,
 				enhancement:0 ,
@@ -21791,8 +21833,8 @@ function demoVisibility() {
 <!-- copy stats dialog -->
 <div id="copyDialog">
 
-	<p id="copyStuff">
-	</p>
+	<div type="text" id="copyStuff">
+	</div>
 
 </div>
 
@@ -22652,6 +22694,7 @@ initPlayers();
 function initPlayers() {
 
 	var tempInv=[];
+	var tempSpells=[];
 		
 	for (i=0;i<playersMax;i++){
 		
@@ -22665,6 +22708,7 @@ function initPlayers() {
 		playerNameClass:" ",
 		alignment:0, //1 for lawful, 2 for chaotic
 		inventory:tempInv,
+		spells:tempSpells,
 		obj1:"",
 		obj2:"",
 		obj3:"",
@@ -22904,7 +22948,8 @@ function initPlayers() {
 	} //for	
 	
 	tempInv=[];
-		
+	tempSpells=[];
+	
 }
 
 var lawfulObjectives = [];
@@ -23196,6 +23241,14 @@ function initNeutObj() {
 		goal:"Shove 38_AMOUNT enemies before",
 		//7 per level
 		id:38,
+		progress:0,
+	});
+	
+	neutralObjectives.push ({
+	
+		goal:"Catch 140_AMOUNT items before",
+		//3 per level
+		id:140,
 		progress:0,
 	});
 	
@@ -24045,6 +24098,8 @@ function initSymObj() {
 	});
 }
 
+//objective count: 140
+
 $("#rerollObj").click(function( event ) {
 
 	rerollObj();
@@ -24632,12 +24687,13 @@ $( "#copyDialog" ).dialog({
 	autoOpen: false,
 	width: 400,
 	buttons: [
-		/*{
-			text: "asdf",
+		{
+			text: "Select",
 			click: function() {
-				$( this ).dialog( "close" );
+				 // $( "#copyStuff" ).select();
+				 selectText("copyStuff");
 			}
-		},*/
+		},
 		{
 			text: "Cancel",
 			click: function() {
@@ -24645,7 +24701,25 @@ $( "#copyDialog" ).dialog({
 			}
 		}
 	]
-});
+}).css("font-size", "12px");;
+
+function selectText(element) {
+    var doc = document
+        , text = doc.getElementById(element)
+        , range, selection
+    ;    
+    if (doc.body.createTextRange) {
+        range = document.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) {
+        selection = window.getSelection();        
+        range = document.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
 
 $(document).on('click','.ui-dialog-titlebar-close',function(){
 
@@ -24759,6 +24833,34 @@ $( "#copyPlayerBut" ).click(function( event ) {
 		tempCopy+="AC: " + allPlayers[whoIsActive].totalAC;
 		//armorACInt=allPlayers[whoIsActive].armorAC;
 		tempCopy+=" (+" + allPlayers[whoIsActive].armorAC +" from armor, +" + allPlayers[whoIsActive].otherAC + " other)";
+		
+		tempCopy+="<br><br>";
+		
+		//inventory
+		tempCopy+="<br>--------<br>";
+		tempCopy+="Items:";
+		tempCopy+="<br>--------<br><br>";
+		
+		for (i=0;i<allPlayers[whoIsActive].inventory.length;i++) {
+		
+			tempCopy+=allPlayers[whoIsActive].inventory[i];
+			tempCopy+="<br>";
+		
+		}
+		
+		tempCopy+="<br>";
+		
+		//spells
+		tempCopy+="<br>--------------<br>";
+		tempCopy+="Skills/spells:";
+		tempCopy+="<br>--------------<br><br>";
+		
+		for (i=0;i<allPlayers[whoIsActive].spells.length;i++) {
+		
+			tempCopy+=allPlayers[whoIsActive].spells[i];
+			tempCopy+="<br><br>~<br><br>";
+		
+		}
 		
 		$("#copyStuff").html(tempCopy);
 
@@ -26262,12 +26364,20 @@ function initStats() {
 	allPlayers[lockActive].playerPassives.woundedLegLeft=0; //int
 	allPlayers[lockActive].playerPassives.woundedLegRight=0 //int
 	
+	//inventory
+	allPlayers[lockActive].inventory.length=0;
+	
+	//spells
+	allPlayers[lockActive].spells.length=0;
 	
 }
 
 function createCharacterStats () {
 
+	var itemRoll;
+
 	allPlayers[lockActive].playerLevel=1;
+	
 	
 
 	//highlander
@@ -26291,14 +26401,43 @@ function createCharacterStats () {
 		allPlayers[lockActive].constitution=13+rollDie(4, 1);
 		allPlayers[lockActive].luck-=2;
 		
-		
-		
-		
+
 		//passives
 		
 		allPlayers[lockActive].playerPassives.poisonResist=true;	
 		allPlayers[lockActive].playerPassives.breathless=true;
-	
+		
+		
+		//items
+		
+		allPlayers[lockActive].inventory.push("+0 kilt (0 AC body armor)");
+		allPlayers[lockActive].inventory.push("+0 boots (1 AC)");
+		
+		//pickaxe
+		if (allPlayers[lockActive].race==1) {
+			allPlayers[lockActive].inventory.push("pick-axe");
+		}
+		
+		
+		//spells
+		allPlayers[lockActive].spells.push(
+		"Class Skill: Quickening<br>" +
+		"Costs 100% of max energy (50% of max energy rounded up if adept with Swords)<br>" +
+		"Novice Weapon Skill<br><br>"+
+		"Melee attack with additional 1d2 damage (additional 1d8 instead if apprentice with Axes; 1d20 chance of instant kill if adept with Swords). If a being is killed with this skill, gain 1d2 max HP (gain 1d2+1 max HP if apprentice with Swords). Can be doublecast.");
+		
+		allPlayers[lockActive].spells.push(
+		"Class Skill: Rescind<br>" +
+		"Costs 5 energy<br>"+
+		"Novice Weapon Skill<br><br>"+
+		"Melee attack with additional 1d4 damage; -1 To Hit. Recover 1d2 energy if successful (recover 1d6 energy if apprentice with Axes). If a being is killed with this skill, gain 1 max energy before energy recovery (gain 2 max energy if apprentice with Bludgeons). Can be doublecast.");
+		
+		allPlayers[lockActive].spells.push(
+		"Spell: Taunt<br>" +
+		"Costs 5 energy<br>"+
+		"Novice Enchantment Spell<br><br>"+
+		"Missile. Inflicts Taunt on affected being for 3 turns. Range 3.");
+		
 	}
 	
 	//wizard
@@ -26330,10 +26469,48 @@ function createCharacterStats () {
 		allPlayers[lockActive].energyMax+=10;
 	
 	
-	//passives
-	
-	allPlayers[lockActive].playerPassives.noHungCast=true;
-	
+		//passives
+		
+		allPlayers[lockActive].playerPassives.noHungCast=true;
+		
+		
+		//items
+		allPlayers[lockActive].inventory.push("+0 acolyte’s staff (1d4, +5 max energy)");
+		allPlayers[lockActive].inventory.push("+0 cloak of magic resistance (0 AC, grants magic resistance)");
+		allPlayers[lockActive].inventory.push("+0 pointy hat (1 AC, +2 max energy)");
+		allPlayers[lockActive].inventory.push("1 scroll of identify");
+		
+		//scrolls of teleportation
+		itemRoll=rollDie(3,1);
+		if (itemRoll==1){
+			allPlayers[lockActive].inventory.push("1 scroll of teleportation");
+		}
+		if (itemRoll>1){
+			allPlayers[lockActive].inventory.push(itemRoll+ " scrolls of teleportation");
+		}
+		
+		//random wand
+		itemRoll=rollDie(3,1);
+		if (itemRoll==1){
+			allPlayers[lockActive].inventory.push("1 wand of Ice Spike");
+		}
+		if (itemRoll==2){
+			allPlayers[lockActive].inventory.push("1 wand of Fireball");
+		}
+		if (itemRoll==3){
+			allPlayers[lockActive].inventory.push("1 wand of Discharge");
+		}
+		
+		//random wand
+		
+		let wandInd=wands.length;
+		wandInd--;
+		
+		itemRoll=rollDie0(wandInd,1);
+		
+		allPlayers[lockActive].inventory.push("1 wand of " + wands[itemRoll]);
+		allPlayers[lockActive].inventory.push("3 newt corpses");
+		
 	}
 	
 	//healer
@@ -26364,6 +26541,33 @@ function createCharacterStats () {
 		//passives
 		
 		allPlayers[lockActive].playerPassives.poisonResist=true;
+		
+		
+		//inventory
+		
+		allPlayers[lockActive].inventory.push("+0 scalpel (1d2 dagger)");
+		allPlayers[lockActive].inventory.push("+0 leather gloves (1 AC)");
+		allPlayers[lockActive].inventory.push("+0 boots (1 AC)");
+		
+		//apples
+		itemRoll=rollDie(3,1,3);
+		allPlayers[lockActive].inventory.push(itemRoll+ " apples");
+		
+		allPlayers[lockActive].inventory.push("1 potion of full healing");
+		allPlayers[lockActive].inventory.push("1 panacea (removes all ailments)");
+		
+		//bandages
+		itemRoll=rollDie(2,1,2);
+		allPlayers[lockActive].inventory.push(itemRoll+ " bandages (remove Wounds)");
+
+		allPlayers[lockActive].inventory.push("1 scroll of remove curse");
+		allPlayers[lockActive].inventory.push("1 wand of scrutiny");
+		
+		
+		//pickaxe
+		if (allPlayers[lockActive].race==1) {
+			allPlayers[lockActive].inventory.push("pick-axe");
+		}
 	
 	}
 	
@@ -27154,6 +27358,40 @@ function makeObjective() {
 
 		
 		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("36_AMOUNT", goalRollAm);
+
+	}
+	
+	//Neutral: catch x items
+	if (allPlayers[lockActive].obj1.id==140 || allPlayers[lockActive].obj2.id==140 || allPlayers[lockActive].obj3.id==140) {
+	
+		goalRollAm=0;
+
+		if (allPlayers[lockActive].obj1.id==140) {
+
+			whichObj=1;
+
+		}
+
+		if (allPlayers[lockActive].obj2.id==140) {
+
+			whichObj=2;
+
+		}
+
+		if (allPlayers[lockActive].obj3.id==140) {
+
+			whichObj=3;
+
+		} 
+		
+		for (i=0;i<goalMult;i++) {
+		
+			goalRollAm+=rollDie(2,1,2);
+			
+		}
+
+		
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("140_AMOUNT", goalRollAm);
 
 	}
 	
@@ -28324,7 +28562,7 @@ function makeObjective() {
 		}
 
 		
-		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("129_AMOUNT", goalRollAm);
+		allPlayers[lockActive]["obj"+whichObj].goal=allPlayers[lockActive]["obj"+whichObj].goal.replace("135_AMOUNT", goalRollAm);
 
 	}
 
