@@ -319,6 +319,22 @@
 		
 		/*grid-gap: 20px 5px;*/
 	}
+	
+	.ailmentsGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto;
+		
+		grid-column-gap: 20px;
+		grid-row-gap: 10px;
+	}
+	
+	.tempEffectGrid {
+		display: grid;
+		grid-template-columns: auto auto auto auto auto auto;
+		
+		grid-column-gap: 20px;
+		grid-row-gap: 10px;
+	}
 
 
 	
@@ -438,6 +454,8 @@ $("div.formGrid").find("input").click(function( event ) {
 		currFormIndex=tempIndex;
 });
 
+var hasFormation=false;
+
 $("div.formSetGrid").find("button").click(function( event ) {
  
 		if (currFormIndex>=0) {
@@ -446,6 +464,8 @@ $("div.formSetGrid").find("button").click(function( event ) {
 			var tempSetIndex;
 			var tempText;
 			var tempIndex2;
+			
+			hasFormation=true;
 			
 			tempIndex++;
 			
@@ -550,6 +570,7 @@ $( "#clearForm" ).click(function( event ) {
 		<li><a href="#playerTabs-9">Player 9</a></li>
 	</ul>
 	<h3 id="playerTitle">Player 1</h3>
+	<h4 id="playerAilments"></h4>
 		<p>
 			<button id="initClass" class="ui-button ui-corner-all ui-widget">
 			<span class="ui-icon ui-icon-newwin"></span>Initialize Class/Race
@@ -599,6 +620,7 @@ $( "#clearForm" ).click(function( event ) {
 			<li><a href="#playerMiscTabs-2">Passives</a></li>
 			<li><a href="#playerMiscTabs-3">Proficiencies</a></li>
 			<li><a href="#playerMiscTabs-4">Objectives</a></li>
+			<li><a href="#playerMiscTabs-5">Misc</a></li>
 		  </ul>
 		  <div id="playerMiscTabs-1">
 		  
@@ -873,6 +895,50 @@ $( "#clearForm" ).click(function( event ) {
 			
 		  </div>
 		  
+		  <div id="playerMiscTabs-5">
+		  <fieldset>
+			<legend>Ailments</legend>
+			
+				<div class="ailmentsGrid">
+					<button id="slowPlay">Slow</button>
+					<button id="blindPlay">Blind</button>
+					<button id="sleepPlay">Sleep</button>
+					<button id="poisonedPlay">Poison</button>
+					<button id="tauntedPlay">Taunt</button>
+					<button id="confusedPlay">Confusion</button>
+					<button id="paralyzedPlay">Paralysis</button>
+					<button id="woundedPlay">Wound</button>
+					<button id="silencePlay">Silence</button>
+					<button id="hallucinPlay">Hallucinating</button>
+					<button id="petrifyPlay">Petrificaton</button>
+				</div>
+			</fieldset>
+			
+			
+			<br>
+		  <fieldset>
+			<legend>Temp Effects</legend>
+			
+				<div class="tempEffectGrid">
+					<button id="ACPlay">+ AC</button>
+					<button id="">+ To Hit</button>
+					<button id="">Light</button>
+					<button id="">Displacement</button>
+					<button id="">Brisk</button>
+					<button id="">Haste</button>
+					<button id="">Invisible</button>
+					<button id="">See Invisible</button>
+					<button id="">Searching</button>
+					<button id="">Levitate</button>
+					<button id="">Regeneration</button>
+					<button id="">Confluence</button>
+					<button id="">Stealth</button>
+				</div>
+			
+			</fieldset>
+			
+		  </div>
+		  
 		  
 		</div>
 	</div>
@@ -899,6 +965,85 @@ $( "#clearForm" ).click(function( event ) {
 	console.log(itemInd);
 
 });*/
+
+$("div.ailmentsGrid").find("button").click(function( event ) {
+
+	var ailTurns;
+	
+	var whichAilment=this.id;
+	
+	var isPlayer=whichAilment.includes("Play");
+	var isMonst=whichAilment.includes("Monst");
+	var isWound=whichAilment.includes("wounded");
+	var isPetri=whichAilment.includes("petrify");
+	
+	if (isPlayer==true) {
+	
+		if (allPlayers[whoIsActive].playerExists==true) {
+		
+			if (isWound==false && isPetri==false) {
+		
+				ailTurns=prompt("How many turns?")
+	
+			}
+	
+			whichAilment=whichAilment.replace("Play","");
+			
+			//not int
+			while (/^\d+$/.test(ailTurns)==false && ailTurns!=null) {
+				
+				ailTurns=prompt("How many turns?");
+			
+			}
+			
+			allPlayers[whoIsActive].playerPassives[whichAilment]=parseInt(ailTurns);
+			
+			if (isWound==true) {
+			
+				allPlayers[whoIsActive].playerPassives.wounded=true;
+				
+			}
+			
+			if (isPetri==true) {
+			
+				allPlayers[whoIsActive].playerPassives.petrify=true;
+				
+			}
+			
+			//alert(allPlayers[whoIsActive].playerName + " is " + whichAilment + " for " + ailTurns + " turns");
+			
+			updatePlayer();
+		
+		} //exists
+		
+		
+	}
+	
+	if (isMonst==true) {
+
+		if (allRooms[currRoomIndex].roomMonsters[monstActive].monsterExists==true) {
+		
+			ailTurns=prompt("How many turns?")
+	
+			whichAilment=whichAilment.replace("Play","");
+			
+			//not int
+			while (/^\d+$/.test(ailTurns)==false && ailTurns!=null) {
+				
+				ailTurns=prompt("How many turns?");
+			
+			}
+			
+			allRooms[currRoomIndex].roomMonsters[monstActive].monsterPassives[whichAilment]=parseInt(ailTurns);
+			
+			updateMonst();
+			
+		} //exists
+	
+	}
+
+
+});
 
 
 $("div.removeItem").click(function( event ) {
@@ -1343,36 +1488,40 @@ $("div.passivesResistGrid").find( "input[type=\"checkbox\"]").click(function( ev
 	
 	var passId=this.id;
 	var immune=passId.includes("1");
-	var newPass;
+	var immunePass;
 
 	if (immune==true) {
 	
-		newPass=passId.replace("1","");
+		immunePass=passId.replace("1","");
 	}
 	
+	//resisted checked
 	if ($('#'+ this.id).prop('checked')==true && immune!=true) {
     
-		allPlayers[whoIsActive].playerPassives[passId]=1;
+		allPlayers[whoIsActive].playerPassives[passId]=true;
 		
 	}
 	
-	if ($('#'+ this.id).prop('checked')!=true && immune!=true && allPlayers[whoIsActive].playerPassives[passId]!=2) {
+	//resist unchecked
+	if ($('#'+ this.id).prop('checked')!=true && immune!=true) {
     
-		allPlayers[whoIsActive].playerPassives[passId]=0;
+		allPlayers[whoIsActive].playerPassives[passId]=false;
 	}
 	
+	//immune checked
 	if ($('#'+ this.id).prop('checked')==true && immune==true) {
     
-		allPlayers[whoIsActive].playerPassives[newPass]=2;
-		$("#" + newPass).prop('checked', true);
-		$("#" + newPass).checkboxradio('refresh');
+		allPlayers[whoIsActive].playerPassives[immunePass]="immune";
+		$("#" + immunePass).prop('checked', true);
+		$("#" + immunePass).checkboxradio('refresh');
 		
 		
 	}
 	
-	if ($('#'+ this.id).prop('checked')!=true && immune==true && allPlayers[whoIsActive].playerPassives[passId]!=1) {
+	//immune unchecked
+	if ($('#'+ this.id).prop('checked')!=true && immune==true) {
     
-		allPlayers[whoIsActive].playerPassives[newPass]=0;
+		allPlayers[whoIsActive].playerPassives[immunePass]=0;
 	}
 });
 
@@ -3504,6 +3653,11 @@ function updatePlayer(){
 	//to do: if player does not exist blank everything...
 		
 	if (allPlayers[whoIsActive].playerExists==true) {
+	
+		//ailments
+		
+		updateAilmentPlayer();
+	
 		
 		tempStat="Level: " + allPlayers[whoIsActive].playerLevel;
 		$('#levelLab').html(tempStat);
@@ -3646,20 +3800,9 @@ function updatePlayer(){
 		}
 		$("#prayTime").html(tempStat);
 		
-		//update passives
+
 		
-		if (allPlayers[whoIsActive].playerPassives.coldResist==1) {
-			
-			$("#coldResist").prop('checked', true);
-			$("#coldResist").checkboxradio('refresh');
-			
-		}
-		if (allPlayers[whoIsActive].playerPassives.coldResist==0) {
-			
-			$("#coldResist").prop('checked', false);
-			$("#coldResist").checkboxradio('refresh');
-			
-		}
+		updatePassives();
 		
 		
 		//update objectives
@@ -4273,6 +4416,14 @@ function updatePlayer(){
 	
 	} //if exists
 	
+	
+	
+	if (allPlayers[whoIsActive].playerExists==false) {
+	
+		$("#playerAilments").html("");
+	
+	}
+	
 	/*$( "#daggerProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.daggerProf );
 	$( "#axeProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.axeProf );
 	$( "#swordProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.swordProf );
@@ -4292,6 +4443,177 @@ function updatePlayer(){
 	$( "#enchantmentSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.enchantmentSpellProf );
 	$( "#healingSpellProfBar" ).progressbar( "value", allPlayers[whoIsActive].playerProfs.healingSpellProf );*/
 	
+
+}
+
+function updateAilmentPlayer() {
+
+	let multAil=false;
+		
+	tempStat="";
+	$("#playerAilments").html("");
+	
+	//slow
+	if (allPlayers[whoIsActive].playerPassives.slow>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Slowed (" + allPlayers[whoIsActive].playerPassives.slow + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Slowed (" + allPlayers[whoIsActive].playerPassives.slow + ")";
+			multAil=true;
+		}
+		
+		$("#playerAilments").html(tempStat);
+		
+	
+	}
+	
+	//blind
+	if (allPlayers[whoIsActive].playerPassives.blind>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Blind (" + allPlayers[whoIsActive].playerPassives.blind + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Blind (" + allPlayers[whoIsActive].playerPassives.blind + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+	
+	//sleep
+	if (allPlayers[whoIsActive].playerPassives.sleep>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Asleep (" + allPlayers[whoIsActive].playerPassives.sleep + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Asleep (" + allPlayers[whoIsActive].playerPassives.sleep + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+	
+	//poisoned
+	if (allPlayers[whoIsActive].playerPassives.poisoned>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Poisoned (" + allPlayers[whoIsActive].playerPassives.poisoned + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Poisoned (" + allPlayers[whoIsActive].playerPassives.poisoned + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+	
+	//confused
+	if (allPlayers[whoIsActive].playerPassives.confused>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Confused (" + allPlayers[whoIsActive].playerPassives.confused + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Confused (" + allPlayers[whoIsActive].playerPassives.confused + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+	
+	//taunted
+	if (allPlayers[whoIsActive].playerPassives.taunted>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Taunted (" + allPlayers[whoIsActive].playerPassives.taunted + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Taunted (" + allPlayers[whoIsActive].playerPassives.taunted + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+	
+	//paralyzed
+	if (allPlayers[whoIsActive].playerPassives.paralyzed>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Paralyzed (" + allPlayers[whoIsActive].playerPassives.paralyzed + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Paralyzed (" + allPlayers[whoIsActive].playerPassives.paralyzed + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+	
+	//hallucin
+	if (allPlayers[whoIsActive].playerPassives.hallucin>0) {
+	
+		if (multAil==true) {
+		
+			tempStat+=", Hallucin (" + allPlayers[whoIsActive].playerPassives.hallucin + ")";
+		}
+	
+		else if(multAil==false) {
+			tempStat+="Hallucin (" + allPlayers[whoIsActive].playerPassives.hallucin + ")";
+			multAil=true;
+		}
+		$("#playerAilments").html(tempStat);
+	
+	}
+
+}
+
+function updatePassives () {
+
+
+	if (allPlayers[whoIsActive].playerPassives.coldResist==true || allPlayers[whoIsActive].playerPassives.coldResist>0 || allPlayers[whoIsActive].playerPassives.coldResist=="immune") {
+			
+		$("#coldResist").prop('checked', true);
+		$("#coldResist").checkboxradio('refresh');
+		
+	}
+	if (allPlayers[whoIsActive].playerPassives.coldResist==false || allPlayers[whoIsActive].playerPassives.coldResist==0) {
+		
+		$("#coldResist").prop('checked', false);
+		$("#coldResist").checkboxradio('refresh');
+		
+	}
+	
+	if (allPlayers[whoIsActive].playerPassives.coldResist!="immune") {
+	
+		$("#coldResist1").prop('checked', false);
+		$("#coldResist1").checkboxradio('refresh');
+		
+	}
+	
+	if (allPlayers[whoIsActive].playerPassives.coldResist!="immune") {
+	
+		$("#coldResist1").prop('checked', true);
+		$("#coldResist1").checkboxradio('refresh');
+		
+	}
 
 }
 
@@ -7380,7 +7702,7 @@ function showVision() {
 	
 	for (i=0;i<playersMax;i++) {
 	
-		if (allPlayers[i].playerExists==true) {
+		if (allPlayers[i].playerExists==true && hasFormation==true) {
 		
 			wallNorth=false;
 			wallEast=false;
@@ -8753,7 +9075,7 @@ function hideVision() {
 	
 	for (i=0;i<playersMax;i++) {
 	
-		if (allPlayers[i].playerExists==true) {
+		if (allPlayers[i].playerExists==true && hasFormation==true) {
 		
 			if (allPlayers[i].race!=3 && allPlayers[i].race!=1) {
 			
@@ -9983,7 +10305,7 @@ function itemSpawn() {
 	
 	itemProb=rollDie(10,1);
 	
-	if (itemProb<7) {
+	if (itemProb<8) {
 	
 		console.log("spawning items");
 		itemAmount=rollDie(5,1);
@@ -12936,7 +13258,7 @@ function itemGen(spawnTile) {
 	
 		//chest 25%
 	
-		//bag of tricks 13%
+		//bag of tricks 5%
 		//bugle 5%
 		//harp 5%
 		//stehoscope 5%
@@ -12951,7 +13273,7 @@ function itemGen(spawnTile) {
 		//tinning kit 5%
 		//tin opener 5%
 		//magic marker 5%
-
+		//bandage 8%
 		
 		whichItem=rollDie(100,1);
 		
@@ -12960,6 +13282,22 @@ function itemGen(spawnTile) {
 			allRooms[currRoomIndex].roomItems.push({
 					
 				itemName: "chest",
+				itemSymbol: "#",
+				BUC: buc,
+				enhancement:0,
+				index: spawnTile,
+				itemExists:true,
+				amount:1,
+				isChest:true,
+					
+			});
+		}
+		
+		else if (whichItem<=33) //bandage
+		{
+			allRooms[currRoomIndex].roomItems.push({
+					
+				itemName: "bandage",
 				itemSymbol: "#",
 				BUC: buc,
 				enhancement:0,
@@ -16028,14 +16366,26 @@ function monstGen (index, spawnTile) {
 	var whichMonst=rollDie(100,1);
 	
 	
-	if (whichMonst<=30) {
+	if (whichMonst<=20) {
 	
 		genGoblin(spawnTile);
 	}
 	
-	else if (whichMonst<=50) {
+	else if (whichMonst<=30) {
 	
 		genImp(spawnTile);
+	}
+	
+	else if (whichMonst<=35) {
+	
+		genCobra(spawnTile);
+	
+	}
+	
+	else if (whichMonst<=40) {
+	
+		genMimic(spawnTile);
+	
 	}
 	
 	else if (whichMonst<=100) {
@@ -25115,6 +25465,23 @@ window.onkeyup = function(e) {
 			
 			} //for # of players
 			
+			
+			//notifs for monsters
+			for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
+			
+				if (allRooms[currRoomIndex].roomMonsters[i].monsterExists==true) {
+			
+				
+					//alert if more/less actions this turn
+					if (allRooms[currRoomIndex].roomMonsters[i].actions!=1) {
+					
+						notifs+=allRooms[currRoomIndex].roomMonsters[i].monstName + " has " + allRooms[currRoomIndex].roomMonsters[i].actions + " actions this turn\n";
+					}
+				
+				}
+			
+			}
+			
 			//test
 			//notifs="asdf\nasdf\nasdf";
 			
@@ -25129,7 +25496,7 @@ window.onkeyup = function(e) {
 			updatePlayer();
 			updateMonst();
 			
-	   } //at least one player (aka playing game)
+	    } //at least one player (aka playing game)
 	   
 	   
    
@@ -25143,6 +25510,109 @@ function turnInc(notifs) {
 	for (i=0;i<playersMax;i++) {
 	
 		if (allPlayers[i].playerExists==true) {
+		
+			//ailments
+
+			if (allPlayers[i].playerPassives.slow>0) {
+			
+				allPlayers[i].playerPassives.slow--;
+				
+				if (allPlayers[i].playerPassives.slow==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer slowed\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.blind>0) {
+			
+				allPlayers[i].playerPassives.blind--;
+				
+				if (allPlayers[i].playerPassives.blind==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer blind\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.sleep>0) {
+			
+				allPlayers[i].playerPassives.sleep--;
+				
+				if (allPlayers[i].playerPassives.sleep==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer asleep\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.poisoned>0) {
+			
+				allPlayers[i].playerPassives.poisoned--;
+				
+				if (allPlayers[i].playerPassives.poisoned>0) {
+				
+					let poisonRoll=rollDie(2,1);
+					
+					allPlayers[i].hpCurr-=poisonRoll;
+					
+					notifs+=allPlayers[i].playerName + " takes " + poisonRoll + " damage from poison\n";
+				
+				}
+				
+				if (allPlayers[i].playerPassives.poisoned==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer poisoned\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.confused>0) {
+			
+				allPlayers[i].playerPassives.confused--;
+				
+				if (allPlayers[i].playerPassives.confused==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer confused\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.taunted>0) {
+			
+				allPlayers[i].playerPassives.taunted--;
+				
+				if (allPlayers[i].playerPassives.taunted==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer taunted\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.paralyzed>0) {
+			
+				allPlayers[i].playerPassives.paralyzed--;
+				
+				if (allPlayers[i].playerPassives.paralyzed==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer paralyzed\n";
+				}
+			
+			}
+			
+			if (allPlayers[i].playerPassives.hallucin>0) {
+			
+				allPlayers[i].playerPassives.hallucin--;
+				
+				if (allPlayers[i].playerPassives.hallucin==0) {
+				
+					notifs+=allPlayers[i].playerName + " is no longer hallucinating\n";
+				}
+			
+			}
+
+			
+			//hunger
 		
 			allPlayers[i].prevHunger=allPlayers[i].hunger;
 		
@@ -25581,11 +26051,41 @@ function turnInc(notifs) {
 	
 	updatePlayer();
 	
+	
+	//monsters
 	for (i=0;i<allRooms[currRoomIndex].roomMonsters.length;i++) {
 	
 		allRooms[currRoomIndex].roomMonsters[i].moved=false;
+		
+		if (allRooms[currRoomIndex].roomMonsters[i].speed>=24) {
+			allRooms[currRoomIndex].roomMonsters[i].speed-=24;
+		}
+		
+		else if (allRooms[currRoomIndex].roomMonsters[i].speed>=12) {
+			allRooms[currRoomIndex].roomMonsters[i].speed-=12;
+		}
+		
+		let monstSpeedRoll=rollDie(4,1,-2);
+		
+		allRooms[currRoomIndex].roomMonsters[i].speed+=12;
+		allRooms[currRoomIndex].roomMonsters[i].speed+=allRooms[currRoomIndex].roomMonsters[i].speedBonus;
+		allRooms[currRoomIndex].roomMonsters[i].speed+=monstSpeedRoll;
+		
+		
+		//determine # of actions
+		if (allRooms[currRoomIndex].roomMonsters[i].speed>=12 && allRooms[currRoomIndex].roomMonsters[i].speed<24){
+			allRooms[currRoomIndex].roomMonsters[i].actions=1;
+		}
+		if (allRooms[currRoomIndex].roomMonsters[i].speed>=24){
+			allRooms[currRoomIndex].roomMonsters[i].actions=2;
+		}
+		
+		if (allRooms[currRoomIndex].roomMonsters[i].speed<12){
+		
+			allRooms[currRoomIndex].roomMonsters[i].actions=0;
+		}
 	
-	} //monsters
+	} //for monsters
 	
 	updateMonst;
 	
@@ -25625,8 +26125,6 @@ function initStats() {
 	allPlayers[lockActive].intelligence=0;
 	allPlayers[lockActive].wisdom=0;
 	allPlayers[lockActive].constitution=0;
-	allPlayers[lockActive].armorAC=0;
-	allPlayers[lockActive].otherAC=0;
 	
 	//allPlayers[lockActive].speed=0;
 	allPlayers[lockActive].actions=0;
@@ -25696,11 +26194,81 @@ function initStats() {
 	allPlayers[lockActive].healingSpellLev = 0;
 	
 	
+	//passives
+	allPlayers[lockActive].playerPassives.breathless =false;
+	allPlayers[lockActive].playerPassives.searching =false;
+	allPlayers[lockActive].playerPassives.seeInvis =false;
+	allPlayers[lockActive].playerPassives.invis =false;
+	allPlayers[lockActive].playerPassives.levitate =false;
+	allPlayers[lockActive].playerPassives.flying =false;
+	allPlayers[lockActive].playerPassives.adornment =false;
+	allPlayers[lockActive].playerPassives.warning =false;
+	allPlayers[lockActive].playerPassives.telepathy =false;
+	allPlayers[lockActive].playerPassives.foodApp =false;
+	allPlayers[lockActive].playerPassives.reflection =false;
+	allPlayers[lockActive].playerPassives.magicResist =false;
+	allPlayers[lockActive].playerPassives.waterWalking =false;
+	allPlayers[lockActive].playerPassives.displacement =false;
+	allPlayers[lockActive].playerPassives.sustainAbility =false;
+	allPlayers[lockActive].playerPassives.slowDigest =false;
+	allPlayers[lockActive].playerPassives.lifeSaving =false;
+	allPlayers[lockActive].playerPassives.stealth =false;
+	allPlayers[lockActive].playerPassives.confuseResist =false;
+
+
+	allPlayers[lockActive].playerPassives.brisk =0;
+	allPlayers[lockActive].playerPassives.haste =0;
+	allPlayers[lockActive].playerPassives.dash =0;
+	allPlayers[lockActive].playerPassives.agileDash =0;
+	allPlayers[lockActive].playerPassives.infravision =false;
+	allPlayers[lockActive].playerPassives.regen =false;
+	allPlayers[lockActive].playerPassives.protection=0; 
+	allPlayers[lockActive].playerPassives.energyRegen =false;
+	allPlayers[lockActive].playerPassives.noHungCast =false;
+
+	allPlayers[lockActive].playerPassives.permSlow=false;
+	allPlayers[lockActive].playerPassives.permBrisk=false;
+	allPlayers[lockActive].playerPassives.permHaste=false;
+
+
+	allPlayers[lockActive].playerPassives.fumbling =false;
+	allPlayers[lockActive].playerPassives.isHungry =false;
+	allPlayers[lockActive].playerPassives.tempBrisk=0;//int
+	allPlayers[lockActive].playerPassives.tempHaste=0; //int
+	allPlayers[lockActive].playerPassives.tempRegen=0; //int
+	allPlayers[lockActive].playerPassives.tempConfluence=0; //int
+	allPlayers[lockActive].playerPassives.tempInvis=0; //int
+
+	allPlayers[lockActive].playerPassives.slow=0; //int
+	allPlayers[lockActive].playerPassives.blind=0; //int 
+	allPlayers[lockActive].playerPassives.sleep=0; //int
+	allPlayers[lockActive].playerPassives.poisoned=0; //int
+	allPlayers[lockActive].playerPassives.confused=0; //int
+	allPlayers[lockActive].playerPassives.taunted=0; //int
+	allPlayers[lockActive].playerPassives.aggravated=0; //int
+	allPlayers[lockActive].playerPassives.paralyzed=0; //int
+
+	allPlayers[lockActive].playerPassives.hallucin=0; //int
+	allPlayers[lockActive].playerPassives.enfeebled=0; //int
+	allPlayers[lockActive].playerPassives.vulnerable=0; //int
+	allPlayers[lockActive].playerPassives.slippery=0; //int
+	allPlayers[lockActive].playerPassives.petrify=0; //int
+	allPlayers[lockActive].playerPassives.vomit=0; //int
+	allPlayers[lockActive].playerPassives.strangle=0; //int 
+	allPlayers[lockActive].playerPassives.engulfed=0; //int
+
+	allPlayers[lockActive].playerPassives.woundedArmLeft=0; //int
+	allPlayers[lockActive].playerPassives.woundedArmRight=0; //int
+	allPlayers[lockActive].playerPassives.woundedLegLeft=0; //int
+	allPlayers[lockActive].playerPassives.woundedLegRight=0 //int
+	
+	
 }
 
 function createCharacterStats () {
 
 	allPlayers[lockActive].playerLevel=1;
+	
 
 	//highlander
 	if (classChoice==0) {
@@ -29156,6 +29724,116 @@ $("#saveFloorBut").click(function() {
 
 });
 
+function initGenMonst() {
+
+	allRooms[currRoomIndex].roomMonsters[0].monsterPassives=
+	{
+		fireResist :false,//0,0
+		coldResist :false,//0,1
+		shockResist :false,//0,2
+		disinResist :false,//0,3
+		sleepResist :false,//0,4
+		poisonResist :false,//0,5
+		paralysisResist :false,//0,6
+		blindResist :false,//0,7
+		petrifyResist :false,//0,8
+		sicknessResist :false,//0,9
+		drainResist :false,//0,10
+		woundResist :false,//1,0
+		breathless :false,//1,1
+		searching :false,//1,2
+		seeInvis :false,//1,3
+		invis :false,//1,4
+		levitate :false,//1,5
+		flying :false,//1,6
+		adornment :false,//1,7
+		warning :false,//1,8
+		telepathy :false,//1,9
+		foodApp :false,//1,10
+		reflection :false,//2,0
+		magicResist :false,//2,1
+		waterWalking :false,//2,2
+		displacement :false,//2,3
+		sustainAbility :false,//2,4
+		slowDigest :false,//2,5
+		lifeSaving :false,//2,6
+		stealth :false,//2,7
+		confuseResist :false,//2,8
+
+
+		brisk :0,//2,9
+		haste :0,//2,10
+		dash :0,//3,0 //int
+		agileDash :0,//3,1 //int
+		infravision :false,//3,2 //int
+		regen :false,//3,3
+		protection:0, //int
+		energyRegen :false,//3,4
+		noHungCast :false,//3,5
+
+		permSlow:false,
+		permBrisk:false,
+		permHaste:false,
+
+
+		fumbling :false,
+		isHungry :false,
+		tempBrisk:0,//int
+		tempHaste:0, //int
+		tempRegen:0, //int
+		tempConfluence:0, //int
+		tempInvis:0, //int
+
+		slow:0, //int
+		blind:0, //int 
+		sleep:0, //int
+		poisoned:0, //int
+		confused:0, //int
+		taunted:0, //int
+		aggravated:0, //int
+		paralyzed:0, //int
+
+		hallucin:0, //int
+		enfeebled:0, //int
+		vulnerable:0, //int
+		slippery:0, //int
+		petrify:0, //int
+		vomit:0, //int
+		strangle:0, //int 
+		engulfed:0, //int
+
+		woundedArmLeft:0, //int
+		woundedArmRight:0, //int
+		woundedLegLeft:0, //int
+		woundedLegRight:0 //int
+		
+		
+	};
+	
+	allRooms[currRoomIndex].roomMonsters[0].speed=12;
+	allRooms[currRoomIndex].roomMonsters[0].actions=0;
+
+	allRooms[currRoomIndex].roomMonsters[0].energyClock=0;
+	allRooms[currRoomIndex].roomMonsters[0].hpClock=0;
+	allRooms[currRoomIndex].roomMonsters[0].newEnergyClock=true; //bool
+	allRooms[currRoomIndex].roomMonsters[0].newHpClock=true; //bool
+
+	allRooms[currRoomIndex].roomMonsters[0].tempACVal=0;
+	allRooms[currRoomIndex].roomMonsters[0].tempACDur=0;
+	
+	allRooms[currRoomIndex].roomMonsters[0].hpCurr=0
+	allRooms[currRoomIndex].roomMonsters[0].hpMax=0;
+	allRooms[currRoomIndex].roomMonsters[0].energyCurr=0;
+	allRooms[currRoomIndex].roomMonsters[0].energyMax=0;
+	allRooms[currRoomIndex].roomMonsters[0].armorAC=0;
+	allRooms[currRoomIndex].roomMonsters[0].otherAC=0;
+	allRooms[currRoomIndex].roomMonsters[0].totalAC=12;
+	allRooms[currRoomIndex].roomMonsters[0].toHit=0;
+	allRooms[currRoomIndex].roomMonsters[0].speedBonus=0;
+	
+
+}
+
 
 function genGoblin(spawnTile) {
 
@@ -29175,110 +29853,17 @@ function genGoblin(spawnTile) {
 			monstSymbol: "o", //placeholder symbol
 			
 			monRoomIndex:spawnTile, //where it is in a room
-		
-			monsterPassives: //passives
-			{
-					fireResist :false,//0,0
-					coldResist :false,//0,1
-					shockResist :false,//0,2
-					disinResist :false,//0,3
-					sleepResist :false,//0,4
-					poisonResist :false,//0,5
-					paralysisResist :false,//0,6
-					blindResist :false,//0,7
-					petrifyResist :false,//0,8
-					sicknessResist :false,//0,9
-					drainResist :false,//0,10
-					woundResist :false,//1,0
-					breathless :false,//1,1
-					searching :false,//1,2
-					seeInvis :false,//1,3
-					invis :false,//1,4
-					levitate :false,//1,5
-					flying :false,//1,6
-					adornment :false,//1,7
-					warning :false,//1,8
-					telepathy :false,//1,9
-					foodApp :false,//1,10
-					reflection :false,//2,0
-					magicResist :false,//2,1
-					waterWalking :false,//2,2
-					displacement :false,//2,3
-					sustainAbility :false,//2,4
-					slowDigest :false,//2,5
-					lifeSaving :false,//2,6
-					stealth :false,//2,7
-					confuseResist :false,//2,8
-
-
-					brisk :0,//2,9
-					haste :0,//2,10
-					dash :0,//3,0 //int
-					agileDash :0,//3,1 //int
-					infravision :false,//3,2 //int
-					regen :false,//3,3
-					protection:0, //int
-					energyRegen :false,//3,4
-					noHungCast :false,//3,5
-
-					permSlow:false,
-					permBrisk:false,
-					permHaste:false,
-
-
-					fumbling :false,
-					isHungry :false,
-					tempBrisk:0,//int
-					tempHaste:0, //int
-					tempRegen:0, //int
-					tempConfluence:0, //int
-					tempInvis:0, //int
-
-					slow:0, //int
-					blind:0, //int 
-					sleep:0, //int
-					poisoned:0, //int
-					confused:0, //int
-					taunted:0, //int
-					aggravated:0, //int
-					paralyzed:0, //int
-
-					hallucin:0, //int
-					enfeebled:0, //int
-					vulnerable:0, //int
-					slippery:0, //int
-					petrify:0, //int
-					vomit:0, //int
-					strangle:0, //int 
-					engulfed:0, //int
-
-					woundedArmLeft:0, //int
-					woundedArmRight:0, //int
-					woundedLegLeft:0, //int
-					woundedLegRight:0 //int
-			},
-			speed:12,
-			actions:0,
-
-			energyClock:0,
-			hpClock:0,
-			newEnergyClock:true, //bool
-			newHpClock:true, //bool
-
-			tempACVal:0,
-			tempACDur:0,
-			
-			hpCurr:hpRoll,
-			hpMax:hpRoll,
-			energyCurr:0,
-			energyMax:0,
-			armorAC:0,
-			otherAC:0,
-			totalAC:8,
-			toHit:0,
 			
 			index: spawnTile, //index in current room
 	});
+	
+	initGenMonst();
+	
+	//individiual monster stats here
+	
+	allRooms[currRoomIndex].roomMonsters[0].hpCurr=hpRoll;
+	allRooms[currRoomIndex].roomMonsters[0].hpMax=hpRoll;
+	
 
 }
 
@@ -29300,111 +29885,18 @@ function genJackal(spawnTile) {
 			monstSymbol: "d", //placeholder symbol
 			
 			monRoomIndex:spawnTile, //where it is in a room
-		
-			monsterPassives: //passives
-			{
-					fireResist :false,//0,0
-					coldResist :false,//0,1
-					shockResist :false,//0,2
-					disinResist :false,//0,3
-					sleepResist :false,//0,4
-					poisonResist :false,//0,5
-					paralysisResist :false,//0,6
-					blindResist :false,//0,7
-					petrifyResist :false,//0,8
-					sicknessResist :false,//0,9
-					drainResist :false,//0,10
-					woundResist :false,//1,0
-					breathless :false,//1,1
-					searching :false,//1,2
-					seeInvis :false,//1,3
-					invis :false,//1,4
-					levitate :false,//1,5
-					flying :false,//1,6
-					adornment :false,//1,7
-					warning :false,//1,8
-					telepathy :false,//1,9
-					foodApp :false,//1,10
-					reflection :false,//2,0
-					magicResist :false,//2,1
-					waterWalking :false,//2,2
-					displacement :false,//2,3
-					sustainAbility :false,//2,4
-					slowDigest :false,//2,5
-					lifeSaving :false,//2,6
-					stealth :false,//2,7
-					confuseResist :false,//2,8
-
-
-					brisk :0,//2,9
-					haste :0,//2,10
-					dash :0,//3,0 //int
-					agileDash :0,//3,1 //int
-					infravision :false,//3,2 //int
-					regen :false,//3,3
-					protection:0, //int
-					energyRegen :false,//3,4
-					noHungCast :false,//3,5
-
-					permSlow:false,
-					permBrisk:false,
-					permHaste:false,
-
-
-					fumbling :false,
-					isHungry :false,
-					tempBrisk:0,//int
-					tempHaste:0, //int
-					tempRegen:0, //int
-					tempConfluence:0, //int
-					tempInvis:0, //int
-
-					slow:0, //int
-					blind:0, //int 
-					sleep:0, //int
-					poisoned:0, //int
-					confused:0, //int
-					taunted:0, //int
-					aggravated:0, //int
-					paralyzed:0, //int
-
-					hallucin:0, //int
-					enfeebled:0, //int
-					vulnerable:0, //int
-					slippery:0, //int
-					petrify:0, //int
-					vomit:0, //int
-					strangle:0, //int 
-					engulfed:0, //int
-
-					woundedArmLeft:0, //int
-					woundedArmRight:0, //int
-					woundedLegLeft:0, //int
-					woundedLegRight:0 //int
-			},
-			speed:15,
-			actions:0,
-
-			energyClock:0,
-			hpClock:0,
-			newEnergyClock:true, //bool
-			newHpClock:true, //bool
-
-			tempACVal:0,
-			tempACDur:0,
-			
-			hpCurr:hpRoll,
-			hpMax:hpRoll,
-			energyCurr:0,
-			energyMax:0,
-			armorAC:0,
-			otherAC:0,
-			totalAC:7,
-			toHit:0,
 			
 			index: spawnTile, //index in current room
 	});
 	
+	initGenMonst();
+	
+	//individiual monster stats here
+	
+	allRooms[currRoomIndex].roomMonsters[0].hpCurr=hpRoll;
+	allRooms[currRoomIndex].roomMonsters[0].hpMax=hpRoll;
+	
+	allRooms[currRoomIndex].roomMonsters[0].speedBonus=1;
 
 }
 
@@ -29426,111 +29918,89 @@ function genImp(spawnTile) {
 			monstSymbol: "i", //placeholder symbol
 			
 			monRoomIndex:spawnTile, //where it is in a room
-		
-			monsterPassives: //passives
-			{
-					fireResist :false,//0,0
-					coldResist :false,//0,1
-					shockResist :false,//0,2
-					disinResist :false,//0,3
-					sleepResist :false,//0,4
-					poisonResist :false,//0,5
-					paralysisResist :false,//0,6
-					blindResist :false,//0,7
-					petrifyResist :false,//0,8
-					sicknessResist :false,//0,9
-					drainResist :false,//0,10
-					woundResist :false,//1,0
-					breathless :false,//1,1
-					searching :false,//1,2
-					seeInvis :false,//1,3
-					invis :false,//1,4
-					levitate :false,//1,5
-					flying :false,//1,6
-					adornment :false,//1,7
-					warning :false,//1,8
-					telepathy :false,//1,9
-					foodApp :false,//1,10
-					reflection :false,//2,0
-					magicResist :false,//2,1
-					waterWalking :false,//2,2
-					displacement :false,//2,3
-					sustainAbility :false,//2,4
-					slowDigest :false,//2,5
-					lifeSaving :false,//2,6
-					stealth :false,//2,7
-					confuseResist :false,//2,8
-
-
-					brisk :0,//2,9
-					haste :0,//2,10
-					dash :0,//3,0 //int
-					agileDash :0,//3,1 //int
-					infravision :false,//3,2 //int
-					regen :false,//3,3
-					protection:0, //int
-					energyRegen :false,//3,4
-					noHungCast :false,//3,5
-
-					permSlow:false,
-					permBrisk:false,
-					permHaste:false,
-
-
-					fumbling :false,
-					isHungry :false,
-					tempBrisk:0,//int
-					tempHaste:0, //int
-					tempRegen:0, //int
-					tempConfluence:0, //int
-					tempInvis:0, //int
-
-					slow:0, //int
-					blind:0, //int 
-					sleep:0, //int
-					poisoned:0, //int
-					confused:0, //int
-					taunted:0, //int
-					aggravated:0, //int
-					paralyzed:0, //int
-
-					hallucin:0, //int
-					enfeebled:0, //int
-					vulnerable:0, //int
-					slippery:0, //int
-					petrify:0, //int
-					vomit:0, //int
-					strangle:0, //int 
-					engulfed:0, //int
-
-					woundedArmLeft:0, //int
-					woundedArmRight:0, //int
-					woundedLegLeft:0, //int
-					woundedLegRight:0 //int
-			},
-			speed:12,
-			actions:0,
-
-			energyClock:0,
-			hpClock:0,
-			newEnergyClock:true, //bool
-			newHpClock:true, //bool
-
-			tempACVal:0,
-			tempACDur:0,
-			
-			hpCurr:hpRoll,
-			hpMax:hpRoll,
-			energyCurr:0,
-			energyMax:0,
-			armorAC:0,
-			otherAC:0,
-			totalAC:2,
-			toHit:0,
 			
 			index: spawnTile, //index in current room
 	});
 
+	initGenMonst();
+	
+	//individiual monster stats here
+	
+	allRooms[currRoomIndex].roomMonsters[0].hpCurr=hpRoll;
+	allRooms[currRoomIndex].roomMonsters[0].hpMax=hpRoll;
+	
+	allRooms[currRoomIndex].roomMonsters[0].speedBonus=2;
+	allRooms[currRoomIndex].roomMonsters[0].totalAC=1;
+	
+}
+
+function genCobra(spawnTile) {
+
+	var hpRoll=rollDie(4,1,3);
+	
+		
+	allRooms[currRoomIndex].roomMonsters.unshift ({
+		
+		monstName: "Two-Headed Cobra",
+		
+		monsterExists:true,
+		
+		size: 1, //0 for tiny, 1 for small, 2 for medium, 3 for large, 4 for huge, 5 for gigantic
+
+		tier: 1, //+1 per difficulty
+		
+		monstSymbol: "S", //placeholder symbol
+		
+		monRoomIndex:spawnTile, //where it is in a room
+		
+		index: spawnTile, //index in current room
+	});
+
+	initGenMonst();
+	
+	//individiual monster stats here
+	
+	allRooms[currRoomIndex].roomMonsters[0].hpCurr=hpRoll;
+	allRooms[currRoomIndex].roomMonsters[0].hpMax=hpRoll;
+	
+	allRooms[currRoomIndex].roomMonsters[0].speedBonus=2;
+	allRooms[currRoomIndex].roomMonsters[0].totalAC=6;
+	
+}
+
+function genMimic(spawnTile) {
+
+	var hpRoll=rollDie(4,1,3);
+	
+		
+	allRooms[currRoomIndex].roomMonsters.unshift ({
+		
+		monstName: "Mimic",
+		
+		monsterExists:true,
+		
+		size: 1, //0 for tiny, 1 for small, 2 for medium, 3 for large, 4 for huge, 5 for gigantic
+
+		tier: 1, //+1 per difficulty
+		
+		monstSymbol: "#", //placeholder symbol
+		
+		monRoomIndex:spawnTile, //where it is in a room
+		
+		index: spawnTile, //index in current room
+		
+	});
+
+	initGenMonst();
+	
+	//individiual monster stats here
+	
+	allRooms[currRoomIndex].roomMonsters[0].hpCurr=hpRoll;
+	allRooms[currRoomIndex].roomMonsters[0].hpMax=hpRoll;
+	
+	allRooms[currRoomIndex].roomMonsters[0].speedBonus=-3;
+	allRooms[currRoomIndex].roomMonsters[0].totalAC=12;
+	
 }
 
 
